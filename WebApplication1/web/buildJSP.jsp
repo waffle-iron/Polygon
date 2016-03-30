@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Hello Mennesker!</h1>
-        <form action="BuildServlet" method="GET">
+        <form action="ControllerServlet" method="GET">
 
             <p>address: <input type="text" name="buildAddress"></p>
 

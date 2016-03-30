@@ -41,31 +41,25 @@ public class ControllerServlet extends HttpServlet
         String do_this = request.getParameter("do_this");
         if (do_this == null)
         {
-            forward(request, response, "/buildingJSP.jsp");
+            forward(request, response, "/buildJSP.jsp");
 
         }
 
-        
-        switch(do_this)
+        switch (do_this)
         {
             case "createBuild":
                 Building building = new Building(request.getParameter("buildAddress"),
-                        request.getParameter("buildZip"), 
-                        request.getParameter("buildFirmID"), 
-                        request.getParameter("buildName"), 
+                        request.getParameter("buildZip"),
+                        request.getParameter("buildFirmID"),
+                        request.getParameter("buildName"),
                         request.getParameter("buildYear"),
                         request.getParameter("buildSize"),
                         request.getParameter("buildUsage"));
-               facade.buildingDM.addBuildingToDB(building);
-            
-                forward(request, response, "/buildingJSP.jsp");
+                facade.buildingDM.addBuildingToDB(building);
+
+                forward(request, response, "/buildJSP.jsp");
         }
-        
-        
-        
-        
-        
-        
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter())
         {
@@ -73,16 +67,17 @@ public class ControllerServlet extends HttpServlet
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ControllerServlet</title>");            
+            out.println("<title>Servlet ControllerServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ControllerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-        
+
     }
-      private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
+
+    private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
     {
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(path);
