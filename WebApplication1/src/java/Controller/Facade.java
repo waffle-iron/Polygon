@@ -5,11 +5,16 @@
  */
 package Controller;
 
+import Domain.BuildingDataMapper;
+
 /**
  *
  * @author LouiseB
  */
 public class Facade
 {
-    //DataAccess klasser her!
+    BuildingDataMapper buildingDM = new BuildingDataMapper();
+    
+    
+    
 }
