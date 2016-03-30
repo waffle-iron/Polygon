@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Domain;
+package helperClasses;
 
 /**
  *
@@ -20,7 +20,7 @@ public class Building
     int buildYear;
     int size;
 
-    public Building(String address, String name, String usage, String zip, String firmID, String buildYear, String size)
+    public Building(String address, String zip, String firmID, String name, String buildYear, String size, String usage)
     {
         this.address = address;
         this.name = name;

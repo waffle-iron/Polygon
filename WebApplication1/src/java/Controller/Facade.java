@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package polygon;
+package Controller;
+
+import Domain.BuildingDataMapper;
 
 /**
  *
@@ -11,5 +13,8 @@ package polygon;
  */
 public class Facade
 {
+    BuildingDataMapper buildingDM = new BuildingDataMapper();
+    
+    
     
 }
