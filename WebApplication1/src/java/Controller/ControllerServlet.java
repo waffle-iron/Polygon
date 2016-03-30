@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import helperClasses.Building;
+import helperClasses.Firm;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -14,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import helperClasses.*;
 
 /**
  *
@@ -23,15 +24,6 @@ import helperClasses.*;
 public class ControllerServlet extends HttpServlet
 {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
@@ -41,7 +33,7 @@ public class ControllerServlet extends HttpServlet
         String do_this = request.getParameter("do_this");
         if (do_this == null)
         {
-            forward(request, response, "/buildJSP.jsp");
+            forward(request, response, "/JSP.jsp");
 
         }
 
@@ -57,7 +49,17 @@ public class ControllerServlet extends HttpServlet
                         request.getParameter("buildUsage"));
                 facade.buildingDM.addBuildingToDB(building);
 
-                forward(request, response, "/buildJSP.jsp");
+                forward(request, response, "/JSP.jsp");
+        }
+        
+                switch (do_this)
+        {
+            case "createFirm":
+                Firm firm = new Firm(request.getParameter("contactNumber"),
+                        request.getParameter("contactMail"));
+                facade.firmDM.addFirmToDB(firm);
+
+                forward(request, response, "/JSP.jsp");
         }
 
         response.setContentType("text/html;charset=UTF-8");

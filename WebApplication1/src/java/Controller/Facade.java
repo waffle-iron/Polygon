@@ -6,6 +6,7 @@
 package Controller;
 
 import Domain.BuildingDataMapper;
+import Domain.FirmDataMapper;
 
 /**
  *
@@ -14,6 +15,7 @@ import Domain.BuildingDataMapper;
 public class Facade
 {
     BuildingDataMapper buildingDM = new BuildingDataMapper();
+    FirmDataMapper firmDM = new FirmDataMapper();
     
     
     

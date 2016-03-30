@@ -19,6 +19,7 @@ CREATE TABLE `firm`
     `ContactNumber` int,
     `ContactMail` varchar(60) unique,
     primary key(`FirmID`)
+        
     
     
 );
