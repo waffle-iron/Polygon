@@ -5,37 +5,28 @@
  */
 package Domain;
 
-import helperClasses.Building;
+import helperClasses.Firm;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
 /**
  *
- * @author Bruger
+ * @author LouiseB
  */
-public class BuildingDataMapper
+public class FirmDataMapper
 {
-    
-    
-    public void addBuildingToDB(Building build)
+    public void addFirmToDB(Firm firm)
     {
-
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            statement.executeUpdate("INSERT INTO `building` (`address`, `zip`, `firmID`, `name`, `buildingYear`, `size`, `usage`)" + "VALUES( '"
-                    + build.getAddress() + "',"
-                    + build.getZip() + ","
-                    + build.getFirmID() + ",'"
-                    + build.getName() + "',"
-                    + build.getBuildYear() + ","
-                    + build.getSize() + ",'"
-                    + build.getUsage() + "');");
+            statement.executeUpdate("INSERT INTO `firm` (`ContactNumber`, `ContactMail`)" + "VALUES(" 
+                    + firm.getContactNumber() + ",'" + firm.getContactMail() + "');");
             con.close();
-        } catch (Exception ex)
+            } catch (Exception ex)
         {
             System.out.println(ex.toString());
         }

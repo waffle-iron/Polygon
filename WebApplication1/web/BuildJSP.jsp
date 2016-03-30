@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello Mennesker!</h1>
+        <h1>Hello Mennesker! Opret her en ny bygning</h1>
         <form action="ControllerServlet" method="GET">
 
             <p>address: <input type="text" name="buildAddress"></p>
@@ -33,5 +33,7 @@
             <input type="submit" value="opret" name="createBuild" />
 
         </form>
+        
+
     </body>
 </html>
