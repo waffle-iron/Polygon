@@ -20,7 +20,10 @@ CREATE TABLE `firm`
     `ContactMail` varchar(60) unique,
     primary key(`FirmID`)
         
+    
+    
 );
+
 CREATE TABLE `login`
 (
 	`Username` 	varchar(30) not null,
