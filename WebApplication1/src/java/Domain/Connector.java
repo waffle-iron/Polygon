@@ -22,9 +22,9 @@ public class Connector
     public static final String PASSWORD = "1234";
     public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
     
-    Statement stmt;
+    static Statement stmt;
     
-    public Connector()
+     public Connector()
     {
         try
         {
