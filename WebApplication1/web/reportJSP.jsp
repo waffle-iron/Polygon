@@ -37,10 +37,12 @@
             <p><input type="checkbox" name="Ja" value="Yes" />Brand</p>
             <p><input type="checkbox" name="Ja" value="Yes" />Anden skade:</p>  <input type="text" name="damagedPlace">
             <p><b>Gennemgang af...</b></p>
+            <div class="comments">
             <p> Vægge:  <input type="checkbox" name="comment" value="comm1" /></p>
             <p> Loft: <input type="checkbox" name="comment" value="comm2" /></p>
             <p> Gulv:<input type="checkbox" name="comment" value="comm3" /></p>
             <p> Vinduer/døre<input type="checkbox" name="comment" value="comm4" /></p>
+            </div>
             <input type="hidden" name="do_this" value="createBuild"/>
             <input type="submit" value="opret" name="createBuild" />
 
