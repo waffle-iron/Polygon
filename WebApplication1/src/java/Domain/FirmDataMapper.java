@@ -16,7 +16,7 @@ import java.sql.Statement;
  */
 public class FirmDataMapper
 {
-    public void addFirmDoDB(Firm firm)
+    public void addFirmToDB(Firm firm)
     {
         try
         {

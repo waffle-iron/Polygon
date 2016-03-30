@@ -115,3 +115,5 @@ CREATE TABLE `pictures`
 	foreign key (`BuildingID`)
 		references `Building` (`BuildingID`)
 );
+
+select * from building;
