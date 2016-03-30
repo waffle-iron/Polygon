@@ -24,12 +24,23 @@
             <h2> Rapport side </h2>
             <p> Rapport side nummer (hent automatisk?)</p>
             <p>Rapport nummer: <input type="text" name="reportNR"></p>
-            <p>Har der været skade i lokalet?: </p>
-            <input type="checkbox" name="Ja" value="Yes" />
-            <input type="checkbox" name="Nej" value="No" />
-            <p>Stand: <input type="text" name="state"></p>
-            
-            
+            <p>Har der været skade i lokalet?: </p> 
+            <p> Ja </p><input type="checkbox" name="Ja" value="Yes" />
+            <p> Nej </p><input type="checkbox" name="Nej" value="No" />
+            <p>Hvornår: <input type="text" name="damagedate"></p>
+            <p>Hvor: <input type="text" name="damagedPlace"></p>
+            <p>Hvad er der sket: <input type="text" name="cause"></p>
+            <p><b>Skade:</b> </p>
+            <p><input type="checkbox" name="Ja" value="Yes" />Fugt</p>
+            <p><input type="checkbox" name="Ja" value="Yes" />Råd og Svamp</p>
+            <p><input type="checkbox" name="Ja" value="Yes" />Skimmel</p>
+            <p><input type="checkbox" name="Ja" value="Yes" />Brand</p>
+            <p><input type="checkbox" name="Ja" value="Yes" />Anden skade:</p>  <input type="text" name="damagedPlace">
+            <p><b>Gennemgang af...</b></p>
+            <p> Vægge:  <input type="checkbox" name="comment" value="comm1" /></p>
+            <p> Loft: <input type="checkbox" name="comment" value="comm2" /></p>
+            <p> Gulv:<input type="checkbox" name="comment" value="comm3" /></p>
+            <p> Vinduer/døre<input type="checkbox" name="comment" value="comm4" /></p>
             <input type="hidden" name="do_this" value="createBuild"/>
             <input type="submit" value="opret" name="createBuild" />
 
