@@ -33,7 +33,7 @@ public class ControllerServlet extends HttpServlet
         String do_this = request.getParameter("do_this");
         if (do_this == null)
         {
-            forward(request, response, "/JSP.jsp");
+            forward(request, response, "/index.html");
 
         }
 
@@ -49,7 +49,7 @@ public class ControllerServlet extends HttpServlet
                         request.getParameter("buildUsage"));
                 facade.buildingDM.addBuildingToDB(building);
 
-                forward(request, response, "/JSP.jsp");
+                forward(request, response, "/index.html");
         }
         
                 switch (do_this)
