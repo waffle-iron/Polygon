@@ -43,7 +43,7 @@ public class ControllerServlet extends HttpServlet
                             case "showBuild":
 
                 
-                request.setAttribute("printBuild", facade.buildingDM.printBuildings(""));
+                request.setAttribute("printBuild", facade.buildingDM.printBuildings());
                 forward(request, response, "/BuildJSP.jsp");
 
                                 

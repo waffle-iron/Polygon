@@ -33,7 +33,7 @@ public class BuildingDataMapper
         }
     }
 
-    public String printBuildings(String nope)
+    public String printBuildings()
     {
         ArrayList<Building> listOfBuildings = new ArrayList();
 
@@ -63,7 +63,7 @@ public class BuildingDataMapper
             
         } catch (Exception ex)
         {
-
+            System.out.println(ex.toString());
         }
         return listOfBuildings.get(0).toString();
     }

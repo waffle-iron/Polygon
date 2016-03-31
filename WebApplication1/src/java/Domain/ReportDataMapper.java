@@ -97,7 +97,7 @@ public class ReportDataMapper {
             con.close();
 
         } catch (Exception ex) {
-            throw new IllegalArgumentException("not valid reportID");
+            System.out.println(ex.toString());
         }
         return report;
     }
@@ -137,7 +137,7 @@ public class ReportDataMapper {
             con.close();
 
         } catch (Exception ex) {
-            throw new IllegalArgumentException("not valid reportID");
+            System.out.println(ex.toString());
         }
         return report;
     }
