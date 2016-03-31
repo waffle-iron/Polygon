@@ -5,8 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1><A href="BuildJSP.jsp">Opret gammel bygning</A></h1>
-        <h1><A href="FirmJSP.jsp">Opret nyt firma</A></h1>
-        <h1><A href="reportJSP.jsp">Opret ny rapport</A></h1>
+        <form action="ControllerServlet" method="GET">
+            <input type="submit" value="Opret gammel bygning" name="createBuild" />
+            <input type="hidden" name="do_this" value="Building">
+        </form>
+        <form action="ControllerServlet" method="GET">
+            <input type="submit" value="Opret nyt firma" name="createBuild" />
+            <input type="hidden" name="do_this" value="Firm">
+        </form>
+        <form action="ControllerServlet" method="GET">
+            <input type="submit" value="Opret ny rapport" name="createBuild" />
+            <input type="hidden" name="do_this" value="Report">
+        </form>
     </body>
 </html>
