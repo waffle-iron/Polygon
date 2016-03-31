@@ -39,6 +39,7 @@ public class ReportPage
         this.moistScan = moistScan;
         this.comments = comments;
     }
+
     public boolean comeFromSameReport(Object obj) {
         if (this == obj) {
             return true;
@@ -72,6 +73,7 @@ public class ReportPage
     {
         this.comments = comments;
     }
+
     public int getReportPageNr()
     {
         return reportPageNr;
@@ -192,7 +194,4 @@ public class ReportPage
         this.moistScan = moistScan;
     }
 
-    
-    
-    
 }
