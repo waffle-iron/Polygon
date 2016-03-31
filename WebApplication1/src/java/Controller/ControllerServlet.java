@@ -39,16 +39,25 @@ public class ControllerServlet extends HttpServlet
                 facade.buildingDM.addBuildingToDB(building);
 
                 forward(request, response, "/index.html");
-        }
+        
+            break;
+                
+            case "showBuild":
 
-        switch (do_this)
-        {
+                
+                request.setAttribute("printBuild", facade.buildingDM.printBuildings(""));
+                forward(request, response, "/BuildJSP.jsp");
+
+                        
+            break;
+                
             case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),
                         request.getParameter("contactMail"));
                 facade.firmDM.addFirmToDB(firm);
 
                 forward(request, response, "/index.jsp");
+
         }
     }
 
