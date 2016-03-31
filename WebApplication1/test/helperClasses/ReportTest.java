@@ -50,5 +50,4 @@ public class ReportTest {
         boolean result = instance.equals(obj);
         assertFalse(result);
     }
-    
 }
