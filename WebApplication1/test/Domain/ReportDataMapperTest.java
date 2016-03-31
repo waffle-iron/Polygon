@@ -62,7 +62,6 @@ public class ReportDataMapperTest {
         ReportDataMapper instance = new ReportDataMapper();
         Report expResult = null;
         for (int i = 1; i < instance.getNumbeOfReportFromDB()+1; i++) {
-            
         Report result = instance.getReportFromDB(i);
         if(result==null)
             fail("null passed form getReportFromDB on ReportID" + i);
@@ -76,7 +75,8 @@ public class ReportDataMapperTest {
     public void testGetReportsFromDB() {
         System.out.println("getReportsFromDB");
         ReportDataMapper instance = new ReportDataMapper();
-        ArrayList<Report> result = instance.getReportsFromDB();
+        ArrayList<Report> result = instance.getReportsFromDB(); 
+        assertNotNull(result);
         assertEquals(reports, result);
     }
     

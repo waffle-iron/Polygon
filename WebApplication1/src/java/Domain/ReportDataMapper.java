@@ -9,8 +9,11 @@ import helperClasses.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -75,9 +78,10 @@ public class ReportDataMapper {
 
         int[] info = new int[3];
         ArrayList<ReportPage> arr = new ArrayList<>();
+        Connection con = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+             con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, (select BuildingID from report where report.reportNR  = e.reportNR),"
                     + "(select `Date` from report where report.reportNR  = e.reportNR),(select StateNR from report where report.reportNR  = e.reportNR), PreviousDamaged, Damagedate,DamagedPlace,Cause,Repairs,Moist,Rot,Mold,fire,other,MoistScan from reportpage e;");
@@ -98,6 +102,14 @@ public class ReportDataMapper {
 
         } catch (Exception ex) {
             System.out.println(ex.toString());
+        }
+        finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+                System.out.println("the world is ending");
+            }
         }
         return report;
     }
