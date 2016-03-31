@@ -8,8 +8,14 @@ public class Firm
 
     public Firm(String ContactNumer, String ContactMail)
     {
+        try
+        {
         this.ContactNumber = Integer.parseInt(ContactNumer);
         this.ContactMail = ContactMail;
+        } catch(Exception e)
+        {
+            
+        }
     }
 
     public int getContactNumber()

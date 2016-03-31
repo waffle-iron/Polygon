@@ -22,6 +22,14 @@ public class Building
         this.size = Integer.parseInt(size);
     }
 
+    @Override
+    public String toString()
+    {
+        return this.address + " " + this.zip + " " + this.firmID + " " 
+                + this.name + " " + this.buildYear + " " + this.size + " " + this.usage;
+    }
+    
+    
     public String getAddress()
     {
         return address;
