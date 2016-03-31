@@ -2,6 +2,7 @@ package helperClasses;
 
 public class Date
 {
+    
 int year;
     int month;
     int day;
@@ -10,6 +11,9 @@ int year;
         this.year = year;
         this.month = month;
         this.day = day;
+    }
+    public Date(java.sql.Date date){
+        this(date.getYear(), date.getMonth(), date.getDay());
     }
     
 
