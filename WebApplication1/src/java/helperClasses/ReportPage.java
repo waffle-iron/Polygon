@@ -3,6 +3,7 @@ package helperClasses;
 public class ReportPage
 {
 
+    int reportNr;
     int reportPageNr;
     boolean previousDamaged;
     Date damagedDate;
@@ -18,11 +19,12 @@ public class ReportPage
     Comment[] comments;
 
    
-    public ReportPage(int reportPageNr, boolean previousDamaged, Date damagedDate,
+    public ReportPage(int reportNr,int reportPageNr, boolean previousDamaged, Date damagedDate,
             String damagedPlace, String cause, String repairs, boolean moist,
             boolean rot, boolean mold, boolean fire, String other,
             boolean moistScan, Comment[] comments)
     {
+        this.reportNr = reportNr;
         this.reportPageNr = reportPageNr;
         this.previousDamaged = previousDamaged;
         this.damagedDate = damagedDate;
@@ -36,6 +38,30 @@ public class ReportPage
         this.other = other;
         this.moistScan = moistScan;
         this.comments = comments;
+    }
+    public boolean comeFromSameReport(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ReportPage other = (ReportPage) obj;
+        if (this.reportNr != other.reportNr) {
+            return false;
+        }
+        return true;
+    }
+
+    public int getReportNr() {
+        return reportNr;
+    }
+
+    public void setReportNr(int reportNr) {
+        this.reportNr = reportNr;
     }
      public Comment[] getComments()
     {
