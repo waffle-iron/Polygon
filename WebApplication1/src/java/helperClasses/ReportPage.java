@@ -20,7 +20,6 @@ public class ReportPage
 
    
     public ReportPage(int reportNr,int reportPageNr, boolean previousDamaged, Date damagedDate,
-
             String damagedPlace, String cause, String repairs, boolean moist,
             boolean rot, boolean mold, boolean fire, String other,
             boolean moistScan, Comment[] comments)
@@ -40,9 +39,6 @@ public class ReportPage
         this.moistScan = moistScan;
         this.comments = comments;
     }
-
-
-  
 
     public boolean comeFromSameReport(Object obj) {
         if (this == obj) {
