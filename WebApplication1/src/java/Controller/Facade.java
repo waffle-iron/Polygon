@@ -1,13 +1,13 @@
 package Controller;
 
-import Domain.BuildingDataMapper;
-import Domain.FirmDataMapper;
+import Domain.*;
 import helperClasses.*;
 
 public class Facade
 {
     BuildingDataMapper buildingDM = new BuildingDataMapper();
     FirmDataMapper firmDM = new FirmDataMapper();
+    ReportDataMapper reportDM = new ReportDataMapper();
     
     public void addBuildingToDB(Building build)
     {
@@ -17,4 +17,10 @@ public class Facade
     {
         firmDM.addFirmToDB(firm);
     }
+     public void addReportToDB(Report Report) {
+     reportDM.addReportToDB(Report);
+     }
+     public Report getReportFromDB(int ReportID) {
+        return reportDM.getReportFromDB(ReportID);
+     }
 }
