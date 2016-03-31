@@ -67,4 +67,29 @@ public class BuildingDataMapper
         }
         return listOfBuildings.get(0).toString();
     }
+    public Building[] getBuildingsFromDatabase(){
+        ArrayList<Building> listOfBuildings = new ArrayList();
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+            Statement stmt = con.createStatement();
+            String query = "SELECT * FROM building;";
+            ResultSet res = stmt.executeQuery(query);
+
+            while (res.next())
+            {
+
+                listOfBuildings.add(new Building(res.getString("Address"), res.getString("Zip"), res.getString("FirmID"), res.getString("Name"), res.getString("BuildingYear"), res.getString("Size"), res.getString("Usage")));
+                
+            }
+
+            con.close();
+            
+        } catch (Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+        return (Building[])listOfBuildings.toArray();
+    }
 }
