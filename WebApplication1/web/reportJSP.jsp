@@ -16,17 +16,18 @@
         <form action="ControllerServlet" method="GET">
 
             <h2> Rapport forside </h2>
-            <p>Rapport nummer: <input type="text" name="reportNR"></p>
-            <p>Bygnings ID: <input type="text" name="buildingID"></p>
-            <p>Dato: <input type="text" name="date"></p>
+            <p>Rapport nummer: <input type="number" name="reportNRtext"></p>
+            <p>Bygnings ID: <input type="number" name="buildingIDtext"></p>
+            <p>Dato: <input type="date" name="date"></p>
             <p>Stand: <input type="text" name="state"></p>
             
-            <h2> Rapport side </h2>
+            <input type="text" name="state">
+            <h2> Rapport side </h2><input type="submit" value="Opret" name="submitPageNR" />
             <p> Rapport side nummer (hent automatisk?)</p>
             <p>Rapport nummer: <input type="text" name="reportNR"></p>
             <p>Har der været skade i lokalet?: </p> 
-            <p> Ja </p><input type="checkbox" name="Ja" value="Yes" />
-            <p> Nej </p><input type="checkbox" name="Nej" value="No" />
+            <p> Ja <input type="checkbox" name="Ja" value="Yes" /></p>
+            <p> Nej <input type="checkbox" name="Nej" value="No" /></p>
             <p>Hvornår: <input type="text" name="damagedate"></p>
             <p>Hvor: <input type="text" name="damagedPlace"></p>
             <p>Hvad er der sket: <input type="text" name="cause"></p>
@@ -38,10 +39,21 @@
             <p><input type="checkbox" name="Ja" value="Yes" />Anden skade:</p>  <input type="text" name="damagedPlace">
             <p><b>Gennemgang af...</b></p>
             <div class="comments">
-            <p> Vægge:  <input type="checkbox" name="comment" value="comm1" /></p>
-            <p> Loft: <input type="checkbox" name="comment" value="comm2" /></p>
-            <p> Gulv:<input type="checkbox" name="comment" value="comm3" /></p>
+            <p> Vægge:  <input type="checkbox" name="comment" value="comm1" /><input type="checkbox" name="comment" value="comm1" /><input type="checkbox" name="comment" value="comm1" /></p>
+            <input type="text" name="damagedate">
+            <p> Loft: <input type="checkbox" name="comment" value="comm2" /><input type="checkbox" name="comment" value="comm1" /><input type="checkbox" name="comment" value="comm1" /></p>
+            <input type="text" name="damagedate">
+            <p> Gulv:<input type="checkbox" name="comment" value="comm3" /><input type="checkbox" name="comment" value="comm1" /><input type="checkbox" name="comment" value="comm1" /></p>
+            <input type="text" name="damagedate">
             <p> Vinduer/døre<input type="checkbox" name="comment" value="comm4" /></p>
+            <input type="text" name="damagedate">
+            <p><b>Fugtscanning</b></p>
+            <p>Er der foretaget fugtscanning? <input type="checkbox" name="scanYesCheck" value="Yes"/><input type="checkbox" name="scanNoCheck" value="No"/></p>
+            <p>Fugtscanning: <input type="text" name="moist"/> Målepunkt:<input type="text" name="measure"/></p>
+            <input type="text" name="scanYesCheck"/>
+            <p><b>Konklusion</b></p>
+            <pre>Lokale                   Anbefalinger</pre>
+            <input type="text" name="room"/><input type="text" name="recommandation"/>
             </div>
             <input type="hidden" name="do_this" value="createBuild"/>
             <input type="submit" value="opret" name="createBuild" />
