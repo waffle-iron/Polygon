@@ -41,7 +41,7 @@ public class ControllerServlet extends HttpServlet {
             case "showBuild":
 
                 request.setAttribute("printBuild", facade.buildingDM.printBuildings());
-                forward(request, response, "/BuildJSP.jsp");
+                forward(request, response, "/BuildingJSP.jsp");
 
             case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),
@@ -55,7 +55,7 @@ public class ControllerServlet extends HttpServlet {
             case "updateReportPages":
                 break;
             case "Building":
-                forward(request, response, "/BuildJSP.jsp");
+                forward(request, response, "/BuildingJSP.jsp");
                 break;
             case "Firm":
                 forward(request, response, "/FirmJSP.jsp");

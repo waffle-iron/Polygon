@@ -10,7 +10,7 @@ public class Connector
     private static final int PORT = 3306;
     private static final String DATABASE = "polygonDatabase";
     public static final String USERNAME = "root";
-    public static final String PASSWORD = "newpass";
+    public static final String PASSWORD = "1234";
     public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
     
     static Statement stmt;
