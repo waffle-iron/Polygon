@@ -54,6 +54,54 @@
             <p><b>Konklusion</b></p>
             <pre>Lokale                   Anbefalinger</pre>
             <input type="text" name="room"/><input type="text" name="recommandation"/>
+            <p>Bygningsgennemgangen er foretaget af<input type="text" name=""/>, <br>Polygon
+                i samarbejde med <input type="text" name=""/>(bygningsansvarlig).
+            </p>
+            <p><b>Bygningen er kategoriseret som</b></p>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Tilstand</th>
+                        <th>Beskrivelse af bygningen</th>
+                        <th>Funktion af bygningen</th>
+                        <th>Tilstandsgrad</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Tilstandsgrad 0</b></td>
+                        <td>Bygningsdelen er ny og som bygget</td>
+                        <td>Funktionen er som beskrevet</td>
+                        <td><input type="checkbox" name=""/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Tilstandsgrad 1</b></td>
+                        <td>Bygningsdelen er intakt, men med<br>
+                            begyndende slid og synlige skader<br>
+                        (kun kosmetiske skader)</td>
+                        <td>Funktionen er som beskrevet</td>
+                        <td><input type="checkbox" name=""/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Tilstandsgrad 2</b></td>
+                        <td>Bygningsdelen er begyndt at forfalde<br>
+                        med enkelte defekte komponenter</td>
+                        <td>Funktionen er nedsat-<br>
+                        fare for følgeskader</td>
+                        <td><input type="checkbox" name=""/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Tilstandsgrad 3</b></td>
+                        <td>Bygningsdelen er nedbrugt og skal<br>
+                        udskiftes</td>
+                        <td>Funktionen er ophørt-<br>
+                        fare for følgeskader</td>
+                        <td><input type="checkbox" name=""/></td>
+                    </tr>
+                </tbody>
+            </table>
+
             </div>
             <input type="hidden" name="do_this" value="createBuild"/>
             <input type="submit" value="opret" name="createBuild" />
@@ -61,45 +109,3 @@
         </form>
     </body>
 </html>
-
-CREATE TABLE `reportPage`
-(
-	`ReportPageNr` int not null AUTO_INCREMENT,
-    `ReportNR` int not null,
-    `PreviousDamaged` boolean,
-    `Damagedate` date,
-    `DamagedPlace` varchar(50),
-    `Cause` varchar(100),
-    `Repairs` varchar(100),
-    `Moist` boolean,
-    `Rot` boolean,
-    `Mold` boolean,
-    `Fire` boolean,
-    `Other` varchar(100),
-    `MoistScan` boolean,
-    primary key (`ReportPageNr`),
-	foreign key(`ReportNR`)
-		references `Report` (`ReportNR`)
-    
-);
-CREATE TABLE `comments`
-(	
-	`CommentID`	int not null AUTO_INCREMENT,
-	`ReportNR` 	int not null,
-    `ReportPageNr` int,
-    `CommentType` varchar(15),
-    `Text` varchar(500),
-    primary key (`CommentID`),
-    foreign key (`ReportNR`)
-		references `Report` (`ReportNR`),
-    foreign key (`ReportPageNr`)
-		references `ReportPage` (`ReportPageNr`)
-);
-CREATE TABLE `conclusion`
-(
-     `ReportNR` int not null,
-     `Room`	varchar(10),
-     `Recomandation` varchar(200),
-     foreign key (`ReportNR`)
-		references `Report` (`ReportNR`)
-);
