@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Domain;
 
 import helperClasses.Building;
@@ -10,14 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-/**
- *
- * @author Bruger
- */
 public class BuildingDataMapper
-{
-    
-    
+{  
     public void addBuildingToDB(Building build)
     {
 
