@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import helperClasses.Building;
 import helperClasses.Firm;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -17,10 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Bruger
- */
 public class ControllerServlet extends HttpServlet
 {
 
@@ -33,8 +23,7 @@ public class ControllerServlet extends HttpServlet
         String do_this = request.getParameter("do_this");
         if (do_this == null)
         {
-            forward(request, response, "/JSP.jsp");
-
+            forward(request, response, "/index.html");
         }
 
         switch (do_this)
@@ -49,34 +38,18 @@ public class ControllerServlet extends HttpServlet
                         request.getParameter("buildUsage"));
                 facade.buildingDM.addBuildingToDB(building);
 
-                forward(request, response, "/JSP.jsp");
+                forward(request, response, "/index.html");
         }
-        
-                switch (do_this)
+
+        switch (do_this)
         {
             case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),
                         request.getParameter("contactMail"));
                 facade.firmDM.addFirmToDB(firm);
 
-                forward(request, response, "/JSP.jsp");
+                forward(request, response, "/index.jsp");
         }
-
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter())
-        {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControllerServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControllerServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-
     }
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
