@@ -11,23 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ControllerServlet extends HttpServlet
-{
+public class ControllerServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         Facade facade = new Facade();
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
-        String do_this = request.getParameter("do_this");
-        if (do_this == null)
-        {
+        String do_this = "";
+        do_this += request.getParameter("do_this");
+        if (do_this.equals("null")) {
             forward(request, response, "/index.html");
         }
 
-        switch (do_this)
-        {
+        switch (do_this) {
+
             case "createBuilding":
                 Building building = new Building(request.getParameter("buildAddress"),
                         request.getParameter("buildZip"),
@@ -39,15 +37,13 @@ public class ControllerServlet extends HttpServlet
                 facade.buildingDM.addBuildingToDB(building);
 
                 forward(request, response, "/index.html");
-                
-                            case "showBuild":
 
-                
+            case "showBuild":
+
                 request.setAttribute("printBuild", facade.buildingDM.printBuildings());
                 forward(request, response, "/BuildJSP.jsp");
 
-                                
-          case "createFirm":
+            case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),
                         request.getParameter("contactMail"));
                 facade.firmDM.addFirmToDB(firm);
@@ -58,11 +54,23 @@ public class ControllerServlet extends HttpServlet
                 break;
             case "updateReportPages":
                 break;
+            case "Building":
+                forward(request, response, "/BuildJSP.jsp");
+                break;
+            case "Firm":
+                forward(request, response, "/FirmJSP.jsp");
+                break;
+            case "Report":
+                forward(request, response, "/reportJSP.jsp");
+                break;
+            default: {
+                System.out.println("Not valid command" + do_this);
+            }
         }
+
     }
 
-    private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
-    {
+    private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException {
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(path);
         rd.forward(req, res);
@@ -79,8 +87,7 @@ public class ControllerServlet extends HttpServlet
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -94,8 +101,7 @@ public class ControllerServlet extends HttpServlet
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -105,8 +111,7 @@ public class ControllerServlet extends HttpServlet
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo()
-    {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
