@@ -20,7 +20,7 @@
             <p>Bygnings ID: <input type="number" name="buildingIDtext"></p>
             <p>Dato: <input type="date" name="date"></p>
             <p>Stand: <input type="text" name="state"></p>
-            
+
             <input type="text" name="state">
             <h2> Rapport side </h2><input type="submit" value="Opret" name="submitPageNR" />
             <p> Rapport side nummer (hent automatisk?)</p>
@@ -38,22 +38,101 @@
             <p><input type="checkbox" name="Ja" value="Yes" />Brand</p>
             <p><input type="checkbox" name="Ja" value="Yes" />Anden skade:</p>  <input type="text" name="damagedPlace">
             <p><b>Gennemgang af...</b></p>
-            <div class="comments">
-            <p> Vægge:  <input type="checkbox" name="comment" value="comm1" /><input type="checkbox" name="comment" value="comm1" /><input type="checkbox" name="comment" value="comm1" /></p>
-            <input type="text" name="damagedate">
-            <p> Loft: <input type="checkbox" name="comment" value="comm2" /><input type="checkbox" name="comment" value="comm1" /><input type="checkbox" name="comment" value="comm1" /></p>
-            <input type="text" name="damagedate">
-            <p> Gulv:<input type="checkbox" name="comment" value="comm3" /><input type="checkbox" name="comment" value="comm1" /><input type="checkbox" name="comment" value="comm1" /></p>
-            <input type="text" name="damagedate">
-            <p> Vinduer/døre<input type="checkbox" name="comment" value="comm4" /></p>
-            <input type="text" name="damagedate">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Bemærkninger</th>
+                        <th>Ingen bemærkninger</th>
+                        <th>Billede</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vægge</td>
+                        <td><input type="checkbox" name="comment" value="comm1" /></td>
+                        <td><input type="checkbox" name="comment" value="comm1" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><input type="text" name="wallText" size="80"> </td>
+                    </tr>
+                    <tr>
+                        <td>Loft</td>
+                        <td><input type="checkbox" name="comment" value="comm1" /></td>
+                        <td><input type="checkbox" name="comment" value="comm1" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><input type="text" name="ceilingText" size="80"> </td>
+                    </tr>
+                    <tr>
+                        <td>Gulv</td>
+                        <td><input type="checkbox" name="comment" value="comm1" /></td>
+                        <td><input type="checkbox" name="comment" value="comm1" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><input type="text" name="floorText" size="80"> </td>
+                    </tr>
+                    <tr>
+                        <td>Vinduer/døre</td>
+                        <td><input type="checkbox" name="comment" value="comm1" /></td>
+                        <td><input type="checkbox" name="comment" value="comm1" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><input type="text" name="doorText" size="80"> </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            
             <p><b>Fugtscanning</b></p>
-            <p>Er der foretaget fugtscanning? <input type="checkbox" name="scanYesCheck" value="Yes"/><input type="checkbox" name="scanNoCheck" value="No"/></p>
-            <p>Fugtscanning: <input type="text" name="moist"/> Målepunkt:<input type="text" name="measure"/></p>
-            <input type="text" name="scanYesCheck"/>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <td>Er der foretaget fugtscanning?</td>
+                        <td><input type="checkbox" name="scanYesCheck" value="Yes"/></td>
+                        <td colspan="2"><input type="checkbox" name="scanNoCheck" value="No"/></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fugtscanning:</td>
+                        <td><input type="text" name="moist"/></td>
+                        <td>Målepunkt:</td>
+                        <td><input type="text" name="measure"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><input type="text" name="measure" size="90"/></td>
+                    </tr>
+                </tbody>
+            </table>
+
             <p><b>Konklusion</b></p>
-            <pre>Lokale                   Anbefalinger</pre>
-            <input type="text" name="room"/><input type="text" name="recommandation"/>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th><b>Lokale</b></th>
+                        <th><b>Anbefalinger</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="room"/></td>
+                        <td><input type="text" name="recommandation"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="room"/></td>
+                        <td><input type="text" name="recommandation"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="room"/></td>
+                        <td><input type="text" name="recommandation"/></td>
+                    </tr>
+                </tbody>
+            </table>
             <p>Bygningsgennemgangen er foretaget af<input type="text" name=""/>, <br>Polygon
                 i samarbejde med <input type="text" name=""/>(bygningsansvarlig).
             </p>
@@ -65,7 +144,7 @@
                         <th>Beskrivelse af bygningen</th>
                         <th>Funktion af bygningen</th>
                         <th>Tilstandsgrad</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -79,30 +158,29 @@
                         <td><b>Tilstandsgrad 1</b></td>
                         <td>Bygningsdelen er intakt, men med<br>
                             begyndende slid og synlige skader<br>
-                        (kun kosmetiske skader)</td>
+                            (kun kosmetiske skader)</td>
                         <td>Funktionen er som beskrevet</td>
                         <td><input type="checkbox" name=""/></td>
                     </tr>
                     <tr>
                         <td><b>Tilstandsgrad 2</b></td>
                         <td>Bygningsdelen er begyndt at forfalde<br>
-                        med enkelte defekte komponenter</td>
+                            med enkelte defekte komponenter</td>
                         <td>Funktionen er nedsat-<br>
-                        fare for følgeskader</td>
+                            fare for følgeskader</td>
                         <td><input type="checkbox" name=""/></td>
                     </tr>
                     <tr>
                         <td><b>Tilstandsgrad 3</b></td>
                         <td>Bygningsdelen er nedbrugt og skal<br>
-                        udskiftes</td>
+                            udskiftes</td>
                         <td>Funktionen er ophørt-<br>
-                        fare for følgeskader</td>
+                            fare for følgeskader</td>
                         <td><input type="checkbox" name=""/></td>
                     </tr>
                 </tbody>
             </table>
 
-            </div>
             <input type="hidden" name="do_this" value="createBuild"/>
             <input type="submit" value="opret" name="createBuild" />
 

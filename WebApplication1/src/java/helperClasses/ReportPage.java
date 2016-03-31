@@ -17,7 +17,6 @@ public class ReportPage
     boolean moistScan;
     Comment[] comments;
 
-   
     public ReportPage(int reportPageNr, boolean previousDamaged, Date damagedDate,
             String damagedPlace, String cause, String repairs, boolean moist,
             boolean rot, boolean mold, boolean fire, String other,
@@ -37,7 +36,8 @@ public class ReportPage
         this.moistScan = moistScan;
         this.comments = comments;
     }
-     public Comment[] getComments()
+
+    public Comment[] getComments()
     {
         return comments;
     }
@@ -46,6 +46,7 @@ public class ReportPage
     {
         this.comments = comments;
     }
+
     public int getReportPageNr()
     {
         return reportPageNr;
@@ -166,7 +167,4 @@ public class ReportPage
         this.moistScan = moistScan;
     }
 
-    
-    
-    
 }
