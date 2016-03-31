@@ -28,7 +28,7 @@ public class ControllerServlet extends HttpServlet
 
         switch (do_this)
         {
-            case "createBuild":
+            case "createBuilding":
                 Building building = new Building(request.getParameter("buildAddress"),
                         request.getParameter("buildZip"),
                         request.getParameter("buildFirmID"),
@@ -39,16 +39,17 @@ public class ControllerServlet extends HttpServlet
                 facade.buildingDM.addBuildingToDB(building);
 
                 forward(request, response, "/index.html");
-        }
-
-        switch (do_this)
-        {
-            case "createFirm":
+          case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),
                         request.getParameter("contactMail"));
                 facade.firmDM.addFirmToDB(firm);
 
                 forward(request, response, "/index.jsp");
+                break;
+            case "createReport":
+                break;
+            case "updateReportPages":
+                break;
         }
     }
 

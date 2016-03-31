@@ -23,7 +23,7 @@
 
             <p>Usage: <input type="text" name="buildUsage"></p>
 
-            <input type="hidden" name="do_this" value="createBuild"/>
+            <input type="hidden" name="do_this" value="createBuilding"/>
             <input type="submit" value="opret" name="createBuild" />
 
         </form>
