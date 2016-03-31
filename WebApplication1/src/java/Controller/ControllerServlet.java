@@ -20,7 +20,7 @@ public class ControllerServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         String do_this = "";
         do_this += request.getParameter("do_this");
-        if (do_this.equals("null")) {
+        if (do_this.equals("")) {
             forward(request, response, "/index.html");
         }
 
