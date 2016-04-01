@@ -15,13 +15,14 @@ public class Connector
     
     static Statement stmt;
     
-     public Connector()
+    public Connector()
     {
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             stmt = con.createStatement();
+            
         } catch (Exception e)
         {
             System.out.println(e.toString());
