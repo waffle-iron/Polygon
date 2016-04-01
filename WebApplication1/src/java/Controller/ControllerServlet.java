@@ -82,9 +82,19 @@ public class ControllerServlet extends HttpServlet {
                 request.setAttribute("numberOfPages",""+ 1);
                 forward(request, response, "/reportJSP.jsp");
                 break;
-            default: {
+            default: 
                 System.out.println("Not valid command" + do_this);
-            }
+                break;
+            case "Login":
+                
+                forward(request, response, "/LoginJSP.jsp");
+                break;
+            
+            case "CheckLogin":
+//                if(facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"), request.getParameter(firmID), do_this))
+//                {
+//                    forward(request, response, "/PostLoginJSP.jsp");
+//                }
         }
 
     }
