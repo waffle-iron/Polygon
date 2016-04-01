@@ -13,19 +13,32 @@ import Enumerators.Authorization;
  */
 public class Login
 {
+
     String username;
     String password;
     int firmID;
-    Authorization authorization; 
+    Authorization authorization;
 
-    public Login(String username, String password, int firmID, Authorization authorization)
+    public Login(String username, String password, String firmID, String authorization)
     {
         this.username = username;
         this.password = password;
-        this.firmID = firmID;
-        this.authorization = authorization;
+        this.firmID = Integer.parseInt(firmID);
+        switch (authorization)
+        {
+            case "tech":
+                this.authorization = Authorization.tech;
+                break;
+
+            case "admin":
+                this.authorization = Authorization.admin;
+                break;
+
+            case "user":
+                this.authorization = Authorization.user;
+        }
     }
-    
+
     public String getUsername()
     {
         return username;
@@ -36,9 +49,9 @@ public class Login
         return password;
     }
 
-    public int getFirmID()
+    public String getFirmID()
     {
-        return firmID;
+        return "" +firmID;
     }
 
     public Authorization getAuthorization()
@@ -65,6 +78,5 @@ public class Login
     {
         this.authorization = authorization;
     }
-    
-    
+
 }
