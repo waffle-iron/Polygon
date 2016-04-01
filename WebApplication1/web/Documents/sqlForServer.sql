@@ -2,7 +2,6 @@ DROP DATABASE IF EXISTS polygonDatabase;
 CREATE DATABASE polygonDatabase;
 USE polygonDatabase;
 
-drop table if exists pictureLink;
 DROP TABLE IF EXISTS pictures;
 DROP TABLE IF EXISTS conlusion;
 DROP TABLE IF EXISTS comments;

@@ -5,7 +5,10 @@
  */
 package Domain;
 
-import helperClasses.*;
+import helperClasses.Comment;
+import helperClasses.Date;
+import helperClasses.Report;
+import helperClasses.ReportPage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
