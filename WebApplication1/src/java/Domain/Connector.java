@@ -19,7 +19,11 @@ public class Connector
     public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
     static Statement stmt;
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> 81d83b178027a70733aaced87afa9bdd5c4c9eec
     public Connector()
     {
         try
@@ -27,7 +31,11 @@ public class Connector
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             stmt = con.createStatement();
+<<<<<<< HEAD
+            
+=======
 
+>>>>>>> 81d83b178027a70733aaced87afa9bdd5c4c9eec
         } catch (Exception e)
         {
             System.out.println(e.toString());
