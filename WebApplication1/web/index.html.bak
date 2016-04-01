@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
     <head>
         <title>Forside</title>
@@ -5,12 +6,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-<<<<<<< HEAD
-        <h1><A href="BuildJSP.jsp">Opret ny bygning en super sej en</A></h1>
-=======
-        <h1><A href="BuildJSP.jsp">Opret gammel bygning</A></h1>
->>>>>>> 889573f308d281cc3702681cf302eaac3e0ca629
+        <h1><A href="BuildingJSP.jsp">Opret gammel bygning</A></h1>
         <h1><A href="FirmJSP.jsp">Opret nyt firma</A></h1>
         <h1><A href="reportJSP.jsp">Opret ny rapport</A></h1>
     </body>
 </html>
+=======
+<html>
+    <head>
+        <title>Forside</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="ControllerServlet" method="GET">
+            <input type="submit" value="Opret gammel bygning" name="createBuild" />
+            <input type="hidden" name="do_this" value="Building">
+        </form>
+        <form action="ControllerServlet" method="GET">
+            <input type="submit" value="Opret nyt firma" name="createBuild" />
+            <input type="hidden" name="do_this" value="Firm">
+        </form>
+        <form action="ControllerServlet" method="GET">
+            <input type="submit" value="Opret ny rapport" name="createBuild" />
+            <input type="hidden" name="do_this" value="Report">
+        </form>
+    </body>
+</html>
+>>>>>>> e73b7bdc5881f8f839760446add7e0d6ac1e0b2d

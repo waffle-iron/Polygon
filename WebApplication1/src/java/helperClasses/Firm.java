@@ -1,8 +1,8 @@
 package helperClasses;
 
-
 public class Firm
 {
+
     int ContactNumber;
     String ContactMail;
 
@@ -10,11 +10,11 @@ public class Firm
     {
         try
         {
-        this.ContactNumber = Integer.parseInt(ContactNumer);
-        this.ContactMail = ContactMail;
-        } catch(Exception e)
+            this.ContactNumber = Integer.parseInt(ContactNumer);
+            this.ContactMail = ContactMail;
+        } catch (Exception e)
         {
-            
+            System.out.println(e.toString());
         }
     }
 
@@ -37,6 +37,5 @@ public class Firm
     {
         this.ContactMail = ContactMail;
     }
-    
-    
+
 }
