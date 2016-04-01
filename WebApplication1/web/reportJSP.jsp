@@ -16,7 +16,7 @@
         
         <form id="myForm" action="ControllerServlet" method="GET">
             <h2> Rapport forside </h2>
-            <p>Rapport nummer: <input type="number" name="reportNRtext"></p>
+            <p>Rapport nummer: <input type="number" name="reportNRtext" value = 0 + <%= request.getAttribute("reportNRtext") %> ></p>
             <p>Navn på bygning: <input type="text" name="buildingNameText"></p>
             <p>Dato: <input type="date" name="dateDate"></p>
             <p>Adresse: <input type="text" name="adressText"></p>
