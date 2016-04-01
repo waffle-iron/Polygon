@@ -19,9 +19,6 @@ CREATE TABLE `firm`
     `ContactNumber` int,
     `ContactMail` varchar(60) unique,
     primary key(`FirmID`)
-        
-    
-    
 );
 
 CREATE TABLE `login`
@@ -119,7 +116,7 @@ CREATE TABLE `pictures`
 		references `Building` (`BuildingID`)
 );
 
-insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"admin@firmsareus.com"); 
+insert into `firm` (`ContactNumber`,`ContactMail`) values(21427660,"admin@firmsareus.com"); 
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"support@firming.com"); 
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"polygoncontact@thebestfirm.com");
 
