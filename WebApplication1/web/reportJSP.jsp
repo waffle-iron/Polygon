@@ -13,7 +13,8 @@
     </head>
     <body>
         <h1>Opret rapport</h1> 
-        <form>
+        
+        <form id="myForm" action="ControllerServlet" method="GET">
             <h2> Rapport forside </h2>
             <p>Rapport nummer: <input type="number" name="reportNRtext"></p>
             <p>Navn på bygning: <input type="text" name="buildingNameText"></p>
@@ -72,12 +73,18 @@
                 </tbody>
             </table>
 
-            <form action="ControllerServlet" method="GET">
-                <h2> Rapport side <input type="number" name="numberOfReportPages"></h2><input type="submit" value="Opdater" name="updatePageNum" />
-                <input type="hidden" name="do_this" value="updatePageNum"/>
-            </form>
+            
+            <h2> Rapport side <input type="number" name="numberOfReportPages"></h2><input type="submit"  value="updatePageNr" name="button" />
+                <a href="javascript: submit(test)">test</a>
+                <input type="hidden" name ="do_this" value="useButton">
+            
             <p> Rapport side nummer (hent automatisk?)</p>
             <p>Rapport nummer: <input type="number" name="reportNRNum"></p>
+            <% int pages = 0;
+                    pages += Integer.parseInt( (String)request.getAttribute("numberOfPages"));
+            for( int i = 1; i <pages+1; i++)
+            {
+            %>
             <table border="1">
                 <thead>
                     <tr>
@@ -190,7 +197,7 @@
                     </tr>
                 </tbody>
             </table>
-
+            <%}%>
             <p><b>Konklusion</b></p>
             <table border="1">
                 <thead>
@@ -262,9 +269,10 @@
                 </tbody>
             </table>
 
-            <input type="hidden" name="do_this" value="createBuild"/>
-            <input type="submit" value="opret" name="createBuild" />
+            
+            <input type="button" value="createReport" name="button" onKlick="submit(this.value)"/>
+        
+        
         </form>
-
     </body>
 </html>

@@ -11,20 +11,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ControllerServlet extends HttpServlet {
+public class ControllerServlet extends HttpServlet
+{
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         Facade facade = new Facade();
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
         String do_this = "";
         do_this += request.getParameter("do_this");
-        if (do_this.equals("null")) {
+        if (do_this.equals("null"))
+        {
             forward(request, response, "/index.html");
         }
+        System.out.println("the do this is " + do_this);
 
-        switch (do_this) {
+        switch (do_this)
+        {
 
             case "createBuilding":
                 Building building = new Building(request.getParameter("buildAddress"),
@@ -51,8 +56,26 @@ public class ControllerServlet extends HttpServlet {
                 forward(request, response, "/index.jsp");
                 break;
             case "createReport":
+                forward(request, response, "/BuildJSP.jsp");
                 break;
-            case "updateReportPages":
+            case "useButton":
+                String button = "";
+                button += request.getParameter("button");
+                if (button.equals("null"))
+                {
+                    forward(request, response, "/index.html");
+                }
+                switch(button)
+                {
+                    case "updatePageNr":
+                        
+                        request.setAttribute("numberOfPages", "" +request.getParameter("numberOfReportPages"));
+                        forward(request, response, "/reportJSP.jsp");
+                        break;  
+                        default:
+                            forward(request, response, "/BuildJSP.jsp");
+                            break;
+                }
                 break;
             case "Building":
                 forward(request, response, "/BuildJSP.jsp");
@@ -61,16 +84,20 @@ public class ControllerServlet extends HttpServlet {
                 forward(request, response, "/FirmJSP.jsp");
                 break;
             case "Report":
+                request.setAttribute("numberOfPages",""+ 1);
                 forward(request, response, "/reportJSP.jsp");
                 break;
-            default: {
+
+            default:
+            {
                 System.out.println("Not valid command" + do_this);
             }
         }
 
     }
 
-    private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException {
+    private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
+    {
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(path);
         rd.forward(req, res);
@@ -87,7 +114,8 @@ public class ControllerServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -101,7 +129,8 @@ public class ControllerServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -111,7 +140,8 @@ public class ControllerServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String getServletInfo()
+    {
         return "Short description";
     }// </editor-fold>
 
