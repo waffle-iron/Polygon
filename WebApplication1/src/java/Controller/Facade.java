@@ -8,6 +8,7 @@ public class Facade
     BuildingDataMapper buildingDM = new BuildingDataMapper();
     FirmDataMapper firmDM = new FirmDataMapper();
     ReportDataMapper reportDM = new ReportDataMapper();
+    LoginDataMapper loginDM = new LoginDataMapper();
     
     public void addBuildingToDB(Building build)
     {
@@ -23,4 +24,5 @@ public class Facade
      public Report getReportFromDB(int ReportID) {
         return reportDM.getReportFromDB(ReportID);
      }
+     
 }
