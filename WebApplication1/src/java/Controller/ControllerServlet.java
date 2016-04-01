@@ -85,6 +85,11 @@ public class ControllerServlet extends HttpServlet {
             default: {
                 System.out.println("Not valid command" + do_this);
             }
+            case "Login":
+                if(facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"), do_this, do_this))
+                {
+                    
+                }
         }
 
     }
