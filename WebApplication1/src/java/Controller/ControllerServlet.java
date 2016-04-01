@@ -52,15 +52,34 @@ public class ControllerServlet extends HttpServlet {
                 break;
             case "createReport":
                 break;
-            case "updateReportPages":
+            
+            case "useButton":
+                String button = "";
+                button += request.getParameter("button");
+                if (button.equals("null"))
+                {
+                    forward(request, response, "/index.html");
+                }
+                switch(button)
+                {
+                    case "updatePageNr":
+                        
+                        request.setAttribute("numberOfPages", "" +request.getParameter("numberOfReportPages"));
+                        forward(request, response, "/reportJSP.jsp");
+                        break;  
+                        default:
+                            forward(request, response, "/BuildJSP.jsp");
+                            break;
+                }
                 break;
             case "Building":
-                forward(request, response, "/BuildingJSP.jsp");
+                forward(request, response, "/BuildJSP.jsp");
                 break;
             case "Firm":
                 forward(request, response, "/FirmJSP.jsp");
                 break;
             case "Report":
+                request.setAttribute("numberOfPages",""+ 1);
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default: {
