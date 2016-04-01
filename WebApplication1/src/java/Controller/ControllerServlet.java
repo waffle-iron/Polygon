@@ -52,8 +52,7 @@ public class ControllerServlet extends HttpServlet {
                 break;
             case "createReport":
                 break;
-            case "updateReportPages":
-                break;
+            
             case "useButton":
                 String button = "";
                 button += request.getParameter("button");
