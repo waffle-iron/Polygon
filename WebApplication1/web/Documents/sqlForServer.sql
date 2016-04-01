@@ -104,20 +104,30 @@ CREATE TABLE `conclusion`
      foreign key (`ReportNR`)
 		references `Report` (`ReportNR`)
 );
+CREATE TABLE `picturelink`
+(
+     `PictureID` int auto_increment,
+     `Picture` blob,
+     primary key (`pictureID`)
+
+);
 CREATE TABLE `pictures`
 (
 	`CommentID` int,
     `ReportNR` int,
     `BuildingID` int,
-    `PictureLink` varchar(300),
-    primary key (`PictureLink`),
+    `PictureID` int ,
+    primary key (`CommentID`),
 	foreign key (`CommentID`)
 		references `Comments`(`CommentID`),
 	foreign key (`ReportNR`)
 		references `Report`(`ReportNR`),
 	foreign key (`BuildingID`)
-		references `Building` (`BuildingID`)
+		references `Building` (`BuildingID`),
+	foreign key (`PictureID`)
+		references `picturelink` (`PictureID`)
 );
+
 
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"admin@firmsareus.com"); 
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"support@firming.com"); 
@@ -149,5 +159,6 @@ insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(2,
 insert into `conclusion`(`ReportNR`,`Room`,`Recomandation`) values(1,"kitchen", "there are a alot spiders would recommend installing a cat");
 insert into `conclusion`(`ReportNR`,`Room`,`Recomandation`) values(2,"main room", "giant hole spoted in floor");
 
-insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(1,1,1,"http://imgur.com/gallery/rKaUjEX");
-insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(2,2,2,"error not sfw");
+#insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(1,1,1,"http://imgur.com/gallery/rKaUjEX");
+#insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(2,2,2,"error not sfw");
+#insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(1,1,1,"http://imgur.com/gallery/rKaUjEX")
