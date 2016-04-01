@@ -18,8 +18,14 @@
                 <br><br>
                 Kodeord<br> <input style="text-align: center" type="password" name="password" value="" size="20" />
             <br><br>
-                <input type="hidden" name="do_this" value="Login" />
-                <input type="submit" value="Login" name="Login" />
+            <select name="Enum">
+                <option>Bruger</option>
+                <option>Tekniker</option>
+                <option>Admin</option>
+            </select>
+            <p> Indtast firma ID:<input type="text" name="FirmID" /></p>
+                <input type="hidden" name="do_this" value="CheckLogin" />
+                <input type="submit" value="Login" name="CheckLogin" />
             </form>
     </body>
 </html>
