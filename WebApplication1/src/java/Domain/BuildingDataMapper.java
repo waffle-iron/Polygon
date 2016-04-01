@@ -26,7 +26,6 @@ public class BuildingDataMapper
                     + build.getBuildYear() + ","
                     + build.getSize() + ",'"
                     + build.getUsage() + "');");
-            con.close();
         } catch (Exception ex)
         {
             System.out.println(ex.toString());

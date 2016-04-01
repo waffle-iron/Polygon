@@ -17,7 +17,6 @@ public class FirmDataMapper
             statement.executeUpdate("INSERT INTO `firm` (`ContactNumber`, `ContactMail`)" + "VALUES(" 
                     + firm.getContactNumber() + ",'" 
                     + firm.getContactMail() + "');");
-            con.close();
             } catch (Exception ex)
         {
             System.out.println(ex.toString());
