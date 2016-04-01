@@ -79,7 +79,7 @@
                 <input type="hidden" name ="do_this" value="useButton">
             
             <p> Rapport side nummer (hent automatisk?)</p>
-            <p>Rapport nummer: <input type="number" name="reportNRNum"></p>
+            <p>Rapport nummer: <input type="number" name="reportNRNum" value= 0 + <%= request.getAttribute("reportNRNum")%> ></p>
             <% int pages = 0;
                     pages += Integer.parseInt( (String)request.getAttribute("numberOfPages"));
             for( int i = 1; i <pages+1; i++)
@@ -270,7 +270,7 @@
             </table>
 
             
-            <input type="button" value="createReport" name="button" onKlick="submit(this.value)"/>
+            <input type="button" value="createReport" name="button" />
         
         
         </form>

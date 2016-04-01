@@ -51,7 +51,7 @@ public class ControllerServlet extends HttpServlet {
 
                 forward(request, response, "/index.jsp");
                 break;
-            case "updateReportPages":
+            case "createReport":
                 break;
             case "useButton":
                 String button = "";
