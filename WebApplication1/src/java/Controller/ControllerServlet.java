@@ -73,7 +73,7 @@ public class ControllerServlet extends HttpServlet {
                 }
                 break;
             case "Building":
-                forward(request, response, "/BuildJSP.jsp");
+                forward(request, response, "/BuildingJSP.jsp");
                 break;
             case "Firm":
                 forward(request, response, "/FirmJSP.jsp");
