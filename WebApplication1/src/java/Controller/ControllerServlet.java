@@ -39,7 +39,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
-
+                    forward(request, response, "/BuildingJSP.jsp");
                 } else
                 {
                     Building building = new Building(request.getParameter("buildAddress"),
@@ -53,7 +53,7 @@ public class ControllerServlet extends HttpServlet
 
                     forward(request, response, "/BuildingJSP.jsp");
                 }
-
+                break;
             case "showBuild":
 
                 request.setAttribute("printBuild", facade.buildingDM.printBuildings());
@@ -65,7 +65,7 @@ public class ControllerServlet extends HttpServlet
                 facade.firmDM.addFirmToDB(firm);
 
                 forward(request, response, "/index.html");
-                
+
                 break;
             case "createReport":
                 break;
