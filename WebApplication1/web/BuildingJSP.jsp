@@ -12,7 +12,7 @@
     </head>
     <body>
         
-            <h1>Hello Mennesker! Opret en ny bygning her</h1>
+            <h1>Opret en ny bygning her</h1>
 
             <form action="" method="GET">
 
