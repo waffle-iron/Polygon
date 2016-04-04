@@ -39,7 +39,6 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
-                    //forward(request, response, "/BuildingJSP.jsp");
 
                 } else
                 {
@@ -54,7 +53,7 @@ public class ControllerServlet extends HttpServlet
 
                     forward(request, response, "/BuildingJSP.jsp");
                 }
-            
+
             case "showBuild":
 
                 request.setAttribute("printBuild", facade.buildingDM.printBuildings());
