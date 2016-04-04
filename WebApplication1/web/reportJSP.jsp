@@ -1,9 +1,3 @@
-<%-- 
-    Document   : reportJSP
-    Created on : 30-03-2016, 10:23:16
-    Author     : Bruger
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -82,21 +76,7 @@
                 </tbody>
             </table>
 
-<<<<<<< HEAD
-
-            <h2> Rapport side <input type="number" name="numberOfReportPages" value ="<%= (request.getParameter("numberOfReportPages") == null ? "1" : request.getParameter("numberOfReportPages"))%>"
-                                     ></h2><input type="submit"  value="Opdater sideantal" name="button" />
-            <input type="hidden" name ="do_this" value="useButton">
-
-            <p>Rapport nummer: <input type="number" name="reportNRNum" value="<%= request.getAttribute("reportNRNum")%>" ></p>
-                <% int pages = 0;
-                    pages += Integer.parseInt((String) request.getAttribute("numberOfPages"));
-                    for (int i = 1; i < pages + 1; i++)
-                    {
-                %>
-=======
-            
-            <h2> Rapport side <input type="number" name="numberOfReportPages" value = 0 + <%= request.getAttribute("numberOfReportPages") %> ></h2><input type="submit"  value="updatePageNr" name="button" />
+<h2> Rapport side <input type="number" name="numberOfReportPages" value = 0 + <%= request.getAttribute("numberOfReportPages") %> ></h2><input type="submit"  value="updatePageNr" name="button" />
                 <a href="javascript: submit(test)">test</a>
                 <input type="hidden" name ="do_this" value="useButton">
             
@@ -107,7 +87,6 @@
             for( int i = 1; i <pages+1; i++)
             {
             %>
->>>>>>> bd3e020dfb4c250b3486149a6cb10bb34f1c681e
             <table border="1">
                 <thead>
                     <tr>
@@ -312,17 +291,10 @@
                 </tbody>
             </table>
 
-<<<<<<< HEAD
-            <br>
-            <input type="button" value="Opret rapport" name="button" />
 
-
-=======
             
             <input type="submit" value="createReport" name="button" />
         
-        
->>>>>>> bd3e020dfb4c250b3486149a6cb10bb34f1c681e
-        </form>
+                </form>
     </body>
 </html>
