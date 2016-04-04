@@ -145,4 +145,23 @@ public class ControllerServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private void saveReportInformation(HttpServletRequest request, HttpSession session)
+    {
+        String[] listOfAttributes = {"reportNRtext","buildingNameText","dateDate","adressText","zipText"};
+        for (String attribute : listOfAttributes)
+        {
+            String saveThis = "";
+            try{
+            saveThis += ( String )request.getParameter(attribute);
+            }
+            catch ( Exception ex)
+            {
+                System.out.println(ex.toString());
+            }
+            if (!saveThis.equals("")) {
+                session.setAttribute(attribute, saveThis);
+            } 
+        }
+        
+    }
 }
