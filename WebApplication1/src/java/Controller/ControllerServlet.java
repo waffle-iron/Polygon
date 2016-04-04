@@ -2,6 +2,7 @@ package Controller;
 
 import helperClasses.Building;
 import helperClasses.Firm;
+import helperClasses.Report;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -50,26 +51,43 @@ public class ControllerServlet extends HttpServlet {
 
                 forward(request, response, "/index.jsp");
                 break;
-            case "createReport":
-                break;
-            
+
             case "useButton":
                 String button = "";
                 button += request.getParameter("button");
-                if (button.equals("null"))
-                {
+                if (button.equals("null")) {
                     forward(request, response, "/index.html");
                 }
-                switch(button)
-                {
-                    case "updatePageNr":
+                switch (button) {
+                    case "createReport":
+
+                        Report report = null;
+                        int[] info = new int[3];
+                        info[0] = (int)request.getAttribute("reportNRtext");
+                        info[1] = logic.BuildingNameToBuildingID((String)request.getAttribute("buildingNameText"));
+                        if((boolean)request.getAttribute("state0Check")){
+                            info[2] =0;
+                        }else if((boolean)request.getAttribute("state1Check")){
+                            info[2]=1;
+                        }else if((boolean)request.getAttribute("state2Check")){
+                            info[2] = 2;
+                        }else if((boolean)request.getAttribute("state3Check")){
+                            info[2] = 3;
+                        }
+                            
                         
-                        request.setAttribute("numberOfPages", "" +request.getParameter("numberOfReportPages"));
+                        request.getAttribute("dateDate");
+                        report = new Report(info[0], info[1], reportDate, 0, reportPages, outerWalls, roof);
+                        facade.reportDM.addReportToDB(report);
+                        break;
+                    case "updatePageNr":
+
+                        request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
                         forward(request, response, "/reportJSP.jsp");
-                        break;  
-                        default:
-                            forward(request, response, "/BuildJSP.jsp");
-                            break;
+                        break;
+                    default:
+                        forward(request, response, "/BuildJSP.jsp");
+                        break;
                 }
                 break;
             case "Building":
@@ -79,16 +97,15 @@ public class ControllerServlet extends HttpServlet {
                 forward(request, response, "/FirmJSP.jsp");
                 break;
             case "Report":
-                request.setAttribute("numberOfPages",""+ 1);
+                request.setAttribute("numberOfPages", "" + 1);
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default: {
                 System.out.println("Not valid command" + do_this);
             }
             case "Login":
-                if(facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"), do_this, do_this))
-                {
-                    
+                if (facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"), do_this, do_this)) {
+
                 }
         }
 
