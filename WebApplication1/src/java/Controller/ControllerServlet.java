@@ -65,7 +65,8 @@ public class ControllerServlet extends HttpServlet
                         request.getParameter("contactMail"));
                 facade.firmDM.addFirmToDB(firm);
 
-                forward(request, response, "/index.jsp");
+                forward(request, response, "/index.html");
+                
                 break;
             case "createReport":
                 break;
