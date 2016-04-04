@@ -109,24 +109,24 @@ public class ControllerServlet extends HttpServlet
                         for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++) {
                             Integer.parseInt(request.getParameter("damageDate"));
                             boolean previouslydamaged = false;
-                            if((boolean)request.getAttribute("damageCheckYes")!=false)
+                            if(Boolean.parseBoolean(request.getParameter("damageCheckYes"))!=false)
                                 previouslydamaged = true;
                             String[] str = new String[4];
-                            str[0] = (String)request.getAttribute("damagePlaceText");
-                            str[1] = (String)request.getAttribute("damageCauseText");
-                            str[2] = (String)request.getAttribute("reperationText");
-                            str[3] = (String)request.getAttribute("otherDamageText");
+                            str[0] = request.getParameter("damagePlaceText");
+                            str[1] = request.getParameter("damageCauseText");
+                            str[2] = request.getParameter("reperationText");
+                            str[3] = request.getParameter("otherDamageText");
                             Boolean[] bools= new Boolean[5];
-                            bools[0] = (Boolean)request.getAttribute("moistCheck");
-                            bools[1] = (Boolean)request.getAttribute("rotCheck");
-                            bools[2] = (Boolean)request.getAttribute("moldCheck");
-                            bools[3] = (Boolean)request.getAttribute("fireCheck");
+                            bools[0] = Boolean.parseBoolean(request.getParameter("moistCheck"));
+                            bools[1] = Boolean.parseBoolean(request.getParameter("rotCheck"));
+                            bools[2] = Boolean.parseBoolean(request.getParameter("moldCheck"));
+                            bools[3] = Boolean.parseBoolean(request.getParameter("fireCheck"));
                             Comment[] comments = new Comment[0];
                             //find ud af hvor reportpage nummber skal komme fra nok fra database
                             reportpage.add(new ReportPage(info[0], i, previouslydamaged, new Date(date[0],date[1],date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
-                        Comment outerWalls = new Comment((String)request.getAttribute("wallCommentText"),"Wall" );
-                        Comment roof = new Comment((String)request.getAttribute("ceilingCommentText"),"Ceiling" );
+                        Comment outerWalls = new Comment(request.getParameter("wallCommentText"),"Wall" );
+                        Comment roof = new Comment(request.getParameter("ceilingCommentText"),"Ceiling" );
 
                         report = new Report(info[0], info[1], new Date(date[0],date[1],date[2]), info[2], (ReportPage[])reportpage.toArray(), outerWalls, roof);
                         facade.reportDM.addReportToDB(report);
