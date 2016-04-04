@@ -52,10 +52,6 @@ public class ControllerServlet extends HttpServlet {
                 break;
             case "createReport":
                 break;
-            case "Reset" :
-                Domain.ResetDatabase.Reset();
-               
-                break;
             
             case "useButton":
                 String button = "";
@@ -91,7 +87,8 @@ public class ControllerServlet extends HttpServlet {
                 break;
             case "Login":
                 
-                forward(request, response, "/LoginJSP.jsp");
+                    forward(request, response, "/LoginJSP.jsp");
+                
                 break;
             
             case "CheckLogin":
