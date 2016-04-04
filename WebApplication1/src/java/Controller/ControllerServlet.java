@@ -88,22 +88,26 @@ public class ControllerServlet extends HttpServlet
                         Report report = null;
                         int[] info = new int[3];
                         //skal nok fås fra database
-                        info[0] = (int)request.getAttribute("reportNRtext");
+                        info[0] = Integer.parseInt(request.getParameter("reportNRtext"));
                         info[1] = logic.BuildingNameToBuildingID((String)request.getAttribute("buildingNameText"));
-                        if((boolean)request.getAttribute("state0Check")){
+                        if(Boolean.parseBoolean(request.getParameter("state0Check"))){
                             info[2] =0;
-                        }else if((boolean)request.getAttribute("state1Check")){
+                        }else if(Boolean.parseBoolean(request.getParameter("state1Check"))){
                             info[2]=1;
-                        }else if((boolean)request.getAttribute("state2Check")){
+                        }else if(Boolean.parseBoolean(request.getParameter("state2Check"))){
                             info[2] = 2;
-                        }else if((boolean)request.getAttribute("state3Check")){
+                        }else if(Boolean.parseBoolean(request.getParameter("state3Check"))){
                             info[2] = 3;
                         }
-                        
+                        String[] tempdate = new String[3];
+                        int[] date = new int[3];
+                        tempdate = (request.getParameter("dateDate")).split("-");
+                        for (int i = 0; i < 3; i++) {
+                            date[i] = Integer.parseInt(tempdate[i]);
+                        }
                         ArrayList<ReportPage> reportpage = new ArrayList<>();
-                        for (int i = 0; i < (int)request.getAttribute("numberOfPages"); i++) {
-                            java.sql.Date date;
-                            date = (java.sql.Date)request.getAttribute("damageDate");
+                        for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++) {
+                            Integer.parseInt(request.getParameter("damageDate"));
                             boolean previouslydamaged = false;
                             if((boolean)request.getAttribute("damageCheckYes")!=false)
                                 previouslydamaged = true;
@@ -119,14 +123,12 @@ public class ControllerServlet extends HttpServlet
                             bools[3] = (Boolean)request.getAttribute("fireCheck");
                             Comment[] comments = new Comment[0];
                             //find ud af hvor reportpage nummber skal komme fra nok fra database
-                            reportpage.add(new ReportPage(info[0], i, previouslydamaged, new Date(date), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
+                            reportpage.add(new ReportPage(info[0], i, previouslydamaged, new Date(date[0],date[1],date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
-                        java.sql.Date date;
-                        date = (java.sql.Date)request.getAttribute("dateDate");
                         Comment outerWalls = new Comment((String)request.getAttribute("wallCommentText"),"Wall" );
                         Comment roof = new Comment((String)request.getAttribute("ceilingCommentText"),"Ceiling" );
 
-                        report = new Report(info[0], info[1], new Date(date), info[2], (ReportPage[])reportpage.toArray(), outerWalls, roof);
+                        report = new Report(info[0], info[1], new Date(date[0],date[1],date[2]), info[2], (ReportPage[])reportpage.toArray(), outerWalls, roof);
                         facade.reportDM.addReportToDB(report);
                         break;
                     case "updatePageNr":
