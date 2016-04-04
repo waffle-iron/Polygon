@@ -12,20 +12,26 @@
         <title>JSP Page</title>
     </head>
     <body>
+        
         <h1>Opret rapport</h1> 
         
         <form id="myForm" action="ControllerServlet" method="GET">
             <h2> Rapport forside </h2>
-            <p>Rapport nummer: <input type="number" name="reportNRtext" value = 0 + <%= request.getAttribute("reportNRtext") %> ></p>
-            <p>Navn på bygning: <input type="text" name="buildingNameText"></p>
-            <p>Dato: <input type="date" name="dateDate"></p>
-            <p>Adresse: <input type="text" name="adressText"></p>
-            <p>Postnr./by: <input type="text" name="zipText"></p>
+            <p>Rapport nummer: <input type="number" name="reportNRtext" 
+                value ="<%= (request.getParameter("reportNRtext") == null ?  "" :request.getParameter("reportNRtext"))%>" ></p>
+            <p>Navn på bygning: <input type="text" name="buildingNameText"
+                value ="<%= (request.getParameter("buildingNameText") == null ?  "" :request.getParameter("buildingNameText"))%>"></p>
+            <p>Dato: <input type="date" name="dateDate"
+                value ="<%= (request.getParameter("dateDate") == null ?  "" :request.getParameter("dateDate"))%>"></p>
+            <p>Adresse: <input type="text" name="adressText"
+                value ="<%= (request.getParameter("adressText") == null ?  "" :request.getParameter("adressText"))%>"></p>
+            <p>Postnr./by: <input type="text" name="zipText"
+                value ="<%= (request.getParameter("zipText") == null ?  "" :request.getParameter("zipText"))%>"></p>
 
             <p><b>Generel information om bygningen</b></p>
-            <p>Byggeår <input type="number" name="buildYearNum"></p>
+            <p>Byggeår <input type="number" name="buildYearNum" ></p>
             <p>Bygningsareal i m<sup>2</sup> <br>
-                (hver etage tælles seperat) <input type="number" name="buildingAreaNum"></p>
+                (hver etage tælles seperat) <input type="number" name="buildingAreaNum" value = 0 + <%= request.getAttribute("buildingAreaNum") %>></p>
             <p>Hvad bruges bygningen til/<br>
                 hvad har bygningen hveret brugt til <input type="text" name="usageText"></p>
             <p><b>Gennemgang af bygningen udvendig</b></p>
@@ -74,14 +80,14 @@
             </table>
 
             
-            <h2> Rapport side <input type="number" name="numberOfReportPages"></h2><input type="submit"  value="updatePageNr" name="button" />
+            <h2> Rapport side <input type="number" name="numberOfReportPages" value = 0 + <%= request.getAttribute("numberOfReportPages") %> ></h2><input type="submit"  value="updatePageNr" name="button" />
                 <a href="javascript: submit(test)">test</a>
                 <input type="hidden" name ="do_this" value="useButton">
             
             <p> Rapport side nummer (hent automatisk?)</p>
             <p>Rapport nummer: <input type="number" name="reportNRNum" value= 0 + <%= request.getAttribute("reportNRNum")%> ></p>
             <% int pages = 0;
-                    pages += Integer.parseInt( (String)request.getAttribute("numberOfPages"));
+                    pages += Integer.parseInt((String)request.getAttribute("numberOfPages"));
             for( int i = 1; i <pages+1; i++)
             {
             %>
@@ -270,7 +276,7 @@
             </table>
 
             
-            <input type="button" value="createReport" name="button" />
+            <input type="submit" value="createReport" name="button" />
         
         
         </form>

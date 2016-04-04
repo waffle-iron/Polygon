@@ -1,8 +1,13 @@
 package Controller;
 
 import helperClasses.Building;
+import helperClasses.Comment;
+import helperClasses.Date;
 import helperClasses.Firm;
+import helperClasses.Report;
+import helperClasses.ReportPage;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -70,18 +75,60 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/index.html");
 
                 break;
-            case "createReport":
-                break;
 
             case "useButton":
                 String button = "";
                 button += request.getParameter("button");
-                if (button.equals("null"))
-                {
+                if (button.equals("null")) {
                     forward(request, response, "/index.html");
                 }
-                switch (button)
-                {
+                switch (button) {
+                    case "createReport":
+
+                        Report report = null;
+                        int[] info = new int[3];
+                        //skal nok fås fra database
+                        info[0] = (int)request.getAttribute("reportNRtext");
+                        info[1] = logic.BuildingNameToBuildingID((String)request.getAttribute("buildingNameText"));
+                        if((boolean)request.getAttribute("state0Check")){
+                            info[2] =0;
+                        }else if((boolean)request.getAttribute("state1Check")){
+                            info[2]=1;
+                        }else if((boolean)request.getAttribute("state2Check")){
+                            info[2] = 2;
+                        }else if((boolean)request.getAttribute("state3Check")){
+                            info[2] = 3;
+                        }
+                        
+                        ArrayList<ReportPage> reportpage = new ArrayList<>();
+                        for (int i = 0; i < (int)request.getAttribute("numberOfPages"); i++) {
+                            java.sql.Date date;
+                            date = (java.sql.Date)request.getAttribute("damageDate");
+                            boolean previouslydamaged = false;
+                            if((boolean)request.getAttribute("damageCheckYes")!=false)
+                                previouslydamaged = true;
+                            String[] str = new String[4];
+                            str[0] = (String)request.getAttribute("damagePlaceText");
+                            str[1] = (String)request.getAttribute("damageCauseText");
+                            str[2] = (String)request.getAttribute("reperationText");
+                            str[3] = (String)request.getAttribute("otherDamageText");
+                            Boolean[] bools= new Boolean[5];
+                            bools[0] = (Boolean)request.getAttribute("moistCheck");
+                            bools[1] = (Boolean)request.getAttribute("rotCheck");
+                            bools[2] = (Boolean)request.getAttribute("moldCheck");
+                            bools[3] = (Boolean)request.getAttribute("fireCheck");
+                            Comment[] comments = new Comment[0];
+                            //find ud af hvor reportpage nummber skal komme fra nok fra database
+                            reportpage.add(new ReportPage(info[0], i, previouslydamaged, new Date(date), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
+                        }
+                        java.sql.Date date;
+                        date = (java.sql.Date)request.getAttribute("dateDate");
+                        Comment outerWalls = new Comment((String)request.getAttribute("wallCommentText"),"Wall" );
+                        Comment roof = new Comment((String)request.getAttribute("ceilingCommentText"),"Ceiling" );
+
+                        report = new Report(info[0], info[1], new Date(date), info[2], (ReportPage[])reportpage.toArray(), outerWalls, roof);
+                        facade.reportDM.addReportToDB(report);
+                        break;
                     case "updatePageNr":
 
                         request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
@@ -169,4 +216,23 @@ public class ControllerServlet extends HttpServlet
         return "Short description";
     }// </editor-fold>
 
+    private void saveReportInformation(HttpServletRequest request, HttpSession session)
+    {
+        String[] listOfAttributes = {"reportNRtext","buildingNameText","dateDate","adressText","zipText"};
+        for (String attribute : listOfAttributes)
+        {
+            String saveThis = "";
+            try{
+            saveThis += ( String )request.getParameter(attribute);
+            }
+            catch ( Exception ex)
+            {
+                System.out.println(ex.toString());
+            }
+            if (!saveThis.equals("")) {
+                session.setAttribute(attribute, saveThis);
+            } 
+        }
+        
+    }
 }
