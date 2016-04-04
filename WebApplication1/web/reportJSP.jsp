@@ -76,12 +76,11 @@
                 </tbody>
             </table>
 
-<h2> Rapport side <input type="number" name="numberOfReportPages" value = 0 + <%= request.getAttribute("numberOfReportPages") %> ></h2><input type="submit"  value="updatePageNr" name="button" />
-                <a href="javascript: submit(test)">test</a>
+<h2> Rapport side <input type="number" name="numberOfReportPages" value ="<%= (request.getParameter("numberOfReportPages") == null ? "1" : request.getParameter("numberOfReportPages"))%>" >
+</h2><input type="submit"  value="Opdater side antal" name="button" />
                 <input type="hidden" name ="do_this" value="useButton">
             
-            <p> Rapport side nummer (hent automatisk?)</p>
-            <p>Rapport nummer: <input type="number" name="reportNRNum" value= 0 + <%= request.getAttribute("reportNRNum")%> ></p>
+            <p>Rapport nummer: <input type="number" name="reportNRNum" value ="<%= (request.getParameter("reportNRNum") == null ? "" : request.getParameter("reportNRNum"))%>" ></p>
             <% int pages = 0;
                     pages += Integer.parseInt((String)request.getAttribute("numberOfPages"));
             for( int i = 1; i <pages+1; i++)
