@@ -40,6 +40,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
                     forward(request, response, "/BuildingJSP.jsp");
+
                 } else
                 {
                     Building building = new Building(request.getParameter("buildAddress"),
@@ -49,8 +50,10 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("buildYear"),
                             request.getParameter("buildSize"),
                             request.getParameter("buildUsage"));
+                    request.setAttribute("saveInfo", building);
                     facade.buildingDM.addBuildingToDB(building);
-
+                    request.setAttribute("clearAll", true);
+                    
                     forward(request, response, "/BuildingJSP.jsp");
                 }
                 break;
