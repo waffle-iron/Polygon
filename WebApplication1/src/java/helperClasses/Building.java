@@ -26,7 +26,7 @@ public class Building
     public String toString()
     {
         return this.address + " " + this.zip + " " + this.firmID + " " 
-                + this.name + " " + this.buildYear + " " + this.size + " " + this.usage;
+                + this.name + " " + this.buildYear + " " + this.size + " " + this.usage  + "<br>";
     }
     
     
