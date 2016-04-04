@@ -8,14 +8,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bygning</title>
         <link rel="stylesheet" type="text/css" href="General.css">
-        
+   
     </head>
     <body>
         
             <h1>Hello Mennesker! Opret en ny bygning her</h1>
 
             <form action="" method="GET">
-                <div class="build">
+
                 <table>
 
                     <tr>
@@ -48,7 +48,7 @@
                     </tr>
 
                 </table>
-</div>
+
                 <input type="hidden" name="do_this" value="createBuild"/>
                 <input type="submit" value="opret" name="createBuild" />
 
@@ -62,7 +62,6 @@
             <% if (request.getAttribute("printBuild") != null)
                 {%>
             <%=request.getAttribute("printBuild")%>    
-            <%}%>
-        
+            <%}%>        
     </body>
 </html>

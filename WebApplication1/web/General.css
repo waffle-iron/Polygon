@@ -7,7 +7,8 @@ and open the template in the editor.
     Created on : 04-04-2016, 11:26:08
     Author     : Bruger
 */
-.build{
+
+td{
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
