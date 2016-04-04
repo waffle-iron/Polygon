@@ -16,7 +16,7 @@
         
         <form id="myForm" action="ControllerServlet" method="GET">
             <h2> Rapport forside </h2>
-            <p>Rapport nummer: <input type="number" name="reportNRtext"></p>
+            <p>Rapport nummer: <input type="number" name="reportNRtext" value = 0 + <%= request.getAttribute("reportNRtext") %> ></p>
             <p>Navn på bygning: <input type="text" name="buildingNameText"></p>
             <p>Dato: <input type="date" name="dateDate"></p>
             <p>Adresse: <input type="text" name="adressText"></p>
@@ -81,7 +81,7 @@
             <p> Rapport side nummer (hent automatisk?)</p>
             <p>Rapport nummer: <input type="number" name="reportNRNum" value= 0 + <%= request.getAttribute("reportNRNum")%> ></p>
             <% int pages = 0;
-                    pages += Integer.parseInt( (String)request.getAttribute("numberOfPages"));
+                    pages += Integer.parseInt((String)request.getAttribute("numberOfPages"));
             for( int i = 1; i <pages+1; i++)
             {
             %>
@@ -270,7 +270,7 @@
             </table>
 
             
-            <input type="button" value="createReport" name="button" />
+            <input type="submit" value="createReport" name="button" />
         
         
         </form>

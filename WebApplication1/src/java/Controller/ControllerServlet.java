@@ -1,9 +1,13 @@
 package Controller;
 
 import helperClasses.Building;
+import helperClasses.Comment;
+import helperClasses.Date;
 import helperClasses.Firm;
 import helperClasses.Report;
+import helperClasses.ReportPage;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,33 +16,49 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ControllerServlet extends HttpServlet {
+public class ControllerServlet extends HttpServlet
+{
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         Facade facade = new Facade();
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
         String do_this = "";
         do_this += request.getParameter("do_this");
-        if (do_this.equals("")) {
+        if (do_this.equals(""))
+        {
             forward(request, response, "/index.html");
         }
 
-        switch (do_this) {
+        switch (do_this)
+        {
 
-            case "createBuilding":
-                Building building = new Building(request.getParameter("buildAddress"),
-                        request.getParameter("buildZip"),
-                        request.getParameter("buildFirmID"),
-                        request.getParameter("buildName"),
-                        request.getParameter("buildYear"),
-                        request.getParameter("buildSize"),
-                        request.getParameter("buildUsage"));
-                facade.buildingDM.addBuildingToDB(building);
+            case "createBuild":
+                if (request.getParameter("buildAddress").trim().compareTo("") == 0
+                        || request.getParameter("buildZip").trim().compareTo("") == 0
+                        || request.getParameter("buildFirmID").trim().compareTo("") == 0
+                        || request.getParameter("buildName").trim().compareTo("") == 0
+                        || request.getParameter("buildYear").trim().compareTo("") == 0
+                        || request.getParameter("buildSize").trim().compareTo("") == 0
+                        || request.getParameter("buildUsage").trim().compareTo("") == 0)
+                {
+                    forward(request, response, "/BuildingJSP.jsp");
+                } else
+                {
+                    Building building = new Building(request.getParameter("buildAddress"),
+                            request.getParameter("buildZip"),
+                            request.getParameter("buildFirmID"),
+                            request.getParameter("buildName"),
+                            request.getParameter("buildYear"),
+                            request.getParameter("buildSize"),
+                            request.getParameter("buildUsage"));
+                    facade.buildingDM.addBuildingToDB(building);
 
-                forward(request, response, "/index.html");
-
+                    forward(request, response, "/BuildingJSP.jsp");
+                }
+                break;
             case "showBuild":
 
                 request.setAttribute("printBuild", facade.buildingDM.printBuildings());
@@ -49,7 +69,8 @@ public class ControllerServlet extends HttpServlet {
                         request.getParameter("contactMail"));
                 facade.firmDM.addFirmToDB(firm);
 
-                forward(request, response, "/index.jsp");
+                forward(request, response, "/index.html");
+
                 break;
 
             case "useButton":
@@ -63,6 +84,7 @@ public class ControllerServlet extends HttpServlet {
 
                         Report report = null;
                         int[] info = new int[3];
+                        //skal nok fås fra database
                         info[0] = (int)request.getAttribute("reportNRtext");
                         info[1] = logic.BuildingNameToBuildingID((String)request.getAttribute("buildingNameText"));
                         if((boolean)request.getAttribute("state0Check")){
@@ -74,10 +96,34 @@ public class ControllerServlet extends HttpServlet {
                         }else if((boolean)request.getAttribute("state3Check")){
                             info[2] = 3;
                         }
-                            
                         
-                        request.getAttribute("dateDate");
-                        report = new Report(info[0], info[1], reportDate, 0, reportPages, outerWalls, roof);
+                        ArrayList<ReportPage> reportpage = new ArrayList<>();
+                        for (int i = 0; i < (int)request.getAttribute("numberOfPages"); i++) {
+                            java.sql.Date date;
+                            date = (java.sql.Date)request.getAttribute("damageDate");
+                            boolean previouslydamaged = false;
+                            if((boolean)request.getAttribute("damageCheckYes")!=false)
+                                previouslydamaged = true;
+                            String[] str = new String[4];
+                            str[0] = (String)request.getAttribute("damagePlaceText");
+                            str[1] = (String)request.getAttribute("damageCauseText");
+                            str[2] = (String)request.getAttribute("reperationText");
+                            str[3] = (String)request.getAttribute("otherDamageText");
+                            Boolean[] bools= new Boolean[5];
+                            bools[0] = (Boolean)request.getAttribute("moistCheck");
+                            bools[1] = (Boolean)request.getAttribute("rotCheck");
+                            bools[2] = (Boolean)request.getAttribute("moldCheck");
+                            bools[3] = (Boolean)request.getAttribute("fireCheck");
+                            Comment[] comments = new Comment[0];
+                            //find ud af hvor reportpage nummber skal komme fra nok fra database
+                            reportpage.add(new ReportPage(info[0], i, previouslydamaged, new Date(date), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
+                        }
+                        java.sql.Date date;
+                        date = (java.sql.Date)request.getAttribute("dateDate");
+                        Comment outerWalls = new Comment((String)request.getAttribute("wallCommentText"),"Wall" );
+                        Comment roof = new Comment((String)request.getAttribute("ceilingCommentText"),"Ceiling" );
+
+                        report = new Report(info[0], info[1], new Date(date), info[2], (ReportPage[])reportpage.toArray(), outerWalls, roof);
                         facade.reportDM.addReportToDB(report);
                         break;
                     case "updatePageNr":
@@ -91,7 +137,7 @@ public class ControllerServlet extends HttpServlet {
                 }
                 break;
             case "Building":
-                forward(request, response, "/BuildJSP.jsp");
+                forward(request, response, "/BuildingJSP.jsp");
                 break;
             case "Firm":
                 forward(request, response, "/FirmJSP.jsp");
@@ -100,18 +146,26 @@ public class ControllerServlet extends HttpServlet {
                 request.setAttribute("numberOfPages", "" + 1);
                 forward(request, response, "/reportJSP.jsp");
                 break;
-            default: {
+            default:
                 System.out.println("Not valid command" + do_this);
-            }
+                break;
             case "Login":
-                if (facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"), do_this, do_this)) {
 
-                }
+                forward(request, response, "/LoginJSP.jsp");
+
+                break;
+
+            case "CheckLogin":
+//                if(facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"), request.getParameter(firmID), do_this))
+//                {
+//                    forward(request, response, "/PostLoginJSP.jsp");
+//                }
         }
 
     }
 
-    private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException {
+    private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
+    {
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(path);
         rd.forward(req, res);
@@ -128,7 +182,8 @@ public class ControllerServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -142,7 +197,8 @@ public class ControllerServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -152,7 +208,8 @@ public class ControllerServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String getServletInfo()
+    {
         return "Short description";
     }// </editor-fold>
 

@@ -1,6 +1,4 @@
-DROP DATABASE IF EXISTS polygonDatabase;
-CREATE DATABASE polygonDatabase;
-USE polygonDatabase;
+use grp01;
 
 DROP TABLE IF EXISTS pictures;
 DROP TABLE IF EXISTS conlusion;

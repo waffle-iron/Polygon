@@ -35,6 +35,7 @@ public class BuildingDataMapper
     public String printBuildings()
     {
         ArrayList<Building> listOfBuildings = new ArrayList();
+        String resultString = "";
 
         try
         {
@@ -55,18 +56,22 @@ public class BuildingDataMapper
                 String Usage = res.getString("Usage");
 
                 listOfBuildings.add(new Building(Address, Zip, FirmID, Name, BuildingYear, Size, Usage));
-                
             }
 
-            con.close();
-            
+            for (Building listOfBuilding : listOfBuildings)
+            {
+                resultString += listOfBuilding.toString();
+            }
+
         } catch (Exception ex)
         {
             System.out.println(ex.toString());
         }
-        return listOfBuildings.get(0).toString();
+        return resultString;
     }
-    public Building[] getBuildingsFromDatabase(){
+
+    public Building[] getBuildingsFromDatabase()
+    {
         ArrayList<Building> listOfBuildings = new ArrayList();
         try
         {
@@ -79,16 +84,18 @@ public class BuildingDataMapper
             while (res.next())
             {
 
-                listOfBuildings.add(new Building(res.getString("Address"), res.getString("Zip"), res.getString("FirmID"), res.getString("Name"), res.getString("BuildingYear"), res.getString("Size"), res.getString("Usage")));
-                
+                listOfBuildings.add(new Building(res.getString("Address"),
+                        res.getString("Zip"), res.getString("FirmID"),
+                        res.getString("Name"), res.getString("BuildingYear"),
+                        res.getString("Size"), res.getString("Usage")));
             }
 
             con.close();
-            
+
         } catch (Exception ex)
         {
             System.out.println(ex.toString());
         }
-        return (Building[])listOfBuildings.toArray();
+        return (Building[]) listOfBuildings.toArray();
     }
 }
