@@ -52,6 +52,10 @@ public class ControllerServlet extends HttpServlet {
                 break;
             case "createReport":
                 break;
+            case "Reset" :
+                Domain.ResetDatabase.Reset();
+               
+                break;
             
             case "useButton":
                 String button = "";
