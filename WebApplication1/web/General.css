@@ -7,6 +7,14 @@ and open the template in the editor.
     Created on : 04-04-2016, 11:26:08
     Author     : Bruger
 */
+body 
+{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    width: 850px;
+    margin: 20px auto;
+}
+
 
 td{
     padding: 8px;
