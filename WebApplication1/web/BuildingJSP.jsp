@@ -18,7 +18,7 @@
     <body>
 
         <h1>Hello Mennesker! Opret en ny bygning her</h1>
-        <form action="ControllerServlet" method="GET">
+        <form action="" method="GET">
             <table>
 
                 <tr>
@@ -56,6 +56,8 @@
 
             <input type="hidden" name="do_this" value="createBuild"/>
             <input type="submit" value="opret" name="createBuild" />
+            
+            
 
         </form>
         <form action="ControllerServlet" method="GET">
