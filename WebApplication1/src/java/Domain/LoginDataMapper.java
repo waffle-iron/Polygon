@@ -54,11 +54,11 @@ public class LoginDataMapper
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            statement.executeUpdate("INSERT ´username´, ´password´, ´firmId´, ´authorization´ INTO login " + "VALUES ('"
+            statement.executeUpdate("INSERT INTO login (`username`, `password`, `firmId`, `authorization`)" + "VALUES ('"
                     + login.getUsername() + "','"
                     + login.getPassword() + "',"
-                    + login.getFirmID() + ","
-                    + login.getAuthorization() + ")");
+                    + login.getFirmID() + ",'"
+                    + login.getAuthorization() + "');");
 
         } catch (Exception ex)
         {
