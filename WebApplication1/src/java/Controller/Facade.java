@@ -42,7 +42,27 @@ public class Facade
         firmDM.addFirmToDB(firm);
     }
 
-    public void addImageToDB(InputStream Report)
+    public void addReportToDB(Report Report)
+    {
+        reportDM.addReportToDB(Report);
+    }
+    
+    public Report getReportFromDB(int ReportID)
+    {
+        return reportDM.getReportFromDB(ReportID);
+    }
+    
+    public ArrayList<Report> getReportsFromDB()
+    {
+        return reportDM.getReportsFromDB();
+    }
+    
+    public int getNumbeOfReportFromDB()
+    {
+        return reportDM.getNumbeOfReportFromDB();
+    }
+    
+        public void addImageToDB(InputStream Report)
     {
         imageDataMapper.addImageToDB(Report);
     }
@@ -54,30 +74,12 @@ public class Facade
 
     public boolean userExists(String name, String pass, String firm, String author)
     {
+        System.out.println("test4");
         return loginDM.userExists(name, pass, firm, author);
     }
     
     public void addLoginToDB(Login login)
     {
         loginDM.addLoginToDB(login);
-    }
-
-    public void addReportToDB(Report Report)
-    {
-        reportDM.addReportToDB(Report);
-    }
-
-    public Report getReportFromDB(int ReportID)
-    {
-        return reportDM.getReportFromDB(ReportID);
-    }
-
-    public ArrayList<Report> getReportsFromDB()
-    {
-        return reportDM.getReportsFromDB();
-    }
-    public int getNumbeOfReportFromDB()
-    {
-        return reportDM.getNumbeOfReportFromDB();
     }
 }
