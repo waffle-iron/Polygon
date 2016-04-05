@@ -42,7 +42,27 @@ public class Facade
         firmDM.addFirmToDB(firm);
     }
 
-    public void addImageToDB(InputStream Report)
+    public void addReportToDB(Report Report)
+    {
+        reportDM.addReportToDB(Report);
+    }
+    
+    public Report getReportFromDB(int ReportID)
+    {
+        return reportDM.getReportFromDB(ReportID);
+    }
+    
+    public ArrayList<Report> getReportsFromDB()
+    {
+        return reportDM.getReportsFromDB();
+    }
+    
+    public int getNumbeOfReportFromDB()
+    {
+        return reportDM.getNumbeOfReportFromDB();
+    }
+    
+        public void addImageToDB(InputStream Report)
     {
         imageDataMapper.addImageToDB(Report);
     }
@@ -61,24 +81,5 @@ public class Facade
     public void addLoginToDB(Login login)
     {
         loginDM.addLoginToDB(login);
-    }
-
-    public void addReportToDB(Report Report)
-    {
-        reportDM.addReportToDB(Report);
-    }
-
-    public Report getReportFromDB(int ReportID)
-    {
-        return reportDM.getReportFromDB(ReportID);
-    }
-
-    public ArrayList<Report> getReportsFromDB()
-    {
-        return reportDM.getReportsFromDB();
-    }
-    public int getNumbeOfReportFromDB()
-    {
-        return reportDM.getNumbeOfReportFromDB();
     }
 }
