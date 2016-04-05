@@ -9,7 +9,7 @@ package Controller;
  *
  * @author Emil
  */
-public class logic {
+public class Logic {
     public static int BuildingNameToBuildingID(String str){
         
         return 0;
