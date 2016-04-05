@@ -28,7 +28,6 @@ public class LoginDataMapper
                 String firmID = res.getString("firmID");
                 String authorization = res.getString("authorization");
                 listOfUsers.add(new Login(username, password, firmID, authorization));
-
             }
 
         } catch (Exception ex)
