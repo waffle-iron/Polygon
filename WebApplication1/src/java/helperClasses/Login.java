@@ -5,6 +5,8 @@
  */
 package helperClasses;
 
+import Enumerators.Authorization;
+
 /**
  *
  * @author Bruger
@@ -15,7 +17,7 @@ public class Login
     String username;
     String password;
     int firmID;
-   // Authorization authorization;
+    // Authorization authorization;
     String authorization;
 
     public Login(String username, String password, String firmID, String authorization)
@@ -54,28 +56,48 @@ public class Login
 
     public String getFirmID()
     {
-        return "" +firmID;
+        return "" + firmID;
     }
 
 //    public Authorization getAuthorization()
 //    {
 //        return authorization;
 //    }
-
 //    public void setAuthorization(Authorization authorization)
 //    {
 //        this.authorization = authorization;
 //    }
-        public String getAuthorization()
+    public String getAuthorization()
     {
         return authorization;
     }
-        
-       public void setAuthorization(String authorization)
+
+    public Authorization getAuthorizationAsEnum()
+    {
+        switch (authorization)
+        {
+            case "tech":
+                return Authorization.tech;
+                
+
+            case "admin":
+                return Authorization.admin;
+                
+
+            case "user":
+                return Authorization.user;
+                
+            default:
+                return Authorization.user;
+        }
+       
+    }
+
+    public void setAuthorization(String authorization)
     {
         this.authorization = authorization;
     }
-                
+
     public void setUsername(String username)
     {
         this.username = username;
