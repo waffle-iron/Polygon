@@ -1,6 +1,6 @@
 <%-- 
-    Document   : LoginJSP
-    Created on : 01-04-2016, 11:08:05
+    Document   : OpretJSP
+    Created on : 05-04-2016, 11:26:39
     Author     : LouiseB
 --%>
 
@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <h1>Login</h1>
+        <h1>Opret bruger</h1>
         <form action="ControllerServlet" method="POST">
             Brugernavn<br> <input style="text-align: center" type="text" name="username" value="" size="20" />
             <br><br>
@@ -26,11 +26,8 @@
 
             <p> Indtast firma ID:<input type="text" name="firmID" /></p>
 
-            <input type="hidden" name="do_this" value="CheckLogin" />
-            <input type="submit" value="Login" name="CheckLogin" />
-
-            <input type="hidden" name="do_this" value="CreateLogin" />
-            <input type="submit" value="Opret" name="CreateLogin" />
+            <input type="hidden" name="do_this" value="CreateLogin2" />
+            <input type="submit" value="Opret" name="CreateLogin2" />
         </form>
     </body>
 </html>

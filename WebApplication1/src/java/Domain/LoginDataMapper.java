@@ -1,7 +1,10 @@
 package Domain;
 
 import helperClasses.Login;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class LoginDataMapper
@@ -35,12 +38,32 @@ public class LoginDataMapper
 
         for (Login l : listOfUsers)
         {
-            if(l.getUsername().equals(name) && l.getPassword().equals(pass) && 
-                    l.getFirmID().equals(firm) && l.getAuthorization().equals(author))
+            if (l.getUsername().equals(name) && l.getPassword().equals(pass)
+                    && l.getFirmID().equals(firm) && l.getAuthorization().equals(author))
             {
                 doExists = true;
             }
         }
         return doExists;
+    }
+
+    public void addLoginToDB(Login login)
+    {
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+            Statement statement = con.createStatement();
+            statement.executeUpdate("INSERT INTO login " + "VALUES ('"
+                    + login.getUsername() + "','"
+                    + login.getPassword() + "',"
+                    + login.getFirmID() + ","
+                    + login.getAuthorization() + ")");
+
+        } catch (Exception ex)
+        {
+            System.out.println(ex.toString());
+
+        }
     }
 }

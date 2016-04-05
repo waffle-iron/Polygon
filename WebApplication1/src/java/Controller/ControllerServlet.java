@@ -72,24 +72,24 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "CheckLogin":
-                String temp ="";
-                switch(request.getParameter("enum"))
+                String temp = "";
+                switch (request.getParameter("enum"))
                 {
                     case "Bruger":
                         temp = "user";
                         break;
-                    
+
                     case "Tekniker":
                         temp = "tech";
                         break;
-                        
+
                     case "Admin":
                         temp = "admin";
-                        break;                    
+                        break;
                 }
-                
+
                 if (facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"),
-                        request.getParameter("firmID"),temp))
+                        request.getParameter("firmID"), temp))
                 {
                     forward(request, response, "/PostLoginJSP.jsp");
                 } else
@@ -97,6 +97,46 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/Fejl.jsp");
                 }
                 break;
+
+            case "CreateLogin":
+
+                try
+                {
+                    forward(request, response, "/OpretJSP.jsp");
+                } catch (IOException | ServletException ex)
+                {
+                    ex.toString();
+                }
+                break;
+                
+//                String temp2 = "";
+//                switch (request.getParameter("enum"))
+//                {
+//                    case "Bruger":
+//                        temp = "user";
+//                        break;
+//
+//                    case "Tekniker":
+//                        temp = "tech";
+//                        break;
+//
+//                    case "Admin":
+//                        temp = "admin";
+//                        break;
+//                }
+//                try
+//                {
+//                    Login login = new Login(request.getParameter("username"), 
+//                            request.getParameter("password"), 
+//                            request.getParameter("firmID"),
+//                            temp2));
+//                        
+//
+//
+//                } catch (Exception ex)
+//                {
+//                    ex.toString();
+//                }
 
             case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),
