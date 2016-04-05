@@ -35,40 +35,8 @@ public class ControllerServlet extends HttpServlet
 
         switch (do_this)
         {
-            case "CreateLogin":
-                forward(request, response, "/OpretJSP.jsp");
-                break;
-
-            case "CreateLogin2":
-                String tempe = "";
-                switch (request.getParameter("enum"))
-                {
-                    case "Bruger":
-                        tempe = "user";
-                        break;
-
-                    case "Tekniker":
-                        tempe = "tech";
-                        break;
-
-                    case "Admin":
-                        tempe = "admin";
-                        break;
-                }
-                if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
-                        request.getParameter("firmID"), tempe) == true)
-                {
-                    forward(request, response, "/Fejl.jsp");
-
-                } else
-                {
-                    Login login = new Login(request.getParameter("username"), request.getParameter("password"),
-                            request.getParameter("firmID"),
-                            tempe);
-                    facade.addLoginToDB(login);
-                    forward(request, response, "/LoginJSP.jsp");
-
-                }
+            case "Building":
+                forward(request, response, "/BuildingJSP.jsp");
                 break;
 
             case "createBuild":
@@ -107,31 +75,8 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
-            case "CheckLogin":
-                String temp = "";
-                switch (request.getParameter("enum"))
-                {
-                    case "Bruger":
-                        temp = "user";
-                        break;
-
-                    case "Tekniker":
-                        temp = "tech";
-                        break;
-
-                    case "Admin":
-                        temp = "admin";
-                        break;
-                }
-
-                if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
-                        request.getParameter("firmID"), temp))
-                {
-                    forward(request, response, "/PostLoginJSP.jsp");
-                } else
-                {
-                    forward(request, response, "/Fejl.jsp");
-                }
+            case "Firm":
+                forward(request, response, "/FirmJSP.jsp");
                 break;
 
             case "createFirm":
@@ -140,7 +85,15 @@ public class ControllerServlet extends HttpServlet
                 facade.addFirmToDB(firm);
 
                 forward(request, response, "/index.html");
+                break;
 
+            case "Report":
+                request.setAttribute("numberOfPages", "" + 1);
+                forward(request, response, "/reportJSP.jsp");
+                break;
+            default:
+                System.out.println("Not valid command" + do_this);
+                forward(request, response, "/Fejl.jsp");
                 break;
 
             case "useButton":
@@ -150,6 +103,7 @@ public class ControllerServlet extends HttpServlet
                 {
                     forward(request, response, "/index.html");
                 }
+
                 switch (button)
                 {
                     case "createReport":
@@ -208,35 +162,16 @@ public class ControllerServlet extends HttpServlet
                         report = new Report(info[0], info[1], new Date(date[0], date[1], date[2]), info[2], (ReportPage[]) reportpage.toArray(), outerWalls, roof);
                         facade.addReportToDB(report);
                         break;
+
                     case "updatePageNr":
 
                         request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
                         forward(request, response, "/reportJSP.jsp");
                         break;
                     default:
-
                         forward(request, response, "/BuildJSP.jsp");
                         break;
                 }
-                break;
-
-            case "Building":
-                forward(request, response, "/BuildingJSP.jsp");
-                break;
-
-            case "Firm":
-                forward(request, response, "/FirmJSP.jsp");
-                break;
-
-            case "Report":
-                request.setAttribute("numberOfPages", "" + 1);
-                forward(request, response, "/reportJSP.jsp");
-                break;
-            default:
-
-                System.out.println("Not valid command" + do_this);
-                forward(request, response, "/Fejl.jsp");
-
                 break;
 
             case "Login":
@@ -245,8 +180,69 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
-        }
+            case "CheckLogin":
+                String temp = "";
+                switch (request.getParameter("enum"))
+                {
+                    case "Bruger":
+                        temp = "user";
+                        break;
 
+                    case "Tekniker":
+                        temp = "tech";
+                        break;
+
+                    case "Admin":
+                        temp = "admin";
+                        break;
+                }
+
+                if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
+                        request.getParameter("firmID"), temp))
+                {
+                    forward(request, response, "/PostLoginJSP.jsp");
+                } else
+                {
+                    forward(request, response, "/Fejl.jsp");
+                }
+                break;
+
+            case "CreateLogin":
+                forward(request, response, "/OpretJSP.jsp");
+                break;
+
+            case "CreateLogin2":
+                String tempe = "";
+                switch (request.getParameter("enum"))
+                {
+                    case "Bruger":
+                        tempe = "user";
+                        break;
+
+                    case "Tekniker":
+                        tempe = "tech";
+                        break;
+
+                    case "Admin":
+                        tempe = "admin";
+                        break;
+                }
+                if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
+                        request.getParameter("firmID"), tempe) == true)
+                {
+                    forward(request, response, "/Fejl.jsp");
+
+                } else
+                {
+                    Login login = new Login(request.getParameter("username"), request.getParameter("password"),
+                            request.getParameter("firmID"),
+                            tempe);
+                    facade.addLoginToDB(login);
+                    forward(request, response, "/LoginJSP.jsp");
+
+                }
+                break;
+        }
     }
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
