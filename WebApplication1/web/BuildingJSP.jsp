@@ -18,7 +18,7 @@
 
             <table>
                 <tr>
-                    <%// når boolean clearALL bliver brugt, får vi en nullpointer exception, når man submitter uden at have udfyldt alle felter. %> 
+                    
                     <% boolean clear = false; 
                         try
                         {
