@@ -68,7 +68,7 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("buildSize"),
                             request.getParameter("buildUsage"));
                     request.setAttribute("saveInfo", building);
-                    facade.buildingDM.addBuildingToDB(building);
+                    facade.addBuildingToDB(building);
                     request.setAttribute("clearAll", true);
 
                     forward(request, response, "/BuildingJSP.jsp");
@@ -77,7 +77,7 @@ public class ControllerServlet extends HttpServlet
 
             case "showBuild":
 
-                request.setAttribute("printBuild", facade.buildingDM.printBuildings());
+                request.setAttribute("printBuild", facade.printBuildings());
                 forward(request, response, "/BuildingJSP.jsp");
 
                 break;
@@ -143,7 +143,7 @@ public class ControllerServlet extends HttpServlet
             case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),
                         request.getParameter("contactMail"));
-                facade.firmDM.addFirmToDB(firm);
+                facade.addFirmToDB(firm);
 
                 forward(request, response, "/index.html");
 
@@ -212,7 +212,7 @@ public class ControllerServlet extends HttpServlet
                         Comment roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
 
                         report = new Report(info[0], info[1], new Date(date[0], date[1], date[2]), info[2], (ReportPage[]) reportpage.toArray(), outerWalls, roof);
-                        facade.reportDM.addReportToDB(report);
+                        facade.addReportToDB(report);
                         break;
                     case "updatePageNr":
 

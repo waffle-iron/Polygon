@@ -2,27 +2,70 @@ package Controller;
 
 import Domain.*;
 import helperClasses.*;
+import java.awt.Image;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 public class Facade
 {
-    BuildingDataMapper buildingDM = new BuildingDataMapper();
-    FirmDataMapper firmDM = new FirmDataMapper();
-    ReportDataMapper reportDM = new ReportDataMapper();
-    LoginDataMapper loginDM = new LoginDataMapper();
-    
+
+    private BuildingDataMapper buildingDM = new BuildingDataMapper();
+    private FirmDataMapper firmDM = new FirmDataMapper();
+    private ReportDataMapper reportDM = new ReportDataMapper();
+    private LoginDataMapper loginDM = new LoginDataMapper();
+    private ImageDataMapper imageDataMapper = new ImageDataMapper();
+
     public void addBuildingToDB(Building build)
     {
         buildingDM.addBuildingToDB(build);
     }
+
+    public String printBuildings()
+    {
+        return buildingDM.printBuildings();
+    }
+
+    public Building[] getBuildingsFromDatabase()
+    {
+        return buildingDM.getBuildingsFromDatabase();
+    }
+
     public void addFirmToDB(Firm firm)
     {
         firmDM.addFirmToDB(firm);
     }
-     public void addReportToDB(Report Report) {
-     reportDM.addReportToDB(Report);
-     }
-     public Report getReportFromDB(int ReportID) {
+
+    public void addImageToDB(InputStream Report)
+    {
+        imageDataMapper.addImageToDB(Report);
+    }
+
+    public Image getImageFromDB()
+    {
+        return imageDataMapper.getImageFromDB();
+    }
+
+    public boolean userExists(String name, String pass, String firm, String author)
+    {
+        return loginDM.userExists(name, pass, firm, author);
+    }
+
+    public void addReportToDB(Report Report)
+    {
+        reportDM.addReportToDB(Report);
+    }
+
+    public Report getReportFromDB(int ReportID)
+    {
         return reportDM.getReportFromDB(ReportID);
-     }
-     
+    }
+
+    public ArrayList<Report> getReportsFromDB()
+    {
+        return reportDM.getReportsFromDB();
+    }
+    public int getNumbeOfReportFromDB()
+    {
+        return reportDM.getNumbeOfReportFromDB();
+    }
 }
