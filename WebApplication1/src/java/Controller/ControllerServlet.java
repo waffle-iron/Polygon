@@ -4,6 +4,7 @@ import helperClasses.Building;
 import helperClasses.Comment;
 import helperClasses.Date;
 import helperClasses.Firm;
+import helperClasses.Login;
 import helperClasses.Report;
 import helperClasses.ReportPage;
 import java.io.IOException;
@@ -34,16 +35,40 @@ public class ControllerServlet extends HttpServlet
 
         switch (do_this)
         {
-                  case "CreateLogin":
+            case "CreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
+                break;
 
-//                try
-//                {
-//                    forward(request, response, "/OpretJSP.jsp");
-//                } catch (IOException | ServletException ex)
-//                {
-//                    ex.toString();
-//                }
+            case "CreateLogin2":
+                String tempe = "";
+                switch (request.getParameter("enum"))
+                {
+                    case "Bruger":
+                        tempe = "user";
+                        break;
+
+                    case "Tekniker":
+                        tempe = "tech";
+                        break;
+
+                    case "Admin":
+                        tempe = "admin";
+                        break;
+                }
+                if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
+                        request.getParameter("firmID"), tempe) == true)
+                {
+                    forward(request, response, "/Fejl.jsp");
+
+                } else
+                {
+                    Login login = new Login(request.getParameter("username"), request.getParameter("password"),
+                            request.getParameter("firmID"),
+                            tempe);
+                    facade.addLoginToDB(login);
+                    forward(request, response, "/LoginJSP.jsp");
+
+                }
                 break;
 
             case "createBuild":
@@ -108,37 +133,6 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/Fejl.jsp");
                 }
                 break;
-
-      
-                
-//                String temp2 = "";
-//                switch (request.getParameter("enum"))
-//                {
-//                    case "Bruger":
-//                        temp = "user";
-//                        break;
-//
-//                    case "Tekniker":
-//                        temp = "tech";
-//                        break;
-//
-//                    case "Admin":
-//                        temp = "admin";
-//                        break;
-//                }
-//                try
-//                {
-//                    Login login = new Login(request.getParameter("username"), 
-//                            request.getParameter("password"), 
-//                            request.getParameter("firmID"),
-//                            temp2));
-//                        
-//
-//
-//                } catch (Exception ex)
-//                {
-//                    ex.toString();
-//                }
 
             case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),

@@ -1,7 +1,14 @@
 package Controller;
 
-import Domain.*;
-import helperClasses.*;
+import Domain.BuildingDataMapper;
+import Domain.FirmDataMapper;
+import Domain.ImageDataMapper;
+import Domain.LoginDataMapper;
+import Domain.ReportDataMapper;
+import helperClasses.Building;
+import helperClasses.Firm;
+import helperClasses.Login;
+import helperClasses.Report;
 import java.awt.Image;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -48,6 +55,11 @@ public class Facade
     public boolean userExists(String name, String pass, String firm, String author)
     {
         return loginDM.userExists(name, pass, firm, author);
+    }
+    
+    public void addLoginToDB(Login login)
+    {
+        loginDM.addLoginToDB(login);
     }
 
     public void addReportToDB(Report Report)
