@@ -95,7 +95,7 @@ public class ControllerServlet extends HttpServlet
                         int[] info = new int[3];
                         //skal nok fås fra database
                         info[0] = Integer.parseInt(request.getParameter("reportNRtext"));
-                        info[1] = logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
+                        info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
                         if (Boolean.parseBoolean(request.getParameter("state0Check")))
                         {
                             info[2] = 0;
