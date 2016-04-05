@@ -99,7 +99,7 @@ public class ControllerServlet extends HttpServlet
                         break;
                 }
 
-                if (facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"),
+                if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
                         request.getParameter("firmID"), temp))
                 {
                     forward(request, response, "/PostLoginJSP.jsp");
