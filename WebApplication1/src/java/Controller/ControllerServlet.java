@@ -34,6 +34,17 @@ public class ControllerServlet extends HttpServlet
 
         switch (do_this)
         {
+                  case "CreateLogin":
+                forward(request, response, "/OpretJSP.jsp");
+
+//                try
+//                {
+//                    forward(request, response, "/OpretJSP.jsp");
+//                } catch (IOException | ServletException ex)
+//                {
+//                    ex.toString();
+//                }
+                break;
 
             case "createBuild":
                 if (request.getParameter("buildAddress").trim().compareTo("") == 0
@@ -98,16 +109,7 @@ public class ControllerServlet extends HttpServlet
                 }
                 break;
 
-            case "CreateLogin":
-
-                try
-                {
-                    forward(request, response, "/OpretJSP.jsp");
-                } catch (IOException | ServletException ex)
-                {
-                    ex.toString();
-                }
-                break;
+      
                 
 //                String temp2 = "";
 //                switch (request.getParameter("enum"))

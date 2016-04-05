@@ -29,8 +29,11 @@
             <input type="hidden" name="do_this" value="CheckLogin" />
             <input type="submit" value="Login" name="CheckLogin" />
 
+        </form>
+        <form action="ControllerServlet" method="POST">
             <input type="hidden" name="do_this" value="CreateLogin" />
             <input type="submit" value="Opret" name="CreateLogin" />
         </form>
+
     </body>
 </html>
