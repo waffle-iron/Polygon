@@ -89,7 +89,6 @@ public class BuildingDataMapper
                         res.getString("Name"), res.getString("BuildingYear"),
                         res.getString("Size"), res.getString("Usage")));
             }
-
             con.close();
 
         } catch (Exception ex)

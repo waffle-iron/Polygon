@@ -60,7 +60,7 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("buildYear"),
                             request.getParameter("buildSize"),
                             request.getParameter("buildUsage"));
-                    request.setAttribute("saveInfo", building);
+                    request.setAttribute("saveBuildingInfo", building);
                     facade.addBuildingToDB(building);
                     request.setAttribute("clearAll", true);
 
@@ -80,12 +80,22 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "createFirm":
-                Firm firm = new Firm(request.getParameter("contactNumber"),
-                        request.getParameter("contactMail"));
-                facade.addFirmToDB(firm);
+                if (request.getParameter("contactNumber").trim().compareTo("") == 0
+                        || request.getParameter("contactMail").trim().compareTo("") == 0)
+                {
 
-                forward(request, response, "/index.html");
-                break;
+                    forward(request, response, "/FirmJSP.jsp");
+                } else
+                {
+                    Firm firm = new Firm(request.getParameter("contactNumber"),
+                            request.getParameter("contactMail"));
+                    request.setAttribute("saveFirmInfo", firm);
+                    facade.addFirmToDB(firm);
+                    request.setAttribute("clearAll", true);
+                    
+                    forward(request, response, "/index.html");
+                    break;
+                }
 
             case "Report":
                 request.setAttribute("numberOfPages", "" + 1);

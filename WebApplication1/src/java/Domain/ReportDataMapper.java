@@ -12,7 +12,6 @@ import helperClasses.ReportPage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -37,7 +36,8 @@ public class ReportDataMapper
                     + +Report.getState() + "');");
             for (ReportPage reportpage : Report.getReportPages())
             {
-                statement.executeUpdate("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)" + " values("
+                statement.executeUpdate("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,"
+                        + "`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)" + " values("
                         + Report.getReportnr() + "',"
                         + reportpage.isPreviousDamaged() + "',"
                         + reportpage.getDamagedDate() + "',"
@@ -75,7 +75,6 @@ public class ReportDataMapper
                         + Report.getRoof().getText() + "',"
                         + ");");
             }
-            con.close();
         } catch (Exception ex)
         {
             System.out.println(ex.toString());
@@ -86,7 +85,7 @@ public class ReportDataMapper
     {
         Report report = null;
 
-        int[] info = new int[3];
+//        int[] info = new int[3];
         ArrayList<ReportPage> arr = new ArrayList<>();
         Connection con = null;
         try
@@ -94,38 +93,30 @@ public class ReportDataMapper
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, (select BuildingID from report where report.reportNR  = e.reportNR),"
-                    + "(select `Date` from report where report.reportNR  = e.reportNR),(select StateNR from report where report.reportNR  = e.reportNR), PreviousDamaged, Damagedate,DamagedPlace,Cause,Repairs,Moist,Rot,Mold,fire,other,MoistScan from reportpage e;");
+            ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, "
+                    + "(select BuildingID from report where report.reportNR  = e.reportNR),"
+                    + "(select `Date` from report where report.reportNR  = e.reportNR),"
+                    + "(select StateNR from report where report.reportNR  = e.reportNR), "
+                    + "PreviousDamaged, Damagedate,DamagedPlace,Cause,Repairs,Moist,Rot,"
+                    + "Mold,fire,other,MoistScan from reportpage e;");
             res.beforeFirst();
             for (int i = 0; res.next(); i++)
             {
                 if (res.getInt(2) == ReportID)
                 {
-                    info[0] = res.getInt(2);
-                    info[1] = res.getInt(3);
-                    info[2] = res.getInt(5);
-                    arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), null));
+//                    info[0] = res.getInt(2);
+//                    info[1] = res.getInt(3);
+//                    info[2] = res.getInt(5);
+                    arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)),
+                            res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12),
+                            res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), null));
                 }
             }
-            report = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), (ReportPage[]) arr.toArray(), null, null);
-            {
-
-            }
-            con.close();
-
+            report = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5),
+                    (ReportPage[]) arr.toArray(), null, null);
         } catch (Exception ex)
         {
             System.out.println(ex.toString());
-        } finally
-        {
-            try
-            {
-                con.close();
-            } catch (SQLException ex)
-            {
-                System.out.println(ex.toString());
-                System.out.println("the world is ending");
-            }
         }
         return report;
     }
@@ -134,24 +125,34 @@ public class ReportDataMapper
     {
         ArrayList<Report> report = new ArrayList<>();
 
-        int[] info = new int[3];
+//        int[] info = new int[3];
         ArrayList<ReportPage> arr = new ArrayList<>();
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, (select BuildingID from report where report.reportNR  = e.reportNR),"
-                    + "(select `Date` from report where report.reportNR  = e.reportNR),(select StateNR from report where report.reportNR  = e.reportNR), PreviousDamaged, Damagedate,DamagedPlace,Cause,Repairs,Moist,Rot,Mold,fire,other,MoistScan from reportpage e;");
+            ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, "
+                    + "(select BuildingID from report where report.reportNR  = e.reportNR),"
+                    + "(select `Date` from report where report.reportNR  = e.reportNR),"
+                    + "(select StateNR from report where report.reportNR  = e.reportNR), "
+                    + "PreviousDamaged, Damagedate,DamagedPlace,Cause,Repairs,Moist,"
+                    + "Rot,Mold,fire,other,MoistScan from reportpage e;");
+
             res.beforeFirst();
+
             for (int i = 0; res.next(); i++)
             {
-                info[0] = res.getInt(2);
-                info[1] = res.getInt(3);
-                info[2] = res.getInt(5);
-                arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), null));
-                Report reportholder = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), null, null, null);
-                if (!reportholder.equals(report.get(report.size())))
+//                info[0] = res.getInt(2);
+//                info[1] = res.getInt(3);
+//                info[2] = res.getInt(5);
+                arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)),
+                        res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12),
+                        res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), null));
+                Report reportholder = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)),
+                        res.getInt(5), null, null, null);
+
+                if (i == 0 || !reportholder.equals(report.get(report.size())))
                 {
                     report.add(reportholder);
                 }
@@ -168,9 +169,6 @@ public class ReportDataMapper
                 }
                 singlereport.setReportPages((ReportPage[]) reportpageholder.toArray());
             }
-
-            con.close();
-
         } catch (Exception ex)
         {
             System.out.println(ex.toString());
@@ -189,15 +187,11 @@ public class ReportDataMapper
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             ResultSet res = statement.executeQuery("SELECT count(*) FROM report;");
-            res.beforeFirst();
-            for (int i = 0; res.next(); i++)
-            {
-                info = res.getInt(1);
-            }
-            con.close();
 
+            info = res.getInt(1);
         } catch (Exception ex)
         {
+            ex.toString();
         }
         return info;
     }

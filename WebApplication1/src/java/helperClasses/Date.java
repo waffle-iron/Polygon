@@ -16,7 +16,6 @@ int year;
         this(date.getYear(), date.getMonth(), date.getDay());
     }
     
-
     public int getYear()
     {
         return year;
