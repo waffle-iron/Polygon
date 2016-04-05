@@ -212,6 +212,7 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "CreateLogin2":
+                System.out.println("test1");
                 String tempe = "";
                 switch (request.getParameter("enum"))
                 {
@@ -231,12 +232,14 @@ public class ControllerServlet extends HttpServlet
                         request.getParameter("firmID"), tempe) == true)
                 {
                     forward(request, response, "/Fejl.jsp");
-
+                    System.out.println("test11");
                 } else
                 {
+                    System.out.println("test3");
                     Login login = new Login(request.getParameter("username"), request.getParameter("password"),
                             request.getParameter("firmID"),
                             tempe);
+                    System.out.println("test12");
                     facade.addLoginToDB(login);
                     forward(request, response, "/LoginJSP.jsp");
 

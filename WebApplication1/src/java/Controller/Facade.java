@@ -54,6 +54,7 @@ public class Facade
 
     public boolean userExists(String name, String pass, String firm, String author)
     {
+        System.out.println("test4");
         return loginDM.userExists(name, pass, firm, author);
     }
     
