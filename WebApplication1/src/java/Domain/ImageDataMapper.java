@@ -5,8 +5,6 @@
  */
 package Domain;
 
-import helperClasses.Date;
-import helperClasses.ReportPage;
 import java.awt.Image;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -18,33 +16,43 @@ import java.sql.Statement;
  *
  * @author Emil
  */
-public class ImageDataMapper {
-    public void addImageToDB(InputStream Report) {
+public class ImageDataMapper
+{
 
-        try {
+    public void addImageToDB(InputStream Report)
+    {
+
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            statement.executeUpdate("INSERT INTO picturelink(IMAGE) VALUES("+Report+")");
-                    
-        } catch (Exception ex) {
+            statement.executeUpdate("INSERT INTO picturelink(IMAGE) VALUES(" + Report + ")");
+
+        } catch (Exception ex)
+        {
             System.out.println(ex.toString());
         }
     }
-    public Image getImageFromDB() {
+
+    public Image getImageFromDB()
+    {
 
         Image img = null;
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             ResultSet res = statement.executeQuery("SELECT * FROM picturelink");
             res.beforeFirst();
-            for (int i = 0; res.next(); i++) {
-                img = res.getObject(2,Image.class);
+            for (int i = 0; res.next(); i++)
+            {
+                img = res.getObject(2, Image.class);
             }
-                    
-        } catch (Exception ex) {
+
+        } catch (Exception ex)
+        {
             System.out.println(ex.toString());
         }
         return img;
