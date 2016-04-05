@@ -54,6 +54,7 @@ public class LoginDataMapper
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
+            System.out.println(login.getUsername() + "  " + login.getPassword() + "  " + login.getFirmID() + "  " + login.getAuthorization());
             statement.executeUpdate("INSERT INTO login (`username`, `password`, `firmId`, `authorization`)" + "VALUES ('"
                     + login.getUsername() + "','"
                     + login.getPassword() + "',"
