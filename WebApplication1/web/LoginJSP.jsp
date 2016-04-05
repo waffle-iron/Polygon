@@ -32,7 +32,7 @@
         </form>
         <form action="ControllerServlet" method="POST">
             <input type="hidden" name="do_this" value="CreateLogin" />
-            <input type="submit" value="Opret" name="CreateLogin" />
+            <input type="submit" value="Opret ny bruger" name="CreateLogin" />
         </form>
 
     </body>
