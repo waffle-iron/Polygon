@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Post login</title>
     </head>
     <body>
-        <h1>Hello World! Du er nu logget ind</h1>
+        <h1>Du er nu logget ind</h1>
     </body>
 </html>
