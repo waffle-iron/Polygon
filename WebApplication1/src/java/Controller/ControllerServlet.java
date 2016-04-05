@@ -44,6 +44,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
+                    
                     forward(request, response, "/BuildingJSP.jsp");
 
                 } else
@@ -58,15 +59,18 @@ public class ControllerServlet extends HttpServlet
                     request.setAttribute("saveInfo", building);
                     facade.buildingDM.addBuildingToDB(building);
                     request.setAttribute("clearAll", true);
-                    
+
                     forward(request, response, "/BuildingJSP.jsp");
                 }
                 break;
+
             case "showBuild":
 
                 request.setAttribute("printBuild", facade.buildingDM.printBuildings());
                 forward(request, response, "/BuildingJSP.jsp");
 
+                break;
+                
             case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),
                         request.getParameter("contactMail"));
@@ -79,56 +83,66 @@ public class ControllerServlet extends HttpServlet
             case "useButton":
                 String button = "";
                 button += request.getParameter("button");
-                if (button.equals("null")) {
+                if (button.equals("null"))
+                {
                     forward(request, response, "/index.html");
                 }
-                switch (button) {
+                switch (button)
+                {
                     case "createReport":
 
                         Report report = null;
                         int[] info = new int[3];
                         //skal nok fås fra database
                         info[0] = Integer.parseInt(request.getParameter("reportNRtext"));
-                        info[1] = logic.BuildingNameToBuildingID((String)request.getAttribute("buildingNameText"));
-                        if(Boolean.parseBoolean(request.getParameter("state0Check"))){
-                            info[2] =0;
-                        }else if(Boolean.parseBoolean(request.getParameter("state1Check"))){
-                            info[2]=1;
-                        }else if(Boolean.parseBoolean(request.getParameter("state2Check"))){
+                        info[1] = logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
+                        if (Boolean.parseBoolean(request.getParameter("state0Check")))
+                        {
+                            info[2] = 0;
+                        } else if (Boolean.parseBoolean(request.getParameter("state1Check")))
+                        {
+                            info[2] = 1;
+                        } else if (Boolean.parseBoolean(request.getParameter("state2Check")))
+                        {
                             info[2] = 2;
-                        }else if(Boolean.parseBoolean(request.getParameter("state3Check"))){
+                        } else if (Boolean.parseBoolean(request.getParameter("state3Check")))
+                        {
                             info[2] = 3;
                         }
                         String[] tempdate = new String[3];
                         int[] date = new int[3];
                         tempdate = (request.getParameter("dateDate")).split("-");
-                        for (int i = 0; i < 3; i++) {
+                        for (int i = 0; i < 3; i++)
+                        {
                             date[i] = Integer.parseInt(tempdate[i]);
                         }
                         ArrayList<ReportPage> reportpage = new ArrayList<>();
-                        for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++) {
+                        for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++)
+                        {
                             Integer.parseInt(request.getParameter("damageDate"));
                             boolean previouslydamaged = false;
-                            if(Boolean.parseBoolean(request.getParameter("damageCheckYes"))!=false)
+                            if (Boolean.parseBoolean(request.getParameter("damageCheckYes")) != false)
+                            {
                                 previouslydamaged = true;
+                            }
                             String[] str = new String[4];
                             str[0] = request.getParameter("damagePlaceText");
                             str[1] = request.getParameter("damageCauseText");
                             str[2] = request.getParameter("reperationText");
                             str[3] = request.getParameter("otherDamageText");
-                            Boolean[] bools= new Boolean[5];
+                            Boolean[] bools = new Boolean[5];
                             bools[0] = Boolean.parseBoolean(request.getParameter("moistCheck"));
                             bools[1] = Boolean.parseBoolean(request.getParameter("rotCheck"));
                             bools[2] = Boolean.parseBoolean(request.getParameter("moldCheck"));
                             bools[3] = Boolean.parseBoolean(request.getParameter("fireCheck"));
                             Comment[] comments = new Comment[0];
                             //find ud af hvor reportpage nummber skal komme fra nok fra database
-                            reportpage.add(new ReportPage(info[0], i, previouslydamaged, new Date(date[0],date[1],date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
+                            reportpage.add(new ReportPage(info[0], i, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
-                        Comment outerWalls = new Comment(request.getParameter("wallCommentText"),"Wall" );
-                        Comment roof = new Comment(request.getParameter("ceilingCommentText"),"Ceiling" );
+                        Comment outerWalls = new Comment(request.getParameter("wallCommentText"), "Wall");
+                        Comment roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
 
-                        report = new Report(info[0], info[1], new Date(date[0],date[1],date[2]), info[2], (ReportPage[])reportpage.toArray(), outerWalls, roof);
+                        report = new Report(info[0], info[1], new Date(date[0], date[1], date[2]), info[2], (ReportPage[]) reportpage.toArray(), outerWalls, roof);
                         facade.reportDM.addReportToDB(report);
                         break;
                     case "updatePageNr":
@@ -137,23 +151,31 @@ public class ControllerServlet extends HttpServlet
                         forward(request, response, "/reportJSP.jsp");
                         break;
                     default:
+
                         forward(request, response, "/BuildJSP.jsp");
                         break;
                 }
                 break;
+                
             case "Building":
                 forward(request, response, "/BuildingJSP.jsp");
                 break;
+
             case "Firm":
                 forward(request, response, "/FirmJSP.jsp");
                 break;
+
             case "Report":
                 request.setAttribute("numberOfPages", "" + 1);
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default:
+
                 System.out.println("Not valid command" + do_this);
+                forward(request, response, "/Fejl.jsp");
+
                 break;
+
             case "Login":
 
                 forward(request, response, "/LoginJSP.jsp");
@@ -165,6 +187,8 @@ public class ControllerServlet extends HttpServlet
 //                {
 //                    forward(request, response, "/PostLoginJSP.jsp");
 //                }
+                forward(request, response, "/Fejl.jsp");
+                break;
         }
 
     }
@@ -220,21 +244,25 @@ public class ControllerServlet extends HttpServlet
 
     private void saveReportInformation(HttpServletRequest request, HttpSession session)
     {
-        String[] listOfAttributes = {"reportNRtext","buildingNameText","dateDate","adressText","zipText"};
+        String[] listOfAttributes =
+        {
+            "reportNRtext", "buildingNameText", "dateDate", "adressText", "zipText"
+        };
         for (String attribute : listOfAttributes)
         {
             String saveThis = "";
-            try{
-            saveThis += ( String )request.getParameter(attribute);
-            }
-            catch ( Exception ex)
+            try
+            {
+                saveThis += (String) request.getParameter(attribute);
+            } catch (Exception ex)
             {
                 System.out.println(ex.toString());
             }
-            if (!saveThis.equals("")) {
+            if (!saveThis.equals(""))
+            {
                 session.setAttribute(attribute, saveThis);
-            } 
+            }
         }
-        
+
     }
 }
