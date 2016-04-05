@@ -29,7 +29,7 @@ public class ControllerServlet extends HttpServlet
         do_this += request.getParameter("do_this");
         if (do_this.equals(""))
         {
-            forward(request, response, "/index.html");
+            forward(request, response, "/Fejl.jsp");
         }
 
         switch (do_this)
@@ -44,7 +44,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
-                    
+
                     forward(request, response, "/BuildingJSP.jsp");
 
                 } else
@@ -70,7 +70,74 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/BuildingJSP.jsp");
 
                 break;
+
+            case "CheckLogin":
+                String temp = "";
+                switch (request.getParameter("enum"))
+                {
+                    case "Bruger":
+                        temp = "user";
+                        break;
+
+                    case "Tekniker":
+                        temp = "tech";
+                        break;
+
+                    case "Admin":
+                        temp = "admin";
+                        break;
+                }
+
+                if (facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"),
+                        request.getParameter("firmID"), temp))
+                {
+                    forward(request, response, "/PostLoginJSP.jsp");
+                } else
+                {
+                    forward(request, response, "/Fejl.jsp");
+                }
+                break;
+
+            case "CreateLogin":
+
+                try
+                {
+                    forward(request, response, "/OpretJSP.jsp");
+                } catch (IOException | ServletException ex)
+                {
+                    ex.toString();
+                }
+                break;
                 
+//                String temp2 = "";
+//                switch (request.getParameter("enum"))
+//                {
+//                    case "Bruger":
+//                        temp = "user";
+//                        break;
+//
+//                    case "Tekniker":
+//                        temp = "tech";
+//                        break;
+//
+//                    case "Admin":
+//                        temp = "admin";
+//                        break;
+//                }
+//                try
+//                {
+//                    Login login = new Login(request.getParameter("username"), 
+//                            request.getParameter("password"), 
+//                            request.getParameter("firmID"),
+//                            temp2));
+//                        
+//
+//
+//                } catch (Exception ex)
+//                {
+//                    ex.toString();
+//                }
+
             case "createFirm":
                 Firm firm = new Firm(request.getParameter("contactNumber"),
                         request.getParameter("contactMail"));
@@ -156,7 +223,7 @@ public class ControllerServlet extends HttpServlet
                         break;
                 }
                 break;
-                
+
             case "Building":
                 forward(request, response, "/BuildingJSP.jsp");
                 break;
@@ -182,13 +249,6 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
-            case "CheckLogin":
-//                if(facade.loginDM.userExists(request.getParameter("username"), request.getParameter("password"), request.getParameter(firmID), do_this))
-//                {
-//                    forward(request, response, "/PostLoginJSP.jsp");
-//                }
-                forward(request, response, "/Fejl.jsp");
-                break;
         }
 
     }
