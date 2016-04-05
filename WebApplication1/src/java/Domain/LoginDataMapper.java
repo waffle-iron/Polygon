@@ -15,7 +15,7 @@ public class LoginDataMapper
         try
         {
             Connector con = new Connector();
-            String query = ("SELECT `username`, `password`, `firmID`, `authorization` FROM login");
+            String query = ("SELECT * FROM login");
             ResultSet res = con.getResults(query);
 
             while (res.next())
@@ -35,7 +35,8 @@ public class LoginDataMapper
 
         for (Login l : listOfUsers)
         {
-            if(l.getUsername().equals(name) && l.getPassword().equals(pass) && l.getFirmID().equals(firm) && l.getAuthorization().equals(author))
+            if(l.getUsername().equals(name) && l.getPassword().equals(pass) && 
+                    l.getFirmID().equals(firm) && l.getAuthorization().equals(author))
             {
                 doExists = true;
             }
