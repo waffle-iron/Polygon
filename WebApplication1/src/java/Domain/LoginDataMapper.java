@@ -58,7 +58,7 @@ public class LoginDataMapper
                     + login.getUsername() + "','"
                     + login.getPassword() + "',"
                     + login.getFirmID() + ",'"
-                    + login.getAuthorization() + "');");
+                    + login.getAuthorization()+ "');");
 
         } catch (Exception ex)
         {
