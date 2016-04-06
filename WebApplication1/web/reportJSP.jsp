@@ -11,21 +11,19 @@
 
         <form id="myForm" action="ControllerServlet" method="GET">
             <h2> Rapport forside </h2>
-            <p>Rapport nummer: <input type="number" name="reportNRtext" 
-                                      value ="<%= (request.getParameter("reportNRtext") == null ? "" : request.getParameter("reportNRtext"))%>" ></p>
+            <p>Rapport nummer: <input type="number" name="reportNRtext"></p>
             <p>Navn på bygning: <input type="text" name="buildingNameText"
                                        value ="<%= (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText"))%>"></p>
-            <p>Dato: <input type="date" name="dateDate"
-                            value ="<%= (request.getParameter("dateDate") == null ? "" : request.getParameter("dateDate"))%>"></p>
+            <p>Dato: <input type="date" name="dateDate"></p>
             <p>Adresse: <input type="text" name="adressText"
                                value ="<%= (request.getParameter("adressText") == null ? "" : request.getParameter("adressText"))%>"></p>
             <p>Postnr./by: <input type="text" name="zipText"
                                   value ="<%= (request.getParameter("zipText") == null ? "" : request.getParameter("zipText"))%>"></p>
 
             <p><b>Generel information om bygningen</b></p>
-            <p>Byggeår <input type="number" name="buildYearNum" value ="<%= (request.getParameter("buildYearNum") == null ? "1700" : request.getParameter("buildYearNum"))%>"></p>
+            <p>Byggeår <input type="number" name="buildYearNum"></p>
             <p>Bygningsareal i m<sup>2</sup> <br>
-                (hver etage tælles seperat) <input type="number" name="buildingAreaNum" value ="<%= (request.getParameter("buildingAreaNum") == null ? "0" : request.getParameter("buildingAreaNum"))%>"></p>
+                (hver etage tælles seperat) <input type="number" name="buildingAreaNum"></p>
             <p>Hvad bruges bygningen til/<br>
                 hvad har bygningen været brugt til? <input type="text" name="usageText" size="50" value ="<%= (request.getParameter("usageText") == null ? "" : request.getParameter("usageText"))%>"
                                                            ></p>
@@ -65,27 +63,30 @@
                 <tbody>
                     <tr>
                         <td>Ydervægge</td>
+
                         <td><input type="checkbox" name="outerWallCommentCheck"></td>
-                        <td><input type="checkbox" name="outerWallNoCommentCheck"></td>
-                        <td><input type="checkbox" name="outerWallPictureCheck"></td>
+                        <td><input type="checkbox" name="outerWallNoCommentCheck" ></td>
+                        <td><input type="checkbox" name="outerWallPictureCheck" ></td>
+
                     </tr>
                     <tr>
                         <td colspan="4"><input type="text" name="outerWallText" size="90" value ="<%= (request.getParameter("outerWallText") == null ? "" : request.getParameter("outerWallText"))%>"
                                                ></td>
                     </tr>
+
                 </tbody>
             </table>
 
-<h2> Rapport side <input type="number" name="numberOfReportPages" value ="<%= (request.getParameter("numberOfReportPages") == null ? "1" : request.getParameter("numberOfReportPages"))%>" >
-</h2><input type="submit"  value="updatePageNr" name="button" />
-                <input type="hidden" name ="do_this" value="useButton">
-            
-            <p>Rapport nummer: <input type="number" name="reportNRNum" value ="<%= (request.getParameter("reportNRNum") == null ? "0" : request.getParameter("reportNRNum"))%>" ></p>
-            <% int pages = 0;
-                    pages += Integer.parseInt((String)request.getAttribute("numberOfPages"));
-            for( int i = 1; i <pages+1; i++)
-            {
-            %>
+            <h2> Rapport side <input type="number" name="numberOfReportPages">
+            </h2><input type="submit"  value="updatePageNr" name="button" />
+            <input type="hidden" name ="do_this" value="useButton">
+
+            <p>Rapport nummer: <input type="number" name="reportNRNum"></p>
+                <% int pages = 0;
+                    pages += Integer.parseInt((String) request.getAttribute("numberOfPages"));
+                    for (int i = 1; i < pages + 1; i++)
+                    {
+                %>
             <table border="1">
                 <thead>
                     <tr>
@@ -108,7 +109,7 @@
                         <td><input type="text" name="damageCauseText" value ="<%= (request.getParameter("damageCauseText") == null ? "" : request.getParameter("damageCauseText"))%>"
                                    ></td>
                         <td>Hvad er repereret?</td>
-                        <td><input type="text" name="reperationText"value ="<%= (request.getParameter("reperationText") == null ? "" : request.getParameter("reperationText"))%>"
+                        <td><input type="text" name="reperationText" value ="<%= (request.getParameter("reperationText") == null ? "" : request.getParameter("reperationText"))%>"
                                    ></td>
                     </tr>
                     <tr>
@@ -291,9 +292,12 @@
             </table>
 
 
-            
+
             <input type="submit" value="createReport" name="button" />
-        
-                </form>
+
+
+
+        </form>
+
     </body>
 </html>
