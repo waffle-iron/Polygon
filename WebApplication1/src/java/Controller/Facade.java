@@ -61,6 +61,10 @@ public class Facade
     {
         return reportDM.getNumbeOfReportFromDB();
     }
+     public int getNextReportNr()
+     {
+        return reportDM.getNextReportNr();
+     }
     
         public void addImageToDB(InputStream Report)
     {
