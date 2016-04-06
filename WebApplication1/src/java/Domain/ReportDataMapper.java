@@ -100,7 +100,7 @@ public class ReportDataMapper
             for (int i = 0; res.next(); i++)
             {
                 if (res.getInt(2) == ReportID)
-                {
+                {   
                     info[0] = res.getInt(2);
                     info[1] = res.getInt(3);
                     info[2] = res.getInt(5);
@@ -194,6 +194,27 @@ public class ReportDataMapper
             {
                 info = res.getInt(1);
             }
+            con.close();
+
+        } catch (Exception ex)
+        {
+        }
+        return info;
+    }
+    
+    public int getNextReportNr()
+    {
+        int info = 0;
+        ArrayList<ReportPage> arr = new ArrayList<>();
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+            Statement statement = con.createStatement();
+            ResultSet res = statement.executeQuery("SELECT max(reportNR) FROM report;");
+            
+                info = res.getInt(1);
+            
             con.close();
 
         } catch (Exception ex)
