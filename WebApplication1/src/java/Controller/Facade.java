@@ -32,7 +32,7 @@ public class Facade
         return buildingDM.printBuildings();
     }
 
-    public Building[] getBuildingsFromDatabase()
+    public  Building[] getBuildingsFromDatabase()
     {
         return buildingDM.getBuildingsFromDatabase();
     }

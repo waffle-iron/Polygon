@@ -21,6 +21,15 @@ public class Report
         this.roof = roof;
     }
 
+    public Report(int buildingID, Date reportDate, int state, ReportPage[] reportPages, Comment outerWalls, Comment roof) {
+        this.buildingID = buildingID;
+        this.reportDate = reportDate;
+        this.state = state;
+        this.reportPages = reportPages;
+        this.outerWalls = outerWalls;
+        this.roof = roof;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

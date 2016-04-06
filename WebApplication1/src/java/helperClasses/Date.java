@@ -46,5 +46,8 @@ int year;
     {
         this.day = day;
     }
+    public String toString(){
+        return day+"-"+month+"-"+year;
+    }
 
 }
