@@ -8,14 +8,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bygning</title>
         <link rel="stylesheet" type="text/css" href="General.css">
-       
+        <link rel="stylesheet" type="text/css" href="ErrorCSS.css">
+      
     </head>
     <body>
 
         <h1>Opret en ny bygning her</h1>
 
-        <form action="" method="GET" onsubmit="myFunction()">
-
+        <form action="" method="GET">
             <table>
                 <tr>
                     
@@ -32,8 +32,10 @@
                         }
                     %>
                     <td>Adresse</td>
-                    <td><input type="text" name="buildAddress" value="<%= (request.getParameter("buildAddress") == null 
-                            || clear ? "" : request.getParameter("buildAddress"))%>" /></td>
+                    <td><input type="text" name="buildAddress" id="buildAddress"  pattern="[^0-9][A-Za-z]{2,20}" value="<%= (request.getParameter("buildAddress") == null 
+                            || clear ? "" : request.getParameter("buildAddress"))%>" />
+                    <br><span title="Must be at least two letters, no numbers"></span></td>
+                    
                 </tr>
                 <tr>
                     <td>Postnummer</td>
@@ -85,10 +87,5 @@
         <%=request.getAttribute("printBuild")%>    
         <%}%>   
         
-         <script>
-            function myFunction() {
-                document.getElementById("demo").innerHTML = "Hello JavaScript!";
-            }
-        </script>
     </body>
 </html>
