@@ -92,7 +92,7 @@ public class ControllerServlet extends HttpServlet
                     request.setAttribute("saveFirmInfo", firm);
                     facade.addFirmToDB(firm);
                     request.setAttribute("clearAll", true);
-                    
+
                     forward(request, response, "/index.html");
                     break;
                 }
@@ -121,17 +121,20 @@ public class ControllerServlet extends HttpServlet
                         Report report = null;
                         int[] info = new int[3];
                         info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
-                                                                                                
+
                         if ((request.getParameter("state0Check")) != null && (request.getParameter("state0Check").equals("on")))
                         {
                             info[2] = 0;
-                        } if ((request.getParameter("state1Check")) != null && (request.getParameter("state1Check").equals("on")))
+                        }
+                        if ((request.getParameter("state1Check")) != null && (request.getParameter("state1Check").equals("on")))
                         {
                             info[2] = 1;
-                        } if ((request.getParameter("state2Check")) !=null && (request.getParameter("state2Check").equals("on")))
+                        }
+                        if ((request.getParameter("state2Check")) != null && (request.getParameter("state2Check").equals("on")))
                         {
                             info[2] = 2;
-                        } if ((request.getParameter("state3Check")) != null && (request.getParameter("state3Check").equals("on")))
+                        }
+                        if ((request.getParameter("state3Check")) != null && (request.getParameter("state3Check").equals("on")))
                         {
                             info[2] = 3;
                         }
@@ -165,13 +168,17 @@ public class ControllerServlet extends HttpServlet
                             reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
                         Comment outerWalls = null;
-                        if((request.getParameter("wallNoCommentCheck").equals("off")))
-                        outerWalls = new Comment(request.getParameter("wallCommentText"), "Wall");
+                        if ((request.getParameter("wallNoCommentCheck").equals("off")))
+                        {
+                            outerWalls = new Comment(request.getParameter("wallCommentText"), "Wall");
+                        }
                         Comment roof = null;
-                        if((request.getParameter("wallNoCommentCheck").equals("off")))
-                        roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
+                        if ((request.getParameter("wallNoCommentCheck").equals("off")))
+                        {
+                            roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
+                        }
 
-                        report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2],  reportpage, outerWalls, roof);
+                        report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                         facade.addReportToDB(report);
                         forward(request, response, "/index.html");
                         break;
@@ -185,6 +192,20 @@ public class ControllerServlet extends HttpServlet
                         forward(request, response, "/BuildJSP.jsp");
                         break;
                 }
+                break;
+
+            case "viewReport":
+                //get desired reportid
+                int reportid = 1;
+                Report report = facade.getReportFromDB(reportid);
+                request.setAttribute("BuildingID", report.getBuildingID());
+                request.setAttribute("OuterWalls", report.getOuterWalls());
+                request.setAttribute("ReportDate", report.getReportDate());
+                request.setAttribute("ReportPages", report.getReportPages());
+                request.setAttribute("ReportNR", report.getReportnr());
+                request.setAttribute("Roof", report.getRoof());
+                request.setAttribute("State", report.getState());
+                forward(request, response, "/ViewReport.jsp");
                 break;
 
             case "Login":
@@ -223,57 +244,37 @@ public class ControllerServlet extends HttpServlet
             case "CreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
-                
-            case "viewReport":
-                //get desired reportid
-                int reportid = 1;
-                Report report = facade.getReportFromDB(reportid);
-                request.setAttribute("BuildingID", report.getBuildingID());
-                request.setAttribute("OuterWalls", report.getOuterWalls());
-                request.setAttribute("ReportDate", report.getReportDate());
-                request.setAttribute("ReportPages", report.getReportPages());
-                request.setAttribute("ReportNR", report.getReportnr());
-                request.setAttribute("Roof", report.getRoof());
-                request.setAttribute("State", report.getState());
-                forward(request, response, "/ViewReport.jsp");
-                break;
 
             case "CreateLogin2":
                 System.out.println("test1");
-                String tempe = "";
+                String temp2 = "";
                 switch (request.getParameter("enum"))
                 {
                     case "Bruger":
-                        tempe = "user";
+                        temp2 = "user";
                         break;
 
                     case "Tekniker":
-                        tempe = "tech";
+                        temp2 = "tech";
                         break;
 
                     case "Admin":
-                        tempe = "admin";
+                        temp2 = "admin";
                         break;
                 }
                 if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
-                        request.getParameter("firmID"), tempe) == true)
+                        request.getParameter("firmID"), temp2) == true)
                 {
                     forward(request, response, "/Fejl.jsp");
-                    System.out.println("test11");
                 } else
                 {
-                    System.out.println("test3");
                     Login login = new Login(request.getParameter("username"), request.getParameter("password"),
                             request.getParameter("firmID"),
-                            tempe);
-                    System.out.println("test12");
+                            temp2);
                     facade.addLoginToDB(login);
                     forward(request, response, "/LoginJSP.jsp");
-
                 }
                 break;
-                
-                
         }
     }
 
@@ -326,5 +327,4 @@ public class ControllerServlet extends HttpServlet
         return "Short description";
     }// </editor-fold>
 
-   
 }
