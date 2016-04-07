@@ -11,7 +11,9 @@
 
         <form id="myForm" action="ControllerServlet" method="GET">
             <h2> Rapport forside </h2>
-            <p>Rapport nummer: <input type="number" name="reportNRtext"></p>
+            <p>Rapport nummer: <input type="number" name="reportNRtext" value="<%=
+                Integer.parseInt((request.getAttribute("reportID") == null ? "" : (Integer)request.getAttribute("reportID") )
+    +"" +(request.getParameter("reportNRtext") == null ? "": request.getParameter("reportNRtext")))%>"></p>
             <p>Navn på bygning: <input type="text" name="buildingNameText"
                                        value ="<%= (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText"))%>"></p>
             <p>Dato: <input type="date" name="dateDate"></p>

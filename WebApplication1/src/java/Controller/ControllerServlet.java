@@ -89,6 +89,8 @@ public class ControllerServlet extends HttpServlet
 
             case "Report":
                 request.setAttribute("numberOfPages", "" + 1);
+                System.out.println(facade.getNextReportNr());
+                request.setAttribute("reportID", new Integer( facade.getNextReportNr() +1 ));
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default:

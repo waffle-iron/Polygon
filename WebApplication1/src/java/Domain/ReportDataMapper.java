@@ -212,13 +212,14 @@ public class ReportDataMapper
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             ResultSet res = statement.executeQuery("SELECT max(reportNR) FROM report;");
-            
-                info = res.getInt(1);
-            
+            res.next();
+            info = res.getInt(1);
+            System.out.println(info);
             con.close();
 
         } catch (Exception ex)
         {
+            ex.printStackTrace();
         }
         return info;
     }
