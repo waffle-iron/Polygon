@@ -294,8 +294,10 @@
                             </tr>
                         </tbody>
                     </table>
+                    <br>
                     <input type="submit" value="createReport" name="button" />
-                    
+                    <br>
+                    <br>
                 </div>
             </form>
         </div>
