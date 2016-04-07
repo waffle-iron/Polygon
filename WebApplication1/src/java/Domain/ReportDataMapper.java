@@ -31,16 +31,17 @@ public class ReportDataMapper
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            statement.executeUpdate("insert into `report` (`BuildingID`,`Date`,`StateNR`)" + " values("
-                    + Report.getBuildingID() + "',"
-                    + Report.getReportDate() + "',"
+            System.out.println(Report.getState());
+            statement.executeUpdate("insert into `report` (`BuildingID`,`Date`,`StateNR`)" + " values('"
+                    + Report.getBuildingID() + "','"
+                    + Report.getReportDate().toSQLString() + "','"
                     + +Report.getState() + "');");
             for (ReportPage reportpage : Report.getReportPages())
             {
                 statement.executeUpdate("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)" + " values("
                         + Report.getReportnr() + "',"
                         + reportpage.isPreviousDamaged() + "',"
-                        + reportpage.getDamagedDate() + "',"
+                        + reportpage.getDamagedDate().toSQLString() + "',"
                         + reportpage.getDamagedPlace() + "',"
                         + reportpage.getCause() + "',"
                         + reportpage.getRepairs() + "',"
