@@ -123,10 +123,10 @@ public class ReportDataMapper
 
     public ArrayList<Report> getReportsFromDB()
     {
-        ArrayList<Report> report = new ArrayList<>();
+        ArrayList<Report> reportArray = new ArrayList<>();
 
 //        int[] info = new int[3];
-        ArrayList<ReportPage> arr = new ArrayList<>();
+        ArrayList<ReportPage> reportPageArray = new ArrayList<>();
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
@@ -146,21 +146,21 @@ public class ReportDataMapper
 //                info[0] = res.getInt(2);
 //                info[1] = res.getInt(3);
 //                info[2] = res.getInt(5);
-                arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)),
+                reportPageArray.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)),
                         res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12),
                         res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), null));
                 Report reportholder = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)),
                         res.getInt(5), null, null, null);
 
-                if (i == 0 || !reportholder.equals(report.get(report.size())))
+                if (i == 0 || !reportholder.equals(reportArray.get(reportArray.size())))
                 {
-                    report.add(reportholder);
+                    reportArray.add(reportholder);
                 }
             }
-            for (Report singlereport : report)
+            for (Report singlereport : reportArray)
             {
                 ArrayList<ReportPage> reportpageholder = new ArrayList<>();
-                for (ReportPage reportPage : arr)
+                for (ReportPage reportPage : reportPageArray)
                 {
                     if (reportPage.getReportNr() == singlereport.getReportnr())
                     {
@@ -173,14 +173,14 @@ public class ReportDataMapper
         {
             System.out.println(ex.toString());
         }
-        return report;
+        return reportArray;
     }
 
     public int getNumbeOfReportFromDB()
     {
 
         int info = 0;
-        ArrayList<ReportPage> arr = new ArrayList<>();
+        ArrayList<ReportPage> reportPageArray = new ArrayList<>();
         try
         {
             Class.forName("com.mysql.jdbc.Driver");

@@ -98,7 +98,7 @@ public class ControllerServlet extends HttpServlet
                 }
 
             case "Report":
-                request.setAttribute("numberOfPages", "" + 1);
+                    request.setAttribute("numberOfPages", "" + 1);
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default:
