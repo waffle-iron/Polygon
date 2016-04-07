@@ -39,7 +39,6 @@
                                <td><input type="text" name="buildZip" value="<%= (request.getParameter("buildZip") == null
                             || clear ? "" : request.getParameter("buildZip"))%>" pattern="[0-9]{4}" />* 
                         <span title="Postnummer skal indeholde 4 cifre."> </span></td>
-
                 </tr>
                 <tr>
                     <td>Firma ID</td>
