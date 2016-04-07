@@ -120,23 +120,27 @@ public class ControllerServlet extends HttpServlet
 
                         Report report = null;
                         int[] info = new int[3];
-                        //skal nok fås fra database
-                        info[0] = Integer.parseInt(request.getParameter("reportNRtext"));
                         info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
-                        if (Boolean.parseBoolean(request.getParameter("state0Check")))
+                        System.out.println(request.getParameter("state0Check"));
+                        System.out.println(request.getParameter("state1Check"));
+                        System.out.println(request.getParameter("state2Check"));
+                        System.out.println(request.getParameter("state3Check"));
+
+                                                                                                
+                        if ((request.getParameter("state0Check")) != null && (request.getParameter("state0Check").equals("on")))
                         {
                             info[2] = 0;
-                        } else if (Boolean.parseBoolean(request.getParameter("state1Check")))
+                        } if ((request.getParameter("state1Check")) != null && (request.getParameter("state1Check").equals("on")))
                         {
                             info[2] = 1;
-                        } else if (Boolean.parseBoolean(request.getParameter("state2Check")))
+                        } if ((request.getParameter("state2Check")) !=null && (request.getParameter("state2Check").equals("on")))
                         {
                             info[2] = 2;
-                        } else if (Boolean.parseBoolean(request.getParameter("state3Check")))
+                        } if ((request.getParameter("state3Check")) != null && (request.getParameter("state3Check").equals("on")))
                         {
                             info[2] = 3;
                         }
-                        String[] tempdate = new String[3];
+                        String[] tempdate;
                         int[] date = new int[3];
                         tempdate = (request.getParameter("dateDate")).split("-");
                         for (int i = 0; i < 3; i++)
@@ -163,14 +167,18 @@ public class ControllerServlet extends HttpServlet
                             bools[2] = Boolean.parseBoolean(request.getParameter("moldCheck"));
                             bools[3] = Boolean.parseBoolean(request.getParameter("fireCheck"));
                             Comment[] comments = new Comment[0];
-                            //find ud af hvor reportpage nummber skal komme fra nok fra database
-                            reportpage.add(new ReportPage(info[0], i, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
+                            reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
-                        Comment outerWalls = new Comment(request.getParameter("wallCommentText"), "Wall");
-                        Comment roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
+                        Comment outerWalls = null;
+                        if((request.getParameter("wallNoCommentCheck").equals("off")))
+                        outerWalls = new Comment(request.getParameter("wallCommentText"), "Wall");
+                        Comment roof = null;
+                        if((request.getParameter("wallNoCommentCheck").equals("off")))
+                        roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
 
-                        report = new Report(info[0], info[1], new Date(date[0], date[1], date[2]), info[2], (ReportPage[]) reportpage.toArray(), outerWalls, roof);
+                        report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2],  reportpage, outerWalls, roof);
                         facade.addReportToDB(report);
+                        forward(request, response, "/index.html");
                         break;
 
                     case "updatePageNr":
@@ -220,8 +228,23 @@ public class ControllerServlet extends HttpServlet
             case "CreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
+                
+            case "viewReport":
+                //get desired reportid
+                int reportid = 1;
+                Report report = facade.getReportFromDB(reportid);
+                request.setAttribute("BuildingID", report.getBuildingID());
+                request.setAttribute("OuterWalls", report.getOuterWalls());
+                request.setAttribute("ReportDate", report.getReportDate());
+                request.setAttribute("ReportPages", report.getReportPages());
+                request.setAttribute("ReportNR", report.getReportnr());
+                request.setAttribute("Roof", report.getRoof());
+                request.setAttribute("State", report.getState());
+                forward(request, response, "/ViewReport.jsp");
+                break;
 
             case "CreateLogin2":
+                System.out.println("test1");
                 String tempe = "";
                 switch (request.getParameter("enum"))
                 {
@@ -241,17 +264,21 @@ public class ControllerServlet extends HttpServlet
                         request.getParameter("firmID"), tempe) == true)
                 {
                     forward(request, response, "/Fejl.jsp");
-
+                    System.out.println("test11");
                 } else
                 {
+                    System.out.println("test3");
                     Login login = new Login(request.getParameter("username"), request.getParameter("password"),
                             request.getParameter("firmID"),
                             tempe);
+                    System.out.println("test12");
                     facade.addLoginToDB(login);
                     forward(request, response, "/LoginJSP.jsp");
 
                 }
                 break;
+                
+                
         }
     }
 
