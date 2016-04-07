@@ -96,39 +96,40 @@
                             pages += Integer.parseInt((String) request.getAttribute("numberOfPages"));
                             for (int i = 1; i < pages + 1; i++)
                             {
+                                
                         %>
                     <table border="1">
                         <thead>
                             <tr>
                                 <td>Har der været<br>
                                     skade i lokalet?</td>
-                                <td colspan="3"><p> Ja <input type="radio" name="damageCheck" /></p>
-                                    <p> Nej <input type="radio" name="damageCheck"/></p></td>
+                                <td colspan="3"><p> Ja <input type="radio" name="<%="damageCheck"+i%>" /></p>
+                                    <p> Nej <input type="radio" name="<%="damageCheck"+i%>"/></p></td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Hvornår?</td>
-                                <td><input type="date" name="damageDate"></td>
+                                <td><input type="date" name="<%="damagedDate"+i%>"></td>
                                 <td>Hvor?</td>
-                                <td><input type="text" name="damagePlaceText" value ="<%= (request.getParameter("damagePlaceText") == null ? "" : request.getParameter("damagePlaceText"))%>"
+                                <td><input type="text" name="<%="damagePlaceText"+i%>" value ="<%= (request.getParameter("damagePlaceText"+i) == null ? "" : request.getParameter("damagePlaceText"+i))%>"
                                            ></td>
                             </tr>
                             <tr>
                                 <td>Hvad er der sket?</td>
-                                <td><input type="text" name="damageCauseText" value ="<%= (request.getParameter("damageCauseText") == null ? "" : request.getParameter("damageCauseText"))%>"
+                                <td><input type="text" name="<%="damageCauseText"+i%>" value ="<%= (request.getParameter("damageCauseText"+i) == null ? "" : request.getParameter("damageCauseText"+i))%>"
                                            ></td>
                                 <td>Hvad er repereret?</td>
-                                <td><input type="text" name="reperationText" value ="<%= (request.getParameter("reperationText") == null ? "" : request.getParameter("reperationText"))%>"
+                                <td><input type="text" name="<%="reperationText"+i%>" value ="<%= (request.getParameter("reperationText"+1) == null ? "" : request.getParameter("reperationText"+1))%>"
                                            ></td>
                             </tr>
                             <tr>
                                 <td>Skade</td>
-                                <td colspan="3"><p><input type="checkbox" name="moistCheck" />Fugt</p>
-                                    <p><input type="checkbox" name="rotCheck" />Råd og Svamp</p>
-                                    <p><input type="checkbox" name="moldCheck" />Skimmel</p>
-                                    <p><input type="checkbox" name="fireCheck" />Brand</p>
-                                    <p><input type="checkbox" name="otherDamageCheck" />Anden skade:</p>  <input type="text" name="otherDamageText" size="64" value ="<%= (request.getParameter("otherDamageText") == null ? "" : request.getParameter("otherDamageText"))%>"
+                                <td colspan="3"><p><input type="checkbox" name="<%="moistCheck"+i%>" />Fugt</p>
+                                    <p><input type="checkbox" name="<%="rotCheck"+i%>" />Råd og Svamp</p>
+                                    <p><input type="checkbox" name="<%="moldCheck"+i%>" />Skimmel</p>
+                                    <p><input type="checkbox" name="<%="fireCheck"+i%>" />Brand</p>
+                                    <p><input type="checkbox" name="<%="otherDamageCheck"+i%>" />Anden skade:</p>  <input type="text" name="<%="otherDamageCheck"+i%>" size="64" value ="<%= (request.getParameter("otherDamageText"+1) == null ? "" : request.getParameter("otherDamageText"+1))%>"
                                                                                                                  > </td>
 
                             </tr>
@@ -147,42 +148,42 @@
                         <tbody>
                             <tr>
                                 <td>Vægge</td>
-                                <td><input type="checkbox" name="wallCommentCheck"/></td>
-                                <td><input type="checkbox" name="wallNoCommentCheck"/></td>
+                                <td><input type="checkbox" name="<%="wallCommentCheck"+i%>"/></td>
+                                <td><input type="checkbox" name="<%="wallNoCommentCheck"+i%>"/></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><input type="text" name="wallCommentText" size="80" value ="<%= (request.getParameter("wallCommentText") == null ? "" : request.getParameter("wallCommentText"))%>"
+                                <td colspan="4"><input type="text" name="<%="wallCommentCheckText"+i%>" size="80" value ="<%= (request.getParameter("wallCommentText"+i) == null ? "" : request.getParameter("wallCommentText"+i))%>"
                                                        > </td>
                             </tr>
                             <tr>
                                 <td>Loft</td>
-                                <td><input type="checkbox" name="ceilingCommentCheck"/></td>
-                                <td><input type="checkbox" name="ceilingNoCommentCheck"/></td>
+                                <td><input type="checkbox" name="<%="ceilingCommentCheck"+i%>"/></td>
+                                <td><input type="checkbox" name="<%="ceilingNoCommentCheck"+i%>"/></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><input type="text" name="ceilingCommentText" size="80" value ="<%= (request.getParameter("ceilingCommentText") == null ? "" : request.getParameter("ceilingCommentText"))%>"
+                                <td colspan="4"><input type="text" name="<%="ceilingCommentText"+i%>" size="80" value ="<%= (request.getParameter("ceilingCommentText"+i) == null ? "" : request.getParameter("ceilingCommentText"+i))%>"
                                                        > </td>
                             </tr>
                             <tr>
                                 <td>Gulv</td>
-                                <td><input type="checkbox" name="floorCommentCheck"/></td>
-                                <td><input type="checkbox" name="floorNoCommentCheck"/></td>
+                                <td><input type="checkbox" name="<%="floorCommentCheck"+i%>"/></td>
+                                <td><input type="checkbox" name="<%="floorNoCommentCheck"+i%>"/></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><input type="text" name="floorCommentText" size="80" value ="<%= (request.getParameter("floorCommentText") == null ? "" : request.getParameter("floorCommentText"))%>"
+                                <td colspan="4"><input type="text" name="<%="floorCommentText"+i%>" size="80" value ="<%= (request.getParameter("floorCommentText"+i) == null ? "" : request.getParameter("floorCommentText"+i))%>"
                                                        > </td>
                             </tr>
                             <tr>
                                 <td>Vinduer/døre</td>
-                                <td><input type="checkbox" name="doorCommentCheck"/></td>
-                                <td><input type="checkbox" name="doorNoCommentCheck"/></td>
+                                <td><input type="checkbox" name="<%="doorCommentCheck"+i%>"/></td>
+                                <td><input type="checkbox" name="<%="doorNoCommentCheck"+i%>"/></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><input type="text" name="doorCommentText" size="80" value ="<%= (request.getParameter("doorCommentText") == null ? "" : request.getParameter("doorCommentText"))%>"
+                                <td colspan="4"><input type="text" name="<%="doorCommentText"+i%>" size="80" value ="<%= (request.getParameter("doorCommentText"+i) == null ? "" : request.getParameter("doorCommentText"+i))%>"
                                                        > </td>
                             </tr>
                         </tbody>
@@ -194,21 +195,21 @@
                         <thead>
                             <tr>
                                 <td>Er der foretaget fugtscanning?</td>
-                                <td><input type="checkbox" name="scanYesCheck"/></td>
-                                <td colspan="2"><input type="checkbox" name="scanNoCheck"/></td>
+                                <td><input type="checkbox" name="<%="scanYesCheck"+i%>"/></td>
+                                <td colspan="2"><input type="checkbox" name="<%="scanNoCheck"+i%>"/></td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Fugtscanning:</td>
-                                <td><input type="text" name="moistText" value ="<%= (request.getParameter("moistText") == null ? "" : request.getParameter("moistText"))%>"
+                                <td><input type="text" name="<%="moistText"+i%>" value ="<%= (request.getParameter("moistText"+i) == null ? "" : request.getParameter("moistText"+i))%>"
                                            /></td>
                                 <td>Målepunkt:</td>
-                                <td><input type="text" name="measureText" value ="<%= (request.getParameter("measureText") == null ? "" : request.getParameter("measureText"))%>"
+                                <td><input type="text" name="<%="measureText"+i%>" value ="<%= (request.getParameter("measureText"+i) == null ? "" : request.getParameter("measureText"+i))%>"
                                            /></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><input type="text" name="moistScanText" size="90" value ="<%= (request.getParameter("moistScanText") == null ? "" : request.getParameter("moistScanText"))%>"
+                                <td colspan="4"><input type="text" name="<%="moistScanText"+i%>" size="90" value ="<%= (request.getParameter("moistScanText"+i) == null ? "" : request.getParameter("moistScanText"+i))%>"
                                                        /></td>
                             </tr>
                         </tbody>

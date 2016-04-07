@@ -8,6 +8,18 @@
     </head>
     <body>
         <h1>Opret her et nyt firma</h1>
+                            <% boolean clear = false;
+                        try
+                        {
+                            if ((Boolean) request.getAttribute("clearAll"))
+                            {
+                                clear = true;
+                            }
+                        } catch (Exception ex)
+                        {
+                            clear = false;
+                        }
+                    %>
         <div class='formular'>
         <form action="ControllerServlet" method="GET">
 
