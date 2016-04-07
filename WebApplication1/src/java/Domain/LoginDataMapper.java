@@ -26,9 +26,7 @@ public class LoginDataMapper
                 String username = res.getString("username");
                 String password = res.getString("password");
                 String firmID = res.getString("firmID");
-                System.out.println("test51");
                 String authorization = res.getString("authorization");
-                System.out.println("test52");
                 listOfUsers.add(new Login(username, password, firmID, authorization));
             }
 
