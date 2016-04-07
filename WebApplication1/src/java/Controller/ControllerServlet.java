@@ -111,20 +111,26 @@ public class ControllerServlet extends HttpServlet
                         Report report = null;
                         int[] info = new int[3];
                         info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
-                        if (Boolean.parseBoolean(request.getParameter("state0Check")))
+                        System.out.println(request.getParameter("state0Check"));
+                        System.out.println(request.getParameter("state1Check"));
+                        System.out.println(request.getParameter("state2Check"));
+                        System.out.println(request.getParameter("state3Check"));
+
+                                                                                                
+                        if ((request.getParameter("state0Check")) != null && (request.getParameter("state0Check").equals("on")))
                         {
                             info[2] = 0;
-                        } else if (Boolean.parseBoolean(request.getParameter("state1Check")))
+                        } if ((request.getParameter("state1Check")) != null && (request.getParameter("state1Check").equals("on")))
                         {
                             info[2] = 1;
-                        } else if (Boolean.parseBoolean(request.getParameter("state2Check")))
+                        } if ((request.getParameter("state2Check")) !=null && (request.getParameter("state2Check").equals("on")))
                         {
                             info[2] = 2;
-                        } else if (Boolean.parseBoolean(request.getParameter("state3Check")))
+                        } if ((request.getParameter("state3Check")) != null && (request.getParameter("state3Check").equals("on")))
                         {
                             info[2] = 3;
                         }
-                        String[] tempdate = new String[3];
+                        String[] tempdate;
                         int[] date = new int[3];
                         tempdate = (request.getParameter("dateDate")).split("-");
                         for (int i = 0; i < 3; i++)
@@ -153,11 +159,16 @@ public class ControllerServlet extends HttpServlet
                             Comment[] comments = new Comment[0];
                             reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
-                        Comment outerWalls = new Comment(request.getParameter("wallCommentText"), "Wall");
-                        Comment roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
+                        Comment outerWalls = null;
+                        if((request.getParameter("wallNoCommentCheck").equals("off")))
+                        outerWalls = new Comment(request.getParameter("wallCommentText"), "Wall");
+                        Comment roof = null;
+                        if((request.getParameter("wallNoCommentCheck").equals("off")))
+                        roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
 
-                        report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], (ReportPage[]) reportpage.toArray(), outerWalls, roof);
+                        report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2],  reportpage, outerWalls, roof);
                         facade.addReportToDB(report);
+                        forward(request, response, "/index.html");
                         break;
 
                     case "updatePageNr":

@@ -3,7 +3,7 @@ package helperClasses;
 public class Date
 {
     
-int year;
+    int year;
     int month;
     int day;
     public Date(int year, int month, int day)
@@ -46,8 +46,12 @@ int year;
     {
         this.day = day;
     }
+@Override
     public String toString(){
         return day+"-"+month+"-"+year;
+    }
+    public String toSQLString(){
+        return year+"-"+month+"-"+day;
     }
 
 }
