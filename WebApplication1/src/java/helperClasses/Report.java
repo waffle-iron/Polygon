@@ -12,7 +12,8 @@ public class Report
     Comment outerWalls;
     Comment roof;
 
-    public Report(int reportnr, int buildingID, Date reportDate, int state, ReportPage[] reportPages, Comment outerWalls, Comment roof)
+    public Report(int reportnr, int buildingID, Date reportDate, int state, ReportPage[] reportPages, 
+            Comment outerWalls, Comment roof)
     {
         this.reportnr = reportnr;
         this.buildingID = buildingID;
