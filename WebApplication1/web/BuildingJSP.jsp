@@ -14,7 +14,7 @@
 
         <h1>Opret en ny bygning her</h1>
 
-        <form action="" method="GET">
+        <form action="ControllerServlet" method="GET">
             <table>
                 <tr>
 
