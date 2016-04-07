@@ -121,11 +121,6 @@ public class ControllerServlet extends HttpServlet
                         Report report = null;
                         int[] info = new int[3];
                         info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
-                        System.out.println(request.getParameter("state0Check"));
-                        System.out.println(request.getParameter("state1Check"));
-                        System.out.println(request.getParameter("state2Check"));
-                        System.out.println(request.getParameter("state3Check"));
-
                                                                                                 
                         if ((request.getParameter("state0Check")) != null && (request.getParameter("state0Check").equals("on")))
                         {
@@ -331,27 +326,5 @@ public class ControllerServlet extends HttpServlet
         return "Short description";
     }// </editor-fold>
 
-    private void saveReportInformation(HttpServletRequest request, HttpSession session)
-    {
-        String[] listOfAttributes =
-        {
-            "reportNRtext", "buildingNameText", "dateDate", "adressText", "zipText"
-        };
-        for (String attribute : listOfAttributes)
-        {
-            String saveThis = "";
-            try
-            {
-                saveThis += (String) request.getParameter(attribute);
-            } catch (Exception ex)
-            {
-                System.out.println(ex.toString());
-            }
-            if (!saveThis.equals(""))
-            {
-                session.setAttribute(attribute, saveThis);
-            }
-        }
-
-    }
+   
 }
