@@ -60,7 +60,7 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("buildYear"),
                             request.getParameter("buildSize"),
                             request.getParameter("buildUsage"));
-                    request.setAttribute("saveInfo", building);
+                    request.setAttribute("saveBuildingInfo", building);
                     facade.addBuildingToDB(building);
                     request.setAttribute("clearAll", true);
 
@@ -80,15 +80,25 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "createFirm":
-                Firm firm = new Firm(request.getParameter("contactNumber"),
-                        request.getParameter("contactMail"));
-                facade.addFirmToDB(firm);
+                if (request.getParameter("contactNumber").trim().compareTo("") == 0
+                        || request.getParameter("contactMail").trim().compareTo("") == 0)
+                {
 
-                forward(request, response, "/index.html");
-                break;
+                    forward(request, response, "/FirmJSP.jsp");
+                } else
+                {
+                    Firm firm = new Firm(request.getParameter("contactNumber"),
+                            request.getParameter("contactMail"));
+                    request.setAttribute("saveFirmInfo", firm);
+                    facade.addFirmToDB(firm);
+                    request.setAttribute("clearAll", true);
+                    
+                    forward(request, response, "/index.html");
+                    break;
+                }
 
             case "Report":
-                request.setAttribute("numberOfPages", "" + 1);
+                    request.setAttribute("numberOfPages", "" + 1);
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default:
@@ -111,11 +121,6 @@ public class ControllerServlet extends HttpServlet
                         Report report = null;
                         int[] info = new int[3];
                         info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
-                        System.out.println(request.getParameter("state0Check"));
-                        System.out.println(request.getParameter("state1Check"));
-                        System.out.println(request.getParameter("state2Check"));
-                        System.out.println(request.getParameter("state3Check"));
-
                                                                                                 
                         if ((request.getParameter("state0Check")) != null && (request.getParameter("state0Check").equals("on")))
                         {
@@ -140,22 +145,22 @@ public class ControllerServlet extends HttpServlet
                         ArrayList<ReportPage> reportpage = new ArrayList<>();
                         for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++)
                         {
-                            Integer.parseInt(request.getParameter("damageDate"));
+                            Integer.parseInt(request.getParameter("damageDate"+i));
                             boolean previouslydamaged = false;
-                            if (Boolean.parseBoolean(request.getParameter("damageCheckYes")) != false)
+                            if ((request.getParameter("damageCheckYes"+i)).equals("on"))
                             {
                                 previouslydamaged = true;
                             }
                             String[] str = new String[4];
-                            str[0] = request.getParameter("damagePlaceText");
-                            str[1] = request.getParameter("damageCauseText");
-                            str[2] = request.getParameter("reperationText");
-                            str[3] = request.getParameter("otherDamageText");
+                            str[0] = request.getParameter("damagePlaceText"+i);
+                            str[1] = request.getParameter("damageCauseText"+i);
+                            str[2] = request.getParameter("reperationText"+i);
+                            str[3] = request.getParameter("otherDamageText"+i);
                             Boolean[] bools = new Boolean[5];
-                            bools[0] = Boolean.parseBoolean(request.getParameter("moistCheck"));
-                            bools[1] = Boolean.parseBoolean(request.getParameter("rotCheck"));
-                            bools[2] = Boolean.parseBoolean(request.getParameter("moldCheck"));
-                            bools[3] = Boolean.parseBoolean(request.getParameter("fireCheck"));
+                            bools[0] = Boolean.parseBoolean(request.getParameter("moistCheck"+i));
+                            bools[1] = Boolean.parseBoolean(request.getParameter("rotCheck"+i));
+                            bools[2] = Boolean.parseBoolean(request.getParameter("moldCheck"+i));
+                            bools[3] = Boolean.parseBoolean(request.getParameter("fireCheck"+i));
                             Comment[] comments = new Comment[0];
                             reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
@@ -321,27 +326,5 @@ public class ControllerServlet extends HttpServlet
         return "Short description";
     }// </editor-fold>
 
-    private void saveReportInformation(HttpServletRequest request, HttpSession session)
-    {
-        String[] listOfAttributes =
-        {
-            "reportNRtext", "buildingNameText", "dateDate", "adressText", "zipText"
-        };
-        for (String attribute : listOfAttributes)
-        {
-            String saveThis = "";
-            try
-            {
-                saveThis += (String) request.getParameter(attribute);
-            } catch (Exception ex)
-            {
-                System.out.println(ex.toString());
-            }
-            if (!saveThis.equals(""))
-            {
-                session.setAttribute(attribute, saveThis);
-            }
-        }
-
-    }
+   
 }
