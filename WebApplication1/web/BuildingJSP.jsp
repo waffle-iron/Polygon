@@ -9,7 +9,6 @@
         <title>Bygning</title>
         <link rel="stylesheet" type="text/css" href="General.css">
         <link rel="stylesheet" type="text/css" href="ErrorCSS.css">
-      
     </head>
     <body>
 
@@ -18,54 +17,56 @@
         <form action="" method="GET">
             <table>
                 <tr>
-                    
-                    <% boolean clear = false; 
+
+                    <% boolean clear = false;
                         try
                         {
-                            if((Boolean)request.getAttribute("clearAll"))
+                            if ((Boolean) request.getAttribute("clearAll"))
                             {
-                                clear = true; 
+                                clear = true;
                             }
-                        } catch(Exception ex)
+                        } catch (Exception ex)
                         {
                             clear = false;
                         }
                     %>
                     <td>Adresse</td>
-                    <td><input type="text" name="buildAddress" id="buildAddress"  pattern="[^0-9][A-Za-z]{2,20}" value="<%= (request.getParameter("buildAddress") == null 
-                            || clear ? "" : request.getParameter("buildAddress"))%>" />
-                    <br><span title="Must be at least two letters, no numbers"></span></td>
-                    
+                               <td><input type="text" name="buildAddress" id="buildAddress" value="<%= (request.getParameter("buildAddress") == null
+                            || clear ? "" : request.getParameter("buildAddress"))%>"/>*
                 </tr>
                 <tr>
                     <td>Postnummer</td>
-                    <td><input type="text" name="buildZip" value="<%= (request.getParameter("buildZip") == null 
-                            || clear ? "" : request.getParameter("buildZip"))%>" /></td>
+                               <td><input type="text" name="buildZip" value="<%= (request.getParameter("buildZip") == null
+                            || clear ? "" : request.getParameter("buildZip"))%>" pattern="[0-9]{4}" />* 
+                        <span title="Postnummer skal indeholde 4 cifre."> </span></td>
                 </tr>
                 <tr>
                     <td>Firma ID</td>
-                    <td><input type="text" name="buildFirmID" value="<%= (request.getParameter("buildFirmID") == null 
-                            || clear ? "" : request.getParameter("buildFirmID"))%>"></td>
+                               <td><input type="text" name="buildFirmID" value="<%= (request.getParameter("buildFirmID") == null
+                            || clear ? "" : request.getParameter("buildFirmID"))%>" pattern="[0-9].{0,}">*
+                        <span title="Firma ID kan kun bestå af tal"> </span></td>
                 </tr>
                 <tr>
                     <td>Bygningens navn</td>
-                    <td><input type="text" name="buildName" value="<%= (request.getParameter("buildName") == null 
+                               <td><input type="text" name="buildName" value="<%= (request.getParameter("buildName") == null
                             || clear ? "" : request.getParameter("buildName"))%>"></td>
                 </tr>
                 <tr>
                     <td>Bygningsår</td>
-                    <td><input type="text" name="buildYear" value="<%= (request.getParameter("buildYear") == null 
+                               <td><input type="text" name="buildYear" value="<%= (request.getParameter("buildYear") == null
                             || clear ? "" : request.getParameter("buildYear"))%>"></td>
                 </tr>
                 <tr>
                     <td>Størrelse</td>
-                    <td><input type="text" name="buildSize" value="<%= (request.getParameter("buildSize") == null 
-                            || clear ? "" : request.getParameter("buildSize"))%>"></td>
+                               <td><input type="text" name="buildSize" value="<%= (request.getParameter("buildSize") == null
+                                       || clear ? "" : request.getParameter("buildSize"))%>" pattern="[0-9].{0,}">*
+                                   <span title="Størrelsen angives i m2"> </span></td>
                 </tr>
                 <tr>
                     <td>Brug</td>
-                    <td><input type="text" name="buildUsage" value="<%= (request.getParameter("buildUsage") == null 
-                            || clear ? "" : request.getParameter("buildUsage"))%>"></td>
+                               <td><input type="text" name="buildUsage" value="<%= (request.getParameter("buildUsage") == null
+                            || clear ? "" : request.getParameter("buildUsage"))%>" pattern="[A-Za-z].{0,30}">*
+                                   <span title="Dette felt skal udfyldes"> </span></td>
                 </tr>
 
             </table>
@@ -79,13 +80,11 @@
             <input type="hidden" name="do_this" value="showBuild"/>
 
         </form>
-        
-<p id="demo">This is a demonstration.</p>
 
         <% if (request.getAttribute("printBuild") != null)
             {%>
         <%=request.getAttribute("printBuild")%>    
         <%}%>   
-        
+
     </body>
 </html>

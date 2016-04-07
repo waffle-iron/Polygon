@@ -1,5 +1,7 @@
 package helperClasses;
 
+import java.util.ArrayList;
+
 public class Report
 {
     int reportnr;
@@ -17,6 +19,25 @@ public class Report
         this.reportDate = reportDate;
         this.state = state;
         this.reportPages = reportPages;
+        this.outerWalls = outerWalls;
+        this.roof = roof;
+    }
+
+    public Report(int buildingID, Date reportDate, int state, ReportPage[] reportPages, Comment outerWalls, Comment roof) {
+        this.buildingID = buildingID;
+        this.reportDate = reportDate;
+        this.state = state;
+        this.reportPages = reportPages;
+        this.outerWalls = outerWalls;
+        this.roof = roof;
+    }
+    public Report(int buildingID, Date reportDate, int state, ArrayList reportPages, Comment outerWalls, Comment roof) {
+        this.buildingID = buildingID;
+        this.reportDate = reportDate;
+        this.state = state;
+        ReportPage[] stockArr = new ReportPage[reportPages.size()];
+        stockArr = (ReportPage[])reportPages.toArray(stockArr);
+        this.reportPages = stockArr;
         this.outerWalls = outerWalls;
         this.roof = roof;
     }
