@@ -70,7 +70,7 @@ public class BuildingDataMapper
         return resultString;
     }
 
-    public Building[] getBuildingsFromDatabase()
+    public ArrayList<Building> getBuildingsFromDatabase()
     {
         ArrayList<Building> listOfBuildings = new ArrayList();
         try
@@ -96,6 +96,6 @@ public class BuildingDataMapper
         {
             System.out.println(ex.toString());
         }
-        return (Building[]) listOfBuildings.toArray();
+        return listOfBuildings;
     }
 }
