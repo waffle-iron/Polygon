@@ -74,6 +74,9 @@
             <input type="submit" value="opret" name="createBuild" />
         </form>
         <form action="ControllerServlet" method="GET">
+            <%if(request.getAttribute("Done")!=null){%>
+            <%= "byggning added to database"%>
+            <%}%>
             <p>Vis bygninger <input type="submit" value="Vis bygninger" name="showBuild" ></p>
 
             <input type="hidden" name="do_this" value="showBuild"/>
