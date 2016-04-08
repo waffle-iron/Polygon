@@ -218,6 +218,7 @@ public class ReportDataMapper
             ResultSet res = statement.executeQuery("SELECT max(reportNR) FROM report;");
             res.next();
             info = res.getInt(1) +1;
+            statement.executeUpdate("ALTER TABLE report AUTO_INCREMENT = "+info+";");
             System.out.println(info);
             con.close();
 
