@@ -1,4 +1,5 @@
-/WebApplication1/nbproject/private/
-/WebApplication1/dist/
+g/WebApplication1/nbproject/private/*
+/WebApplication1/build/*
+/WebApplication1/dist/*
 /WebApplication1/nbproject/private/private.properties/
-/WebApplication1/build/
+/classdiagramtest/nbproject/private/
