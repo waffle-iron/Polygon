@@ -262,12 +262,13 @@
 
                             </tr>
                         </thead>
+                        
                         <tbody>
                             <tr>
                                 <td><b>Tilstandsgrad 0</b></td>
                                 <td>Bygningsdelen er ny og som bygget</td>
                                 <td>Funktionen er som beskrevet</td>
-                                <td><input type="checkbox" name="state0Check"/></td>
+                                <td><input type="radio" name="state0Check" id="1"/></td>
                             </tr>
                             <tr>
                                 <td><b>Tilstandsgrad 1</b></td>
@@ -275,7 +276,7 @@
                                     begyndende slid og synlige skader<br>
                                     (kun kosmetiske skader)</td>
                                 <td>Funktionen er som beskrevet</td>
-                                <td><input type="checkbox" name="state1Check"/></td>
+                                <td><input type="radio" name="state1Check" id="1"/></td>
                             </tr>
                             <tr>
                                 <td><b>Tilstandsgrad 2</b></td>
@@ -283,7 +284,7 @@
                                     med enkelte defekte komponenter</td>
                                 <td>Funktionen er nedsat-<br>
                                     fare for følgeskader</td>
-                                <td><input type="checkbox" name="state2Check"/></td>
+                                <td><input type="radio" name="state2Check" id="1"/></td>
                             </tr>
                             <tr>
                                 <td><b>Tilstandsgrad 3</b></td>
@@ -291,12 +292,12 @@
                                     udskiftes</td>
                                 <td>Funktionen er ophørt-<br>
                                     fare for følgeskader</td>
-                                <td><input type="checkbox" name="state3Check"/></td>
+                                <td><input type="radio" name="state3Check" id="1"/></td>
                             </tr>
                         </tbody>
                     </table>
                     <br>
-                    <input type="submit" value="createReport" name="button" />
+                    <input type="submit" value="Opret rapport" name="button" />
                     <br>
                     <br>
                 </div>

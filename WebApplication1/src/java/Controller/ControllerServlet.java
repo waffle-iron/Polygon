@@ -75,6 +75,12 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
+            case "goBackBuilding":
+
+                forward(request, response, "/index.html");
+                
+                break;
+
             case "Firm":
                 forward(request, response, "/FirmJSP.jsp");
                 break;
@@ -98,7 +104,7 @@ public class ControllerServlet extends HttpServlet
                 }
 
             case "Report":
-                    request.setAttribute("numberOfPages", "" + 1);
+                request.setAttribute("numberOfPages", "" + 1);
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default:
@@ -148,22 +154,22 @@ public class ControllerServlet extends HttpServlet
                         ArrayList<ReportPage> reportpage = new ArrayList<>();
                         for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++)
                         {
-                            Integer.parseInt(request.getParameter("damageDate"+i));
+                            Integer.parseInt(request.getParameter("damageDate" + i));
                             boolean previouslydamaged = false;
-                            if ((request.getParameter("damageCheckYes"+i)).equals("on"))
+                            if ((request.getParameter("damageCheckYes" + i)).equals("on"))
                             {
                                 previouslydamaged = true;
                             }
                             String[] str = new String[4];
-                            str[0] = request.getParameter("damagePlaceText"+i);
-                            str[1] = request.getParameter("damageCauseText"+i);
-                            str[2] = request.getParameter("reperationText"+i);
-                            str[3] = request.getParameter("otherDamageText"+i);
+                            str[0] = request.getParameter("damagePlaceText" + i);
+                            str[1] = request.getParameter("damageCauseText" + i);
+                            str[2] = request.getParameter("reperationText" + i);
+                            str[3] = request.getParameter("otherDamageText" + i);
                             Boolean[] bools = new Boolean[5];
-                            bools[0] = Boolean.parseBoolean(request.getParameter("moistCheck"+i));
-                            bools[1] = Boolean.parseBoolean(request.getParameter("rotCheck"+i));
-                            bools[2] = Boolean.parseBoolean(request.getParameter("moldCheck"+i));
-                            bools[3] = Boolean.parseBoolean(request.getParameter("fireCheck"+i));
+                            bools[0] = Boolean.parseBoolean(request.getParameter("moistCheck" + i));
+                            bools[1] = Boolean.parseBoolean(request.getParameter("rotCheck" + i));
+                            bools[2] = Boolean.parseBoolean(request.getParameter("moldCheck" + i));
+                            bools[3] = Boolean.parseBoolean(request.getParameter("fireCheck" + i));
                             Comment[] comments = new Comment[0];
                             reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
