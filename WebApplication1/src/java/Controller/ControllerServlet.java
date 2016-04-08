@@ -99,6 +99,8 @@ public class ControllerServlet extends HttpServlet
 
             case "Report":
                     request.setAttribute("numberOfPages", "" + 1);
+                    
+                    request.setAttribute("nextReportNr", facade.getNextReportNr());
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default:
@@ -184,7 +186,7 @@ public class ControllerServlet extends HttpServlet
                         break;
 
                     case "updatePageNr":
-
+                        request.setAttribute("nextReportNr", facade.getNextReportNr());
                         request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
                         forward(request, response, "/reportJSP.jsp");
                         break;

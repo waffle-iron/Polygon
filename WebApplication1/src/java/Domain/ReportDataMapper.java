@@ -15,11 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-/**
- *
- * @author Emil
- */
 public class ReportDataMapper
 {
 
@@ -222,7 +217,7 @@ public class ReportDataMapper
             Statement statement = con.createStatement();
             ResultSet res = statement.executeQuery("SELECT max(reportNR) FROM report;");
             res.next();
-            info = res.getInt(1);
+            info = res.getInt(1) +1;
             System.out.println(info);
             con.close();
 
