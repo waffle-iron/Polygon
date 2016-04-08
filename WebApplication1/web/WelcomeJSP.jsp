@@ -1,6 +1,6 @@
 <%-- 
-    Document   : PostLoginJSP
-    Created on : 01-04-2016, 11:10:46
+    Document   : WelcomeJSP
+    Created on : 08-04-2016, 11:32:14
     Author     : LouiseB
 --%>
 
@@ -9,10 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="General.css">
-        <title>Post login</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <h1>Du er nu logget ind</h1>
+        <h1>Hello World!</h1>
     </body>
 </html>
