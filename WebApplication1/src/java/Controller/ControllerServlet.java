@@ -77,6 +77,12 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
+            case "goBackBuilding":
+
+                forward(request, response, "/index.html");
+
+                break;
+
             case "Firm":
                 forward(request, response, "/FirmJSP.jsp");
                 break;
@@ -100,9 +106,9 @@ public class ControllerServlet extends HttpServlet
                 }
 
             case "Report":
-                    request.setAttribute("numberOfPages", "" + 1);
-                    
-                    request.setAttribute("nextReportNr", facade.getNextReportNr());
+                request.setAttribute("numberOfPages", "" + 1);
+
+                request.setAttribute("nextReportNr", facade.getNextReportNr());
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default:
@@ -121,72 +127,73 @@ public class ControllerServlet extends HttpServlet
                 switch (button)
                 {
                     case "createReport":
-                        try{
-                        Report report = null;
-                        int[] info = new int[3];
-                        info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
+                        try
+                        {
+                            Report report = null;
+                            int[] info = new int[3];
+                            info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
 
-                        if ((request.getParameter("state0Check")) != null && (request.getParameter("state0Check").equals("on")))
-                        {
-                            info[2] = 0;
-                        }
-                        if ((request.getParameter("state1Check")) != null && (request.getParameter("state1Check").equals("on")))
-                        {
-                            info[2] = 1;
-                        }
-                        if ((request.getParameter("state2Check")) != null && (request.getParameter("state2Check").equals("on")))
-                        {
-                            info[2] = 2;
-                        }
-                        if ((request.getParameter("state3Check")) != null && (request.getParameter("state3Check").equals("on")))
-                        {
-                            info[2] = 3;
-                        }
-                        String[] tempdate;
-                        int[] date = new int[3];
-                        tempdate = (request.getParameter("dateDate")).split("-");
-                        for (int i = 0; i < 3; i++)
-                        {
-                            date[i] = Integer.parseInt(tempdate[i]);
-                        }
-                        ArrayList<ReportPage> reportpage = new ArrayList<>();
-                        for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++)
-                        {
-                            Integer.parseInt(request.getParameter("damageDate"+i));
-                            boolean previouslydamaged = false;
-                            if ((request.getParameter("damageCheckYes"+i)).equals("on"))
+                            if ((request.getParameter("state0Check")) != null && (request.getParameter("state0Check").equals("on")))
                             {
-                                previouslydamaged = true;
+                                info[2] = 0;
                             }
-                            String[] str = new String[4];
-                            str[0] = request.getParameter("damagePlaceText"+i);
-                            str[1] = request.getParameter("damageCauseText"+i);
-                            str[2] = request.getParameter("reperationText"+i);
-                            str[3] = request.getParameter("otherDamageText"+i);
-                            Boolean[] bools = new Boolean[5];
-                            bools[0] = (request.getParameter("moistCheck"+i).equals("on"));
-                            bools[1] = (request.getParameter("rotCheck"+i).equals("on"));
-                            bools[2] = (request.getParameter("moldCheck"+i).equals("on"));
-                            bools[3] = (request.getParameter("fireCheck"+i).equals("on"));
-                            Comment[] comments = new Comment[0];
-                            reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
-                        }
-                        Comment outerWalls = null;
-                        if ((request.getParameter("wallNoCommentCheck").equals("off")))
-                        {
-                            outerWalls = new Comment(request.getParameter("wallCommentText"), "Wall");
-                        }
-                        Comment roof = null;
-                        if ((request.getParameter("wallNoCommentCheck").equals("off")))
-                        {
-                            roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
-                        }
+                            if ((request.getParameter("state1Check")) != null && (request.getParameter("state1Check").equals("on")))
+                            {
+                                info[2] = 1;
+                            }
+                            if ((request.getParameter("state2Check")) != null && (request.getParameter("state2Check").equals("on")))
+                            {
+                                info[2] = 2;
+                            }
+                            if ((request.getParameter("state3Check")) != null && (request.getParameter("state3Check").equals("on")))
+                            {
+                                info[2] = 3;
+                            }
+                            String[] tempdate;
+                            int[] date = new int[3];
+                            tempdate = (request.getParameter("dateDate")).split("-");
+                            for (int i = 0; i < 3; i++)
+                            {
+                                date[i] = Integer.parseInt(tempdate[i]);
+                            }
+                            ArrayList<ReportPage> reportpage = new ArrayList<>();
+                            for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++)
+                            {
+                                Integer.parseInt(request.getParameter("damageDate" + i));
+                                boolean previouslydamaged = false;
+                                if ((request.getParameter("damageCheckYes" + i)).equals("on"))
+                                {
+                                    previouslydamaged = true;
+                                }
+                                String[] str = new String[4];
+                                str[0] = request.getParameter("damagePlaceText" + i);
+                                str[1] = request.getParameter("damageCauseText" + i);
+                                str[2] = request.getParameter("reperationText" + i);
+                                str[3] = request.getParameter("otherDamageText" + i);
+                                Boolean[] bools = new Boolean[5];
+                                bools[0] = (request.getParameter("moistCheck" + i).equals("on"));
+                                bools[1] = (request.getParameter("rotCheck" + i).equals("on"));
+                                bools[2] = (request.getParameter("moldCheck" + i).equals("on"));
+                                bools[3] = (request.getParameter("fireCheck" + i).equals("on"));
+                                Comment[] comments = new Comment[0];
+                                reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
+                            }
+                            Comment outerWalls = null;
+                            if ((request.getParameter("wallNoCommentCheck").equals("off")))
+                            {
+                                outerWalls = new Comment(request.getParameter("wallCommentText"), "Wall");
+                            }
+                            Comment roof = null;
+                            if ((request.getParameter("wallNoCommentCheck").equals("off")))
+                            {
+                                roof = new Comment(request.getParameter("ceilingCommentText"), "Ceiling");
+                            }
 
-                        report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
-                        facade.addReportToDB(report);
-                        forward(request, response, "/index.html");
-                        }
-                        catch(Exception ex){
+                            report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
+                            facade.addReportToDB(report);
+                            forward(request, response, "/index.html");
+                        } catch (Exception ex)
+                        {
                             request.setAttribute("fejlmeddelese", ex);
                             forward(request, response, "/fejl.jsp");
                         }
@@ -243,7 +250,26 @@ public class ControllerServlet extends HttpServlet
                 if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
                         request.getParameter("firmID"), temp))
                 {
-                    forward(request, response, "/PostLoginJSP.jsp");
+                    try
+                    {
+                        if (temp.equals("user"))
+                        {
+                            forward(request, response, "/PostLoginUser.jsp");
+                        } else if (temp.equals("tech"))
+                        {
+                            forward(request, response, "/PostLoginTech.jsp");
+                        } else if (temp.equals("admin"))
+                        {
+                            forward(request, response, "/PostLoginAdmin.jsp");
+                        } else
+                        {
+                            forward(request, response, "/Fejl.jsp");
+                        }
+
+                    } catch (Exception ex)
+                    {
+                        ex.toString();
+                    }
                 } else
                 {
                     forward(request, response, "/Fejl.jsp");
@@ -255,7 +281,6 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "CreateLogin2":
-                System.out.println("test1");
                 String temp2 = "";
                 switch (request.getParameter("enum"))
                 {

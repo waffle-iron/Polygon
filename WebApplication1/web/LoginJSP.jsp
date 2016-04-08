@@ -13,7 +13,8 @@
         <title>Login</title>
     </head>
     <body>
-        <h1>Login</h1>
+        <h1>Velkommen til Polygon</h1>
+        <h2>Login</h2>
         <form action="ControllerServlet" method="POST">
             Brugernavn<br> <input style="text-align: center" type="text" name="username" value="" size="20" />
             <br><br>
