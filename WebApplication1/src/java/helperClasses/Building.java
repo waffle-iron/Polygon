@@ -6,6 +6,18 @@ public class Building
     String name;
     String usage;
     int buildingID;
+
+    public Building(String address, String name, String usage, int buildingID, int zip, int firmID, int buildYear, int size)
+    {
+        this.address = address;
+        this.name = name;
+        this.usage = usage;
+        this.buildingID = buildingID;
+        this.zip = zip;
+        this.firmID = firmID;
+        this.buildYear = buildYear;
+        this.size = size;
+    }
     int zip;
     int firmID;
     int buildYear;

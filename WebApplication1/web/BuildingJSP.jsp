@@ -79,7 +79,7 @@
             <input type="hidden" name="do_this" value="showBuild"/>
 
         </form>
-
+                                   <form>
         <% if (request.getAttribute("printBuild") != null)
             {
         ArrayList<Building> build = (ArrayList<Building>)request.getAttribute("printBuild");%>
@@ -132,11 +132,15 @@
                 <td>
                     <%=(build.get(i).getUsage())%>   
                 </td>
+                <td>
+                    <input type="submit"  size="6" value="Delete  <%=build.get(i).getBuildingID() %>" tname="button" />
+                </td>
             </tr>
         
         <%}%>
         </table>
-    <%}%>   
-
+    <%}%>  
+    <input type="hidden" value="useButton">
+</form>
     </body>
 </html>

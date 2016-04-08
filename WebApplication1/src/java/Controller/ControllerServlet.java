@@ -118,6 +118,10 @@ public class ControllerServlet extends HttpServlet
 
                 switch (button)
                 {
+                    case "Delete":
+                        request.
+                        break;
+                        
                     case "createReport":
                         try{
                         Report report = null;
