@@ -11,7 +11,6 @@
         <link rel="stylesheet" type="text/css" href="ErrorCSS.css">
     </head>
     <body>
-
         <h1>Opret en ny bygning her</h1>
 
         <form action="ControllerServlet" method="GET">
@@ -42,6 +41,12 @@
                 </tr>
                 <tr>
                     <td>Firma ID</td>
+                    <%ArrayList<Integer> arr = (ArrayList<Integer>)request.getAttribute("ValidFirmID");%>
+                    <select name="buildFirmID">
+                        <%for(int i = 0; i<arr.size();i++){%>
+                        <option><%arr.get(i);%></option>
+                        <%}%>
+                    </select>
                                <td><input type="text" name="buildFirmID" value="<%= (request.getParameter("buildFirmID") == null
                             || clear ? "" : request.getParameter("buildFirmID"))%>" pattern="[0-9].{0,}">*
                         <span title="Firma ID kan kun bestå af tal"> </span></td>
@@ -75,6 +80,10 @@
             <input type="submit" value="opret" name="createBuild" />
         </form>
         <form action="ControllerServlet" method="GET">
+            <%if(request.getAttribute("Done")!=null){%>
+            <%request.setAttribute("Done",false);%>
+            <%= "byggning added to database"%>
+            <%}%>
             <p>Vis bygninger <input type="submit" value="Vis bygninger" name="showBuild" ></p>
 
             <input type="hidden" name="do_this" value="showBuild"/>
@@ -82,9 +91,62 @@
         </form>
 
         <% if (request.getAttribute("printBuild") != null)
-            {%>
-        <%=request.getAttribute("printBuild")%>    
-        <%}%>   
+            {
+        ArrayList<Building> build = (ArrayList<Building>)request.getAttribute("printBuild");%>
+        <table>
+            <tr>
+                <td>
+                    Address
+                </td>
+                <td>
+                    Postkode
+                </td>
+                <td>
+                    FirmaID
+                </td>
+                <td>
+                    Bygningsnavn
+                </td>
+                <td>
+                    Byggeår
+                </td>
+                <td>
+                    Byggningsstørelse
+                </td>
+                <td>
+                    Bruges til
+                </td>
+            </tr>
+        <%
+        for(int i = 0; i<build.size();i++){%>
+        
+            <tr>
+                <td>
+                    <%=(build.get(i).getAddress())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getZip())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getFirmID())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getName())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getBuildYear())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getSize())%>   m&#178;
+                </td>
+                <td>
+                    <%=(build.get(i).getUsage())%>   
+                </td>
+            </tr>
+        
+        <%}%>
+        </table>
+    <%}%>   
 
     </body>
 </html>
