@@ -48,7 +48,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
-
+                    request.setAttribute("Done", true);
                     forward(request, response, "/BuildingJSP.jsp");
 
                 } else
@@ -70,15 +70,9 @@ public class ControllerServlet extends HttpServlet
 
             case "showBuild":
 
-                request.setAttribute("printBuild", facade.printBuildings());
+                request.setAttribute("printBuild", facade.getBuildingsFromDatabase());
                 forward(request, response, "/BuildingJSP.jsp");
 
-                break;
-
-            case "goBackBuilding":
-
-                forward(request, response, "/index.html");
-                
                 break;
 
             case "Firm":
@@ -104,7 +98,9 @@ public class ControllerServlet extends HttpServlet
                 }
 
             case "Report":
-                request.setAttribute("numberOfPages", "" + 1);
+                    request.setAttribute("numberOfPages", "" + 1);
+                    
+                    request.setAttribute("nextReportNr", facade.getNextReportNr());
                 forward(request, response, "/reportJSP.jsp");
                 break;
             default:
@@ -123,7 +119,7 @@ public class ControllerServlet extends HttpServlet
                 switch (button)
                 {
                     case "createReport":
-
+                        try{
                         Report report = null;
                         int[] info = new int[3];
                         info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
@@ -154,22 +150,22 @@ public class ControllerServlet extends HttpServlet
                         ArrayList<ReportPage> reportpage = new ArrayList<>();
                         for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++)
                         {
-                            Integer.parseInt(request.getParameter("damageDate" + i));
+                            Integer.parseInt(request.getParameter("damageDate"+i));
                             boolean previouslydamaged = false;
-                            if ((request.getParameter("damageCheckYes" + i)).equals("on"))
+                            if ((request.getParameter("damageCheckYes"+i)).equals("on"))
                             {
                                 previouslydamaged = true;
                             }
                             String[] str = new String[4];
-                            str[0] = request.getParameter("damagePlaceText" + i);
-                            str[1] = request.getParameter("damageCauseText" + i);
-                            str[2] = request.getParameter("reperationText" + i);
-                            str[3] = request.getParameter("otherDamageText" + i);
+                            str[0] = request.getParameter("damagePlaceText"+i);
+                            str[1] = request.getParameter("damageCauseText"+i);
+                            str[2] = request.getParameter("reperationText"+i);
+                            str[3] = request.getParameter("otherDamageText"+i);
                             Boolean[] bools = new Boolean[5];
-                            bools[0] = Boolean.parseBoolean(request.getParameter("moistCheck" + i));
-                            bools[1] = Boolean.parseBoolean(request.getParameter("rotCheck" + i));
-                            bools[2] = Boolean.parseBoolean(request.getParameter("moldCheck" + i));
-                            bools[3] = Boolean.parseBoolean(request.getParameter("fireCheck" + i));
+                            bools[0] = (request.getParameter("moistCheck"+i).equals("on"));
+                            bools[1] = (request.getParameter("rotCheck"+i).equals("on"));
+                            bools[2] = (request.getParameter("moldCheck"+i).equals("on"));
+                            bools[3] = (request.getParameter("fireCheck"+i).equals("on"));
                             Comment[] comments = new Comment[0];
                             reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
@@ -187,10 +183,15 @@ public class ControllerServlet extends HttpServlet
                         report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                         facade.addReportToDB(report);
                         forward(request, response, "/index.html");
+                        }
+                        catch(Exception ex){
+                            request.setAttribute("fejlmeddelese", ex);
+                            forward(request, response, "/fejl.jsp");
+                        }
                         break;
 
                     case "updatePageNr":
-
+                        request.setAttribute("nextReportNr", facade.getNextReportNr());
                         request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
                         forward(request, response, "/reportJSP.jsp");
                         break;
