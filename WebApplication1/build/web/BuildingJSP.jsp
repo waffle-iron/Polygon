@@ -31,12 +31,12 @@
                     %>
                     <td>Adresse</td>
                                <td><input type="text" name="buildAddress" id="buildAddress" value="<%= (request.getParameter("buildAddress") == null
-                                       || clear ? "" : request.getParameter("buildAddress"))%>"/>&nbsp;*
+                            || clear ? "" : request.getParameter("buildAddress"))%>"/>*
                 </tr>
                 <tr>
                     <td>Postnummer</td>
                                <td><input type="text" name="buildZip" value="<%= (request.getParameter("buildZip") == null
-                                       || clear ? "" : request.getParameter("buildZip"))%>" pattern="[0-9]{4}" />&nbsp;* 
+                            || clear ? "" : request.getParameter("buildZip"))%>" pattern="[0-9]{4}" />* 
                         <span title="Postnummer skal indeholde 4 cifre."> </span></td>
                 </tr>
                 <tr>
@@ -48,54 +48,48 @@
                         <%}%>
                     </select>
                                <td><input type="text" name="buildFirmID" value="<%= (request.getParameter("buildFirmID") == null
-                                       || clear ? "" : request.getParameter("buildFirmID"))%>" pattern="[0-9].{0,}">&nbsp;*
+                            || clear ? "" : request.getParameter("buildFirmID"))%>" pattern="[0-9].{0,}">*
                         <span title="Firma ID kan kun bestå af tal"> </span></td>
                 </tr>
                 <tr>
                     <td>Bygningens navn</td>
                                <td><input type="text" name="buildName" value="<%= (request.getParameter("buildName") == null
-                                       || clear ? "" : request.getParameter("buildName"))%>" pattern="[A-Za-z].{0,30}"></td>
-                <span title="Dette felt skal udfyldes"> </span>
+                            || clear ? "" : request.getParameter("buildName"))%>"></td>
                 </tr>
                 <tr>
                     <td>Bygningsår</td>
                                <td><input type="text" name="buildYear" value="<%= (request.getParameter("buildYear") == null
-                                       || clear ? "" : request.getParameter("buildYear"))%>" pattern="[0-9]{4}">
-                        <span title="Bygningsår skal bestå af 4 cifre."</td>
+                            || clear ? "" : request.getParameter("buildYear"))%>"></td>
                 </tr>
                 <tr>
                     <td>Størrelse</td>
-                    <td><input type="text" name="buildSize" value="<%= (request.getParameter("buildSize") == null
-                                       || clear ? "" : request.getParameter("buildSize"))%>" pattern="[0-9].{0,}">&nbsp;*
-                        <span title="Størrelsen angives i m2"> </span></td>
+                               <td><input type="text" name="buildSize" value="<%= (request.getParameter("buildSize") == null
+                                       || clear ? "" : request.getParameter("buildSize"))%>" pattern="[0-9].{0,}">*
+                                   <span title="Størrelsen angives i m2"> </span></td>
                 </tr>
                 <tr>
                     <td>Brug</td>
                                <td><input type="text" name="buildUsage" value="<%= (request.getParameter("buildUsage") == null
-                                       || clear ? "" : request.getParameter("buildUsage"))%>" pattern="[A-Za-z].{0,30}">&nbsp;*
-                        <span title="Dette felt skal udfyldes"> </span></td>
+                            || clear ? "" : request.getParameter("buildUsage"))%>" pattern="[A-Za-z].{0,30}">*
+                                   <span title="Dette felt skal udfyldes"> </span></td>
                 </tr>
 
             </table>
-            <br>
-            <p>Alle * skal udfyldes, før en bygning kan oprettes.</p>
 
             <input type="hidden" name="do_this" value="createBuild" />
-            <input type="submit" value="Opret bygning" name="createBuild" />
+            <input type="submit" value="opret" name="createBuild" />
         </form>
-                        
         <form action="ControllerServlet" method="GET">
-            <input type="submit" value="Vis bygninger" name="showBuild" >
+            <%if(request.getAttribute("Done")!=null){%>
+            <%request.setAttribute("Done",false);%>
+            <%= "byggning added to database"%>
+            <%}%>
+            <p>Vis bygninger <input type="submit" value="Vis bygninger" name="showBuild" ></p>
+
             <input type="hidden" name="do_this" value="showBuild"/>
-            <br>
+
         </form>
 
-        <form action="ControllerServlet" method="GET">
-            <input type="hidden" name="do_this" value="goBackBuilding" />
-            <input type="submit" value="Gå tilbage til start siden" name="goBackBuilding" />
-            <br>
-        </form>
-                        
         <% if (request.getAttribute("printBuild") != null)
             {
         ArrayList<Building> build = (ArrayList<Building>)request.getAttribute("printBuild");%>
