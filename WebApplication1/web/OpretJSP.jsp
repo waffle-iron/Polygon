@@ -34,8 +34,17 @@
             </select>
             <p> Indtast firma ID:</p>
             <input type="text" name="firmID" />
+            <br>
+            <br>
             <input type="hidden" name="do_this" value="CreateLogin2" />
             <input type="submit" value="Opret" name="CreateLogin2" />
         </form>
+        <br>
+        <br>
+                    <form action="ControllerServlet" method="GET">
+                <input type="hidden" name="do_this" value="goBackToLogin" />
+                <input type="submit" value="Gå tilbage til login" name="goBackToLogin" />
+                <br>
+            </form>
     </body>
 </html>

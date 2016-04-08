@@ -48,7 +48,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
-                    
+
                     forward(request, response, "/BuildingJSP.jsp");
 
                 } else
@@ -311,6 +311,11 @@ public class ControllerServlet extends HttpServlet
                     facade.addLoginToDB(login);
                     forward(request, response, "/LoginJSP.jsp");
                 }
+                break;
+
+            case "goBackToLogin":
+                forward(request, response, "/LoginJSP.jsp");
+
                 break;
         }
     }
