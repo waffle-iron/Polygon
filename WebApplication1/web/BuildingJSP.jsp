@@ -41,6 +41,12 @@
                 </tr>
                 <tr>
                     <td>Firma ID</td>
+                    <%ArrayList<Integer> arr = (ArrayList<Integer>)request.getAttribute("ValidFirmID");%>
+                    <select name="buildFirmID">
+                        <%for(int i = 0; i<arr.size();i++){%>
+                        <option><%arr.get(i);%></option>
+                        <%}%>
+                    </select>
                                <td><input type="text" name="buildFirmID" value="<%= (request.getParameter("buildFirmID") == null
                             || clear ? "" : request.getParameter("buildFirmID"))%>" pattern="[0-9].{0,}">*
                         <span title="Firma ID kan kun bestå af tal"> </span></td>
@@ -75,6 +81,7 @@
         </form>
         <form action="ControllerServlet" method="GET">
             <%if(request.getAttribute("Done")!=null){%>
+            <%request.setAttribute("Done",false);%>
             <%= "byggning added to database"%>
             <%}%>
             <p>Vis bygninger <input type="submit" value="Vis bygninger" name="showBuild" ></p>

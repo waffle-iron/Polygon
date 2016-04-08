@@ -48,7 +48,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
-                    request.setAttribute("Done", true);
+                    
                     forward(request, response, "/BuildingJSP.jsp");
 
                 } else
@@ -60,6 +60,8 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("buildYear"),
                             request.getParameter("buildSize"),
                             request.getParameter("buildUsage"));
+                    request.setAttribute("ValidFirmID", new ArrayList<Integer>());
+                    request.setAttribute("Done", true);
                     request.setAttribute("saveBuildingInfo", building);
                     facade.addBuildingToDB(building);
                     request.setAttribute("clearAll", true);
