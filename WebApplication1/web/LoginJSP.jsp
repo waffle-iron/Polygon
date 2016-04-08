@@ -16,6 +16,8 @@
         <h1>Velkommen til Polygon</h1>
         <h2>Login</h2>
         <form action="ControllerServlet" method="POST">
+            
+            
             Brugernavn<br> <input style="text-align: center" type="text" name="username" value="" size="20" />
             <br><br>
             Kodeord<br> <input style="text-align: center" type="password" name="password" value="" size="20" />
@@ -32,6 +34,11 @@
             <input type="submit" value="Login" name="CheckLogin" />
             <br>
         </form>
+        <% if(request.getAttribute("doExists") != null && request.getAttribute("doExists").equals(false)){%>
+         Dette login eksisterer ikke. Tjek eventuelt også for manglende indtastning af oplysninger.
+        <%
+            request.setAttribute("doExists", true);
+    } %>
         <form action="ControllerServlet" method="POST">
             <input type="hidden" name="do_this" value="CreateLogin" />
             <input type="submit" value="Opret ny bruger" name="CreateLogin" />

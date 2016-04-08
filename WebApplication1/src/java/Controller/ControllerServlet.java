@@ -245,29 +245,32 @@ public class ControllerServlet extends HttpServlet
                         break;
                 }
 
+                if (request.getParameter("username").equals("") || request.getParameter("password").equals("")
+                        || request.getParameter("firmID").equals(""))
+                {
+                    request.setAttribute("doExists", false);
+                    forward(request, response, "/LoginJSP.jsp");
+
+                }
+
                 if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
                         request.getParameter("firmID"), temp))
                 {
-                    try
-                    {
-                        if (temp.equals("user"))
-                        {
-                            forward(request, response, "/PostLoginUser.jsp");
-                        } else if (temp.equals("tech"))
-                        {
-                            forward(request, response, "/PostLoginTech.jsp");
-                        } else if (temp.equals("admin"))
-                        {
-                            forward(request, response, "/PostLoginAdmin.jsp");
-                        } else
-                        {
-                            forward(request, response, "/Fejl.jsp");
-                        }
 
-                    } catch (Exception ex)
+                    if (temp.equals("user"))
                     {
-                        ex.toString();
+                        forward(request, response, "/PostLoginUser.jsp");
+                    } else if (temp.equals("tech"))
+                    {
+                        forward(request, response, "/PostLoginTech.jsp");
+                    } else if (temp.equals("admin"))
+                    {
+                        forward(request, response, "/PostLoginAdmin.jsp");
+                    } else
+                    {
+                        forward(request, response, "/Fejl.jsp");
                     }
+
                 } else
                 {
                     forward(request, response, "/Fejl.jsp");
