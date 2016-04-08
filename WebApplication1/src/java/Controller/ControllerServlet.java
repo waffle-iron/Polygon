@@ -119,7 +119,7 @@ public class ControllerServlet extends HttpServlet
                 switch (button)
                 {
                     case "createReport":
-
+                        try{
                         Report report = null;
                         int[] info = new int[3];
                         info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
@@ -162,10 +162,10 @@ public class ControllerServlet extends HttpServlet
                             str[2] = request.getParameter("reperationText"+i);
                             str[3] = request.getParameter("otherDamageText"+i);
                             Boolean[] bools = new Boolean[5];
-                            bools[0] = Boolean.parseBoolean(request.getParameter("moistCheck"+i));
-                            bools[1] = Boolean.parseBoolean(request.getParameter("rotCheck"+i));
-                            bools[2] = Boolean.parseBoolean(request.getParameter("moldCheck"+i));
-                            bools[3] = Boolean.parseBoolean(request.getParameter("fireCheck"+i));
+                            bools[0] = (request.getParameter("moistCheck"+i).equals("on"));
+                            bools[1] = (request.getParameter("rotCheck"+i).equals("on"));
+                            bools[2] = (request.getParameter("moldCheck"+i).equals("on"));
+                            bools[3] = (request.getParameter("fireCheck"+i).equals("on"));
                             Comment[] comments = new Comment[0];
                             reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                         }
@@ -183,6 +183,11 @@ public class ControllerServlet extends HttpServlet
                         report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                         facade.addReportToDB(report);
                         forward(request, response, "/index.html");
+                        }
+                        catch(Exception ex){
+                            request.setAttribute("fejlmeddelese", ex);
+                            forward(request, response, "/fejl.jsp");
+                        }
                         break;
 
                     case "updatePageNr":
