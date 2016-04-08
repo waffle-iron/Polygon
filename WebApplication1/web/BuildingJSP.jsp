@@ -11,7 +11,6 @@
         <link rel="stylesheet" type="text/css" href="ErrorCSS.css">
     </head>
     <body>
-
         <h1>Opret en ny bygning her</h1>
 
         <form action="ControllerServlet" method="GET">
@@ -82,9 +81,62 @@
         </form>
 
         <% if (request.getAttribute("printBuild") != null)
-            {%>
-        <%=request.getAttribute("printBuild")%>    
-        <%}%>   
+            {
+        ArrayList<Building> build = (ArrayList<Building>)request.getAttribute("printBuild");%>
+        <table>
+            <tr>
+                <td>
+                    Address
+                </td>
+                <td>
+                    Postkode
+                </td>
+                <td>
+                    FirmaID
+                </td>
+                <td>
+                    Bygningsnavn
+                </td>
+                <td>
+                    Byggeår
+                </td>
+                <td>
+                    Byggningsstørelse
+                </td>
+                <td>
+                    Bruges til
+                </td>
+            </tr>
+        <%
+        for(int i = 0; i<build.size();i++){%>
+        
+            <tr>
+                <td>
+                    <%=(build.get(i).getAddress())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getZip())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getFirmID())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getName())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getBuildYear())%>   
+                </td>
+                <td>
+                    <%=(build.get(i).getSize())%>   m&#178;
+                </td>
+                <td>
+                    <%=(build.get(i).getUsage())%>   
+                </td>
+            </tr>
+        
+        <%}%>
+        </table>
+    <%}%>   
 
     </body>
 </html>
