@@ -37,7 +37,7 @@ public class ControllerServlet extends HttpServlet
         switch (do_this)
         {
             case "Building":
-                request.setAttribute("ValidFirmID", getFirmIDsFromUserID("User"));
+                System.out.println("FROM CASE: building: "+request.getAttribute("printBuild"));
                 forward(request, response, "/BuildingJSP.jsp");
                 break;
 
@@ -62,6 +62,7 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("buildYear"),
                             request.getParameter("buildSize"),
                             request.getParameter("buildUsage"));
+                    request.setAttribute("ValidFirmID", getFirmIDsFromUserID("User"));
                     request.setAttribute("Done", true);
                     request.setAttribute("saveBuildingInfo", building);
                     facade.addBuildingToDB(building);
@@ -75,14 +76,6 @@ public class ControllerServlet extends HttpServlet
 
                 request.setAttribute("printBuild", facade.getBuildingsFromDatabase());
                 forward(request, response, "/BuildingJSP.jsp");
-
-                break;
-
-            case "showMyBuildings":
-                Login login = (Login)session.getAttribute("login");
-                request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
-
-                forward(request, response, "/viewMyBuildingsJSP.jsp");
 
                 break;
 
@@ -145,23 +138,22 @@ public class ControllerServlet extends HttpServlet
                             int[] info = new int[3];
                             info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
 
-                            if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("0")))
+                            if ((request.getParameter("state0Check")) != null && (request.getParameter("state0Check").equals("on")))
                             {
                                 info[2] = 0;
                             }
-                            if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("1")))
+                            if ((request.getParameter("state1Check")) != null && (request.getParameter("state1Check").equals("on")))
                             {
                                 info[2] = 1;
                             }
-                            if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("2")))
+                            if ((request.getParameter("state2Check")) != null && (request.getParameter("state2Check").equals("on")))
                             {
                                 info[2] = 2;
                             }
-                            if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("3")))
+                            if ((request.getParameter("state3Check")) != null && (request.getParameter("state3Check").equals("on")))
                             {
                                 info[2] = 3;
                             }
-                            System.out.println(request.getParameter("stateCheck"));
                             String[] tempdate;
                             int[] date = new int[3];
                             tempdate = (request.getParameter("dateDate")).split("-");
@@ -203,7 +195,7 @@ public class ControllerServlet extends HttpServlet
                             }
 
                             report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
-                            //facade.addReportToDB(report);
+                            facade.addReportToDB(report);
                             forward(request, response, "/index.html");
                         } catch (Exception ex)
                         {
@@ -273,26 +265,26 @@ public class ControllerServlet extends HttpServlet
                 {
 
                     session.setAttribute("loginAs", temp);
-                    session.setAttribute("login", facade.getLoginByUsername(request.getParameter("username")));
-                    //session.setAttribute("userClass", );
+
                     switch (temp)
                     {
                         case "user":
                             forward(request, response, "/PostLoginUser.jsp");
-
+                            break;
                         case "tech":
                             forward(request, response, "/PostLoginTech.jsp");
-
+break;
                         case "admin":
                             forward(request, response, "/PostLoginAdmin.jsp");
-
+                            break;
                         default:
                             forward(request, response, "/Fejl.jsp");
+                            break;
                     }
                     break;
                 }
-
-            case "CreateLogin":
+                
+        case "CreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
 
@@ -318,10 +310,10 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/Fejl.jsp");
                 } else
                 {
-                    Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
+                    Login login = new Login(request.getParameter("username"), request.getParameter("password"),
                             request.getParameter("firmID"),
                             temp2);
-                    facade.addLoginToDB(newLogin);
+                    facade.addLoginToDB(login);
                     forward(request, response, "/LoginJSP.jsp");
                 }
                 break;
@@ -332,6 +324,8 @@ public class ControllerServlet extends HttpServlet
                 break;
         }
     }
+
+    
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
     {
