@@ -4,6 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="General.css">
+        <link rel="stylesheet" type="text/css" href="ErrorCSS.css">
         <title>Firm</title>
     </head>
     <body>
@@ -23,7 +24,8 @@
         <div class='formular'>
         <form action="ControllerServlet" method="GET">
 
-            <p>Kontakt nummer <input type="text" name="contactNumber"></p>
+            <p>Kontakt nummer <input type="text" name="contactNumber" pattern="[0-9].{8}"></p>
+            <span title='Kontakt nummer skal indeholde 8 cifre.'></span>
 
             <p>Kontakt mail: <input type="text" name="contactMail"></p>
 

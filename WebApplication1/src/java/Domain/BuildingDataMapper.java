@@ -89,12 +89,40 @@ public class BuildingDataMapper
                         res.getString("Name"), res.getString("BuildingYear"),
                         res.getString("Size"), res.getString("Usage")));
             }
-            con.close();
 
         } catch (Exception ex)
         {
             System.out.println(ex.toString());
         }
         return listOfBuildings;
+    }
+
+    public ArrayList<Building> viewMyBuildings(int firmID)
+    {
+        ArrayList<Building> buildings = new ArrayList();
+
+        try
+        {
+            Connector con = new Connector();
+            String query = ("SELECT * FROM building where firmID = " + firmID);
+            ResultSet res = con.getResults(query);
+
+            while (res.next())
+            {
+                int buildingID = res.getInt(1);
+                String address = res.getString(2);
+                int zip = res.getInt(3);
+                String name = res.getString(5);
+                int buildYear = res.getInt(6);
+                int size = res.getInt(7);
+                String usage = res.getString(8);
+                buildings.add(new Building(address, name, usage, buildingID, zip, firmID, buildYear, size));
+            }
+
+        } catch (Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+        return buildings;
     }
 }
