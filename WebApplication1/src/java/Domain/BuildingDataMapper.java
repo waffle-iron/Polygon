@@ -104,7 +104,7 @@ public class BuildingDataMapper
         try
         {
             Connector con = new Connector();
-            String query = ("SELECT * FROM building where firmID = " + firmID);
+            String query = ("SELECT * FROM building WHERE firmID = " + firmID);
             ResultSet res = con.getResults(query);
 
             while (res.next())
