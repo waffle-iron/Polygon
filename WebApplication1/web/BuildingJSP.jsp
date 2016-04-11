@@ -123,7 +123,7 @@
                     Bruges til
                 </td>
             </tr>
-        <%
+        <% 
         for(int i = 0; i<build.size();i++){%>
         
             <tr>

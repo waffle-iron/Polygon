@@ -78,12 +78,19 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
-            case "showMyBuildings":
-                Login login = (Login)session.getAttribute("login");
-                request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
-
+            case "showMyBuildingsPage":
                 forward(request, response, "/viewMyBuildingsJSP.jsp");
 
+                break;
+
+            case "showMyBuildings":
+
+                if (session.getAttribute("login") != null && session.getAttribute("listOfBuildings") != null)
+                {
+                    Login login = (Login) session.getAttribute("login");
+
+                    request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+                }
                 break;
 
             case "goBackBuilding":
@@ -274,7 +281,6 @@ public class ControllerServlet extends HttpServlet
 
                     session.setAttribute("loginAs", temp);
                     session.setAttribute("login", facade.getLoginByUsername(request.getParameter("username")));
-                    //session.setAttribute("userClass", );
                     switch (temp)
                     {
                         case "user":
