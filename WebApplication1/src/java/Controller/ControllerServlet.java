@@ -37,7 +37,9 @@ public class ControllerServlet extends HttpServlet
         switch (do_this)
         {
             case "Building":
-                System.out.println("FROM CASE: building: "+request.getAttribute("printBuild"));
+                //System.out.println("FROM CASE: building: "+request.getAttribute("printBuild"));
+                
+                request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login)session.getAttribute("login")));
                 forward(request, response, "/BuildingJSP.jsp");
                 break;
 
@@ -62,7 +64,6 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("buildYear"),
                             request.getParameter("buildSize"),
                             request.getParameter("buildUsage"));
-                    request.setAttribute("ValidFirmID", getFirmIDsFromUserID("User"));
                     request.setAttribute("Done", true);
                     request.setAttribute("saveBuildingInfo", building);
                     facade.addBuildingToDB(building);

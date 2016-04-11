@@ -41,14 +41,22 @@
                 </tr>
                 <tr>
                     <td>Firma ID</td>
-                    <% if (request.getAttribute("ValidFirmID") !=null){
+                    <%System.out.println(((ArrayList<Integer>)request.getAttribute("ValidFirmID")).size());%>
+                    <% if (request.getAttribute("ValidFirmID") !=null && ((String)session.getAttribute("loginAs")).equals("admin")){
+                        System.out.println((String)session.getAttribute("loginAs"));
                         ArrayList<Integer> arr = (ArrayList<Integer>)request.getAttribute("ValidFirmID");%>
                     <select name="buildFirmID">
                         <%for(int i = 0; i<arr.size();i++){%>
                         <option><%arr.get(i);%></option>
-                        <%}
-}%>
-                    </select>
+                        <%}%>
+                        </select>
+                        <%}%>
+                        
+                    
+                        <% if(request.getAttribute("ValidFirmID") !=null && ((String)session.getAttribute("loginAs")).equals("user")){%>
+                        <%System.out.print((String)session.getAttribute("loginAs"));%>
+                        <%=((ArrayList<Integer>)request.getAttribute("ValidFirmID")).get(0)%>
+                        <%}%>
                                <td><input type="text" name="buildFirmID" value="<%= (request.getParameter("buildFirmID") == null
                                        || clear ? "" : request.getParameter("buildFirmID"))%>" pattern="[0-9].{0,}">&nbsp;*
                         <span title="Firma ID kan kun bestå af tal"> </span></td>
