@@ -72,7 +72,7 @@ public class LoginDataMapper
         try
         {
             Connector con = new Connector();
-            String query = ("SELECT * FROM login where username = " + username);
+            String query = ("SELECT * FROM login where username = '" + username + "'");
             ResultSet res = con.getResults(query);
 
             while (res.next())

@@ -36,8 +36,8 @@
 
     <form action="ControllerServlet"  method="GET">
 
-        <input type="submit" value="Vis mine bygninger" name="showMyBuildings"/></>
-        <input type="hidden" name="do_this" value="showMyBuildings">
+        <input type="submit" value="Vis mine bygninger" name="showMyBuildingsPage"/></>
+        <input type="hidden" name="do_this" value="showMyBuildingsPage">
 
     </form>
     <form action="ControllerServlet" method="GET">
