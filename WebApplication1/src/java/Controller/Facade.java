@@ -91,4 +91,7 @@ public class Facade
     {
         return loginDM.getLoginByUsername(username);
     }
+    public static ArrayList<Integer> ValidFirmIDsFromUser(String username){
+        return FirmDataMapper.ValidFirmIDsFromUser(username);
+    }
 }
