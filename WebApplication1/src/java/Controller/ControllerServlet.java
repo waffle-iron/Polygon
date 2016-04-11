@@ -237,20 +237,7 @@ public class ControllerServlet extends HttpServlet
 
             case "CheckLogin":
                 String temp = "";
-                switch (request.getParameter("enum"))
-                {
-                    case "Bruger":
-                        temp = "user";
-                        break;
-
-                    case "Tekniker":
-                        temp = "tech";
-                        break;
-
-                    case "Admin":
-                        temp = "admin";
-                        break;
-                }
+                
 
                 if (request.getParameter("username").equals("") || request.getParameter("password").equals("")
                         || request.getParameter("firmID").equals(""))

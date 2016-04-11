@@ -82,9 +82,9 @@ public class Facade
         return imageDataMapper.getImageFromDB();
     }
 
-    public boolean userExists(String name, String pass, String firm, String author)
+    public boolean userExists(String name, String pass)
     {
-        return loginDM.userExists(name, pass, firm, author);
+        return loginDM.userExists(name, pass);
     }
 
     public void addLoginToDB(Login login)

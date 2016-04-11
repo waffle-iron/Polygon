@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class LoginDataMapper
 {
 
-    public boolean userExists(String name, String pass, String firm, String author)
+    public boolean userExists(String name, String pass)
     {
         boolean doExists = false;
         ArrayList<Login> listOfUsers = new ArrayList();
@@ -37,8 +37,7 @@ public class LoginDataMapper
 
         for (Login l : listOfUsers)
         {
-            if (l.getUsername().equals(name) && l.getPassword().equals(pass)
-                    && l.getFirmID().equals(firm) && l.getAuthorization().equals(author))
+            if (l.getUsername().equals(name) && l.getPassword().equals(pass))
             {
                 doExists = true;
             }
