@@ -10,10 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User</title>
-    </head>
-    <body>
-        <h1>Nu er nu logget ind som bruger</h1>
-        <style>
+          <style>
             ul{
                 list-style-type: none;
                 margin: 0;
@@ -26,10 +23,10 @@
         </style>
     </head>
     <body>
+        <h1>Nu er nu logget ind som bruger</h1>
+                <form action="ControllerServlet" method="GET">
 
-                <form action="ControllerServlet" class="styled-button-8" method="GET">
-
-                    <input type="submit" value="Opret bygning" name="createBuild"/></>
+                    <input type="submit" value="Opret bygning" name="CreateBuilding"/></>
                     <input type="hidden" name="do_this" value="Building">
 
                 </form>
