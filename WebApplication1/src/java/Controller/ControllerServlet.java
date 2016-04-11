@@ -37,9 +37,13 @@ public class ControllerServlet extends HttpServlet
         switch (do_this)
         {
             case "Building":
+<<<<<<< HEAD
                 //System.out.println("FROM CASE: building: "+request.getAttribute("printBuild"));
                 
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login)session.getAttribute("login")));
+=======
+                request.setAttribute("ValidFirmID", getFirmIDsFromUserID("User"));
+>>>>>>> 1fda0a1b3f44da4a8fd840e482bff990cc32e29e
                 forward(request, response, "/BuildingJSP.jsp");
                 break;
 
@@ -77,6 +81,26 @@ public class ControllerServlet extends HttpServlet
 
                 request.setAttribute("printBuild", facade.getBuildingsFromDatabase());
                 forward(request, response, "/BuildingJSP.jsp");
+
+                break;
+
+            case "showMyBuildingsPage":
+                System.out.println("test");
+                if (session.getAttribute("login") != null)
+                {
+                    Login login = (Login) session.getAttribute("login");
+                    
+                    System.out.println(session.getAttribute("login").toString());
+                    System.out.println(login.getFirmID());
+                    
+                    try{
+                        request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+                    } catch(Exception ex)
+                    {
+                        System.out.println("test1");
+                    }
+                }
+                                forward(request, response, "/viewMyBuildingsJSP.jsp");
 
                 break;
 
@@ -139,22 +163,23 @@ public class ControllerServlet extends HttpServlet
                             int[] info = new int[3];
                             info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
 
-                            if ((request.getParameter("state0Check")) != null && (request.getParameter("state0Check").equals("on")))
+                            if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("0")))
                             {
                                 info[2] = 0;
                             }
-                            if ((request.getParameter("state1Check")) != null && (request.getParameter("state1Check").equals("on")))
+                            if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("1")))
                             {
                                 info[2] = 1;
                             }
-                            if ((request.getParameter("state2Check")) != null && (request.getParameter("state2Check").equals("on")))
+                            if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("2")))
                             {
                                 info[2] = 2;
                             }
-                            if ((request.getParameter("state3Check")) != null && (request.getParameter("state3Check").equals("on")))
+                            if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("3")))
                             {
                                 info[2] = 3;
                             }
+                            System.out.println(request.getParameter("stateCheck"));
                             String[] tempdate;
                             int[] date = new int[3];
                             tempdate = (request.getParameter("dateDate")).split("-");
@@ -196,7 +221,7 @@ public class ControllerServlet extends HttpServlet
                             }
 
                             report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
-                            facade.addReportToDB(report);
+                            //facade.addReportToDB(report);
                             forward(request, response, "/index.html");
                         } catch (Exception ex)
                         {
@@ -264,28 +289,26 @@ public class ControllerServlet extends HttpServlet
                 if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
                         request.getParameter("firmID"), temp))
                 {
-
                     session.setAttribute("loginAs", temp);
-
+                    session.setAttribute("login", facade.getLoginByUsername(request.getParameter("username")));
                     switch (temp)
                     {
                         case "user":
                             forward(request, response, "/PostLoginUser.jsp");
-                            break;
+
                         case "tech":
                             forward(request, response, "/PostLoginTech.jsp");
-break;
+
                         case "admin":
                             forward(request, response, "/PostLoginAdmin.jsp");
-                            break;
+
                         default:
                             forward(request, response, "/Fejl.jsp");
-                            break;
                     }
                     break;
                 }
-                
-        case "CreateLogin":
+
+            case "CreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
 
@@ -311,10 +334,10 @@ break;
                     forward(request, response, "/Fejl.jsp");
                 } else
                 {
-                    Login login = new Login(request.getParameter("username"), request.getParameter("password"),
+                    Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
                             request.getParameter("firmID"),
                             temp2);
-                    facade.addLoginToDB(login);
+                    facade.addLoginToDB(newLogin);
                     forward(request, response, "/LoginJSP.jsp");
                 }
                 break;
@@ -325,8 +348,6 @@ break;
                 break;
         }
     }
-
-    
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
     {
