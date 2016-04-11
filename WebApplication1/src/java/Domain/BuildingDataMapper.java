@@ -89,12 +89,36 @@ public class BuildingDataMapper
                         res.getString("Name"), res.getString("BuildingYear"),
                         res.getString("Size"), res.getString("Usage")));
             }
-            con.close();
 
         } catch (Exception ex)
         {
             System.out.println(ex.toString());
         }
         return listOfBuildings;
+    }
+    
+    public Building viewMyBuildings(String firmID)
+    {
+        Building building = null;
+        
+         try
+        {
+            Connector con = new Connector();
+            String query = ("SELECT * FROM login where firmID = " + firmID);
+            ResultSet res = con.getResults(query);
+
+            while (res.next())
+            {
+                String username = res.getString("username");
+                String password = res.getString("password");
+                String authorization = res.getString("authorization");
+                building = new Building();
+            }
+
+        } catch (Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+        return building;
     }
 }

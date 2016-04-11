@@ -78,6 +78,12 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
+            case "showMyBuildings":
+                //facade.getLoginByUsername();
+                forward(request, response, "/viewMyBuildingsJSP.jsp");
+
+                break;
+
             case "goBackBuilding":
 
                 forward(request, response, "/index.html");
@@ -270,20 +276,20 @@ public class ControllerServlet extends HttpServlet
                     {
                         case "user":
                             forward(request, response, "/PostLoginUser.jsp");
-                            
+
                         case "tech":
                             forward(request, response, "/PostLoginTech.jsp");
 
                         case "admin":
                             forward(request, response, "/PostLoginAdmin.jsp");
-                            
+
                         default:
                             forward(request, response, "/Fejl.jsp");
                     }
                     break;
                 }
-                
-        case "CreateLogin":
+
+            case "CreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
 
@@ -323,8 +329,6 @@ public class ControllerServlet extends HttpServlet
                 break;
         }
     }
-
-    
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
     {

@@ -35,7 +35,7 @@
         <li>
             <form action="ControllerServlet" method="GET">
 
-                <input type="submit" value="Opret bygning" name="createBuilding"/></>
+                <input type="submit" value="Opret bygning" name="Building"/></>
                 <input type="hidden" name="do_this" value="Building">
 
             </form>

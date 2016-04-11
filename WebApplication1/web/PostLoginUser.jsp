@@ -10,7 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User</title>
-          <style>
+    </head>
+    <body>
+        <h1>Nu er nu logget ind som bruger</h1>
+        <style>
             ul{
                 list-style-type: none;
                 margin: 0;
@@ -18,33 +21,41 @@
             }
             li, form{
                 float: left;
-               
+
             }
         </style>
     </head>
-    <body>
-        <h1>Nu er nu logget ind som bruger</h1>
-                <form action="ControllerServlet" method="GET">
+<body>
 
-                    <input type="submit" value="Opret bygning" name="CreateBuilding"/></>
-                    <input type="hidden" name="do_this" value="Building">
+    <form action="ControllerServlet"  method="GET">
 
-                </form>
-                <form action="ControllerServlet" method="GET">
-                    <input type="submit" value="Opret ny rapport" name="createReport" />
-                    <input type="hidden" name="do_this" value="Report">
-                </form>
+        <input type="submit" value="Opret bygning" name="createBuild"/></>
+        <input type="hidden" name="do_this" value="Building">
 
-                <form action="ControllerServlet" method="GET">
-                    <input type="submit" value="Login" name="Login" />
-                    <input type="hidden" name="do_this" value="Login">
-                </form>
+    </form>
 
-            <form action="ControllerServlet" method="GET">
-                <input type="hidden" name="do_this" value="goBackToLogin" />
-                <input type="submit" value="Gå tilbage til login" name="goBackToLogin" />
-                <br>
-            </form>
+    <form action="ControllerServlet"  method="GET">
 
-    </body>
+        <input type="submit" value="Vis mine bygninger" name="showMyBuildings"/></>
+        <input type="hidden" name="do_this" value="showMyBuildings">
+
+    </form>
+    <form action="ControllerServlet" method="GET">
+        <input type="submit" value="Opret ny rapport" name="createReport" />
+        <input type="hidden" name="do_this" value="Report">
+    </form>
+
+    <form action="ControllerServlet" method="GET">
+        <input type="submit" value="Login" name="Login" />
+        <input type="hidden" name="do_this" value="Login">
+    </form>
+
+    <form action="ControllerServlet" method="GET">
+        <input type="hidden" name="do_this" value="goBackToLogin" />
+        <input type="submit" value="Gå tilbage til login" name="goBackToLogin" />
+        <br>
+    </form>
+
+
+</body>
 </html>
