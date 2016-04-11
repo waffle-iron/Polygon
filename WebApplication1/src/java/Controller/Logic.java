@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Domain.FirmDataMapper;
 import helperClasses.Building;
 import java.util.ArrayList;
 
@@ -23,5 +24,9 @@ public class Logic {
              
         }
         return res;
+    }
+    public static ArrayList<Integer> getFirmIDsFromUserID(String i){
+        
+        return Facade.ValidFirmIDsFromUser(i);
     }
 }

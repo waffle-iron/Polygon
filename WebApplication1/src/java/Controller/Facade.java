@@ -86,4 +86,7 @@ public class Facade
     {
         loginDM.addLoginToDB(login);
     }
+    public static ArrayList<Integer> ValidFirmIDsFromUser(String username){
+        return FirmDataMapper.ValidFirmIDsFromUser(username);
+    }
 }

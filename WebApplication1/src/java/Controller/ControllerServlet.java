@@ -1,5 +1,6 @@
 package Controller;
 
+import static Controller.Logic.*;
 import helperClasses.Building;
 import helperClasses.Comment;
 import helperClasses.Date;
@@ -60,7 +61,7 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("buildYear"),
                             request.getParameter("buildSize"),
                             request.getParameter("buildUsage"));
-                    request.setAttribute("ValidFirmID", new ArrayList<Integer>());
+                    request.setAttribute("ValidFirmID", getFirmIDsFromUserID("User"));
                     request.setAttribute("Done", true);
                     request.setAttribute("saveBuildingInfo", building);
                     facade.addBuildingToDB(building);
@@ -127,7 +128,7 @@ public class ControllerServlet extends HttpServlet
                 switch (button)
                 {
                     case "Delete":
-                        request.
+                        //request.
                         break;
                         
                     case "createReport":
