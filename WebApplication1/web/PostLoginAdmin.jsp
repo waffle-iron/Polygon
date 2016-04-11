@@ -62,10 +62,7 @@
 
     <ul>
         <li>
-            <form action="ControllerServlet" method="GET">
-                <input type="submit" value="Login" name="Login" />
-                <input type="hidden" name="do_this" value="Login">
-            </form>
+            
         </li>
     </ul>
     <ul>

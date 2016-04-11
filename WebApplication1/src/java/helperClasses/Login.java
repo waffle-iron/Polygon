@@ -17,7 +17,6 @@ public class Login
     String username;
     String password;
     int firmID;
-    // Authorization authorization;
     String authorization;
 
     public Login(String username, String password, String firmID, String authorization)
@@ -26,22 +25,7 @@ public class Login
         this.password = password;
         this.firmID = Integer.parseInt(firmID);
         this.authorization = authorization;
-//        switch (authorization)
-//        {
-//            case "tech":
-//                this.authorization = Authorization.tech;
-//                break;
-//
-//            case "admin":
-//                this.authorization = Authorization.admin;
-//                break;
-//
-//            case "user":
-//                this.authorization = Authorization.user;
-//                break;
-//                default:
-//                this.authorization=Authorization.user;
-//        }
+
     }
 
     public String getUsername()
@@ -59,14 +43,7 @@ public class Login
         return "" + firmID;
     }
 
-//    public Authorization getAuthorization()
-//    {
-//        return authorization;
-//    }
-//    public void setAuthorization(Authorization authorization)
-//    {
-//        this.authorization = authorization;
-//    }
+
     public String getAuthorization()
     {
         return authorization;
