@@ -1,8 +1,18 @@
+<%-- 
+    Document   : PostLoginTech
+    Created on : 08-04-2016, 11:50:50
+    Author     : LouiseB
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Forside</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Tekniker</title>
+    </head>
+    <body>
+        <h1>Du er nu logget ind somm tekniker</h1>
         <style>
             ul{
                 list-style-type: none;
@@ -11,7 +21,11 @@
             }
             li, form{
                 float: left;
-               
+            }
+
+            button{
+                color: #900;
+                font-weight: bold;
             }
         </style>
     </head>
@@ -19,7 +33,7 @@
 
         <ul>
             <li>
-                <form action="ControllerServlet" class="styled-button-8" method="GET">
+                <form action="ControllerServlet" method="GET">
 
                     <input type="submit" value="Opret bygning" name="createBuild"/></>
                     <input type="hidden" name="do_this" value="Building">
@@ -54,5 +68,15 @@
                 </form>
             </li>
         </ul>
+            <ul>
+        <li>
+            <form action="ControllerServlet" method="GET">
+                <input type="hidden" name="do_this" value="goBackToLogin" />
+                <input type="submit" value="Gå tilbage til login" name="goBackToLogin" />
+                <br>
+            </form>
+        </li>
+    </ul>
     </body>
+    
 </html>

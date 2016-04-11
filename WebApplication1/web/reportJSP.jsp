@@ -13,10 +13,11 @@
                 <div class="frontPage">
                     <h1>Udfyld rapport</h1> 
                     <label for="reportNR">Rapport nummer: </label>
-                    <input type="number" id="reportNR" name="reportNRtext">
+                    <input type="number" id="reportNR" name="reportNRtext" value="<%=request.getAttribute("nextReportNr")%>" readonly>
                     <label for="buildingName">Navn på bygning:</label>
                     <input id="buildingName" type="text" name="buildingNameText"
-                           value ="<%= (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText"))%>">
+                           value ="<%= (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText"))%>" pattern="{0,30}" />* 
+                        <span title="bygnings navn skal være mindre end 30."> </span>>
                     <label for="date">Dato:</label>
                     <input id="date" type="date" name="dateDate">
                     <label for="adresse">Adresse: </label>
@@ -29,7 +30,7 @@
                     <label><b>Generel information om bygningen</b></label>
 
                     <label for="buildYear"> Byggeår</label>
-                    <input id="buildYear" type="number" name="buildYearNum">
+                    <input id="buildYear" type="number" name="buildYearNum" value ="<%=request.getParameter("buildYearNum") %>">
                     <label for="buildArea">Bygningsareal i m<sup>2</sup> <br>
                         (hver etage tælles seperat)</label>
                     <input id="buildArea" type="number" name="buildingAreaNum">
@@ -87,7 +88,7 @@
                     </table>
                 </div>
                 <div class="reportPage">
-                    <h2> Rapport side <input type="number" name="numberOfReportPages"></h2>
+                    <h2> Rapport side <input type="number" name="numberOfReportPages" value = "<%=request.getAttribute("numberOfPages")%>"></h2>
                     <input type="submit"  value="updatePageNr" name="button" />
                     <input type="hidden" name ="do_this" value="useButton">
 
