@@ -265,7 +265,7 @@ public class ControllerServlet extends HttpServlet
                 {
 
                     session.setAttribute("loginAs", temp);
-
+                    //session.setAttribute("userClass", );
                     switch (temp)
                     {
                         case "user":
