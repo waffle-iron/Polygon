@@ -128,7 +128,7 @@ public class ControllerServlet extends HttpServlet
                 {
                     case "Delete":
                         break;
-                        
+
                     case "createReport":
                         try
                         {
@@ -262,27 +262,26 @@ public class ControllerServlet extends HttpServlet
                         request.getParameter("firmID"), temp))
                 {
 
-                    if (temp.equals("user"))
+                    session.setAttribute("loginAs", temp);
+
+                    switch (temp)
                     {
-                        forward(request, response, "/PostLoginUser.jsp");
-                    } else if (temp.equals("tech"))
-                    {
-                        forward(request, response, "/PostLoginTech.jsp");
-                    } else if (temp.equals("admin"))
-                    {
-                        forward(request, response, "/PostLoginAdmin.jsp");
-                    } else
-                    {
-                        forward(request, response, "/Fejl.jsp");
+                        case "user":
+                            forward(request, response, "/PostLoginUser.jsp");
+                            
+                        case "tech":
+                            forward(request, response, "/PostLoginTech.jsp");
+
+                        case "admin":
+                            forward(request, response, "/PostLoginAdmin.jsp");
+                            
+                        default:
+                            forward(request, response, "/Fejl.jsp");
                     }
-
-                } else
-                {
-                    forward(request, response, "/Fejl.jsp");
+                    break;
                 }
-                break;
-
-            case "CreateLogin":
+                
+        case "CreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
 
@@ -322,6 +321,8 @@ public class ControllerServlet extends HttpServlet
                 break;
         }
     }
+
+    
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
     {

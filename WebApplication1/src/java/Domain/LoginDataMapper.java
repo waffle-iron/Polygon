@@ -48,7 +48,6 @@ public class LoginDataMapper
 
     public void addLoginToDB(Login login)
     {
-        System.out.println("test");
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
@@ -64,7 +63,31 @@ public class LoginDataMapper
         } catch (Exception ex)
         {
             System.out.println(ex.toString());
-
         }
+    }
+    
+    public Login getLoginByUsername(String username)
+    {
+        Login login = null;
+        
+        try
+        {
+            Connector con = new Connector();
+            String query = ("SELECT * FROM login where username = " + username);
+            ResultSet res = con.getResults(query);
+
+            while (res.next())
+            {
+                String password = res.getString("password");
+                String firmID = res.getString("firmID");
+                String authorization = res.getString("authorization");
+                login = new Login(username, password, firmID, authorization);
+            }
+
+        } catch (Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+        return login;
     }
 }

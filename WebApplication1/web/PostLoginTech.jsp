@@ -33,12 +33,7 @@
 
         <ul>
             <li>
-                <form action="ControllerServlet" method="GET">
-
-                    <input type="submit" value="Opret bygning" name="createBuild"/></>
-                    <input type="hidden" name="do_this" value="Building">
-
-                </form>
+              
             </li>
         </ul>
 
