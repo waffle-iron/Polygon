@@ -41,11 +41,13 @@
                 </tr>
                 <tr>
                     <td>Firma ID</td>
-                    <%ArrayList<Integer> arr = (ArrayList<Integer>)request.getAttribute("ValidFirmID");%>
+                    <% if (request.getAttribute("ValidFirmID") !=null){
+                        ArrayList<Integer> arr = (ArrayList<Integer>)request.getAttribute("ValidFirmID");%>
                     <select name="buildFirmID">
                         <%for(int i = 0; i<arr.size();i++){%>
                         <option><%arr.get(i);%></option>
-                        <%}%>
+                        <%}
+}%>
                     </select>
                                <td><input type="text" name="buildFirmID" value="<%= (request.getParameter("buildFirmID") == null
                                        || clear ? "" : request.getParameter("buildFirmID"))%>" pattern="[0-9].{0,}">&nbsp;*
@@ -98,7 +100,11 @@
                         
         <% if (request.getAttribute("printBuild") != null)
             {
-        ArrayList<Building> build = (ArrayList<Building>)request.getAttribute("printBuild");%>
+                
+                ArrayList<Building> build;
+        Object buildingList = request.getAttribute("printBuild");
+        build = (ArrayList<Building>)buildingList;
+        %>
         <table>
             <tr>
                 <td>

@@ -37,6 +37,7 @@ public class ControllerServlet extends HttpServlet
         switch (do_this)
         {
             case "Building":
+                System.out.println("FROM CASE: building: "+request.getAttribute("printBuild"));
                 forward(request, response, "/BuildingJSP.jsp");
                 break;
 
@@ -269,15 +270,16 @@ public class ControllerServlet extends HttpServlet
                     {
                         case "user":
                             forward(request, response, "/PostLoginUser.jsp");
-                            
+                            break;
                         case "tech":
                             forward(request, response, "/PostLoginTech.jsp");
-
+break;
                         case "admin":
                             forward(request, response, "/PostLoginAdmin.jsp");
-                            
+                            break;
                         default:
                             forward(request, response, "/Fejl.jsp");
+                            break;
                     }
                     break;
                 }
