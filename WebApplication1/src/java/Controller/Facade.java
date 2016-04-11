@@ -16,11 +16,11 @@ import java.util.ArrayList;
 public class Facade
 {
 
-    private BuildingDataMapper buildingDM = new BuildingDataMapper();
-    private FirmDataMapper firmDM = new FirmDataMapper();
-    private ReportDataMapper reportDM = new ReportDataMapper();
-    private LoginDataMapper loginDM = new LoginDataMapper();
-    private ImageDataMapper imageDataMapper = new ImageDataMapper();
+    private final BuildingDataMapper buildingDM = new BuildingDataMapper();
+    private final FirmDataMapper firmDM = new FirmDataMapper();
+    private final ReportDataMapper reportDM = new ReportDataMapper();
+    private final LoginDataMapper loginDM = new LoginDataMapper();
+    private final ImageDataMapper imageDataMapper = new ImageDataMapper();
 
     public void addBuildingToDB(Building build)
     {
@@ -32,7 +32,7 @@ public class Facade
         return buildingDM.printBuildings();
     }
 
-    public  ArrayList<Building> getBuildingsFromDatabase()
+    public ArrayList<Building> getBuildingsFromDatabase()
     {
         return buildingDM.getBuildingsFromDatabase();
     }
@@ -46,27 +46,28 @@ public class Facade
     {
         reportDM.addReportToDB(Report);
     }
-    
+
     public Report getReportFromDB(int ReportID)
     {
         return reportDM.getReportFromDB(ReportID);
     }
-    
+
     public ArrayList<Report> getReportsFromDB()
     {
         return reportDM.getReportsFromDB();
     }
-    
+
     public int getNumbeOfReportFromDB()
     {
         return reportDM.getNumbeOfReportFromDB();
     }
-     public int getNextReportNr()
-     {
+
+    public int getNextReportNr()
+    {
         return reportDM.getNextReportNr();
-     }
-    
-        public void addImageToDB(InputStream Report)
+    }
+
+    public void addImageToDB(InputStream Report)
     {
         imageDataMapper.addImageToDB(Report);
     }
@@ -78,12 +79,19 @@ public class Facade
 
     public boolean userExists(String name, String pass, String firm, String author)
     {
-        System.out.println("test4");
         return loginDM.userExists(name, pass, firm, author);
     }
-    
+
     public void addLoginToDB(Login login)
     {
         loginDM.addLoginToDB(login);
+    }
+
+    public Login getLoginByUsername(String username)
+    {
+        return loginDM.getLoginByUsername(username);
+    }
+    public static ArrayList<Integer> ValidFirmIDsFromUser(String username){
+        return FirmDataMapper.ValidFirmIDsFromUser(username);
     }
 }

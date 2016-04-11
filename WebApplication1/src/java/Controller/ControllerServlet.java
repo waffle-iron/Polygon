@@ -1,5 +1,6 @@
 package Controller;
 
+import static Controller.Logic.*;
 import helperClasses.Building;
 import helperClasses.Comment;
 import helperClasses.Date;
@@ -60,7 +61,7 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("buildYear"),
                             request.getParameter("buildSize"),
                             request.getParameter("buildUsage"));
-                    request.setAttribute("ValidFirmID", new ArrayList<Integer>());
+                    request.setAttribute("ValidFirmID", getFirmIDsFromUserID("User"));
                     request.setAttribute("Done", true);
                     request.setAttribute("saveBuildingInfo", building);
                     facade.addBuildingToDB(building);
@@ -128,7 +129,7 @@ public class ControllerServlet extends HttpServlet
                 {
                     case "Delete":
                         break;
-                        
+
                     case "createReport":
                         try
                         {
@@ -262,27 +263,26 @@ public class ControllerServlet extends HttpServlet
                         request.getParameter("firmID"), temp))
                 {
 
-                    if (temp.equals("user"))
+                    session.setAttribute("loginAs", temp);
+                    //session.setAttribute("userClass", );
+                    switch (temp)
                     {
-                        forward(request, response, "/PostLoginUser.jsp");
-                    } else if (temp.equals("tech"))
-                    {
-                        forward(request, response, "/PostLoginTech.jsp");
-                    } else if (temp.equals("admin"))
-                    {
-                        forward(request, response, "/PostLoginAdmin.jsp");
-                    } else
-                    {
-                        forward(request, response, "/Fejl.jsp");
+                        case "user":
+                            forward(request, response, "/PostLoginUser.jsp");
+                            
+                        case "tech":
+                            forward(request, response, "/PostLoginTech.jsp");
+
+                        case "admin":
+                            forward(request, response, "/PostLoginAdmin.jsp");
+                            
+                        default:
+                            forward(request, response, "/Fejl.jsp");
                     }
-
-                } else
-                {
-                    forward(request, response, "/Fejl.jsp");
+                    break;
                 }
-                break;
-
-            case "CreateLogin":
+                
+        case "CreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
 
@@ -322,6 +322,8 @@ public class ControllerServlet extends HttpServlet
                 break;
         }
     }
+
+    
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
     {

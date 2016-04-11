@@ -97,8 +97,8 @@
         </form>
                         
         <% if (request.getAttribute("printBuild") != null)
-            {
-        ArrayList<Building> build = (ArrayList<Building>)request.getAttribute("printBuild");%>
+            { ArrayList<Building> build;
+         build = (ArrayList<Building>)request.getAttribute("printBuild");%>
         <table>
             <tr>
                 <td>
