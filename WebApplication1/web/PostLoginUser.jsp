@@ -21,11 +21,7 @@
             }
             li, form{
                 float: left;
-            }
-
-            button{
-                color: #900;
-                font-weight: bold;
+               
             }
         </style>
     </head>
@@ -33,7 +29,7 @@
 
         <ul>
             <li>
-                <form action="ControllerServlet" method="GET">
+                <form action="ControllerServlet" class="styled-button-8" method="GET">
 
                     <input type="submit" value="Opret bygning" name="createBuild"/></>
                     <input type="hidden" name="do_this" value="Building">
