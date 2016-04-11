@@ -26,6 +26,11 @@ public class Facade
     {
         buildingDM.addBuildingToDB(build);
     }
+    
+    public ArrayList<Building> viewMyBuildings(int firmID)
+    {
+        return buildingDM.viewMyBuildings(firmID);
+    }
 
     public String printBuildings()
     {

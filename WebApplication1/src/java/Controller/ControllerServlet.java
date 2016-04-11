@@ -79,7 +79,9 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "showMyBuildings":
-                //facade.getLoginByUsername();
+                Login login = (Login)session.getAttribute("login");
+                request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+
                 forward(request, response, "/viewMyBuildingsJSP.jsp");
 
                 break;
@@ -271,6 +273,7 @@ public class ControllerServlet extends HttpServlet
                 {
 
                     session.setAttribute("loginAs", temp);
+                    session.setAttribute("login", facade.getLoginByUsername(request.getParameter("username")));
                     //session.setAttribute("userClass", );
                     switch (temp)
                     {
@@ -315,10 +318,10 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/Fejl.jsp");
                 } else
                 {
-                    Login login = new Login(request.getParameter("username"), request.getParameter("password"),
+                    Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
                             request.getParameter("firmID"),
                             temp2);
-                    facade.addLoginToDB(login);
+                    facade.addLoginToDB(newLogin);
                     forward(request, response, "/LoginJSP.jsp");
                 }
                 break;

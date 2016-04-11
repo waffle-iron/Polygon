@@ -7,6 +7,11 @@ public class Building
     String usage;
     int buildingID;
 
+    
+    int zip;
+    int firmID;
+    int buildYear;
+    int size;
     public Building(String address, String name, String usage, int buildingID, int zip, int firmID, int buildYear, int size)
     {
         this.address = address;
@@ -18,11 +23,6 @@ public class Building
         this.buildYear = buildYear;
         this.size = size;
     }
-    int zip;
-    int firmID;
-    int buildYear;
-    int size;
-
     public Building(String address, String zip, String firmID, String name, String buildYear, String size, String usage)
     {
         this.address = address;

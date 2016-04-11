@@ -96,29 +96,33 @@ public class BuildingDataMapper
         }
         return listOfBuildings;
     }
-    
-    public Building viewMyBuildings(String firmID)
+
+    public ArrayList<Building> viewMyBuildings(int firmID)
     {
-        Building building = null;
-        
-         try
+        ArrayList<Building> buildings = new ArrayList();
+
+        try
         {
             Connector con = new Connector();
-            String query = ("SELECT * FROM login where firmID = " + firmID);
+            String query = ("SELECT * FROM building where firmID = " + firmID);
             ResultSet res = con.getResults(query);
 
             while (res.next())
             {
-                String username = res.getString("username");
-                String password = res.getString("password");
-                String authorization = res.getString("authorization");
-                building = new Building();
+                int buildingID = res.getInt(1);
+                String address = res.getString(2);
+                int zip = res.getInt(3);
+                String name = res.getString(5);
+                int buildYear = res.getInt(6);
+                int size = res.getInt(7);
+                String usage = res.getString(8);
+                buildings.add(new Building(address, name, usage, buildingID, zip, firmID, buildYear, size));
             }
 
         } catch (Exception ex)
         {
             System.out.println(ex.toString());
         }
-        return building;
+        return buildings;
     }
 }

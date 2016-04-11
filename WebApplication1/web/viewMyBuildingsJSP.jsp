@@ -13,5 +13,10 @@
     </head>
     <body>
         <h1>Mine bygninger</h1>
+        <%if(request.getAttribute("listOfBuildings") != null)
+        {
+            ArrayList<Building>
+        }
+            %>
     </body>
 </html>
