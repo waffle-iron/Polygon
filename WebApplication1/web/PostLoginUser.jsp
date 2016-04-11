@@ -21,33 +21,41 @@
             }
             li, form{
                 float: left;
-               
+
             }
         </style>
     </head>
-    <body>
+<body>
 
-                <form action="ControllerServlet" class="styled-button-8" method="GET">
+    <form action="ControllerServlet"  method="GET">
 
-                    <input type="submit" value="Opret bygning" name="createBuild"/></>
-                    <input type="hidden" name="do_this" value="Building">
+        <input type="submit" value="Opret bygning" name="createBuild"/></>
+        <input type="hidden" name="do_this" value="Building">
 
-                </form>
-                <form action="ControllerServlet" method="GET">
-                    <input type="submit" value="Opret ny rapport" name="createReport" />
-                    <input type="hidden" name="do_this" value="Report">
-                </form>
+    </form>
 
-                <form action="ControllerServlet" method="GET">
-                    <input type="submit" value="Login" name="Login" />
-                    <input type="hidden" name="do_this" value="Login">
-                </form>
+    <form action="ControllerServlet"  method="GET">
 
-            <form action="ControllerServlet" method="GET">
-                <input type="hidden" name="do_this" value="goBackToLogin" />
-                <input type="submit" value="Gå tilbage til login" name="goBackToLogin" />
-                <br>
-            </form>
+        <input type="submit" value="Vis mine bygninger" name="showMyBuildings"/></>
+        <input type="hidden" name="do_this" value="showMyBuildings">
 
-    </body>
+    </form>
+    <form action="ControllerServlet" method="GET">
+        <input type="submit" value="Opret ny rapport" name="createReport" />
+        <input type="hidden" name="do_this" value="Report">
+    </form>
+
+    <form action="ControllerServlet" method="GET">
+        <input type="submit" value="Login" name="Login" />
+        <input type="hidden" name="do_this" value="Login">
+    </form>
+
+    <form action="ControllerServlet" method="GET">
+        <input type="hidden" name="do_this" value="goBackToLogin" />
+        <input type="submit" value="Gå tilbage til login" name="goBackToLogin" />
+        <br>
+    </form>
+
+
+</body>
 </html>
