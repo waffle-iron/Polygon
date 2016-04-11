@@ -268,7 +268,7 @@
                                 <td><b>Tilstandsgrad 0</b></td>
                                 <td>Bygningsdelen er ny og som bygget</td>
                                 <td>Funktionen er som beskrevet</td>
-                                <td><input type="checkbox" name="state0Check"/></td>
+                                <td><input type="radio" value="0" name="stateCheck"/></td>
                             </tr>
                             <tr>
                                 <td><b>Tilstandsgrad 1</b></td>
@@ -276,7 +276,7 @@
                                     begyndende slid og synlige skader<br>
                                     (kun kosmetiske skader)</td>
                                 <td>Funktionen er som beskrevet</td>
-                                <td><input type="checkbox" name="state1Check"/></td>
+                                <td><input type="radio" value="1" name="stateCheck"/></td>
                             </tr>
                             <tr>
                                 <td><b>Tilstandsgrad 2</b></td>
@@ -284,7 +284,7 @@
                                     med enkelte defekte komponenter</td>
                                 <td>Funktionen er nedsat-<br>
                                     fare for følgeskader</td>
-                                <td><input type="checkbox" name="state2Check"/></td>
+                                <td><input type="radio" value="2" name="stateCheck"/></td>
                             </tr>
                             <tr>
                                 <td><b>Tilstandsgrad 3</b></td>
@@ -292,7 +292,7 @@
                                     udskiftes</td>
                                 <td>Funktionen er ophørt-<br>
                                     fare for følgeskader</td>
-                                <td><input type="checkbox" name="state3Check"/></td>
+                                <td><input type="radio" value="3" name="stateCheck"/></td>
                             </tr>
                         </tbody>
                     </table>
