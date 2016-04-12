@@ -29,6 +29,11 @@
             <input type="submit" name ="button" value="mine bygninger NYI">
         </form>
         
+        <form action="ControllerServlet" method="GET">
+                <input type="submit" value="repport (DENNE ER KUN TEMPEARY)" name="createReport" />
+                <input type="hidden" name="do_this" value="Report">
+            </form>
+        
         NYI - NewsFeed
         <%if(login.getAuthorization().equals("user")){ %>
             der fortæller om: husk at gemme en floorplan, en rapport er skrevet om en af dine bygninger, en af dine bygninger har fået ændret sin status, en af dine bygningers rapport er blevet opdateret og kommende inspektioner af dine bygninger
