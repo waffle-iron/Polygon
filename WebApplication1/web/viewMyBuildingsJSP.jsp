@@ -29,6 +29,7 @@
 %>
             <table>
     <tr>
+       
         <td>
             <%= "" + (listOfBuildings.get(i).getAddress())%>   
         </td>
