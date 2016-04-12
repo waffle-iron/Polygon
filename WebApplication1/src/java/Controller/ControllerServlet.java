@@ -37,7 +37,7 @@ public class ControllerServlet extends HttpServlet
         switch (do_this)
         {
             case "Building":
-                request.setAttribute("ValidFirmID", getFirmIDsFromUserID("User"));
+                request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login)session.getAttribute("login")));
                 forward(request, response, "/BuildingJSP.jsp");
                 break;
 
