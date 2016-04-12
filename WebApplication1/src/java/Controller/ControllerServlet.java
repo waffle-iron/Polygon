@@ -8,8 +8,6 @@ import helperClasses.Firm;
 import helperClasses.Login;
 import helperClasses.Report;
 import helperClasses.ReportPage;
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -43,7 +41,7 @@ public class ControllerServlet extends HttpServlet {
         {
             case "goToAddBuilding":
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login)session.getAttribute("login")));
-                forward(request, response, "/BuildingJSP.jsp");
+                forward(request, response, "/AddBuildingJSP.jsp");
                 break;
             case "Image":
                 forward(request, response, "/ImageJSPTemp.jsp");
@@ -57,8 +55,8 @@ public class ControllerServlet extends HttpServlet {
                         || request.getParameter("buildYear").trim().compareTo("") == 0
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0) {
-
-                    forward(request, response, "/BuildingJSP.jsp");
+                    request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login)session.getAttribute("login")));
+                    forward(request, response, "/AddBuildingJSP.jsp");
 
                 } else {
                     Building building = new Building(request.getParameter("buildAddress"),
@@ -73,14 +71,14 @@ public class ControllerServlet extends HttpServlet {
                     facade.addBuildingToDB(building);
                     request.setAttribute("clearAll", true);
 
-                    forward(request, response, "/BuildingJSP.jsp");
+                    forward(request, response, "/AddBuildingJSP.jsp");
                 }
                 break;
 
             case "showBuild":
 
                 request.setAttribute("printBuild", facade.getBuildingsFromDatabase());
-                forward(request, response, "/BuildingJSP.jsp");
+                forward(request, response, "/AddBuildingJSP.jsp");
 
                 break;
 
