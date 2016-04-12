@@ -51,6 +51,7 @@
                             <option><%arr.get(i);%></option>
                             <%}%>
                         </select>
+<<<<<<< HEAD:WebApplication1/web/BuildingJSP.jsp
                     </td>
                     <%}%>
 
@@ -62,6 +63,18 @@
                     </td>
                     <%}%>
 
+=======
+                        </td>
+                        <%}%>
+                        
+                        
+                        <% if(request.getAttribute("ValidFirmID") !=null && ((String)session.getAttribute("loginAs")).equals("user")){%>
+                        <td>
+                            <input type ="text" name ="buildFirmID" value="<%=((ArrayList<Integer>)request.getAttribute("ValidFirmID")).get(0)%>" readonly>
+                        </td>
+                        <%}%>
+                        
+>>>>>>> 8f60fd503e08393f57478b63a7e5e40d75bbc27c:WebApplication1/web/AddBuildingJSP.jsp
                 </tr>
                 <tr>
                     <td>Bygningens navn</td>

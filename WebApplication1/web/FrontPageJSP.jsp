@@ -21,7 +21,7 @@
         <%if(login.getAuthorization().equals("user")){ %>
             <form action="ControllerServlet" method="get">
                 <input type ="hidden" value="goToAddBuilding" name="do_this">
-                <input type="submit" name ="button" value="tilføj bygning ">
+                <input type="submit" name ="button" value="tilføj bygning">
             </form>
         <%}%>
         <form action="ControllerServlet" method="get">

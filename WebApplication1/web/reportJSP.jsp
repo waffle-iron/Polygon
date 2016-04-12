@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="report">
-            <form id="myForm" action="ControllerServlet" method="GET">
+            <form id="myForm" action="ControllerServlet" method="POST">
                 <div class="frontPage">
                     <h1>Udfyld rapport</h1> 
                     <label for="reportNR">Rapport nummer: </label>
@@ -52,7 +52,7 @@
                                 <td>Tag</td>
                                 <td><input type="checkbox" name="roofCommentCheck"></td>
                                 <td><input type="checkbox" name="roofNoCommentCheck"></td>
-                                <td><input type="checkbox" name="roofPictureCheck"></td>
+                                <td><input type = "file" name="roofImage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
                                 <td colspan="4"><input type="text" name="roofText" size="90" value ="<%= (request.getParameter("roofText") == null ? "" : request.getParameter("roofText"))%>"></td>
@@ -75,7 +75,7 @@
 
                                 <td><input type="checkbox" name="outerWallCommentCheck"></td>
                                 <td><input type="checkbox" name="outerWallNoCommentCheck" ></td>
-                                <td><input type="checkbox" name="outerWallPictureCheck" ></td>
+                                <td><input type = "file" name="image" accept="image/x-png, image/gif, image/jpeg"/></td>
 
                             </tr>
                             <tr>
@@ -142,6 +142,7 @@
                                 <th></th>
                                 <th>Bemærkninger</th>
                                 <th>Ingen bemærkninger</th>
+                                
                                 <th>Billede</th>
                             </tr>
                         </thead>
@@ -150,7 +151,7 @@
                                 <td>Vægge</td>
                                 <td><input type="checkbox" name="<%="wallCommentCheck"+i%>"/></td>
                                 <td><input type="checkbox" name="<%="wallNoCommentCheck"+i%>"/></td>
-                                <td></td>
+                                <td><input type = "file" name="image" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
                                 <td colspan="4"><input type="text" name="<%="wallCommentCheckText"+i%>" size="80" value ="<%= (request.getParameter("wallCommentText"+i) == null ? "" : request.getParameter("wallCommentText"+i))%>"
@@ -160,7 +161,7 @@
                                 <td>Loft</td>
                                 <td><input type="checkbox" name="<%="ceilingCommentCheck"+i%>"/></td>
                                 <td><input type="checkbox" name="<%="ceilingNoCommentCheck"+i%>"/></td>
-                                <td></td>
+                                <td><input type = "file" name="Ceilingimage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
                                 <td colspan="4"><input type="text" name="<%="ceilingCommentText"+i%>" size="80" value ="<%= (request.getParameter("ceilingCommentText"+i) == null ? "" : request.getParameter("ceilingCommentText"+i))%>"
@@ -170,7 +171,7 @@
                                 <td>Gulv</td>
                                 <td><input type="checkbox" name="<%="floorCommentCheck"+i%>"/></td>
                                 <td><input type="checkbox" name="<%="floorNoCommentCheck"+i%>"/></td>
-                                <td></td>
+                                <td><input type = "file" name="floorimage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
                                 <td colspan="4"><input type="text" name="<%="floorCommentText"+i%>" size="80" value ="<%= (request.getParameter("floorCommentText"+i) == null ? "" : request.getParameter("floorCommentText"+i))%>"
@@ -180,7 +181,7 @@
                                 <td>Vinduer/døre</td>
                                 <td><input type="checkbox" name="<%="doorCommentCheck"+i%>"/></td>
                                 <td><input type="checkbox" name="<%="doorNoCommentCheck"+i%>"/></td>
-                                <td></td>
+                                <td><input type = "file" name="doorimage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
                                 <td colspan="4"><input type="text" name="<%="doorCommentText"+i%>" size="80" value ="<%= (request.getParameter("doorCommentText"+i) == null ? "" : request.getParameter("doorCommentText"+i))%>"
