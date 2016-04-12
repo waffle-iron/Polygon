@@ -16,7 +16,7 @@
     <body>
         <h1>Mine bygninger</h1>
         
-        <form action="ControllerServlet" method="GET">               
+                     
         <% if (request.getAttribute("listOfBuildings") != null)
             {
                 
@@ -74,56 +74,22 @@
                     <%=(build.get(i).getUsage())%>   
                 </td>
                 <td>
-                    <input type="submit"  size="6" value="Delete  <%=build.get(i).getBuildingID() %>" tname="button" />
+                    <form action="ControllerServlet" method="GET">  
+                        <%System.out.println(build.get(i).toString());
+                        System.out.println(build.get(i).getBuildingID());
+                        %>
+                    <input type="submit"  size="6" value="Delete  <%=build.get(i).getBuildingID() %>" name="button" />
+                <input type="hidden" value="useButton">
+                </form>
                 </td>
             </tr>
         
         <%}%>
         </table>
     <%}%>  
-    <input type="hidden" value="useButton">
-</form>
-        
-        <form action="ControllerServlet" method="GET">
-                        
-            
-        <% if (request.getAttribute("listOfBuildings") != null)
-            {
-                 
-                ArrayList<Building> listOfBuildings = (ArrayList<Building>) request.getAttribute("listOfBuildings");
-            System.out.println(listOfBuildings.toString() + "her printes det");
-            
-            for (int i = 0; i < listOfBuildings.size(); i++)
-            {            System.out.println("test111");
-%>
-            <table>
-    <tr>
-        <td>
-            <%= "" + (listOfBuildings.get(i).getAddress())%>   
-        </td>
-        <td>
-            <%= "" + (listOfBuildings.get(i).getZip())%>   
-        </td>
-        <td>
-            <%= "" + (listOfBuildings.get(i).getFirmID())%>   
-        </td>
-        <td>
-            <%= ""+ (listOfBuildings.get(i).getName())%>   
-        </td>
-        <td>
-            <%= "" + (listOfBuildings.get(i).getBuildYear())%>   
-        </td>
-        <td>
-            <%= "" + (listOfBuildings.get(i).getSize())%> 
-        </td>
-        <td>
-            <%= "" + (listOfBuildings.get(i).getUsage())%>   
-        </td>
-    </tr>
-</table>
+    
 
-    <%}%>
-<%}%>
-</form>
+        
+        
 </body>
 </html>

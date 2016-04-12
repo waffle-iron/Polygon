@@ -75,14 +75,6 @@ public class ControllerServlet extends HttpServlet {
                 }
                 break;
 
-            case "showBuild":
-
-                request.setAttribute("printBuild", facade.getBuildingsFromDatabase());
-                forward(request, response, "/AddBuildingJSP.jsp");
-
-                break;
-
-           
             case "goToViewMyBuildings":
                 System.out.println("test");
                 if (session.getAttribute("login") != null)
@@ -93,7 +85,10 @@ public class ControllerServlet extends HttpServlet {
                     System.out.println(login.getFirmID());
                     
                     try{
+                           if( login.getAuthorization().equals("user"))
                         request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+                           else
+                               request.setAttribute("listOfBuildings", facade.getBuildingsFromDatabase());
                     } catch(Exception ex)
                     {
                         System.out.println("test1");

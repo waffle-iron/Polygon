@@ -84,10 +84,12 @@ public class BuildingDataMapper
             while (res.next())
             {
 
-                listOfBuildings.add(new Building(res.getString("Address"),
-                        res.getString("Zip"), res.getString("FirmID"),
-                        res.getString("Name"), res.getString("BuildingYear"),
-                        res.getString("Size"), res.getString("Usage")));
+                listOfBuildings.add(
+                        new Building(res.getString("Address"), res.getString("Name"),
+                                res.getString("Usage"),Integer.parseInt( res.getString("BuildingID")),
+                                Integer.parseInt(res.getString("Zip")),Integer.parseInt( res.getString("FirmID")),
+                                Integer.parseInt(res.getString("BuildingYear")),
+                                Integer.parseInt(res.getString("Size"))));
             }
 
         } catch (Exception ex)
