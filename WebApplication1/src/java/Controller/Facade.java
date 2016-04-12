@@ -94,10 +94,9 @@ public class Facade
 
     public Login getLoginByUsername(String username)
     {
-        System.out.println("" + username);
         return loginDM.getLoginByUsername(username);
     }
-    public static ArrayList<Integer> ValidFirmIDsFromUser(String username){
+    public static ArrayList<Integer> ValidFirmIDsFromUser(Login username){
         return FirmDataMapper.ValidFirmIDsFromUser(username);
     }
 }

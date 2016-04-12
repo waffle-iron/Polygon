@@ -1,6 +1,7 @@
 package Domain;
 
 import helperClasses.Firm;
+import helperClasses.Login;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,19 +23,27 @@ public class FirmDataMapper {
         }
     }
 
-    public static ArrayList<Integer> ValidFirmIDsFromUser(String username) {
+    public static ArrayList<Integer> ValidFirmIDsFromUser(Login username) {
             ArrayList<Integer> temp = new ArrayList<>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            ResultSet res = statement.executeQuery("SELECT * FROM grp01.firm natural join login");
+            ResultSet res = statement.executeQuery("SELECT * FROM firm natural join login where Username = '" +(username.getUsername())+"'");
             res.beforeFirst();
             for (int i = 0; res.next(); i++) {
-                if(res.getString(4).equals(username))
                 temp.add(res.getInt(1));
             }
         } catch (Exception ex) {
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            ex.printStackTrace();
+            System.out.println("");System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            
             System.out.println(ex.toString());
         }
 
