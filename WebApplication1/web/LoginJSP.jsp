@@ -15,25 +15,15 @@
     <body>
         <h1>Velkommen til Polygon</h1>
         <h2>Login</h2>
-        <form action="ControllerServlet" method="POST">
+        <form action="ControllerServlet" method="get">
 
 
-            Brugernavn<br> <input style="text-align: center" type="text" name="username" value="" size="20" />
+            Brugernavn<br> <input style="text-align: center" type="text" name="username" value="test" size="20" />
             <br><br>
-            Kodeord<br> <input style="text-align: center" type="password" name="password" value="" size="20" />
-            <br><br>
-            <select name="enum">
-                <option>Bruger</option>
-                <option>Tekniker</option>
-                <option>Admin</option>
-            </select>
-            <br><br>
-            Indtast firma ID: <br> <input type="text" name="firmID" />
-            <br> <br>
+            Kodeord<br> <input style="text-align: center" type="password" name="password" value="test" size="20" />
             <input type="hidden" name="do_this" value="CheckLogin" />
+            <br>
             <input type="submit" value="Login" name="CheckLogin" />
-            <br>
-            <br>
         </form>
         <% if (request.getAttribute("doExists") != null && request.getAttribute("doExists").equals(false))
             {%>
@@ -43,10 +33,7 @@
             }%>
         <br>
         <br>
-        <form action="ControllerServlet" method="POST">
-            <input type="hidden" name="do_this" value="CreateLogin" />
-            <input type="submit" value="Opret ny bruger" name="CreateLogin" />
-        </form>
+        
 
     </body>
 </html>
