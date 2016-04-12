@@ -41,7 +41,6 @@
                 </tr>
                 <tr>
                     <td>Firma ID</td>
-                    <%System.out.println(((ArrayList<Integer>)request.getAttribute("ValidFirmID")).size());%>
                     <% if (request.getAttribute("ValidFirmID") !=null && ((String)session.getAttribute("loginAs")).equals("admin")){
                         System.out.println((String)session.getAttribute("loginAs"));
                         ArrayList<Integer> arr = (ArrayList<Integer>)request.getAttribute("ValidFirmID");%>
