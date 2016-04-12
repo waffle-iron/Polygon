@@ -132,7 +132,7 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
-            case "Firm":
+            case "goToFirm":
                 forward(request, response, "/FirmJSP.jsp");
                 break;
 
@@ -160,11 +160,7 @@ public class ControllerServlet extends HttpServlet
                 request.setAttribute("nextReportNr", facade.getNextReportNr());
                 forward(request, response, "/reportJSP.jsp");
                 break;
-            default:
-                System.out.println("Not valid command" + do_this);
-                forward(request, response, "/Fejl.jsp");
-                break;
-
+            
             case "viewReport":
                 //get desired reportid
                 int reportid = 1;
@@ -178,13 +174,6 @@ public class ControllerServlet extends HttpServlet
                 request.setAttribute("State", report.getState());
                 forward(request, response, "/ViewReport.jsp");
                 break;
-
-            case "Login":
-
-                forward(request, response, "/LoginJSP.jsp");
-
-                break;
-
             case "CheckLogin":
                 String temp = "";
 
@@ -219,11 +208,11 @@ public class ControllerServlet extends HttpServlet
                     break;
                 }
 
-            case "CreateLogin":
+            case "goToCreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
 
-            case "CreateLogin2":
+            case "CreateLogin":
                 String temp2 = "";
                 switch (request.getParameter("enum"))
                 {
@@ -254,11 +243,17 @@ public class ControllerServlet extends HttpServlet
 
             case "goBackToLogin":
                 forward(request, response, "/LoginJSP.jsp");
-
+                
                 break;
+                default:
+                System.out.println("Not valid command" + do_this);
+                forward(request, response, "/Fejl.jsp");
+                break;
+
         }
     }
 
+    
     private void useButton(HttpServletRequest request, HttpServletResponse response, String button)
             throws ServletException, IOException
     {
