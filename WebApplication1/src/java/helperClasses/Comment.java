@@ -1,14 +1,14 @@
 package helperClasses;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 public class Comment
 {
     private String text;
     private String type;
-    private BufferedImage image;
+    private Image image;
 
-    public Comment(String text, String type, BufferedImage image) {
+    public Comment(String text, String type, Image image) {
         this.text = text;
         this.type = type;
         this.image = image;
@@ -20,11 +20,11 @@ public class Comment
         this.type = type;
     }
 
-    public BufferedImage getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(BufferedImage image) {
+    public void setImage(Image image) {
         this.image = image;
     }
 
