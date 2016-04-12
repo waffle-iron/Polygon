@@ -55,7 +55,7 @@
                         
                         <% if(request.getAttribute("ValidFirmID") !=null && ((String)session.getAttribute("loginAs")).equals("user")){%>
                         <td>
-                        <%=((ArrayList<Integer>)request.getAttribute("ValidFirmID")).get(0)%>
+                            <input type ="text" name ="buildFirmID" value="<%=((ArrayList<Integer>)request.getAttribute("ValidFirmID")).get(0)%>" readonly>
                         </td>
                         <%}%>
                         
