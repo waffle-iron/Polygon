@@ -36,7 +36,7 @@ public class ControllerServlet extends HttpServlet
 
         switch (do_this)
         {
-            case "Building":
+            case "goToAddBuilding":
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login)session.getAttribute("login")));
                 forward(request, response, "/BuildingJSP.jsp");
                 break;
@@ -265,20 +265,22 @@ public class ControllerServlet extends HttpServlet
                 {
                     Login login  = facade.getLoginByUsername(request.getParameter("username"));
                     session.setAttribute("loginAs", login.getAuthorization());
-                    session.setAttribute("login", facade.getLoginByUsername(request.getParameter("username")));
+                    session.setAttribute("login", login);
                     switch (login.getAuthorization())
                     {
                         case "user":
-                            forward(request, response, "/PostLoginUser.jsp");
+                            forward(request, response, "/FrontPageJSP.jsp");
+                            break;
 
                         case "tech":
-                            forward(request, response, "/PostLoginTech.jsp");
-
+                            forward(request, response, "/FrontPageJSP.jsp");
+                            break;
                         case "admin":
-                            forward(request, response, "/PostLoginAdmin.jsp");
-
+                            forward(request, response, "/FrontPageJSP.jsp");
+                            break;
                         default:
                             forward(request, response, "/Fejl.jsp");
+                            break;
                     }
                     break;
                 }
