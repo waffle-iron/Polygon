@@ -254,21 +254,19 @@ public class ControllerServlet extends HttpServlet
                 String temp = "";
                 
 
-                if (request.getParameter("username").equals("") || request.getParameter("password").equals("")
-                        || request.getParameter("firmID").equals(""))
+                if (request.getParameter("username").equals("") || request.getParameter("password").equals(""))
                 {
                     request.setAttribute("doExists", false);
                     forward(request, response, "/LoginJSP.jsp");
 
                 }
 
-                if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
-                        request.getParameter("firmID"), temp))
+                if (facade.userExists(request.getParameter("username"), request.getParameter("password")))
                 {
-
-                    session.setAttribute("loginAs", temp);
+                    Login login  = facade.getLoginByUsername(request.getParameter("username"));
+                    session.setAttribute("loginAs", login.getAuthorization());
                     session.setAttribute("login", facade.getLoginByUsername(request.getParameter("username")));
-                    switch (temp)
+                    switch (login.getAuthorization())
                     {
                         case "user":
                             forward(request, response, "/PostLoginUser.jsp");
@@ -305,8 +303,7 @@ public class ControllerServlet extends HttpServlet
                         temp2 = "admin";
                         break;
                 }
-                if (facade.userExists(request.getParameter("username"), request.getParameter("password"),
-                        request.getParameter("firmID"), temp2) == true)
+                if (facade.userExists(request.getParameter("username"), request.getParameter("password")) == true)
                 {
                     forward(request, response, "/Fejl.jsp");
                 } else
