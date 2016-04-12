@@ -273,34 +273,48 @@ Facade facade = new Facade();
                             }
                             ArrayList<ReportPage> reportpage = new ArrayList<>();
                             for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++) {
-                                Integer.parseInt(request.getParameter("damageDate" + i));
+                            int[] raportdate = new int[3];
+                            tempdate = (request.getParameter("dateDate")).split("-");
+                            for (int j = 0; i < 3; i++) {
+                                date[j] = Integer.parseInt(tempdate[j]);
+                            }
                                 boolean previouslydamaged = false;
-                                if ((request.getParameter("damageCheckYes" + i)).equals("on")) {
+                                if (request.getParameter("damageCheckYes" + i)!=null&&(request.getParameter("damageCheckYes" + i)).equals("on")) {
                                     previouslydamaged = true;
                                 }
-                                String[] str = new String[4];
+                                String[] str ={"","","",""};
+                                if(request.getParameter("damagePlaceText" + i)!=null)
                                 str[0] = request.getParameter("damagePlaceText" + i);
+                                if(request.getParameter("damageCauseText" + i)!=null)
                                 str[1] = request.getParameter("damageCauseText" + i);
+                                if(request.getParameter("reperationText" + i)!=null)
                                 str[2] = request.getParameter("reperationText" + i);
+                                if(request.getParameter("otherDamageText" + i)!=null)
                                 str[3] = request.getParameter("otherDamageText" + i);
-                                Boolean[] bools = new Boolean[5];
+                                Boolean[] bools = {false,false,false,false,false};
+                                if(request.getParameter("moistCheck" + i) !=null)
                                 bools[0] = (request.getParameter("moistCheck" + i).equals("on"));
+                                if(request.getParameter("rotCheck" + i) !=null)
                                 bools[1] = (request.getParameter("rotCheck" + i).equals("on"));
+                                if(request.getParameter("moldCheck" + i) !=null)
                                 bools[2] = (request.getParameter("moldCheck" + i).equals("on"));
+                                if(request.getParameter("fireCheck" + i) !=null)
                                 bools[3] = (request.getParameter("fireCheck" + i).equals("on"));
                                 Comment[] comments = new Comment[4];
-                                if ((request.getParameter("wallNoCommentCheck" + i).equals("off"))) {
+                                if (request.getParameter("wallCommentCheck" + i) != null&&(request.getParameter("wallCommentCheck" + i).equals("on"))) {
                                     Part filePart = request.getPart("wallImage"); // Retrieves <input type="file" name="file">
                                     if (filePart != null) {
                                         //filename got but not used
                                         String fileName = filePart.getSubmittedFileName();
+                                        System.out.println("testwallmagic");
                                         InputStream fileContent = filePart.getInputStream();
                                         comments[0] = new Comment(request.getParameter("wallCommentText"), "Report comment", ImageIO.read(fileContent));
                                     } else {
+                                        System.out.println("wallmagic");
                                         comments[0] = new Comment(request.getParameter("wallCommentText"), "Report comment");
                                     }
                                 }
-                                if ((request.getParameter("ceilingNoCommentCheck" + i).equals("off"))) {
+                                if (request.getParameter("ceilingCommentCheck" + i)!=null&&(request.getParameter("ceilingCommentCheck" + i).equals("on"))) {
 
                                     Part filePart = request.getPart("Ceilingimage"); // Retrieves <input type="file" name="file">
                                     if (filePart != null) {
@@ -312,7 +326,7 @@ Facade facade = new Facade();
                                         comments[1] = new Comment(request.getParameter("ceilingCommentText"), "Report comment");
                                     }
                                 }
-                                if ((request.getParameter("floorNoCommentCheck" + i).equals("off"))) {
+                                if (request.getParameter("floorNoCommentCheck" + i)!=null&&(request.getParameter("floorNoCommentCheck" + i).equals("off"))) {
 
                                     Part filePart = request.getPart("floorimage"); // Retrieves <input type="file" name="file">
                                     if (filePart != null) {
@@ -324,7 +338,7 @@ Facade facade = new Facade();
                                         comments[2] = new Comment(request.getParameter("floorCommentText"), "Report comment");
                                     }
                                 }
-                                if ((request.getParameter("doorNoCommentCheck" + i).equals("off"))) {
+                                if (request.getParameter("doorNoCommentCheck" + i)!=null&&(request.getParameter("doorNoCommentCheck" + i).equals("off"))) {
 
                                     Part filePart = request.getPart("doorimage"); // Retrieves <input type="file" name="file">
                                     if (filePart != null) {
@@ -336,10 +350,11 @@ Facade facade = new Facade();
                                         comments[3] = new Comment(request.getParameter("doorCommentText"), "Report comment");
                                     }
                                 }
+                                System.out.println((""+info[0] +0 + previouslydamaged + new Date(date[0], date[1], date[2]).toString() + str[0] + str[1] + str[2] + bools[0] + bools[1] + bools[2] + bools[3] + str[3] + true + comments));
                                 reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                             }
                             Comment outerWalls = null;
-                            if ((request.getParameter("outerwallNoCommentCheck").equals("off"))) {
+                            if (request.getParameter("outerwallNoCommentCheck")!=null&&(request.getParameter("outerwallNoCommentCheck").equals("off"))) {
                                 Part filePart = request.getPart("wallImage"); // Retrieves <input type="file" name="file">
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
@@ -347,7 +362,7 @@ Facade facade = new Facade();
                                 outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall", ImageIO.read(fileContent));
                             }
                             Comment roof = null;
-                            if ((request.getParameter("roofNoCommentCheck").equals("off"))) {
+                            if (request.getParameter("roofNoCommentCheck")!=null&&(request.getParameter("roofNoCommentCheck").equals("off"))) {
                                 Part filePart = request.getPart("roofImage"); // Retrieves <input type="file" name="file">
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
@@ -356,11 +371,10 @@ Facade facade = new Facade();
                             }
 
                             report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
-                            //facade.addReportToDB(report);
+                            facade.addReportToDB(report);
                             forward(request, response, "/index.html");
                         } catch (Exception ex) {
-                            request.setAttribute("fejlmeddelese", ex);
-                            forward(request, response, "/fejl.jsp");
+                            ex.printStackTrace();
                         }
                         break;
 

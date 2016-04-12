@@ -88,6 +88,14 @@ public class ReportPage
     {
         return previousDamaged;
     }
+    public int getPreviousDamaged()
+    {
+        if(previousDamaged)
+        return 1;
+        else{
+            return 0;
+        }
+    }
 
     public void setPreviousDamaged(boolean previousDamaged)
     {
@@ -138,6 +146,13 @@ public class ReportPage
     {
         return moist;
     }
+    public int getMoist(){
+        if(moist)
+        return 1;
+        else{
+            return 0;
+        }
+    }
 
     public void setMoist(boolean moist)
     {
@@ -147,6 +162,13 @@ public class ReportPage
     public boolean isRot()
     {
         return rot;
+    }
+    public int getRot(){
+        if(rot)
+        return 1;
+        else{
+            return 0;
+        }
     }
 
     public void setRot(boolean rot)
@@ -158,6 +180,13 @@ public class ReportPage
     {
         return mold;
     }
+    public int getMold(){
+        if(mold)
+        return 1;
+        else{
+            return 0;
+        }
+    }
 
     public void setMold(boolean mold)
     {
@@ -167,6 +196,13 @@ public class ReportPage
     public boolean isFire()
     {
         return fire;
+    }
+    public int getFire(){
+        if(fire)
+        return 1;
+        else{
+            return 0;
+        }
     }
 
     public void setFire(boolean fire)
@@ -187,6 +223,13 @@ public class ReportPage
     public boolean isMoistScan()
     {
         return moistScan;
+    }
+    public int getMoistScan(){
+        if(moistScan)
+        return 1;
+        else{
+            return 0;
+        }
     }
 
     public void setMoistScan(boolean moistScan)

@@ -50,8 +50,8 @@
                         <tbody>
                             <tr>
                                 <td>Tag</td>
-                                <td><input type="checkbox" name="roofCommentCheck"></td>
-                                <td><input type="checkbox" name="roofNoCommentCheck"></td>
+                                <td><input type="radio" value="on" name="roofCommentCheck"></td>
+                                <td><input type="radio" value="off" name="roofCommentCheck"></td>
                                 <td><input type = "file" name="roofImage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
@@ -73,8 +73,8 @@
                             <tr>
                                 <td>Ydervægge</td>
 
-                                <td><input type="checkbox" name="outerWallCommentCheck"></td>
-                                <td><input type="checkbox" name="outerWallNoCommentCheck" ></td>
+                                <td><input type="radio" value="on" name="outerWallCommentCheck"></td>
+                                <td><input type="radio" value="off" name="outerWallCommentCheck" ></td>
                                 <td><input type = "file" name="image" accept="image/x-png, image/gif, image/jpeg"/></td>
 
                             </tr>
@@ -149,8 +149,8 @@
                         <tbody>
                             <tr>
                                 <td>Vægge</td>
-                                <td><input type="checkbox" name="<%="wallCommentCheck"+i%>"/></td>
-                                <td><input type="checkbox" name="<%="wallNoCommentCheck"+i%>"/></td>
+                                <td><input type="radio" value="on" name="<%="wallCommentCheck"+i%>"/></td>
+                                <td><input type="radio" value="off" name="<%="wallCommentCheck"+i%>"/></td>
                                 <td><input type = "file" name="image" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
@@ -159,8 +159,8 @@
                             </tr>
                             <tr>
                                 <td>Loft</td>
-                                <td><input type="checkbox" name="<%="ceilingCommentCheck"+i%>"/></td>
-                                <td><input type="checkbox" name="<%="ceilingNoCommentCheck"+i%>"/></td>
+                                <td><input type="radio" value="on" name="<%="ceilingCommentCheck"+i%>"/></td>
+                                <td><input type="radio" value="off" name="<%="ceilingCommentCheck"+i%>"/></td>
                                 <td><input type = "file" name="Ceilingimage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
@@ -169,8 +169,8 @@
                             </tr>
                             <tr>
                                 <td>Gulv</td>
-                                <td><input type="checkbox" name="<%="floorCommentCheck"+i%>"/></td>
-                                <td><input type="checkbox" name="<%="floorNoCommentCheck"+i%>"/></td>
+                                <td><input type="radio" value="on" name="<%="floorCommentCheck"+i%>"/></td>
+                                <td><input type="radio" value="off" name="<%="floorCommentCheck"+i%>"/></td>
                                 <td><input type = "file" name="floorimage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
@@ -179,8 +179,8 @@
                             </tr>
                             <tr>
                                 <td>Vinduer/døre</td>
-                                <td><input type="checkbox" name="<%="doorCommentCheck"+i%>"/></td>
-                                <td><input type="checkbox" name="<%="doorNoCommentCheck"+i%>"/></td>
+                                <td><input type="radio" value="on" name="<%="doorCommentCheck"+i%>"/></td>
+                                <td><input type="radio" value="off" name="<%="doorCommentCheck"+i%>"/></td>
                                 <td><input type = "file" name="doorimage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
