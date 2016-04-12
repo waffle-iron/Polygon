@@ -25,11 +25,12 @@ import javax.servlet.http.Part;
 
 @WebServlet("/upload")
 @MultipartConfig
-public class ControllerServlet extends HttpServlet {
 
+public class ControllerServlet extends HttpServlet {
+Facade facade = new Facade();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Facade facade = new Facade();
+        
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
         String do_this = "";
@@ -39,6 +40,21 @@ public class ControllerServlet extends HttpServlet {
         }
         switch (do_this)
         {
+            case "useComment":
+                String commentPair = "";
+                commentPair += request.getParameter("Comment");
+                String[] commentPaired = commentPair.split(",");
+                useComment(request,response,commentPaired[0],Integer.parseInt(commentPaired[1]));
+                    break;
+            case "useButton":
+                String button = "";
+                button += request.getParameter("button");
+                if (button.equals("null")) {
+                    forward(request, response, "/index.html");
+                }
+                useButton(request,response, button);
+                break;
+
             case "goToAddBuilding":
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login)session.getAttribute("login")));
                 forward(request, response, "/AddBuildingJSP.jsp");
@@ -135,14 +151,99 @@ public class ControllerServlet extends HttpServlet {
                 forward(request, response, "/Fejl.jsp");
                 break;
 
-            case "useButton":
-                String button = "";
-                button += request.getParameter("button");
-                if (button.equals("null")) {
-                    forward(request, response, "/index.html");
+            
+            case "viewReport":
+                //get desired reportid
+                int reportid = 1;
+                Report report = facade.getReportFromDB(reportid);
+                request.setAttribute("BuildingID", report.getBuildingID());
+                request.setAttribute("OuterWalls", report.getOuterWalls());
+                request.setAttribute("ReportDate", report.getReportDate());
+                request.setAttribute("ReportPages", report.getReportPages());
+                request.setAttribute("ReportNR", report.getReportnr());
+                request.setAttribute("Roof", report.getRoof());
+                request.setAttribute("State", report.getState());
+                forward(request, response, "/ViewReport.jsp");
+                break;
+
+            case "Login":
+
+                forward(request, response, "/LoginJSP.jsp");
+
+                break;
+
+            case "CheckLogin":
+                String temp = "";
+
+                if (request.getParameter("username").equals("") || request.getParameter("password").equals("")) {
+                    request.setAttribute("doExists", false);
+                    forward(request, response, "/LoginJSP.jsp");
+
                 }
 
-                switch (button) {
+                if (facade.userExists(request.getParameter("username"), request.getParameter("password"))) {
+                    Login login = facade.getLoginByUsername(request.getParameter("username"));
+                    session.setAttribute("loginAs", login.getAuthorization());
+                    session.setAttribute("login", login);
+                    switch (login.getAuthorization())
+                    {
+                        case "user":
+                            forward(request, response, "/FrontPageJSP.jsp");
+                            break;
+
+                        case "tech":
+                            forward(request, response, "/FrontPageJSP.jsp");
+                            break;
+                        case "admin":
+                            forward(request, response, "/FrontPageJSP.jsp");
+                            break;
+                        default:
+                            forward(request, response, "/Fejl.jsp");
+                            break;
+                    }
+                    break;
+                }
+
+            case "CreateLogin":
+                forward(request, response, "/OpretJSP.jsp");
+                break;
+
+            case "CreateLogin2":
+                String temp2 = "";
+                switch (request.getParameter("enum")) {
+                    case "Bruger":
+                        temp2 = "user";
+                        break;
+
+                    case "Tekniker":
+                        temp2 = "tech";
+                        break;
+
+                    case "Admin":
+                        temp2 = "admin";
+                        break;
+                }
+                if (facade.userExists(request.getParameter("username"), request.getParameter("password")) == true) {
+                    forward(request, response, "/Fejl.jsp");
+                } else {
+                    Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
+                            request.getParameter("firmID"),
+                            temp2);
+                    facade.addLoginToDB(newLogin);
+                    forward(request, response, "/LoginJSP.jsp");
+                }
+                break;
+
+            case "goBackToLogin":
+                forward(request, response, "/LoginJSP.jsp");
+
+                break;
+        }
+    }
+    private void useButton (HttpServletRequest request, HttpServletResponse response,String button)
+            throws ServletException, IOException
+    {
+        switch (button) {
                     case "Delete":
                         break;
 
@@ -272,97 +373,12 @@ public class ControllerServlet extends HttpServlet {
                         forward(request, response, "/BuildJSP.jsp");
                         break;
                 }
-                break;
-
-            case "viewReport":
-                //get desired reportid
-                int reportid = 1;
-                Report report = facade.getReportFromDB(reportid);
-                request.setAttribute("BuildingID", report.getBuildingID());
-                request.setAttribute("OuterWalls", report.getOuterWalls());
-                request.setAttribute("ReportDate", report.getReportDate());
-                request.setAttribute("ReportPages", report.getReportPages());
-                request.setAttribute("ReportNR", report.getReportnr());
-                request.setAttribute("Roof", report.getRoof());
-                request.setAttribute("State", report.getState());
-                forward(request, response, "/ViewReport.jsp");
-                break;
-
-            case "Login":
-
-                forward(request, response, "/LoginJSP.jsp");
-
-                break;
-
-            case "CheckLogin":
-                String temp = "";
-
-                if (request.getParameter("username").equals("") || request.getParameter("password").equals("")) {
-                    request.setAttribute("doExists", false);
-                    forward(request, response, "/LoginJSP.jsp");
-
-                }
-
-                if (facade.userExists(request.getParameter("username"), request.getParameter("password"))) {
-                    Login login = facade.getLoginByUsername(request.getParameter("username"));
-                    session.setAttribute("loginAs", login.getAuthorization());
-                    session.setAttribute("login", login);
-                    switch (login.getAuthorization())
-                    {
-                        case "user":
-                            forward(request, response, "/FrontPageJSP.jsp");
-                            break;
-
-                        case "tech":
-                            forward(request, response, "/FrontPageJSP.jsp");
-                            break;
-                        case "admin":
-                            forward(request, response, "/FrontPageJSP.jsp");
-                            break;
-                        default:
-                            forward(request, response, "/Fejl.jsp");
-                            break;
-                    }
-                    break;
-                }
-
-            case "CreateLogin":
-                forward(request, response, "/OpretJSP.jsp");
-                break;
-
-            case "CreateLogin2":
-                String temp2 = "";
-                switch (request.getParameter("enum")) {
-                    case "Bruger":
-                        temp2 = "user";
-                        break;
-
-                    case "Tekniker":
-                        temp2 = "tech";
-                        break;
-
-                    case "Admin":
-                        temp2 = "admin";
-                        break;
-                }
-                if (facade.userExists(request.getParameter("username"), request.getParameter("password")) == true) {
-                    forward(request, response, "/Fejl.jsp");
-                } else {
-                    Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
-                            request.getParameter("firmID"),
-                            temp2);
-                    facade.addLoginToDB(newLogin);
-                    forward(request, response, "/LoginJSP.jsp");
-                }
-                break;
-
-            case "goBackToLogin":
-                forward(request, response, "/LoginJSP.jsp");
-
-                break;
-        }
     }
-
+    private void useComment (HttpServletRequest request, HttpServletResponse response,String comment, int ID)
+    {
+        
+    }
+    
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException {
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(path);

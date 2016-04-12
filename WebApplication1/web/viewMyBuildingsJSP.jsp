@@ -4,6 +4,7 @@
     Author     : LouiseB
 --%>
 
+<%@page import="helperClasses.Login"%>
 <%@page import="helperClasses.Building"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,7 +16,9 @@
     </head>
     <body>
         <h1>Mine bygninger</h1>
-        
+        <%
+            Login login = (Login)session.getAttribute("login");
+            %>
                      
         <% if (request.getAttribute("listOfBuildings") != null)
             {
@@ -73,14 +76,31 @@
                 <td>
                     <%=(build.get(i).getUsage())%>   
                 </td>
+                <%if (login.getAuthorization().equals("user")){%>
                 <td>
                     <form action="ControllerServlet" method="GET">  
-                        <%System.out.println(build.get(i).toString());
-                        System.out.println(build.get(i).getBuildingID());
-                        %>
-                    <input type="submit"  size="6" value="Delete  <%=build.get(i).getBuildingID() %>" name="button" />
-                <input type="hidden" value="useButton">
+                        
+                    <input type="submit"  size="6" value="delete" name="button" />
+                <input type="hidden" name="do_this"value="useComment">
+                <input type="hidden" name="Comment"value="Delete,<%=build.get(i).getBuildingID()%>">
                 </form>
+                </td>
+                <%
+                    }
+                    %>
+                <td>
+                    <form action="ControllerServlet" method="GET">  
+                    <input type="submit"  size="6" value="se rapporter" name="button" />
+                    <input type="hidden" name="do_this"value="useComment">
+                    <input type="hidden" name="Comment"value="viewReports,<%=build.get(i).getBuildingID()%>">
+                    </form>
+                </td>
+                <td>
+                    <form action="ControllerServlet" method="GET">  
+                    <input type="submit"  size="6" value="skriv report" name="button" />
+                    <input type="hidden" name="do_this"value="useComment">
+                    <input type="hidden" name="Comment"value="writeReport,<%=build.get(i).getBuildingID()%>">
+                    </form>
                 </td>
             </tr>
         

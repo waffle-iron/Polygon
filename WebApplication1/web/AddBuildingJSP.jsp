@@ -30,40 +30,25 @@
                         }
                     %>
                     <td>Adresse</td>
-                    <td><input type="text" name="buildAddress" id="buildAddress" value="<%= (request.getParameter("buildAddress") == null
+                               <td><input type="text" name="buildAddress" id="buildAddress" value="<%= (request.getParameter("buildAddress") == null
                                        || clear ? "" : request.getParameter("buildAddress"))%>"/>&nbsp;*
                 </tr>
                 <tr>
                     <td>Postnummer</td>
-                    <td><input type="text" name="buildZip" value="<%= (request.getParameter("buildZip") == null
+                               <td><input type="text" name="buildZip" value="<%= (request.getParameter("buildZip") == null
                                        || clear ? "" : request.getParameter("buildZip"))%>" pattern="[0-9]{4}" />&nbsp;* 
                         <span title="Postnummer skal indeholde 4 cifre."> </span></td>
                 </tr>
                 <tr>
                     <td>Firma ID</td>
-                    <% if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
-                        {
-                            ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("ValidFirmID");%>
-                    <td>
-                        <select name="buildFirmID">
-                            <%for (int i = 0; i < arr.size(); i++)
-                            {%>
-                            <option><%arr.get(i);%></option>
-                            <%}%>
+                    <% if (request.getAttribute("ValidFirmID") !=null && ((String)session.getAttribute("loginAs")).equals("admin")){
+                        ArrayList<Integer> arr = (ArrayList<Integer>)request.getAttribute("ValidFirmID");%>
+                        <td>
+                    <select name="buildFirmID">
+                        <%for(int i = 0; i<arr.size();i++){%>
+                        <option><%arr.get(i);%></option>
+                        <%}%>
                         </select>
-<<<<<<< HEAD:WebApplication1/web/BuildingJSP.jsp
-                    </td>
-                    <%}%>
-
-
-                    <% if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("user"))
-                            {%>
-                    <td>
-                        <%=((ArrayList<Integer>) request.getAttribute("ValidFirmID")).get(0)%>
-                    </td>
-                    <%}%>
-
-=======
                         </td>
                         <%}%>
                         
@@ -74,29 +59,28 @@
                         </td>
                         <%}%>
                         
->>>>>>> 8f60fd503e08393f57478b63a7e5e40d75bbc27c:WebApplication1/web/AddBuildingJSP.jsp
                 </tr>
                 <tr>
                     <td>Bygningens navn</td>
-                    <td><input type="text" name="buildName" value="<%= (request.getParameter("buildName") == null
+                               <td><input type="text" name="buildName" value="<%= (request.getParameter("buildName") == null
                                        || clear ? "" : request.getParameter("buildName"))%>" pattern="[A-Za-z].{0,30}"></td>
                 <span title="Dette felt skal udfyldes"> </span>
                 </tr>
                 <tr>
                     <td>Bygningsår</td>
-                    <td><input type="text" name="buildYear" value="<%= (request.getParameter("buildYear") == null
+                               <td><input type="text" name="buildYear" value="<%= (request.getParameter("buildYear") == null
                                        || clear ? "" : request.getParameter("buildYear"))%>" pattern="[0-9]{4}">
                         <span title="Bygningsår skal bestå af 4 cifre."</td>
                 </tr>
                 <tr>
                     <td>Størrelse</td>
-                               <td><input type="text" name="buildSize" value="<%= (request.getParameter("buildSize") == null
-                            || clear ? "" : request.getParameter("buildSize"))%>" pattern="[0-9].{0,}">&nbsp;*
+                    <td><input type="text" name="buildSize" value="<%= (request.getParameter("buildSize") == null
+                                       || clear ? "" : request.getParameter("buildSize"))%>" pattern="[0-9].{0,}">&nbsp;*
                         <span title="Størrelsen angives i m2"> </span></td>
                 </tr>
                 <tr>
                     <td>Brug</td>
-                    <td><input type="text" name="buildUsage" value="<%= (request.getParameter("buildUsage") == null
+                               <td><input type="text" name="buildUsage" value="<%= (request.getParameter("buildUsage") == null
                                        || clear ? "" : request.getParameter("buildUsage"))%>" pattern="[A-Za-z].{0,30}">&nbsp;*
                         <span title="Dette felt skal udfyldes"> </span></td>
                 </tr>
@@ -108,95 +92,14 @@
             <input type="hidden" name="do_this" value="createBuild" />
             <input type="submit" value="Opret bygning" name="createBuild" />
         </form>
-<<<<<<< HEAD
-
-        <form action="ControllerServlet" method="GET">
-            <input type="submit" value="Vis bygninger" name="showBuild" >
-            <input type="hidden" name="do_this" value="showBuild"/>
-            <br>
-        </form>
-=======
                         
         
->>>>>>> 7c1cf750da26a78669383851ff6c30699167e856
 
         <form action="ControllerServlet" method="GET">
             <input type="hidden" name="do_this" value="goBackBuilding" />
             <input type="submit" value="Gå tilbage til start siden" name="goBackBuilding" />
             <br>
         </form>
-<<<<<<< HEAD
-
-        <% if (request.getAttribute("printBuild") != null)
-            {
-
-                ArrayList<Building> build;
-                Object buildingList = request.getAttribute("printBuild");
-                build = (ArrayList<Building>) buildingList;
-        %>
-        <table>
-            <tr>
-                <td>
-                    Address
-                </td>
-                <td>
-                    Postnummer
-                </td>
-                <td>
-                    FirmaID
-                </td>
-                <td>
-                    Bygningsnavn
-                </td>
-                <td>
-                    Byggeår
-                </td>
-                <td>
-                    Byggningsstørelse
-                </td>
-                <td>
-                    Bruges til
-                </td>
-            </tr>
-            <%
-            for (int i = 0; i < build.size(); i++)
-            {%>
-
-            <tr>
-                <td>
-                    <%=(build.get(i).getAddress())%>   
-                </td>
-                <td>
-                    <%=(build.get(i).getZip())%>   
-                </td>
-                <td>
-                    <%=(build.get(i).getFirmID())%>   
-                </td>
-                <td>
-                    <%=(build.get(i).getName())%>   
-                </td>
-                <td>
-                    <%=(build.get(i).getBuildYear())%>   
-                </td>
-                <td>
-                    <%=(build.get(i).getSize())%>   m&#178;
-                </td>
-                <td>
-                    <%=(build.get(i).getUsage())%>   
-                </td>
-                <td>
-                    <input type="submit"  size="6" value="Delete  <%=build.get(i).getBuildingID()%>" tname="button" />
-                </td>
-            </tr>
-
-            <%}%>
-        </table>
-        <%}%>  
-        <input type="hidden" value="useButton">
-    </form>
-</body>
-=======
            
     </body>
->>>>>>> 7c1cf750da26a78669383851ff6c30699167e856
 </html>
