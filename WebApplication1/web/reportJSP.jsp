@@ -55,8 +55,7 @@
                                 <td><input type="checkbox" name="roofPictureCheck"></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><input type="text" name="roofText" size="90" value ="<%= (request.getParameter("roofText") == null ? "" : request.getParameter("roofText"))%>"
-                                                       ></td>
+                                <td colspan="4"><input type="text" name="roofText" size="90" value ="<%= (request.getParameter("roofText") == null ? "" : request.getParameter("roofText"))%>"></td>
                             </tr>
                         </tbody>
                     </table>
