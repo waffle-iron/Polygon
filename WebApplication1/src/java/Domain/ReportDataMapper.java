@@ -53,6 +53,12 @@ public class ReportDataMapper
                             + comment.getType() + "',"
                             + comment.getText() + "',"
                             + ");");
+                    /*if(comment.getImage()!=null){
+                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ("
+                            + comment.getImage() + "',"
+                            + 1 + "',"
+                            + ");");
+                    }*/
                 }
             }
             if (Report.getOuterWalls() != null)
@@ -62,6 +68,12 @@ public class ReportDataMapper
                         + Report.getOuterWalls().getType() + "',"
                         + Report.getOuterWalls().getText() + "',"
                         + ");");
+                if(Report.getOuterWalls().getImage()!=null){
+                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ("
+                            + Report.getOuterWalls() + "',"
+                            + 1 + "',"
+                            + ");");
+                    }
             }
             if (Report.getRoof() != null)
             {
@@ -70,6 +82,12 @@ public class ReportDataMapper
                         + Report.getRoof().getType() + "',"
                         + Report.getRoof().getText() + "',"
                         + ");");
+                if(Report.getRoof().getImage()!=null){
+                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ("
+                            + Report.getRoof()+ "',"
+                            + 1 + "',"
+                            + ");");
+                    }
             }
             con.close();
         } catch (Exception ex)

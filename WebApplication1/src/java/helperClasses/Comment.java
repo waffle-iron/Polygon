@@ -1,14 +1,31 @@
 package helperClasses;
 
+import java.awt.Image;
+
 public class Comment
 {
     private String text;
     private String type;
+    private Image image;
+
+    public Comment(String text, String type, Image image) {
+        this.text = text;
+        this.type = type;
+        this.image = image;
+    }
     
     public Comment(String text, String type)
     {
         this.text = text;
         this.type = type;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public String getText()
