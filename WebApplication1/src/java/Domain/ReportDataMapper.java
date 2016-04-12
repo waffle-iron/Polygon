@@ -27,71 +27,67 @@ public class ReportDataMapper
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             System.out.println(Report.getState());
-            statement.executeUpdate("insert into `report` (`BuildingID`,`Date`,`StateNR`)" + " values('"
+            statement.executeUpdate("insert into `report` (`BuildingID`,`Date`,`StateNR`)  values('"
                     + Report.getBuildingID() + "','"
                     + Report.getReportDate().toSQLString() + "','"
                     + +Report.getState() + "');");
             for (ReportPage reportpage : Report.getReportPages())
             {
-                statement.executeUpdate("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)" + " values("
-                        + Report.getReportnr() + "',"
-                        + reportpage.isPreviousDamaged() + "',"
-                        + reportpage.getDamagedDate().toSQLString() + "',"
+                //System.out.println(reportpage.getDamagedDate().toString() + reportpage.getDamagedPlace()+ reportpage.getCause()+ reportpage.getRepairs()+reportpage.isMoist() + reportpage.isRot()+ reportpage.isMold());
+                statement.executeUpdate("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`) values('"
+                        + (getNextReportNr()-1)+ "','"
+                        + reportpage.getPreviousDamaged()+ "','"
+                        + reportpage.getDamagedDate().toSQLString() + "','"
                         + reportpage.getDamagedPlace() + "',"
-                        + reportpage.getCause() + "',"
-                        + reportpage.getRepairs() + "',"
-                        + reportpage.isMoist() + "',"
-                        + reportpage.isRot() + "',"
-                        + reportpage.isMold() + "',"
-                        + reportpage.isFire() + "',"
-                        + reportpage.getOther() + "',"
-                        + reportpage.isMoistScan() + "');");
+                        + reportpage.getCause() + "','"
+                        + reportpage.getRepairs() + "','"
+                        + reportpage.getMoist()+ "','"
+                        + reportpage.getRot()+ "','"
+                        + reportpage.getMold()+ "','"
+                        + reportpage.getFire()+ "','"
+                        + reportpage.getOther() + "','"
+                        + reportpage.getMoistScan()+ "');");
                 for (Comment comment : reportpage.getComments())
                 {
-                    statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values("
-                            + reportpage.getReportPageNr() + "',"
-                            + comment.getType() + "',"
-                            + comment.getText() + "',"
-                            + ");");
+                    statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values('"
+                            + reportpage.getReportPageNr() + "','"
+                            + comment.getType() + "','"
+                            + comment.getText() + "');");
                     if(comment.getImage()!=null){
-                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ("
-                            + comment.getImage() + "',"
-                            + CommentDataMapper.getNextCommentNr() + "',"
-                            + ");");
+                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ('"
+                            + comment.getImage() + "','"
+                            + CommentDataMapper.getNextCommentNr() + "');");
                     }
                 }
             }
             if (Report.getOuterWalls() != null)
             {
-                statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values("
-                        + +Report.getReportnr() + "',"
-                        + Report.getOuterWalls().getType() + "',"
-                        + Report.getOuterWalls().getText() + "',"
-                        + ");");
+                statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values('"
+                        + +Report.getReportnr() + "','"
+                        + Report.getOuterWalls().getType() + "','"
+                        + Report.getOuterWalls().getText() + "'');");
                 if(Report.getOuterWalls().getImage()!=null){
-                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ("
-                            + Report.getOuterWalls() + "',"
-                            + CommentDataMapper.getNextCommentNr() + "',"
-                            + ");");
+                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ('"
+                            + Report.getOuterWalls() + "','"
+                            + CommentDataMapper.getNextCommentNr() + "');");
                     }
             }
             if (Report.getRoof() != null)
             {
-                statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values("
-                        + +Report.getReportnr() + "',"
-                        + Report.getRoof().getType() + "',"
-                        + Report.getRoof().getText() + "',"
-                        + ");");
+                statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values('"
+                        + +Report.getReportnr() + "','"
+                        + Report.getRoof().getType() + "','"
+                        + Report.getRoof().getText() + "');");
                 if(Report.getRoof().getImage()!=null){
-                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ("
-                            + Report.getRoof()+ "',"
-                            + CommentDataMapper.getNextCommentNr() + "',"
-                            + ");");
+                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ('"
+                            + Report.getRoof()+ "','"
+                            + CommentDataMapper.getNextCommentNr() + "');");
                     }
             }
             con.close();
         } catch (Exception ex)
         {
+            ex.printStackTrace();
             System.out.println(ex.toString());
         }
     }
