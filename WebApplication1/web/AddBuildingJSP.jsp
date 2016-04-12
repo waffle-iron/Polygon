@@ -108,18 +108,24 @@
             <input type="hidden" name="do_this" value="createBuild" />
             <input type="submit" value="Opret bygning" name="createBuild" />
         </form>
+<<<<<<< HEAD
 
         <form action="ControllerServlet" method="GET">
             <input type="submit" value="Vis bygninger" name="showBuild" >
             <input type="hidden" name="do_this" value="showBuild"/>
             <br>
         </form>
+=======
+                        
+        
+>>>>>>> 7c1cf750da26a78669383851ff6c30699167e856
 
         <form action="ControllerServlet" method="GET">
             <input type="hidden" name="do_this" value="goBackBuilding" />
             <input type="submit" value="Gå tilbage til start siden" name="goBackBuilding" />
             <br>
         </form>
+<<<<<<< HEAD
 
         <% if (request.getAttribute("printBuild") != null)
             {
@@ -189,4 +195,8 @@
         <input type="hidden" value="useButton">
     </form>
 </body>
+=======
+           
+    </body>
+>>>>>>> 7c1cf750da26a78669383851ff6c30699167e856
 </html>

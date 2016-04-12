@@ -82,18 +82,25 @@ public class ControllerServlet extends HttpServlet {
 
                 break;
 
-            case "showMyBuildingsPage":
-                forward(request, response, "/viewMyBuildingsJSP.jsp");
-
-                break;
-
-            case "showMyBuildings":
-
-                if (session.getAttribute("login") != null && session.getAttribute("listOfBuildings") != null) {
+           
+            case "goToViewMyBuildings":
+                System.out.println("test");
+                if (session.getAttribute("login") != null)
+                {
                     Login login = (Login) session.getAttribute("login");
-
-                    request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+                    
+                    System.out.println(session.getAttribute("login").toString());
+                    System.out.println(login.getFirmID());
+                    
+                    try{
+                        request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+                    } catch(Exception ex)
+                    {
+                        System.out.println("test1");
+                    }
                 }
+                                forward(request, response, "/viewMyBuildingsJSP.jsp");
+
                 break;
 
             case "goBackBuilding":

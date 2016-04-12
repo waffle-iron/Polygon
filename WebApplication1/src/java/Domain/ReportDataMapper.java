@@ -53,12 +53,12 @@ public class ReportDataMapper
                             + comment.getType() + "',"
                             + comment.getText() + "',"
                             + ");");
-                    /*if(comment.getImage()!=null){
+                    if(comment.getImage()!=null){
                         statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ("
                             + comment.getImage() + "',"
-                            + 1 + "',"
+                            + CommentDataMapper.getNextCommentNr() + "',"
                             + ");");
-                    }*/
+                    }
                 }
             }
             if (Report.getOuterWalls() != null)
@@ -71,7 +71,7 @@ public class ReportDataMapper
                 if(Report.getOuterWalls().getImage()!=null){
                         statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ("
                             + Report.getOuterWalls() + "',"
-                            + 1 + "',"
+                            + CommentDataMapper.getNextCommentNr() + "',"
                             + ");");
                     }
             }
@@ -85,7 +85,7 @@ public class ReportDataMapper
                 if(Report.getRoof().getImage()!=null){
                         statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ("
                             + Report.getRoof()+ "',"
-                            + 1 + "',"
+                            + CommentDataMapper.getNextCommentNr() + "',"
                             + ");");
                     }
             }
@@ -227,7 +227,6 @@ public class ReportDataMapper
     public int getNextReportNr()
     {
         int info = 0;
-        ArrayList<ReportPage> arr = new ArrayList<>();
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
@@ -237,7 +236,6 @@ public class ReportDataMapper
             res.next();
             info = res.getInt(1) +1;
             statement.executeUpdate("ALTER TABLE report AUTO_INCREMENT = "+info+";");
-            System.out.println(info);
             con.close();
 
         } catch (Exception ex)
