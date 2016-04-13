@@ -26,7 +26,6 @@ public class ReportDataMapper
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            System.out.println(Report.getState());
             statement.executeUpdate("insert into `report` (`BuildingID`,`Date`,`StateNR`)  values('"
                     + Report.getBuildingID() + "','"
                     + Report.getReportDate().toSQLString() + "','"
@@ -50,12 +49,12 @@ public class ReportDataMapper
                 for (Comment comment : reportpage.getComments())
                 {
                     statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values('"
-                            +Report.getReportnr() + "','"
-                            + reportpage.getReportPageNr() + "','"
+                            + (getNextReportNr()-1) + "','"
+                            + (getNextReportPageNr()-1) + "','"
                             + comment.getType() + "','"
                             + comment.getText() + "');");
                     if(comment.getImage()!=null){
-                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ('"
+                        statement.executeUpdate("INSERT INTO `picturelink` (`Picture`, `CommentID`) VALUES ('"
                             + comment.getImage() + "','"
                             + CommentDataMapper.getNextCommentNr() + "');");
                     }
@@ -64,11 +63,11 @@ public class ReportDataMapper
             if (Report.getOuterWalls() != null)
             {
                 statement.executeUpdate("insert into `comments`(`ReportNR`,`CommentType`,`Text`) values('"
-                        +Report.getReportnr() + "','"
+                        +(getNextReportNr()-1) + "','"
                         + Report.getOuterWalls().getType() + "','"
-                        + Report.getOuterWalls().getText() + "'');");
+                        + Report.getOuterWalls().getText() + "');");
                 if(Report.getOuterWalls().getImage()!=null){
-                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ('"
+                        statement.executeUpdate("INSERT INTO `picturelink` (`Picture`, `CommentID`) VALUES ('"
                             + Report.getOuterWalls().getImage() + "','"
                             + CommentDataMapper.getNextCommentNr() + "');");
                     }
@@ -76,11 +75,11 @@ public class ReportDataMapper
             if (Report.getRoof() != null)
             {
                 statement.executeUpdate("insert into `comments`(`ReportNR`,`CommentType`,`Text`) values('"
-                        + +Report.getReportnr() + "','"
+                        + (getNextReportNr()-1) + "','"
                         + Report.getRoof().getType() + "','"
                         + Report.getRoof().getText() + "');");
                 if(Report.getRoof().getImage()!=null){
-                        statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ('"
+                        statement.executeUpdate("INSERT INTO `picturelink` (`Picture`, `CommentID`) VALUES ('"
                             + Report.getRoof().getImage()+ "','"
                             + CommentDataMapper.getNextCommentNr() + "');");
                     }
@@ -230,6 +229,26 @@ public class ReportDataMapper
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             ResultSet res = statement.executeQuery("SELECT max(reportNR) FROM report;");
+            res.next();
+            info = res.getInt(1) +1;
+            statement.executeUpdate("ALTER TABLE report AUTO_INCREMENT = "+info+";");
+            con.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return info;
+    }
+    public int getNextReportPageNr()
+    {
+        int info = 0;
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+            Statement statement = con.createStatement();
+            ResultSet res = statement.executeQuery("SELECT max(reportpageNR) FROM reportpage;");
             res.next();
             info = res.getInt(1) +1;
             statement.executeUpdate("ALTER TABLE report AUTO_INCREMENT = "+info+";");

@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="report">
-            <form id="myForm" action="ControllerServlet" method="POST">
+            <form id="myForm" action="ControllerServlet" method="POST" enctype="multipart/form-data">
                 <div class="frontPage">
                     <h1>Udfyld rapport</h1> 
                     <label for="reportNR">Rapport nummer: </label>
@@ -103,8 +103,8 @@
                             <tr>
                                 <td>Har der været<br>
                                     skade i lokalet?</td>
-                                <td colspan="3"><p> Ja <input type="radio" name="<%="damageCheck"+i%>" /></p>
-                                    <p> Nej <input type="radio" name="<%="damageCheck"+i%>"/></p></td>
+                                <td colspan="3"><p> Ja <input type="radio" name="<%="damageCheck"+i%>" value="on" /></p>
+                                    <p> Nej <input type="radio" name="<%="damageCheck"+i%>" value="off" checked="checked"/></p></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -149,9 +149,9 @@
                         <tbody>
                             <tr>
                                 <td>Vægge</td>
-                                <td><input type="radio" value="on" name="<%="CommentCheck"+i%>" /></td>
+                                <td><input type="radio" value="on" name="<%="wallCommentCheck"+i%>" /></td>
                                 <td><input type="radio" value="off" name="<%="wallCommentCheck"+i%>" checked="checked"/></td>
-                                <td><input type = "file" name="image" accept="image/x-png, image/gif, image/jpeg"/></td>
+                                <td><input type = "file" name="wallImage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
                                 <td colspan="4"><input type="text" name="<%="wallCommentCheckText"+i%>" size="80" value ="<%= (request.getParameter("wallCommentText"+i) == null ? "" : request.getParameter("wallCommentText"+i))%>"

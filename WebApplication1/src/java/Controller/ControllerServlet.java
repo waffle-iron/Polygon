@@ -140,24 +140,24 @@ public class ControllerServlet extends HttpServlet
                 if (request.getParameter("contactNumber").trim().compareTo("") == 0
                         || request.getParameter("contactMail").trim().compareTo("") == 0)
                 {
-
+                    request.setAttribute("saveFirmInfo", false);
                     forward(request, response, "/FirmJSP.jsp");
                 } else
                 {
                     Firm firm = new Firm(request.getParameter("contactNumber"),
                             request.getParameter("contactMail"));
-                    request.setAttribute("saveFirmInfo", firm);
+                    request.setAttribute("saveFirmInfo", true);
                     facade.addFirmToDB(firm);
                     request.setAttribute("clearAll", true);
 
-                    forward(request, response, "/index.html");
+                    forward(request, response, "/FirmJSP.jsp");
                     break;
                 }
 
             case "Report":
                 goToReport(request,response);
                 break;
-            
+
             case "viewReport":
                 //get desired reportid
                 int reportid = 1;
@@ -171,6 +171,11 @@ public class ControllerServlet extends HttpServlet
                 request.setAttribute("State", report.getState());
                 forward(request, response, "/ViewReport.jsp");
                 break;
+                
+            case "goToFrontPage":
+               forward(request, response, "/FrontPageJSP.jsp");
+                break;
+                
             case "CheckLogin":
                 String temp = "";
 
@@ -202,14 +207,13 @@ public class ControllerServlet extends HttpServlet
                             forward(request, response, "/Fejl.jsp");
                             break;
                     }
-                    
-                }
-                else
+
+                } else
                 {
                     request.setAttribute("doExists", false);
                     forward(request, response, "/LoginJSP.jsp");
                 }
-            break;
+                break;
             case "goToCreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
@@ -245,9 +249,9 @@ public class ControllerServlet extends HttpServlet
 
             case "goBackToLogin":
                 forward(request, response, "/LoginJSP.jsp");
-                
+
                 break;
-                default:
+            default:
                 System.out.println("Not valid command" + do_this);
                 forward(request, response, "/Fejl.jsp");
                 break;
@@ -259,11 +263,7 @@ public class ControllerServlet extends HttpServlet
     {
         request.setAttribute("numberOfPages", "" + 1);
 
-                request.setAttribute("nextReportNr", facade.getNextReportNr());
-                forward(request, response, "/reportJSP.jsp");
-    }
-    
-    private void useButton(HttpServletRequest request, HttpServletResponse response, HttpSession session, String button)
+    private void useButton(HttpServletRequest request, HttpServletResponse response, String button)
             throws ServletException, IOException
     {
         switch (button)
@@ -302,11 +302,11 @@ public class ControllerServlet extends HttpServlet
                         date[i] = Integer.parseInt(tempdate[i]);
                     }
                     ArrayList<ReportPage> reportpage = new ArrayList<>();
-                    for (int i = 1; i < Integer.parseInt(request.getParameter("numberOfReportPages"))+1; i++)
+                    for (int i = 1; i < Integer.parseInt(request.getParameter("numberOfReportPages")) + 1; i++)
                     {
                         int[] raportdate = new int[3];
                         tempdate = (request.getParameter("dateDate")).split("-");
-                        for (int j = 0; i < 3; i++)
+                        for (int j = 0; j < 3; j++)
                         {
                             date[j] = Integer.parseInt(tempdate[j]);
                         }
@@ -315,14 +315,14 @@ public class ControllerServlet extends HttpServlet
                         {
                             previouslydamaged = true;
                         }
-                        String[] str =
-                        {
-                            "", "", "", ""
-                        };
-                        System.out.println(request.getParameter("damagePlaceText" + i));
+                        String[] str
+                                =
+                                {
+                                    "", "", "", ""
+                                };
                         if (request.getParameter("damagePlaceText" + i) != null)
                         {
-                            
+
                             str[0] = request.getParameter("damagePlaceText" + i);
                         }
                         if (request.getParameter("damageCauseText" + i) != null)
@@ -337,10 +337,11 @@ public class ControllerServlet extends HttpServlet
                         {
                             str[3] = request.getParameter("otherDamageText" + i);
                         }
-                        Boolean[] bools =
-                        {
-                            false, false, false, false, false
-                        };
+                        Boolean[] bools
+                                =
+                                {
+                                    false, false, false, false, false
+                                };
                         if (request.getParameter("moistCheck" + i) != null)
                         {
                             bools[0] = (request.getParameter("moistCheck" + i).equals("on"));
@@ -361,16 +362,15 @@ public class ControllerServlet extends HttpServlet
                         if ((request.getParameter("wallCommentCheck" + i).equals("on")))
                         {
                             Part filePart = request.getPart("wallImage"); // Retrieves <input type="file" name="file">
+
                             if (filePart != null)
                             {
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
-                                System.out.println("testwallmagic");
                                 InputStream fileContent = filePart.getInputStream();
                                 comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment", ImageIO.read(fileContent)));
                             } else
                             {
-                                System.out.println("wallmagic");
                                 comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment"));
                             }
                         }
@@ -401,10 +401,10 @@ public class ControllerServlet extends HttpServlet
                                 comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment", ImageIO.read(fileContent)));
                             } else
                             {
-                                comments.add( new Comment(request.getParameter("floorCommentText"), "Report comment"));
+                                comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment"));
                             }
                         }
-                        if ( (request.getParameter("doorCommentCheck" + i).equals("on")))
+                        if ((request.getParameter("doorCommentCheck" + i).equals("on")))
                         {
 
                             Part filePart = request.getPart("doorimage"); // Retrieves <input type="file" name="file">
@@ -423,22 +423,36 @@ public class ControllerServlet extends HttpServlet
                         reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                     }
                     Comment outerWalls = null;
-                    if ((request.getParameter("outerwallCommentCheck").equals("on")))
+                    if ((request.getParameter("outerWallCommentCheck").equals("on")))
                     {
                         Part filePart = request.getPart("wallImage"); // Retrieves <input type="file" name="file">
-                        //filename got but not used
-                        String fileName = filePart.getSubmittedFileName();
-                        InputStream fileContent = filePart.getInputStream();
-                        outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall", ImageIO.read(fileContent));
+                        if (filePart != null)
+                        {
+                            //filename got but not used
+                            String fileName = filePart.getSubmittedFileName();
+                            InputStream fileContent = filePart.getInputStream();
+                            outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall", ImageIO.read(fileContent));
+
+                        } else
+                        {
+                            outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall");
+                        }
                     }
                     Comment roof = null;
-                    if ( (request.getParameter("roofCommentCheck").equals("on")))
+                    if ((request.getParameter("roofCommentCheck").equals("on")))
                     {
                         Part filePart = request.getPart("roofImage"); // Retrieves <input type="file" name="file">
-                        //filename got but not used
-                        String fileName = filePart.getSubmittedFileName();
-                        InputStream fileContent = filePart.getInputStream();
-                        roof = new Comment(request.getParameter("roofText"), "Ceiling", ImageIO.read(fileContent));
+                        if (filePart != null)
+                        {
+                            //filename got but not used
+                            String fileName = filePart.getSubmittedFileName();
+                            InputStream fileContent = filePart.getInputStream();
+                            roof = new Comment(request.getParameter("roofText"), "Ceiling", ImageIO.read(fileContent));
+
+                        } else
+                        {
+                            roof = new Comment(request.getParameter("roofText"), "Ceiling");
+                        }
                     }
 
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
