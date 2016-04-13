@@ -11,11 +11,16 @@ import java.util.logging.Logger;
 public class Connector
 {
 
-    private static final String HOST = "80.71.140.73";
-    private static final int PORT = 3306;
-    private static final String DATABASE = "grp01";
-    public static final String USERNAME = "grp01";
-    public static final String PASSWORD = "7WgF&mjz";
+//    private static final String HOST = "80.71.140.73";
+//    private static final int PORT = 3306;
+//    private static final String DATABASE = "grp01";
+//    public static final String USERNAME = "grp01";
+//    public static final String PASSWORD = "7WgF&mjz";
+    static final String HOST = "Localhost";
+    static int PORT = 3306;
+    static String DATABASE = "grp01";
+    final static String USERNAME = "root";
+    final static String PASSWORD = "llpllp11";
     public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
     static Statement stmt;

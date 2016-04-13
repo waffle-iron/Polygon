@@ -1,5 +1,6 @@
+drop database if exists grp01;
+CREATE DATABASE grp01;
 use grp01;
-
 DROP TABLE IF EXISTS pictures;
 DROP TABLE IF EXISTS conlusion;
 DROP TABLE IF EXISTS comments;

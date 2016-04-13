@@ -205,9 +205,9 @@ public class ControllerServlet extends HttpServlet
                             forward(request, response, "/Fejl.jsp");
                             break;
                     }
-                    break;
+                    
                 }
-
+            break;
             case "goToCreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
@@ -293,7 +293,7 @@ public class ControllerServlet extends HttpServlet
                         date[i] = Integer.parseInt(tempdate[i]);
                     }
                     ArrayList<ReportPage> reportpage = new ArrayList<>();
-                    for (int i = 0; i < Integer.parseInt(request.getParameter("numberOfReportPages")); i++)
+                    for (int i = 1; i < Integer.parseInt(request.getParameter("numberOfReportPages"))+1; i++)
                     {
                         int[] raportdate = new int[3];
                         tempdate = (request.getParameter("dateDate")).split("-");
@@ -310,8 +310,10 @@ public class ControllerServlet extends HttpServlet
                         {
                             "", "", "", ""
                         };
+                        System.out.println(request.getParameter("damagePlaceText" + i));
                         if (request.getParameter("damagePlaceText" + i) != null)
                         {
+                            
                             str[0] = request.getParameter("damagePlaceText" + i);
                         }
                         if (request.getParameter("damageCauseText" + i) != null)
@@ -346,8 +348,8 @@ public class ControllerServlet extends HttpServlet
                         {
                             bools[3] = (request.getParameter("fireCheck" + i).equals("on"));
                         }
-                        Comment[] comments = new Comment[4];
-                        if (request.getParameter("wallCommentCheck" + i) != null && (request.getParameter("wallCommentCheck" + i).equals("on")))
+                        ArrayList<Comment> comments = new ArrayList<>();
+                        if ((request.getParameter("wallCommentCheck" + i).equals("on")))
                         {
                             Part filePart = request.getPart("wallImage"); // Retrieves <input type="file" name="file">
                             if (filePart != null)
@@ -356,14 +358,14 @@ public class ControllerServlet extends HttpServlet
                                 String fileName = filePart.getSubmittedFileName();
                                 System.out.println("testwallmagic");
                                 InputStream fileContent = filePart.getInputStream();
-                                comments[0] = new Comment(request.getParameter("wallCommentText"), "Report comment", ImageIO.read(fileContent));
+                                comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment", ImageIO.read(fileContent)));
                             } else
                             {
                                 System.out.println("wallmagic");
-                                comments[0] = new Comment(request.getParameter("wallCommentText"), "Report comment");
+                                comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment"));
                             }
                         }
-                        if (request.getParameter("ceilingCommentCheck" + i) != null && (request.getParameter("ceilingCommentCheck" + i).equals("on")))
+                        if ((request.getParameter("ceilingCommentCheck" + i).equals("on")))
                         {
 
                             Part filePart = request.getPart("Ceilingimage"); // Retrieves <input type="file" name="file">
@@ -372,13 +374,13 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments[1] = new Comment(request.getParameter("ceilingCommentText"), "Report comment", ImageIO.read(fileContent));
+                                comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment", ImageIO.read(fileContent)));
                             } else
                             {
-                                comments[1] = new Comment(request.getParameter("ceilingCommentText"), "Report comment");
+                                comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment"));
                             }
                         }
-                        if (request.getParameter("floorNoCommentCheck" + i) != null && (request.getParameter("floorNoCommentCheck" + i).equals("off")))
+                        if ((request.getParameter("floorCommentCheck" + i).equals("on")))
                         {
 
                             Part filePart = request.getPart("floorimage"); // Retrieves <input type="file" name="file">
@@ -387,13 +389,13 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments[2] = new Comment(request.getParameter("floorCommentText"), "Report comment", ImageIO.read(fileContent));
+                                comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment", ImageIO.read(fileContent)));
                             } else
                             {
-                                comments[2] = new Comment(request.getParameter("floorCommentText"), "Report comment");
+                                comments.add( new Comment(request.getParameter("floorCommentText"), "Report comment"));
                             }
                         }
-                        if (request.getParameter("doorNoCommentCheck" + i) != null && (request.getParameter("doorNoCommentCheck" + i).equals("off")))
+                        if ( (request.getParameter("doorCommentCheck" + i).equals("on")))
                         {
 
                             Part filePart = request.getPart("doorimage"); // Retrieves <input type="file" name="file">
@@ -402,17 +404,17 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments[3] = new Comment(request.getParameter("doorCommentText"), "Report comment", ImageIO.read(fileContent));
+                                comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment", ImageIO.read(fileContent)));
                             } else
                             {
-                                comments[3] = new Comment(request.getParameter("doorCommentText"), "Report comment");
+                                comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment"));
                             }
                         }
-                        System.out.println(("" + info[0] + 0 + previouslydamaged + new Date(date[0], date[1], date[2]).toString() + str[0] + str[1] + str[2] + bools[0] + bools[1] + bools[2] + bools[3] + str[3] + true + comments));
+                        //System.out.println(("" + info[0] + 0 + previouslydamaged + new Date(date[0], date[1], date[2]).toString() + str[0] + str[1] + str[2] + bools[0] + bools[1] + bools[2] + bools[3] + str[3] + true + comments));
                         reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                     }
                     Comment outerWalls = null;
-                    if (request.getParameter("outerwallNoCommentCheck") != null && (request.getParameter("outerwallNoCommentCheck").equals("off")))
+                    if ((request.getParameter("outerwallCommentCheck").equals("on")))
                     {
                         Part filePart = request.getPart("wallImage"); // Retrieves <input type="file" name="file">
                         //filename got but not used
@@ -421,7 +423,7 @@ public class ControllerServlet extends HttpServlet
                         outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall", ImageIO.read(fileContent));
                     }
                     Comment roof = null;
-                    if (request.getParameter("roofNoCommentCheck") != null && (request.getParameter("roofNoCommentCheck").equals("off")))
+                    if ( (request.getParameter("roofCommentCheck").equals("on")))
                     {
                         Part filePart = request.getPart("roofImage"); // Retrieves <input type="file" name="file">
                         //filename got but not used

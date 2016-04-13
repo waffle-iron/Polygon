@@ -33,12 +33,12 @@ public class ReportDataMapper
                     + +Report.getState() + "');");
             for (ReportPage reportpage : Report.getReportPages())
             {
-                //System.out.println(reportpage.getDamagedDate().toString() + reportpage.getDamagedPlace()+ reportpage.getCause()+ reportpage.getRepairs()+reportpage.isMoist() + reportpage.isRot()+ reportpage.isMold());
+                
                 statement.executeUpdate("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`) values('"
                         + (getNextReportNr()-1)+ "','"
                         + reportpage.getPreviousDamaged()+ "','"
                         + reportpage.getDamagedDate().toSQLString() + "','"
-                        + reportpage.getDamagedPlace() + "',"
+                        + reportpage.getDamagedPlace() + "','"
                         + reportpage.getCause() + "','"
                         + reportpage.getRepairs() + "','"
                         + reportpage.getMoist()+ "','"
@@ -50,6 +50,7 @@ public class ReportDataMapper
                 for (Comment comment : reportpage.getComments())
                 {
                     statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values('"
+                            +Report.getReportnr() + "','"
                             + reportpage.getReportPageNr() + "','"
                             + comment.getType() + "','"
                             + comment.getText() + "');");
@@ -62,25 +63,25 @@ public class ReportDataMapper
             }
             if (Report.getOuterWalls() != null)
             {
-                statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values('"
-                        + +Report.getReportnr() + "','"
+                statement.executeUpdate("insert into `comments`(`ReportNR`,`CommentType`,`Text`) values('"
+                        +Report.getReportnr() + "','"
                         + Report.getOuterWalls().getType() + "','"
                         + Report.getOuterWalls().getText() + "'');");
                 if(Report.getOuterWalls().getImage()!=null){
                         statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ('"
-                            + Report.getOuterWalls() + "','"
+                            + Report.getOuterWalls().getImage() + "','"
                             + CommentDataMapper.getNextCommentNr() + "');");
                     }
             }
             if (Report.getRoof() != null)
             {
-                statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values('"
+                statement.executeUpdate("insert into `comments`(`ReportNR`,`CommentType`,`Text`) values('"
                         + +Report.getReportnr() + "','"
                         + Report.getRoof().getType() + "','"
                         + Report.getRoof().getText() + "');");
                 if(Report.getRoof().getImage()!=null){
                         statement.executeUpdate("INSERT INTO `picturelink` ('Picture', `CommentID`) VALUES ('"
-                            + Report.getRoof()+ "','"
+                            + Report.getRoof().getImage()+ "','"
                             + CommentDataMapper.getNextCommentNr() + "');");
                     }
             }
