@@ -277,9 +277,9 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "createReport":
-                try
+                try 
                 {
-                    Report report = null;
+                    Report report;
                     int[] info = new int[3];
                     info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
 
@@ -320,9 +320,7 @@ public class ControllerServlet extends HttpServlet
                         {
                             previouslydamaged = true;
                         }
-                        String[] str
-                                =
-                                {
+                        String[] str = {
                                     "", "", "", ""
                                 };
                         if (request.getParameter("damagePlaceText" + i) != null)
@@ -424,7 +422,6 @@ public class ControllerServlet extends HttpServlet
                                 comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment"));
                             }
                         }
-                        //System.out.println(("" + info[0] + 0 + previouslydamaged + new Date(date[0], date[1], date[2]).toString() + str[0] + str[1] + str[2] + bools[0] + bools[1] + bools[2] + bools[3] + str[3] + true + comments));
                         reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                     }
                     Comment outerWalls = null;
