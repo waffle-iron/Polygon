@@ -140,13 +140,13 @@ public class ControllerServlet extends HttpServlet
                 if (request.getParameter("contactNumber").trim().compareTo("") == 0
                         || request.getParameter("contactMail").trim().compareTo("") == 0)
                 {
-
+                    request.setAttribute("saveFirmInfo", false);
                     forward(request, response, "/FirmJSP.jsp");
                 } else
                 {
                     Firm firm = new Firm(request.getParameter("contactNumber"),
                             request.getParameter("contactMail"));
-                    request.setAttribute("saveFirmInfo", firm);
+                    request.setAttribute("saveFirmInfo", true);
                     facade.addFirmToDB(firm);
                     request.setAttribute("clearAll", true);
 

@@ -9,29 +9,37 @@
     </head>
     <body>
         <h1>Opret her et nyt firma</h1>
-                            <% boolean clear = false;
-                        try
-                        {
-                            if ((Boolean) request.getAttribute("clearAll"))
-                            {
-                                clear = true;
-                            }
-                        } catch (Exception ex)
-                        {
-                            clear = false;
-                        }
-                    %>
+        <% boolean clear = false;
+            try
+            {
+                if ((Boolean) request.getAttribute("clearAll"))
+                {
+                    clear = true;
+                }
+            } catch (Exception ex)
+            {
+                clear = false;
+            }
+        %>
         <div class='formular'>
-        <form action="ControllerServlet" method="GET">
+            <form action="ControllerServlet" method="GET">
 
-            <p>Kontakt nummer <input type="text" name="contactNumber">
-          
+                <p>Kontakt nummer <input type="text" name="contactNumber">
 
-            <p>Kontakt mail: <input type="text" name="contactMail"></p>
 
-            <input type="hidden" name="do_this" value="createFirm"/>
-            <input type="submit" value="opret" name="createFirm" />
-        </form>
+                <p>Kontakt mail: <input type="text" name="contactMail"></p>
+
+                <input type="hidden" name="do_this" value="createFirm"/>
+                <input type="submit" value="opret" name="createFirm" />
+            </form>
         </div>
+        <% if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(true))
+            {%>
+        Du har nu oprettet et nyt firma.
+        
+        <%} else if(request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(false))
+            {%>
+        Firma blev ikke oprettet.
+        <%}%>
     </body>
 </html>
