@@ -42,8 +42,8 @@
         <br>
         <br>
                     <form action="ControllerServlet" method="GET">
-                <input type="hidden" name="do_this" value="goBackToLogin" />
-                <input type="submit" value="Gå tilbage til login" name="goBackToLogin" />
+                <input type="hidden" name="do_this" value="goToFrontPage" />
+                <input type="submit" value="Gå tilbage til start siden" name="goToFrontPage" />
                 <br>
             </form>
     </body>

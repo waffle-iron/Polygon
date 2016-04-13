@@ -32,6 +32,12 @@
             <input type ="hidden" value="goToFirm" name="do_this">
             <input type="submit" name ="button" value="Opret nyt firma">
         </form>
+        
+        <form action="ControllerServlet" method="get">
+            <input type ="hidden" value="goToCreateLogin" name="do_this">
+            <input type="submit" name ="button" value="Opret nyt login">
+        </form>
+        
         <%}%>
 
 
