@@ -25,8 +25,8 @@
         <div class='formular'>
         <form action="ControllerServlet" method="GET">
 
-            <p>Kontakt nummer <input type="text" name="contactNumber" pattern="[0-9].{8}"></p>
-            <span title='Kontakt nummer skal indeholde 8 cifre.'></span>
+            <p>Kontakt nummer <input type="text" name="contactNumber">
+          
 
             <p>Kontakt mail: <input type="text" name="contactMail"></p>
 

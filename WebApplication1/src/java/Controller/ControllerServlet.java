@@ -150,7 +150,7 @@ public class ControllerServlet extends HttpServlet
                     facade.addFirmToDB(firm);
                     request.setAttribute("clearAll", true);
 
-                    forward(request, response, "/index.html");
+                    forward(request, response, "/FirmJSP.jsp");
                     break;
                 }
 
