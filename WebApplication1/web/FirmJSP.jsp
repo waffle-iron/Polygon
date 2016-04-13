@@ -8,38 +8,44 @@
         <title>Firm</title>
     </head>
     <body>
-        <h1>Opret her et nyt firma</h1>
-        <% boolean clear = false;
-            try
-            {
-                if ((Boolean) request.getAttribute("clearAll"))
+        <div class="content">
+            <h1>Opret her et nyt firma</h1>
+            <% boolean clear = false;
+                try
                 {
-                    clear = true;
+                    if ((Boolean) request.getAttribute("clearAll"))
+                    {
+                        clear = true;
+                    }
+                } catch (Exception ex)
+                {
+                    clear = false;
                 }
-            } catch (Exception ex)
-            {
-                clear = false;
-            }
-        %>
-        <div class='formular'>
+            %>
+            <div class='formular'>
+                <form action="ControllerServlet" method="GET">
+
+                    <p>Kontakt nummer <input type="text" name="contactNumber" pattern="[0-9].{7}"><br>
+                        <span title="Kontakt nummer skal bestå af 8 cifre."> </span>
+
+                    <p>Kontakt mail: <input type="email" name="contactMail" required></p>
+
+                    <input type="hidden" name="do_this" value="createFirm"/>
+                    <input type="submit" value="Opret" name="createFirm" />
+                </form>
+            </div>
+            <% if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(true))
+            {%>
+            Du har nu oprettet et nyt firma.
+
+            <%} else if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(false))
+        {%>
+            Firma blev ikke oprettet.
+            <%}%>
             <form action="ControllerServlet" method="GET">
-
-                <p>Kontakt nummer <input type="text" name="contactNumber">
-
-
-                <p>Kontakt mail: <input type="text" name="contactMail"></p>
-
-                <input type="hidden" name="do_this" value="createFirm"/>
-                <input type="submit" value="opret" name="createFirm" />
+                <br>
+                <input type="hidden" name="do_this" value="goToFrontPage"/>
+                <input type="submit" value="Gå tilbage start siden" name="goToFrontPage" />
             </form>
-        </div>
-        <% if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(true))
-            {%>
-        Du har nu oprettet et nyt firma.
-        
-        <%} else if(request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(false))
-            {%>
-        Firma blev ikke oprettet.
-        <%}%>
     </body>
 </html>
