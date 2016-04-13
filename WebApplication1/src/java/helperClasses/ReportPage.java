@@ -1,5 +1,7 @@
 package helperClasses;
 
+import java.util.ArrayList;
+
 public class ReportPage
 {
 
@@ -16,13 +18,13 @@ public class ReportPage
     boolean fire;
     String other;
     boolean moistScan;
-    Comment[] comments;
+    ArrayList<Comment> comments;
 
    
     public ReportPage(int reportNr,int reportPageNr, boolean previousDamaged, Date damagedDate,
             String damagedPlace, String cause, String repairs, boolean moist,
             boolean rot, boolean mold, boolean fire, String other,
-            boolean moistScan, Comment[] comments)
+            boolean moistScan, ArrayList<Comment> comments)
     {
         this.reportNr = reportNr;
         this.reportPageNr = reportPageNr;
@@ -64,12 +66,12 @@ public class ReportPage
     public void setReportNr(int reportNr) {
         this.reportNr = reportNr;
     }
-     public Comment[] getComments()
+     public ArrayList<Comment> getComments()
     {
         return comments;
     }
 
-    public void setComments(Comment[] comments)
+    public void setComments(ArrayList<Comment> comments)
     {
         this.comments = comments;
     }
