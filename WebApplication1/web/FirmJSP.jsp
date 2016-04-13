@@ -8,6 +8,7 @@
         <title>Firm</title>
     </head>
     <body>
+        <div class="content">
         <h1>Opret her et nyt firma</h1>
                             <% boolean clear = false;
                         try
@@ -32,6 +33,7 @@
             <input type="hidden" name="do_this" value="createFirm"/>
             <input type="submit" value="opret" name="createFirm" />
         </form>
+        </div>
         </div>
     </body>
 </html>

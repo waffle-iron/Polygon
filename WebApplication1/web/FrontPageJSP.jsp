@@ -33,7 +33,7 @@
                 <input type="submit" value="repport (DENNE ER KUN TEMPEARY)" name="createReport" />
                 <input type="hidden" name="do_this" value="Report">
             </form>
-        
+        <div class="content">
         NYI - NewsFeed
         <%if(login.getAuthorization().equals("user")){ %>
             der fortæller om: husk at gemme en floorplan, en rapport er skrevet om en af dine bygninger, en af dine bygninger har fået ændret sin status, en af dine bygningers rapport er blevet opdateret og kommende inspektioner af dine bygninger
@@ -44,5 +44,6 @@
         <%if(login.getAuthorization().equals("admin")){ %>
             der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
             <%}%>
+        </div>
     </body>
 </html>
