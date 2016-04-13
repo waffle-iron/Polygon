@@ -25,7 +25,6 @@ import javax.servlet.http.Part;
 
 @WebServlet("/upload")
 @MultipartConfig
-
 public class ControllerServlet extends HttpServlet
 {
 
@@ -65,6 +64,7 @@ public class ControllerServlet extends HttpServlet
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                 forward(request, response, "/AddBuildingJSP.jsp");
                 break;
+
             case "Image":
                 forward(request, response, "/ImageJSPTemp.jsp");
                 break;
@@ -100,7 +100,6 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "goToViewMyBuildings":
-                System.out.println("test");
                 if (session.getAttribute("login") != null)
                 {
                     Login login = (Login) session.getAttribute("login");
@@ -174,11 +173,11 @@ public class ControllerServlet extends HttpServlet
                 request.setAttribute("State", report.getState());
                 forward(request, response, "/ViewReport.jsp");
                 break;
-                
+
             case "goToFrontPage":
-               forward(request, response, "/FrontPageJSP.jsp");
+                forward(request, response, "/FrontPageJSP.jsp");
                 break;
-                
+
             case "CheckLogin":
                 String temp = "";
 
@@ -217,6 +216,7 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/LoginJSP.jsp");
                 }
                 break;
+
             case "goToCreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;
@@ -237,16 +237,21 @@ public class ControllerServlet extends HttpServlet
                         temp2 = "admin";
                         break;
                 }
-                if (facade.userExists(request.getParameter("username"), request.getParameter("password")) == true)
+                if (request.getParameter("username").trim().compareTo("") == 0
+                        || request.getParameter("password").trim().compareTo("") == 0
+                        || request.getParameter("firmID").trim().compareTo("") == 0)
                 {
-                    forward(request, response, "/Fejl.jsp");
+                    request.setAttribute("saveLogin", false);
+                    forward(request, response, "/OpretJSP.jsp");
+
                 } else
                 {
                     Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
                             request.getParameter("firmID"),
                             temp2);
+                    request.setAttribute("saveLogin", true);
                     facade.addLoginToDB(newLogin);
-                    forward(request, response, "/LoginJSP.jsp");
+                    forward(request, response, "/OpretJSP.jsp");
                 }
                 break;
 
@@ -271,9 +276,9 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "createReport":
-                try
+                try 
                 {
-                    Report report = null;
+                    Report report;
                     int[] info = new int[3];
                     info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
 
@@ -314,9 +319,7 @@ public class ControllerServlet extends HttpServlet
                         {
                             previouslydamaged = true;
                         }
-                        String[] str
-                                =
-                                {
+                        String[] str = {
                                     "", "", "", ""
                                 };
                         if (request.getParameter("damagePlaceText" + i) != null)
@@ -418,7 +421,6 @@ public class ControllerServlet extends HttpServlet
                                 comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment"));
                             }
                         }
-                        //System.out.println(("" + info[0] + 0 + previouslydamaged + new Date(date[0], date[1], date[2]).toString() + str[0] + str[1] + str[2] + bools[0] + bools[1] + bools[2] + bools[3] + str[3] + true + comments));
                         reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                     }
                     Comment outerWalls = null;

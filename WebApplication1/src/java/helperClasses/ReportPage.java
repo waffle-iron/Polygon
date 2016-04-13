@@ -66,6 +66,9 @@ public class ReportPage
     public void setReportNr(int reportNr) {
         this.reportNr = reportNr;
     }
+    public void addComment (Comment comment){
+        comments.add(comment);
+    }
      public ArrayList<Comment> getComments()
     {
         return comments;

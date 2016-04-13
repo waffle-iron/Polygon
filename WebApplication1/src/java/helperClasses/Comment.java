@@ -7,6 +7,9 @@ public class Comment
     private String text;
     private String type;
     private Image image;
+    private int commentID;
+    private int ReportID;
+    private int ReportPageID;
 
     public Comment(String text, String type, Image image) {
         this.text = text;
@@ -18,6 +21,38 @@ public class Comment
     {
         this.text = text;
         this.type = type;
+    }
+
+    public Comment(String text, String type, int commentID,int ReportID, int ReportPageID) {
+        this.text = text;
+        this.type = type;
+        this.commentID = commentID;
+        this.ReportID = ReportID;
+        this.ReportPageID = ReportPageID;
+    }
+
+    public int getReportID() {
+        return ReportID;
+    }
+
+    public void setReportID(int ReportID) {
+        this.ReportID = ReportID;
+    }
+
+    public int getReportPageID() {
+        return ReportPageID;
+    }
+
+    public void setReportPageID(int ReportPageID) {
+        this.ReportPageID = ReportPageID;
+    }
+
+    public int getCommentID() {
+        return commentID;
+    }
+
+    public void setCommentID(int commentID) {
+        this.commentID = commentID;
     }
 
     public Image getImage() {
