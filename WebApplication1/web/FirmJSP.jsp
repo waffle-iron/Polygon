@@ -25,10 +25,10 @@
         <div class='formular'>
         <form action="ControllerServlet" method="GET">
 
-            <p>Kontakt nummer <input type="text" name="contactNumber">
-          
-
-            <p>Kontakt mail: <input type="text" name="contactMail"></p>
+            <p>Kontakt nummer <input type="text" name="contactNumber" pattern="[0-9].{7}"><br>
+                <span title="Kontakt nummer skal bestå af 8 cifre."> </span>
+                
+            <p>Kontakt mail: <input type="email" name="contactMail" required></p>
 
             <input type="hidden" name="do_this" value="createFirm"/>
             <input type="submit" value="opret" name="createFirm" />
