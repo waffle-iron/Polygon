@@ -49,7 +49,7 @@ public class ControllerServlet extends HttpServlet
                 String commentPair = "";
                 commentPair += request.getParameter("Comment");
                 String[] commentPaired = commentPair.split(",");
-                useComment(request, response, commentPaired[0], Integer.parseInt(commentPaired[1]));
+                useComment(request, response, session, commentPaired[0], Integer.parseInt(commentPaired[1]));
                 break;
             case "useButton":
                 String button = "";
@@ -58,7 +58,7 @@ public class ControllerServlet extends HttpServlet
                 {
                     forward(request, response, "/index.html");
                 }
-                useButton(request, response, button);
+                useButton(request, response, session, button);
                 break;
 
             case "goToAddBuilding":
@@ -155,10 +155,7 @@ public class ControllerServlet extends HttpServlet
                 }
 
             case "Report":
-                request.setAttribute("numberOfPages", "" + 1);
-
-                request.setAttribute("nextReportNr", facade.getNextReportNr());
-                forward(request, response, "/reportJSP.jsp");
+                goToReport(request,response);
                 break;
             
             case "viewReport":
@@ -257,9 +254,16 @@ public class ControllerServlet extends HttpServlet
 
         }
     }
+    private void goToReport(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        request.setAttribute("numberOfPages", "" + 1);
 
+                request.setAttribute("nextReportNr", facade.getNextReportNr());
+                forward(request, response, "/reportJSP.jsp");
+    }
     
-    private void useButton(HttpServletRequest request, HttpServletResponse response, String button)
+    private void useButton(HttpServletRequest request, HttpServletResponse response, HttpSession session, String button)
             throws ServletException, IOException
     {
         switch (button)
@@ -457,9 +461,22 @@ public class ControllerServlet extends HttpServlet
         }
     }
 
-    private void useComment(HttpServletRequest request, HttpServletResponse response, String comment, int ID)
+    private void useComment(HttpServletRequest request, HttpServletResponse response, HttpSession session, String comment, int ID)
+        throws ServletException, IOException
     {
-
+        switch(comment)
+        {
+            case "Delete":
+                
+                break;
+            case "viewReports":
+                
+                break;
+            case "writeReport":
+                request.setAttribute("BuildingID", ID);
+                goToReport(request,response);
+                break;
+        }
     }
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
