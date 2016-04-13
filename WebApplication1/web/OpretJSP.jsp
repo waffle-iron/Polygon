@@ -4,6 +4,7 @@
     Author     : LouiseB
 --%>
 
+<%@page import="helperClasses.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -32,8 +33,19 @@
                 <option>Tekniker</option>
                 <option>Admin</option>
             </select>
-            <p> Indtast firma ID:</p>
-            <input type="text" name="firmID" />
+            <p> Firma ID:</p>
+
+            <% if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("user"))
+                {%>
+            <td>
+                <input type ="text" name ="firmID" value="<%= ((Login) session.getAttribute("login")).getFirmID()%>" readonly>
+            </td>
+            <%} else if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
+            {%> 
+            <td>
+                <input type ="text" name ="firmID">
+            </td>
+            <%}%>
             <br>
             <br>
             <input type="hidden" name="do_this" value="CreateLogin" />
@@ -41,13 +53,13 @@
         </form>
         <br>
         <% if (request.getAttribute("saveLogin") != null && request.getAttribute("saveLogin").equals(true))
-                    {%>
+            {%>
         Du har nu oprettet et nyt login.
         <%} else if (request.getAttribute("saveLogin") != null && request.getAttribute("saveLogin").equals(false))
         {%>
-            Login blev ikke oprettet.
+        Login blev ikke oprettet.
         <%}%>
-        
+
         <br>
         <br>
         <form action="ControllerServlet" method="GET">
