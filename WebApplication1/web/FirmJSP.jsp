@@ -38,10 +38,7 @@
             {%>
             Du har nu oprettet et nyt firma.
 
-            <%} else if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(false))
-        {%>
-            Firma blev ikke oprettet.
-            <%}%>
+            <%}%> 
             <form action="ControllerServlet" method="GET">
                 <br>
                 <input type="hidden" name="do_this" value="goToFrontPage"/>
