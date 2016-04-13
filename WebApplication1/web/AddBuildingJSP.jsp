@@ -1,3 +1,4 @@
+<%@page import="helperClasses.Login"%>
 <%@page import="helperClasses.Building"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -53,9 +54,9 @@
                         <%}%>
                         
                         
-                        <% if(request.getAttribute("ValidFirmID") !=null && ((String)session.getAttribute("loginAs")).equals("user")){%>
+                        <% if(session.getAttribute("loginAs") != null && ((String)session.getAttribute("loginAs")).equals("user")){%>
                         <td>
-                            <input type ="text" name ="buildFirmID" value="<%=((ArrayList<Integer>)request.getAttribute("ValidFirmID")).get(0)%>" readonly>
+                            <input type ="text" name ="buildFirmID" value="<%= ((Login) session.getAttribute("login")).getFirmID() %>" readonly>
                         </td>
                         <%}%>
                         
