@@ -126,17 +126,18 @@ public class ControllerServlet extends HttpServlet {
 
             case "createFirm":
                 if (request.getParameter("contactNumber").trim().compareTo("") == 0
-                        || request.getParameter("contactMail").trim().compareTo("") == 0) {
-
+                        || request.getParameter("contactMail").trim().compareTo("") == 0)
+                {
+                    request.setAttribute("saveFirmInfo", false);
                     forward(request, response, "/FirmJSP.jsp");
                 } else {
                     Firm firm = new Firm(request.getParameter("contactNumber"),
                             request.getParameter("contactMail"));
-                    request.setAttribute("saveFirmInfo", firm);
+                    request.setAttribute("saveFirmInfo", true);
                     facade.addFirmToDB(firm);
                     request.setAttribute("clearAll", true);
 
-                    forward(request, response, "/index.html");
+                    forward(request, response, "/FirmJSP.jsp");
                     break;
                 }
 
@@ -190,7 +191,12 @@ public class ControllerServlet extends HttpServlet {
                     }
 
                 }
-                break;
+                else
+                {
+                    request.setAttribute("doExists", false);
+                    forward(request, response, "/LoginJSP.jsp");
+                }
+            break;
             case "goToCreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;

@@ -10,14 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="General.css">
+        <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>Login</title>
     </head>
     <body>
         <h1>Velkommen til Polygon</h1>
         <h2>Login</h2>
         <form action="ControllerServlet" method="get">
-
-
             Brugernavn<br> <input style="text-align: center" type="text" name="username" value="test" size="20" />
             <br><br>
             Kodeord<br> <input style="text-align: center" type="password" name="password" value="test" size="20" />
@@ -33,7 +32,5 @@
             }%>
         <br>
         <br>
-        
-
     </body>
 </html>
