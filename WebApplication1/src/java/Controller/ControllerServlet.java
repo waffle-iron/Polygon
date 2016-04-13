@@ -205,9 +205,9 @@ public class ControllerServlet extends HttpServlet
                             forward(request, response, "/Fejl.jsp");
                             break;
                     }
-                    break;
+                    
                 }
-
+            break;
             case "goToCreateLogin":
                 forward(request, response, "/OpretJSP.jsp");
                 break;

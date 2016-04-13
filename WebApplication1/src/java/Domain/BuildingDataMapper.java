@@ -127,4 +127,8 @@ public class BuildingDataMapper
         }
         return buildings;
     }
+    public void removeBuilding(int buildingID)
+    {
+        
+    }
 }
