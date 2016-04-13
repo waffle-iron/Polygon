@@ -207,6 +207,11 @@ public class ControllerServlet extends HttpServlet
                     }
                     
                 }
+                else
+                {
+                    request.setAttribute("doExists", false);
+                    forward(request, response, "/LoginJSP.jsp");
+                }
             break;
             case "goToCreateLogin":
                 forward(request, response, "/OpretJSP.jsp");

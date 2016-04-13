@@ -135,6 +135,10 @@ insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"polygoncontact@t
 insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("anders","132",1,'tech');
 insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("admin","password",1,'admin');
 insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("xxxsniper360xxx","snips",1,'user');
+insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("t","1",1,'tech');
+insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("a","1",1,'admin');
+insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("u","1",1,'user');
+insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("test","test",1,'user');
 
 insert into `zip` (`Zip`,`City`) values(3600,"Fredrikssund"); 
 insert into `zip` (`Zip`,`City`) values(2800,"Kongens Lyngby");  
