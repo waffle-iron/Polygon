@@ -262,9 +262,12 @@ public class ControllerServlet extends HttpServlet
             throws ServletException, IOException
     {
         request.setAttribute("numberOfPages", "" + 1);
-
-    private void useButton(HttpServletRequest request, HttpServletResponse response, String button)
-            throws ServletException, IOException
+            request.setAttribute("nextReportNr", facade.getNextReportNr());
+                forward(request, response, "/reportJSP.jsp");
+    }
+    
+    private void useButton(HttpServletRequest request, HttpServletResponse response, HttpSession session, String button)
+             throws ServletException, IOException
     {
         switch (button)
         {
