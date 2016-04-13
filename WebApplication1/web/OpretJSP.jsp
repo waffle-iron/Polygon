@@ -14,6 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <div class="content">
         <h1>Opret bruger</h1>
         <form action="ControllerServlet" method="POST">
             <div>
@@ -46,5 +47,6 @@
                 <input type="submit" value="Gå tilbage til login" name="goBackToLogin" />
                 <br>
             </form>
+        </div>
     </body>
 </html>
