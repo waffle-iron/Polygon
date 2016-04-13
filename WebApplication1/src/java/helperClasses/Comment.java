@@ -31,6 +31,22 @@ public class Comment
         this.ReportPageID = ReportPageID;
     }
 
+    public int getReportID() {
+        return ReportID;
+    }
+
+    public void setReportID(int ReportID) {
+        this.ReportID = ReportID;
+    }
+
+    public int getReportPageID() {
+        return ReportPageID;
+    }
+
+    public void setReportPageID(int ReportPageID) {
+        this.ReportPageID = ReportPageID;
+    }
+
     public int getCommentID() {
         return commentID;
     }

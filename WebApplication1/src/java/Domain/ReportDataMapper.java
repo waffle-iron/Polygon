@@ -130,8 +130,20 @@ public class ReportDataMapper {
                     arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), null));
                 }
             }
-
+            arr.stream().forEach((reportpage) -> {
+                comarr.stream().filter((comment) -> (reportpage.getReportPageNr() == comment.getReportPageID())).forEach((comment) -> {
+                    reportpage.addComment(comment);
+                });
+            });
+            
             report = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), (ReportPage[]) arr.toArray(), null, null);
+            for (Comment comment : comarr) {
+                if(comment.getReportID() == report.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling"))
+                    report.setOuterWalls(comment);
+                else if(comment.getReportID() == report.getReportnr() && comment.getReportPageID() == 0&& comment.getType().equals("outerWall"))
+                    report.setRoof(comment);
+            }
+            
             con.close();
 
         } catch (Exception ex) {
