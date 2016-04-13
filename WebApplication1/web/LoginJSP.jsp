@@ -14,20 +14,6 @@
         <title>Login</title>
     </head>
     <body>
-        
-            <ul>
-
-                <li> <input type="submit" class="submit1" value="Tilføj bygning" />
-                    <input type='hidden' name='do_this' value='createBuild'/></li>
-                <li> <input type="submit" class="submit1" value="Vis rapport" />  </li>
-                <li><input type="submit" class="submit1" value="Vis rapport" /></li>
-                <li><input type="submit" class="submit1" value="Vis rapport" /></li>
-                <li style="float:right"><a href="#about">About</a></li>
-            </ul>
-        
-
-
-
         <h1>Velkommen til Polygon</h1>
         <h2>Login</h2>
         <form action="ControllerServlet" method="get">
