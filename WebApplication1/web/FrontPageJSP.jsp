@@ -47,6 +47,12 @@
         </form>
 
         <form action="ControllerServlet" method="GET">
+
+                <input type="submit" value="repport (DENNE ER KUN TEMPEARY)" name="createReport" />
+                <input type="hidden" name="do_this" value="Report">
+            </form>
+        <div class="content">
+
             <input type="submit" value="repport (DENNE ER KUN TEMPEARY)" name="createReport" />
             <input type="hidden" name="do_this" value="Report">
         </form>
@@ -64,5 +70,9 @@
             { %>
         der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
         <%}%>
+        <%if(login.getAuthorization().equals("admin")){ %>
+            der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
+            <%}%>
+        </div>
     </body>
 </html>
