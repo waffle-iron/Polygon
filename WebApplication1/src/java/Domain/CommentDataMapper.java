@@ -23,7 +23,7 @@ public class CommentDataMapper {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            ResultSet res = statement.executeQuery("SELECT max(CommentID) FROM picturelink;");
+            ResultSet res = statement.executeQuery("SELECT max('CommentID') FROM picturelink;");
             res.next();
             info = res.getInt(1);
             con.close();
