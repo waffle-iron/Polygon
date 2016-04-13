@@ -154,7 +154,7 @@
                                 <td><input type = "file" name="wallImage" accept="image/x-png, image/gif, image/jpeg"/></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><input type="text" name="<%="wallCommentCheckText"+i%>" size="80" value ="<%= (request.getParameter("wallCommentText"+i) == null ? "" : request.getParameter("wallCommentText"+i))%>"
+                                <td colspan="4"><input type="text" name="<%="wallCommentText"+i%>" size="80" value ="<%= (request.getParameter("wallCommentText"+i) == null ? "" : request.getParameter("wallCommentText"+i))%>"
                                                        > </td>
                             </tr>
                             <tr>
