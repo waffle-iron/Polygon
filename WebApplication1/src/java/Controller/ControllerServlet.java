@@ -174,6 +174,11 @@ public class ControllerServlet extends HttpServlet
                 request.setAttribute("State", report.getState());
                 forward(request, response, "/ViewReport.jsp");
                 break;
+                
+            case "goToFrontPage":
+               forward(request, response, "/FrontPageJSP.jsp");
+                break;
+                
             case "CheckLogin":
                 String temp = "";
 
