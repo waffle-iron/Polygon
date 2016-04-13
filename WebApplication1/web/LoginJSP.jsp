@@ -14,6 +14,13 @@
         <title>Login</title>
     </head>
     <body>
+        <form action="ControllerServlet" method="get">
+            <ul>
+                <li style="float:left"><img src="Poly-logo.png" alt="Polygon" style="width:150px;height:50px;"></li>
+                <li style="float:right"><a href="#about">Kontakt</a></li>
+            </ul>
+        </form>
+        <div class="content">
         <h1>Velkommen til Polygon</h1>
         <h2>Login</h2>
         <form action="ControllerServlet" method="get">
@@ -32,5 +39,6 @@
             }%>
         <br>
         <br>
+        </div>
     </body>
-</html>
+</html> 
