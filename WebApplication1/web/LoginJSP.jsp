@@ -17,9 +17,9 @@
         <h1>Velkommen til Polygon</h1>
         <h2>Login</h2>
         <form action="ControllerServlet" method="get">
-            Brugernavn<br> <input style="text-align: center" type="text" name="username" value="test" size="20" />
+            Brugernavn<br> <input style="text-align: center" type="text" name="username" size="20" />
             <br><br>
-            Kodeord<br> <input style="text-align: center" type="password" name="password" value="test" size="20" />
+            Kodeord<br> <input style="text-align: center" type="password" name="password" size="20" />
             <input type="hidden" name="do_this" value="CheckLogin" />
             <br>
             <input type="submit" value="Login" name="CheckLogin" />

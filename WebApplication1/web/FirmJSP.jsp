@@ -30,7 +30,7 @@
                 <p>Kontakt mail: <input type="text" name="contactMail"></p>
 
                 <input type="hidden" name="do_this" value="createFirm"/>
-                <input type="submit" value="opret" name="createFirm" />
+                <input type="submit" value="Opret" name="createFirm" />
             </form>
         </div>
         <% if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(true))
@@ -41,5 +41,10 @@
             {%>
         Firma blev ikke oprettet.
         <%}%>
+        <form action="ControllerServlet" method="GET">
+            <br>
+            <input type="hidden" name="do_this" value="goToFrontPage"/>
+            <input type="submit" value="Gå tilbage start siden" name="goToFrontPage" />
+        </form>
     </body>
 </html>
