@@ -28,25 +28,21 @@ import javax.servlet.http.Part;
 
 @WebServlet("/upload")
 @MultipartConfig
-public class ControllerServlet extends HttpServlet
-{
+public class ControllerServlet extends HttpServlet {
 
     Facade facade = new Facade();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
         String do_this = "";
         do_this += request.getParameter("do_this");
-        if (do_this.equals(""))
-        {
+        if (do_this.equals("")) {
             forward(request, response, "/Fejl.jsp");
         }
-        switch (do_this)
-        {
+        switch (do_this) {
             case "useComment":
                 String commentPair = "";
                 commentPair += request.getParameter("Comment");
@@ -56,8 +52,7 @@ public class ControllerServlet extends HttpServlet
             case "useButton":
                 String button = "";
                 button += request.getParameter("button");
-                if (button.equals("null"))
-                {
+                if (button.equals("null")) {
                     forward(request, response, "/index.html");
                 }
                 useButton(request, response, session, button);
@@ -74,13 +69,11 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildName").trim().compareTo("") == 0
                         || request.getParameter("buildYear").trim().compareTo("") == 0
                         || request.getParameter("buildSize").trim().compareTo("") == 0
-                        || request.getParameter("buildUsage").trim().compareTo("") == 0)
-                {
+                        || request.getParameter("buildUsage").trim().compareTo("") == 0) {
                     request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                     forward(request, response, "/AddBuildingJSP.jsp");
 
-                } else
-                {
+                } else {
                     Building building = new Building(request.getParameter("buildAddress"),
                             request.getParameter("buildZip"),
                             request.getParameter("buildFirmID"),
@@ -98,21 +91,16 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "goToViewMyBuildings":
-                if (session.getAttribute("login") != null)
-                {
+                if (session.getAttribute("login") != null) {
                     Login login = (Login) session.getAttribute("login");
 
-                    try
-                    {
-                        if (login.getAuthorization().equals("user"))
-                        {
+                    try {
+                        if (login.getAuthorization().equals("user")) {
                             request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
-                        } else
-                        {
+                        } else {
                             request.setAttribute("listOfBuildings", facade.getBuildingsFromDatabase());
                         }
-                    } catch (Exception ex)
-                    {
+                    } catch (Exception ex) {
                         ex.toString();
                     }
                 }
@@ -120,19 +108,12 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
-            case "goBackBuilding":
-
-                forward(request, response, "/FrontPageJSP.jsp");
-
-                break;
             case "createFirm":
                 if (request.getParameter("contactNumber").trim().compareTo("") == 0
-                        || request.getParameter("contactMail").trim().compareTo("") == 0)
-                {
+                        || request.getParameter("contactMail").trim().compareTo("") == 0) {
                     request.setAttribute("saveFirmInfo", false);
                     forward(request, response, "/FirmJSP.jsp");
-                } else
-                {
+                } else {
                     Firm firm = new Firm(request.getParameter("contactNumber"),
                             request.getParameter("contactMail"));
                     request.setAttribute("saveFirmInfo", true);
@@ -142,6 +123,12 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/FirmJSP.jsp");
                     break;
                 }
+
+            case "goToViewFirms":
+                request.setAttribute("listOfFirms", facade.viewAllFirms());
+                forward(request, response, "/ViewFirms.jsp");
+
+                break;
 
             case "Report":
                 goToReport(request, response);
@@ -154,20 +141,17 @@ public class ControllerServlet extends HttpServlet
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 String temp = "";
 
-                if (request.getParameter("username").equals("") || request.getParameter("password").equals(""))
-                {
+                if (request.getParameter("username").equals("") || request.getParameter("password").equals("")) {
                     request.setAttribute("doExists", false);
                     forward(request, response, "/LoginJSP.jsp");
 
                 }
 
-                if (facade.userExists(request.getParameter("username"), request.getParameter("password")))
-                {
+                if (facade.userExists(request.getParameter("username"), request.getParameter("password"))) {
                     Login login = facade.getLoginByUsername(request.getParameter("username"));
                     session.setAttribute("loginAs", login.getAuthorization());
                     session.setAttribute("login", login);
-                    switch (login.getAuthorization())
-                    {
+                    switch (login.getAuthorization()) {
                         case "user":
                             forward(request, response, "/FrontPageJSP.jsp");
                             break;
@@ -183,8 +167,7 @@ public class ControllerServlet extends HttpServlet
                             break;
                     }
 
-                } else
-                {
+                } else {
                     request.setAttribute("doExists", false);
                     forward(request, response, "/LoginJSP.jsp");
                 }
@@ -193,8 +176,7 @@ public class ControllerServlet extends HttpServlet
             case "CreateLogin":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 String temp2 = "";
-                switch (request.getParameter("enum"))
-                {
+                switch (request.getParameter("enum")) {
                     case "Bruger":
                         temp2 = "user";
                         break;
@@ -209,15 +191,13 @@ public class ControllerServlet extends HttpServlet
                 }
                 if (request.getParameter("username").trim().compareTo("") == 0
                         || request.getParameter("password").trim().compareTo("") == 0
-                        || request.getParameter("firmID").trim().compareTo("") == 0)
-                {
+                        || request.getParameter("firmID").trim().compareTo("") == 0) {
                     request.setAttribute("saveLogin", false);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
 
                     forward(request, response, "/OpretJSP.jsp");
 
-                } else
-                {
+                } else {
                     Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
                             request.getParameter("firmID"),
                             temp2);
@@ -232,7 +212,6 @@ public class ControllerServlet extends HttpServlet
 
             case "goBackToLogin":
                 forward(request, response, "/LoginJSP.jsp");
-
                 break;
             default:
                 System.out.println("Not valid command" + do_this);
@@ -243,14 +222,14 @@ public class ControllerServlet extends HttpServlet
     }
 
     private void goToReport(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         request.setAttribute("numberOfPages", "" + 1);
         request.setAttribute("nextReportNr", facade.getNextReportNr());
         forward(request, response, "/reportJSP.jsp");
     }
 
     private void useButton(HttpServletRequest request, HttpServletResponse response, HttpSession session, String button)
+
             throws ServletException, IOException
     {
         switch (button)
@@ -288,49 +267,45 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/viewMyBuildingsJSP.jsp");
 // </editor-fold>
                 break;
+                
+            case "Tilbage til start siden":
+
+                forward(request, response, "/FrontPageJSP.jsp");
+                break;
             case "createReport":
+                try {
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
-                try
-                {
                     Report report;
                     int[] info = new int[3];
                     info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
 
-                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("0")))
-                    {
+                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("0"))) {
                         info[2] = 0;
                     }
-                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("1")))
-                    {
+                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("1"))) {
                         info[2] = 1;
                     }
-                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("2")))
-                    {
+                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("2"))) {
                         info[2] = 2;
                     }
-                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("3")))
-                    {
+                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("3"))) {
                         info[2] = 3;
                     }
                     String[] tempdate;
                     int[] date = new int[3];
                     tempdate = (request.getParameter("dateDate")).split("-");
-                    for (int i = 0; i < 3; i++)
-                    {
+                    for (int i = 0; i < 3; i++) {
                         date[i] = Integer.parseInt(tempdate[i]);
                     }
                     ArrayList<ReportPage> reportpage = new ArrayList<>();
-                    for (int i = 1; i < Integer.parseInt(request.getParameter("numberOfReportPages")) + 1; i++)
-                    {
+                    for (int i = 1; i < Integer.parseInt(request.getParameter("numberOfReportPages")) + 1; i++) {
                         int[] raportdate = new int[3];
                         tempdate = (request.getParameter("dateDate")).split("-");
-                        for (int j = 0; j < 3; j++)
-                        {
+                        for (int j = 0; j < 3; j++) {
                             date[j] = Integer.parseInt(tempdate[j]);
                         }
                         boolean previouslydamaged = false;
-                        if (request.getParameter("damageCheckYes" + i) != null && (request.getParameter("damageCheckYes" + i)).equals("on"))
-                        {
+                        if (request.getParameter("damageCheckYes" + i) != null && (request.getParameter("damageCheckYes" + i)).equals("on")) {
                             previouslydamaged = true;
                         }
                         String[] str =
@@ -342,138 +317,112 @@ public class ControllerServlet extends HttpServlet
 
                             str[0] = request.getParameter("damagePlaceText" + i);
                         }
-                        if (request.getParameter("damageCauseText" + i) != null)
-                        {
+                        if (request.getParameter("damageCauseText" + i) != null) {
                             str[1] = request.getParameter("damageCauseText" + i);
                         }
-                        if (request.getParameter("reperationText" + i) != null)
-                        {
+                        if (request.getParameter("reperationText" + i) != null) {
                             str[2] = request.getParameter("reperationText" + i);
                         }
-                        if (request.getParameter("otherDamageText" + i) != null)
-                        {
+                        if (request.getParameter("otherDamageText" + i) != null) {
                             str[3] = request.getParameter("otherDamageText" + i);
                         }
                         Boolean[] bools
-                                =
-                                {
+                                = {
                                     false, false, false, false, false
                                 };
-                        if (request.getParameter("moistCheck" + i) != null)
-                        {
+                        if (request.getParameter("moistCheck" + i) != null) {
                             bools[0] = (request.getParameter("moistCheck" + i).equals("on"));
                         }
-                        if (request.getParameter("rotCheck" + i) != null)
-                        {
+                        if (request.getParameter("rotCheck" + i) != null) {
                             bools[1] = (request.getParameter("rotCheck" + i).equals("on"));
                         }
-                        if (request.getParameter("moldCheck" + i) != null)
-                        {
+                        if (request.getParameter("moldCheck" + i) != null) {
                             bools[2] = (request.getParameter("moldCheck" + i).equals("on"));
                         }
-                        if (request.getParameter("fireCheck" + i) != null)
-                        {
+                        if (request.getParameter("fireCheck" + i) != null) {
                             bools[3] = (request.getParameter("fireCheck" + i).equals("on"));
                         }
                         ArrayList<Comment> comments = new ArrayList<>();
-                        if ((request.getParameter("wallCommentCheck" + i).equals("on")))
-                        {
+                        if ((request.getParameter("wallCommentCheck" + i).equals("on"))) {
                             Part filePart = request.getPart("wallImage"); // Retrieves <input type="file" name="file">
 
-                            if (filePart != null)
-                            {
+                            if (filePart != null) {
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
                                 comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment", ImageIO.read(fileContent)));
-                            } else
-                            {
+                            } else {
                                 comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment"));
                             }
                         }
-                        if ((request.getParameter("ceilingCommentCheck" + i).equals("on")))
-                        {
+                        if ((request.getParameter("ceilingCommentCheck" + i).equals("on"))) {
 
                             Part filePart = request.getPart("Ceilingimage"); // Retrieves <input type="file" name="file">
-                            if (filePart != null)
-                            {
+                            if (filePart != null) {
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
                                 comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment", ImageIO.read(fileContent)));
-                            } else
-                            {
+                            } else {
                                 comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment"));
                             }
                         }
-                        if ((request.getParameter("floorCommentCheck" + i).equals("on")))
-                        {
+                        if ((request.getParameter("floorCommentCheck" + i).equals("on"))) {
 
                             Part filePart = request.getPart("floorimage"); // Retrieves <input type="file" name="file">
-                            if (filePart != null)
-                            {
+                            if (filePart != null) {
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
                                 comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment", ImageIO.read(fileContent)));
-                            } else
-                            {
+                            } else {
                                 comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment"));
                             }
                         }
-                        if ((request.getParameter("doorCommentCheck" + i).equals("on")))
-                        {
+                        if ((request.getParameter("doorCommentCheck" + i).equals("on"))) {
 
                             Part filePart = request.getPart("doorimage"); // Retrieves <input type="file" name="file">
-                            if (filePart != null)
-                            {
+                            if (filePart != null) {
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
                                 comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment", ImageIO.read(fileContent)));
-                            } else
-                            {
+                            } else {
                                 comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment"));
                             }
                         }
                         reportpage.add(new ReportPage(info[0], 0, previouslydamaged, new Date(date[0], date[1], date[2]), str[0], str[1], str[2], bools[0], bools[1], bools[2], bools[3], str[3], true, comments));
                     }
                     Comment outerWalls = null;
-                    if ((request.getParameter("outerWallCommentCheck").equals("on")))
-                    {
+                    if ((request.getParameter("outerWallCommentCheck").equals("on"))) {
                         Part filePart = request.getPart("wallImage"); // Retrieves <input type="file" name="file">
-                        if (filePart != null)
-                        {
+                        if (filePart != null) {
                             //filename got but not used
                             String fileName = filePart.getSubmittedFileName();
                             InputStream fileContent = filePart.getInputStream();
                             outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall", ImageIO.read(fileContent));
 
-                        } else
-                        {
+                        } else {
                             outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall");
                         }
                     }
                     Comment roof = null;
-                    if ((request.getParameter("roofCommentCheck").equals("on")))
-                    {
+                    if ((request.getParameter("roofCommentCheck").equals("on"))) {
                         Part filePart = request.getPart("roofImage"); // Retrieves <input type="file" name="file">
-                        if (filePart != null)
-                        {
+                        if (filePart != null) {
                             //filename got but not used
                             String fileName = filePart.getSubmittedFileName();
                             InputStream fileContent = filePart.getInputStream();
                             roof = new Comment(request.getParameter("roofText"), "Ceiling", ImageIO.read(fileContent));
 
-                        } else
-                        {
+                        } else {
                             roof = new Comment(request.getParameter("roofText"), "Ceiling");
                         }
                     }
 
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                     facade.addReportToDB(report);
-                    forward(request, response, "/index.html");
+                    forward(request, response, "/FrontPageJSP.jsp");
                 } catch (Exception ex)
                 {
                     ex.printStackTrace();
@@ -492,7 +441,7 @@ public class ControllerServlet extends HttpServlet
             case "Opret nyt firma":
                 forward(request, response, "/FirmJSP.jsp");
                 break;
-            case "updatePageNr":
+            case "Opdater side antal":
                 request.setAttribute("nextReportNr", facade.getNextReportNr());
                 request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
                 forward(request, response, "/reportJSP.jsp");
@@ -506,66 +455,48 @@ public class ControllerServlet extends HttpServlet
     private void useComment(HttpServletRequest request, HttpServletResponse response, HttpSession session, String comment, int ID)
             throws ServletException, IOException
     {
-        switch (comment)
-        {
+        switch (comment){
+        
             case "Delete":
-
                 break;
             case "viewReports":
-                viewRaport(ID, request, response);
+                viewRaport(1, request, response);
                 break;
             case "writeReport":
                 request.setAttribute("BuildingID", ID);
                 goToReport(request, response);
                 break;
+            case "uploadFloorPlan":
+                request.setAttribute("BuildingID", ID);
+                forward(request, response, "/UploadFloorPlanJSP.jsp");
+                break;
         }
     }
-
-    private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response)
-    {
-        if (request == null || response == null)
-        {
+    private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response) {
+        if (request == null || response == null) {
             throw new NullPointerException("viewRaport got null");
-        } else
-        {
+        } else {
+
             Report report = facade.getReportFromDB(reportid);
-            if (report != null)
-            {
-                request.setAttribute("BuildingID", report.getBuildingID());
-                request.setAttribute("OuterWalls", report.getOuterWalls());
-                request.setAttribute("ReportDate", report.getReportDate());
-                request.setAttribute("ReportPages", report.getReportPages());
-                request.setAttribute("ReportNR", report.getReportnr());
-                request.setAttribute("Roof", report.getRoof());
-                request.setAttribute("State", report.getState());
-            } else
-            {
-                try
-                {
+
+            if (report != null) {
+                request.setAttribute("report", report);
+            } else {
+                try {
                     forward(request, response, "/Fejl.jsp");
-                } catch (IOException ex)
-                {
-                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ServletException ex)
-                {
-                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException | ServletException ex) {
+                    ex.printStackTrace();
                 }
             }
-            try
-            {
-                forward(request, response, "/ViewReport.jsp");
-            } catch (IOException ex)
-            {
-                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex)
-            {
-                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                forward(request, response, "/ViewRapport.jsp");
+            } catch (IOException | ServletException ex) {
+                ex.printStackTrace();
             }
         }
     }
 
-    private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
-    {
+    private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException {
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(path);
         rd.forward(req, res);
@@ -582,8 +513,7 @@ public class ControllerServlet extends HttpServlet
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -597,8 +527,7 @@ public class ControllerServlet extends HttpServlet
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -608,8 +537,7 @@ public class ControllerServlet extends HttpServlet
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo()
-    {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

@@ -146,15 +146,15 @@ insert into `zip` (`Zip`,`City`) values(2800,"Kongens Lyngby");
 insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 1",2800,1,"storkevænget",420,10,"recidence");  
 insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 2",2800,1,"home",420,10,"service");  
 
-insert into `report` (`BuildingID`,`Date`,`StateNR`) values(1,10/1990/10,0);  
-insert into `report` (`BuildingID`,`Date`,`StateNR`) values(2,10/420/10,0);  
+insert into `report` (`BuildingID`,`Date`,`StateNR`) values(1,'1990-01-01',0);  
+insert into `report` (`BuildingID`,`Date`,`StateNR`) values(2,'420-01-01',0);  
 
 insert into `reportPage` (`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)
- values(1,false,10/10/10,"thought the roof","slagehammers brakes stuff","it a bit leaky so installed bucket",true,false,false,false,"",true);  
+ values(1,false,'10-01-01',"thought the roof","slagehammers brakes stuff","it a bit leaky so installed bucket",true,false,false,false,"",true);  
 insert into `reportPage` (`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)
- values(2,false,10/10/2020,"right there","unknown","it fine i swear",false,false,false,false,"❤❤❤❤❤",true);
+ values(2,false,'2020-01-01',"right there","unknown","it fine i swear",false,false,false,false,"❤❤❤❤❤",true);
  insert into `reportPage` (`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)
- values(2,false,10/10/2020,"in reactor","mealt down","just keep away",false,false,false,false,"☢☢☢☢☢☢",true);
+ values(2,false,'2010-01-01',"in reactor","mealt down","just keep away",false,false,false,false,"☢☢☢☢☢☢",true);
 
 insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(1,1,"report comment","don't spin to win in a building");
 insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(2,1,"report comment","don't spin meat objects in buildings, it not safe");
