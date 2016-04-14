@@ -75,15 +75,16 @@ public class BuildingDataMapper
 
             while (res.next())
             {
+                int buildingID = Integer.parseInt( res.getString("BuildingID"));
                 String Address = res.getString("Address");
-                String Zip = res.getString("Zip");
-                String FirmID = res.getString("FirmID");
+                int Zip = Integer.parseInt(res.getString("Zip"));
+                int FirmID = Integer.parseInt(res.getString("FirmID"));
                 String Name = res.getString("Name");
-                String BuildingYear = res.getString("BuildingYear");
-                String Size = res.getString("Size");
+                int BuildingYear = Integer.parseInt(res.getString("BuildingYear"));
+                int Size = Integer.parseInt(res.getString("Size"));
                 String Usage = res.getString("Usage");
 
-                listOfBuildings.add(new Building(Address, Zip, FirmID, Name, BuildingYear, Size, Usage));
+                listOfBuildings.add(new Building(Address, Name, Usage, buildingID, Zip, FirmID, BuildingYear, Size));
             }
 
             for (Building listOfBuilding : listOfBuildings)

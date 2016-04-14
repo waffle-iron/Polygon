@@ -8,23 +8,24 @@
         <title>JSP Page</title>
 
     </head>
-    
     <body>
-        <%
-            Building building = null;
-            if(session.getAttribute("building") != null){
-            building = (Building)session.getAttribute("building");
-            }
-            %>
+        
         <div class="report">
             <form id="myForm" action="ControllerServlet" method="POST" enctype="multipart/form-data">
                 <div class="frontPage">
+                    <% Building building = null;
+                    if(session.getAttribute("building") != null)
+                    {
+                        System.out.println("test1");
+                        building =(Building) session.getAttribute("building");
+                    }  %>
                     <h1>Udfyld rapport</h1> 
                     <label for="reportNR">Rapport nummer: </label>
                     <input type="number" id="reportNR" name="reportNRtext" value="<%=request.getAttribute("nextReportNr")%>" readonly>
-                    <label for="buildingName"><Navn på bygning:</label>
+                    <label for="buildingName">Navn på bygning:</label>
                     <input id="buildingName" type="text" name="buildingNameText"
-                           value ="<%= (building == null ? request.getParameter("buildingNameText") + "\""  :building.getName() + "\" readonly " )%> pattern="{0,30}" />* 
+                           value ="<%= (building !=null ? building.getName() :
+                               (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText")))%>" pattern="{0,30}" />* 
                         <span title="bygnings navn skal være mindre end 30."> </span>>
                     <label for="date">Dato:</label>
                     <input id="date" type="date" name="dateDate">

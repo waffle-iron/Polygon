@@ -82,12 +82,13 @@ public class ControllerServlet extends HttpServlet
                 } else
                 {
                     Building building = new Building(request.getParameter("buildAddress"),
-                            request.getParameter("buildZip"),
-                            request.getParameter("buildFirmID"),
                             request.getParameter("buildName"),
-                            request.getParameter("buildYear"),
-                            request.getParameter("buildSize"),
-                            request.getParameter("buildUsage"));
+                            request.getParameter("buildUsage"),
+                            Integer.parseInt( request.getParameter("buildZip")),
+                            Integer.parseInt(request.getParameter("buildFirmID")),
+                            Integer.parseInt(request.getParameter("buildYear")),
+                            Integer.parseInt(request.getParameter("buildSize"))
+                            );
                     request.setAttribute("Done", true);
                     request.setAttribute("saveBuildingInfo", building);
                     facade.addBuildingToDB(building);
@@ -516,8 +517,8 @@ public class ControllerServlet extends HttpServlet
                 viewRaport(ID, request, response);
                 break;
             case "writeReport":
-                request.setAttribute("BuildingID", ID);
-                goToReport(request, response);
+                session.setAttribute("building", facade.getSingleBuildingByID(ID));
+                goToReport(request,response);
                 break;
         }
     }
