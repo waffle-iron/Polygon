@@ -46,14 +46,18 @@
                 <input type ="text" name ="firmID" value="<%= ((Login) session.getAttribute("login")).getFirmID()%>" readonly>
             </td>
             <%}%>
-            <%if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
+            
+            <% if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                 {
                           ArrayList<Firm> firmIDs = (ArrayList<Firm>) request.getAttribute("ValidFirmID");%>
-                
+                          
+
             <td>
                 <select name="firmID">
+                    <option></option>
                     <%for (int i = 0; i < firmIDs.size(); i++)
                             {%>
+                            
                     <option><%=firmIDs.get(i).getFirmID()%></option>
                     <%}%>
                 </select>

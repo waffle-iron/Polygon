@@ -477,7 +477,11 @@ public class ControllerServlet extends HttpServlet
                 }// </editor-fold>
                 break;
             case "Opret nyt login":
+                                
+
+                request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
                 forward(request, response, "/OpretJSP.jsp");
+                
                 break;
             case "Vis alle firmaer":
                 request.setAttribute("listOfFirms", facade.viewAllFirms());
