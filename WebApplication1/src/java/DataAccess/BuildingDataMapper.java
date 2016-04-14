@@ -9,7 +9,35 @@ import java.util.ArrayList;
 
 public class BuildingDataMapper
 {
+    public Building getSingleBuildingByID(int buildingID)
+    {
+        Building building = null;
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+            Statement stmt = con.createStatement();
+            String query = "SELECT * FROM building where BuildingID = "+ buildingID+";";
+            ResultSet res = stmt.executeQuery(query);
 
+            while (res.next())
+            {
+
+                building =
+                        new Building(res.getString("Address"), res.getString("Name"),
+                                res.getString("Usage"),Integer.parseInt( res.getString("BuildingID")),
+                                Integer.parseInt(res.getString("Zip")),Integer.parseInt( res.getString("FirmID")),
+                                Integer.parseInt(res.getString("BuildingYear")),
+                                Integer.parseInt(res.getString("Size")));
+            }
+
+        } catch (Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+        return building;
+    }
+            
     public void addBuildingToDB(Building build)
     {
 
@@ -47,15 +75,16 @@ public class BuildingDataMapper
 
             while (res.next())
             {
+                int buildingID = Integer.parseInt( res.getString("BuildingID"));
                 String Address = res.getString("Address");
-                String Zip = res.getString("Zip");
-                String FirmID = res.getString("FirmID");
+                int Zip = Integer.parseInt(res.getString("Zip"));
+                int FirmID = Integer.parseInt(res.getString("FirmID"));
                 String Name = res.getString("Name");
-                String BuildingYear = res.getString("BuildingYear");
-                String Size = res.getString("Size");
+                int BuildingYear = Integer.parseInt(res.getString("BuildingYear"));
+                int Size = Integer.parseInt(res.getString("Size"));
                 String Usage = res.getString("Usage");
 
-                listOfBuildings.add(new Building(Address, Zip, FirmID, Name, BuildingYear, Size, Usage));
+                listOfBuildings.add(new Building(Address, Name, Usage, buildingID, Zip, FirmID, BuildingYear, Size));
             }
 
             for (Building listOfBuilding : listOfBuildings)

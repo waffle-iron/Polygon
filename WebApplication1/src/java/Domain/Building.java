@@ -12,6 +12,7 @@ public class Building
     int firmID;
     int buildYear;
     int size;
+
     public Building(String address, String name, String usage, int buildingID, int zip, int firmID, int buildYear, int size)
     {
         this.address = address;
@@ -23,16 +24,18 @@ public class Building
         this.buildYear = buildYear;
         this.size = size;
     }
-    public Building(String address, String zip, String firmID, String name, String buildYear, String size, String usage)
+
+    public Building(String address, String name, String usage, int zip, int firmID, int buildYear, int size)
     {
         this.address = address;
         this.name = name;
         this.usage = usage;
-        this.zip = Integer.parseInt(zip);
-        this.firmID = Integer.parseInt(firmID);
-        this.buildYear = Integer.parseInt(buildYear);
-        this.size = Integer.parseInt(size);
+        this.zip = zip;
+        this.firmID = firmID;
+        this.buildYear = buildYear;
+        this.size = size;
     }
+    
 
     @Override
     public String toString()

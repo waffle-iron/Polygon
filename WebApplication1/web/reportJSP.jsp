@@ -1,3 +1,6 @@
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="Domain.Building"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,35 +23,54 @@
             </style>
     </head>
     <body>
+        
         <div class="report">
             <form id="myForm" action="ControllerServlet" method="POST" enctype="multipart/form-data">
                 <div class="frontPage">
+                    <% Building building = null;
+                    if(session.getAttribute("building") != null)
+                    {
+                        System.out.println("test1");
+                        building =(Building) session.getAttribute("building");
+                    }  %>
                     <h1>Udfyld rapport</h1> 
                     <label for="reportNR">Rapport nummer: </label>
                     <input type="number" id="reportNR" name="reportNRtext" value="<%=request.getAttribute("nextReportNr")%>" readonly>
                     <label for="buildingName">Navn på bygning:</label>
                     <input id="buildingName" type="text" name="buildingNameText"
-                           value ="<%= (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText"))%>" pattern="{0,30}" />
-                    <span title="bygnings navn skal være mindre end 30."> </span>
+                          value ="<%= (building !=null ? building.getName() :
+                               (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText")))%>" pattern="{0,30}" />* 
+                        <span title="bygnings navn skal være mindre end 30."> </span>>
+                       
                     <label for="date">Dato:</label>
-                    <input id="date" type="date" name="dateDate">
+                    <% 
+                        Calendar now = Calendar.getInstance();
+int dayOfMonth = now.get(Calendar.DAY_OF_MONTH);
+String dayOfMonthStr = ((dayOfMonth < 10) ? "0" : "") + dayOfMonth;
+int month = now.get(Calendar.MONTH) + 1;
+String monthStr = ((month < 10) ? "0" : "") + month;
+System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
+
+                           %>
+                           <input id="date" type="date" name="dateDate" value = "<%= ""%>">
                     <label for="adresse">Adresse: </label>
                     <input id="adresse" type="text" name="adressText"
-                           value ="<%= (request.getParameter("adressText") == null ? "" : request.getParameter("adressText"))%>">
+                           value ="<%= (building !=null ? building.getAddress():(request.getParameter("adressText") == null ? "" : request.getParameter("adressText")))%>">
                     <label for="zip">Postnr./by: </label>
                     <input id="zip" type="text" name="zipText"
-                           value ="<%= (request.getParameter("zipText") == null ? "" : request.getParameter("zipText"))%>">
+                           value ="<%= (building !=null ? "" +building.getZip():(request.getParameter("zipText") == null ? "" : request.getParameter("zipText")))%>">
 
                     <label><b>Generel information om bygningen</b></label>
 
                     <label for="buildYear"> Byggeår</label>
-                    <input id="buildYear" type="number" name="buildYearNum" value ="<%=request.getParameter("buildYearNum")%>">
+                    <input id="buildYear" type="number" name="buildYearNum" value ="<%=(building !=null ? building.getBuildYear():request.getParameter("buildYearNum")) %>">
+  
                     <label for="buildArea">Bygningsareal i m<sup>2</sup> <br>
                         (hver etage tælles seperat)</label>
-                    <input id="buildArea" type="number" name="buildingAreaNum">
+                    <input id="buildArea" type="number" name="buildingAreaNum" value ="<%=(building !=null ? building.getSize(): "") %>">
                     <label for="usage">Hvad bruges bygningen til/<br>
                         hvad har bygningen været brugt til? </label>
-                    <input id="usage" type="text" name="usageText" size="50" value ="<%= (request.getParameter("usageText") == null ? "" : request.getParameter("usageText"))%>">
+                    <input id="usage" type="text" name="usageText" size="50" value ="<%= (building !=null ? building.getName() :(request.getParameter("usageText") == null ? "" : request.getParameter("usageText")))%>">
                     <label><b>Gennemgang af bygningen udvendig</b></label>
                     <table border="1">
                         <thead>

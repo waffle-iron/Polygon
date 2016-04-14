@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>du er mongol - der er fejl i dit lort - fix dit liv</h1>
+        <h1>der er en fejl <3 bed venligst gruppe 5 om at fixe den :D</h1>
     </body>
 </html>
