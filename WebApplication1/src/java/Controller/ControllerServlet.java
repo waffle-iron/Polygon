@@ -459,7 +459,7 @@ public class ControllerServlet extends HttpServlet {
             case "Delete":
                 break;
             case "viewReports":
-                viewRaport(1, request, response);
+                viewRaport(13, request, response);
                 break;
             case "writeReport":
                 request.setAttribute("BuildingID", ID);

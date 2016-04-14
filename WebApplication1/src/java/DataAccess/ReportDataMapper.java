@@ -111,8 +111,9 @@ public class ReportDataMapper {
                 ResultSet res = statement.executeQuery("SELECT * FROM grp01.picturelink;");
                 res.beforeFirst();
                 while (res.next()) {
-                    int commentID = res.getInt(1);
-                    Image img = (Image)res.getBlob(2);
+                    int commentID = res.getInt(2);
+                    InputStream input = res.getBinaryStream(3);
+                    Image img = ImageIO.read(input);
 
                     for (Comment comment : comarr) {
                         if (comment.getCommentID() == commentID) {

@@ -51,7 +51,7 @@
                 <li style="float:right"><a href="#about">Kontakt</a></li>
             </ul>
         </form>
-                <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+                <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style = "float:left">
         <%Report res = (Report)request.getAttribute("report");%>
         
             <h2> Rapport forside </h2>
@@ -105,8 +105,10 @@
             Er der foretaget fugtscanning?
             <%=(reportPage.isMoistScan())%>
             <%
-                    ArrayList<Comment> comments = reportPage.getComments();
-                    if(reportPage.getComments()!=null)
+                    ArrayList<Comment> comments = reportPage.getComments();%>
+                    <%=(comments)%>
+
+                    <%if(reportPage.getComments()!=null)
                     for(Comment comment: comments){%>
                     <%=comment.toString()%>
                     <%if(comment.getImage()!= null)%>
