@@ -272,7 +272,6 @@ public class ControllerServlet extends HttpServlet {
 
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
-                
             case "createReport":
                 try {
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
@@ -423,8 +422,9 @@ public class ControllerServlet extends HttpServlet {
 
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                     facade.addReportToDB(report);
-                    forward(request, response, "/index.html");
-                } catch (Exception ex) {
+                    forward(request, response, "/FrontPageJSP.jsp");
+                } catch (Exception ex)
+                {
                     ex.printStackTrace();
                 }// </editor-fold>
                 break;
@@ -441,7 +441,7 @@ public class ControllerServlet extends HttpServlet {
             case "Opret nyt firma":
                 forward(request, response, "/FirmJSP.jsp");
                 break;
-            case "updatePageNr":
+            case "Opdater side antal":
                 request.setAttribute("nextReportNr", facade.getNextReportNr());
                 request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
                 forward(request, response, "/reportJSP.jsp");
