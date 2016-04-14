@@ -143,14 +143,14 @@ insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("tes
 insert into `zip` (`Zip`,`City`) values(3600,"Fredrikssund"); 
 insert into `zip` (`Zip`,`City`) values(2800,"Kongens Lyngby");  
 
-insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 1",2800,1,"",420,10,"recidence");  
-insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 2",2800,1,"",420,10,"service");  
+insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 1",2800,1,"storkevænget",420,10,"recidence");  
+insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 2",2800,1,"home",420,10,"service");  
 
-insert into `report` (`BuildingID`,`Date`,`StateNR`) values(1,10/10/1990,0);  
-insert into `report` (`BuildingID`,`Date`,`StateNR`) values(2,10/10/420,0);  
+insert into `report` (`BuildingID`,`Date`,`StateNR`) values(1,10/1990/10,0);  
+insert into `report` (`BuildingID`,`Date`,`StateNR`) values(2,10/420/10,0);  
 
 insert into `reportPage` (`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)
- values(1,false,10/10/10,"thought the roof","slagehammers brake stuff","it a bit leaky so installed bucket",true,false,false,false,"",true);  
+ values(1,false,10/10/10,"thought the roof","slagehammers brakes stuff","it a bit leaky so installed bucket",true,false,false,false,"",true);  
 insert into `reportPage` (`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)
  values(2,false,10/10/2020,"right there","unknown","it fine i swear",false,false,false,false,"❤❤❤❤❤",true);
  insert into `reportPage` (`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`)

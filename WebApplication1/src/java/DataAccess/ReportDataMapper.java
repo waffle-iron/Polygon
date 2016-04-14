@@ -147,7 +147,7 @@ public class ReportDataMapper {
             con.close();
 
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            ex.printStackTrace();
         } finally {
             try {
                 con.close();
