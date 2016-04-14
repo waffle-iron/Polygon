@@ -143,7 +143,7 @@ public class ControllerServlet extends HttpServlet
                     break;
                 }
                 
-            case "goToViewFirms":
+            case "Vis alle firmaer":
                 request.setAttribute("listOfFirms", facade.viewAllFirms());
                 forward(request, response, "/ViewFirms.jsp");
 
