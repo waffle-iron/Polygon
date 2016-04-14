@@ -4,6 +4,8 @@
     Author     : LouiseB
 --%>
 
+<%@page import="Domain.Firm"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Domain.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,11 +30,14 @@
                 <span title="Kodeordet skal være mindst 6 tegn langt"> </span>
             </div>
             <br>
+            <% if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
+                {%>
             <select name="enum">
                 <option>Bruger</option>
                 <option>Tekniker</option>
                 <option>Admin</option>
             </select>
+            <%}%>
             <p> Firma ID:</p>
 
             <% if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("user"))
@@ -40,10 +45,22 @@
             <td>
                 <input type ="text" name ="firmID" value="<%= ((Login) session.getAttribute("login")).getFirmID()%>" readonly>
             </td>
-            <%} else if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
-            {%> 
+            <%}%>
+            
+            <% if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
+                {
+                          ArrayList<Firm> firmIDs = (ArrayList<Firm>) request.getAttribute("ValidFirmID");%>
+                          
+
             <td>
-                <input type ="text" name ="firmID">
+                <select name="firmID">
+                    <option></option>
+                    <%for (int i = 0; i < firmIDs.size(); i++)
+                            {%>
+                            
+                    <option><%=firmIDs.get(i).getFirmID()%></option>
+                    <%}%>
+                </select>
             </td>
             <%}%>
             <br>

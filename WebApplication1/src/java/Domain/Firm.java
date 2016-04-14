@@ -2,20 +2,31 @@ package Domain;
 
 public class Firm
 {
-
+    int FirmID;
     int ContactNumber;
     String ContactMail;
 
-    public Firm(String ContactNumer, String ContactMail)
+    public Firm(int FirmID, int contactNumber, String contactMail)
     {
-        try
-        {
-            this.ContactNumber = Integer.parseInt(ContactNumer);
-            this.ContactMail = ContactMail;
-        } catch (Exception e)
-        {
-            System.out.println(e.toString());
-        }
+        this.FirmID = FirmID;
+        this.ContactNumber = contactNumber;
+        this.ContactMail = contactMail;
+    }
+    
+    public Firm(String contactNumber, String contactMail)
+    {
+        this.ContactNumber = Integer.parseInt(contactNumber);
+        this.ContactMail = contactMail;
+    }
+
+    public int getFirmID()
+    {
+        return FirmID;
+    }
+
+    public void setFirmID(int FirmID)
+    {
+        this.FirmID = FirmID;
     }
 
     public int getContactNumber()

@@ -72,9 +72,10 @@ public class FirmDataMapper
 
             while (res.next())
             {
-                String contactNumber = res.getString(1);
-                String contactMail = res.getString(2);
-                firms.add(new Firm(contactNumber, contactMail));
+                int firmID = res.getInt(1);
+                int contactNumber = res.getInt(2);
+                String contactMail = res.getString(3);
+                firms.add(new Firm(firmID, contactNumber, contactMail));
             }
 
         } catch (Exception ex)
