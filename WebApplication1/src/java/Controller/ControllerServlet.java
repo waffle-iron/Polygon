@@ -256,15 +256,15 @@ public class ControllerServlet extends HttpServlet
     {
         switch (button)
         {
-            case "repport (DENNE ER KUN TEMPEARY)":
+            case "Rapport-midlertidig":
                 goToReport(request,response);
                 break;
-            case "tilføj bygning" :
+            case "Tilføj bygning":
            
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                 forward(request, response, "/AddBuildingJSP.jsp");
                 break;
-            case "mine bygninger":
+            case "Mine bygninger":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 if (session.getAttribute("login") != null)
                 {
