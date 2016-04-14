@@ -4,6 +4,7 @@
     Author     : Emil
 --%>
 
+<%@page import="Domain.Report"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Domain.ReportPage"%>
 <%@page import="Domain.Comment"%>
@@ -15,20 +16,32 @@
         <title>Rapport</title>
     </head>
     <body>
+        <%Report res = (Report)request.getAttribute("report");%>
+        
             <h2> Rapport forside </h2>
-            <p>Rapport nummer:  "<%=(request.getAttribute("ReportNR"))%>"</p>
-            <p>Navn på bygning: "<%=(request.getAttribute("BuildingID"))%>"</p>
-            <p>Dato:            "<%=(request.getAttribute("ReportDate"))%>"</p>
-            <p>Adresse:         "<%=(request.getAttribute("ReportDate"))%>"</p>
+            <p>Rapport nummer:  "<%=(res.getReportnr())%>"</p>
+            <p>Navn på bygning: "<%=(res.getBuildingID())%>"</p>
+            <p>Dato:            "<%=(res.getReportDate())%>"</p>
+            <p>Adresse:         "<%=("no adresse")%>"</p>
             <p><b>Gennemgang af bygningen udvendig</b></p>
-            "<%Comment com = (Comment)request.getAttribute("OuterWalls");%>"
+            <%Comment com = null;%>
+            <%if(res.getOuterWalls()!=null){%>"
+            "<% com = res.getOuterWalls();%>"
             "<%=(com.toString())%>"
+            <%if(com.getImage()!= null)%>
             <%=(com.getImage())%>
+            <%}%>
             <br>
-            "<%Comment comRoof = (Comment)request.getAttribute("Roof");%>"
+            <%Comment comRoof = null;%>
+            "<%if(res.getRoof()!=null){
+                comRoof = res.getRoof();%>"
             "<%=(comRoof.toString())%>"
+            <%if(comRoof.getImage()!= null)%>
             <%=(comRoof.getImage())%>
-            "<%ReportPage[] reportpages = (ReportPage[])request.getAttribute("ReportPages");%>"
+            <%}%>
+            <%ReportPage[] reportpages = null;%>
+            <%if(res.getReportPages() != null){%>
+            "<% reportpages = res.getReportPages();%>"
             <%
                 int i = 0;
             for(ReportPage reportPage:reportpages)
@@ -57,12 +70,14 @@
             <%=(reportPage.isMoistScan())%>
             <%
                     ArrayList<Comment> comments = reportPage.getComments();
+                    if(reportPage.getComments()!=null)
                     for(Comment comment: comments){%>
                     <%=comment.toString()%>
-                    <%=comment.getImage()%>
+                    <%if(comment.getImage()!= null)%>
+                    <%= comment.getImage()%>
             <%}
             %>
-            <%i++;}%>
+            <%i++;}}%>
             <table border="1">
                 <thead>
                     <tr>
@@ -102,6 +117,6 @@
                     </tr>
                 </tbody>
             </table>
-            <%=(request.getAttribute("State"))%>
+            <%=res.getState()%>
     </body>
 </html>
