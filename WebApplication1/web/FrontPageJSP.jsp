@@ -30,7 +30,7 @@
 
                 <li> <input class="submit1" type="submit" name ="button" value="Opret bygning"></li>
 
-                <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+                <li> <input class="submit1" type="submit" name="button" value="Opret nyt login"></li>
 
                 <%}%>
 
