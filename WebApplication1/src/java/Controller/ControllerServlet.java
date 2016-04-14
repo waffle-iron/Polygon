@@ -254,7 +254,7 @@ public class ControllerServlet extends HttpServlet
             case "Rapport-midlertidig":
                 goToReport(request, response);
                 break;
-            case "Tilføj bygning":
+            case "Opret bygning":
 
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                 forward(request, response, "/AddBuildingJSP.jsp");

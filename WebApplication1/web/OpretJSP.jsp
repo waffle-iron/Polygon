@@ -14,46 +14,104 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="ErrorCSS.css">
         <link rel="stylesheet" type="text/css" href="General.css">
+        <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>JSP Page</title>
+
+        <style>
+            label{
+                width:180px;
+                clear:left;
+                text-align:right;
+                padding-right:10px;
+            }
+
+            input, label {
+                float:left;
+                margin-bottom: 5px;
+            }
+            
+            select, label {
+                float:left;
+                margin-bottom: 5px;
+            }
+        </style>
     </head>
     <body>
+        <input type ="hidden" value="useButton" name="do_this">
+        <ul>
+            <%
+                Login login = (Login) session.getAttribute("login");
+                System.out.println(login.getAuthorization());
+            %>
+
+            <%if (login.getAuthorization().equals("user"))
+                { %>
+
+
+            <li> <input class="submit1" type="submit" name ="button" value="Tilføj bygning"></li>
+
+            <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+
+            <%}%>
+
+            <%if (login.getAuthorization().equals("admin"))
+                { %>
+
+            <li><input class="submit1" type="submit" name ="button" value="Opret nyt firma"></li>
+
+            <li><input class="submit1" type="submit" name ="button" value="Vis alle firmaer"></li>
+
+            <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+                <%}%>
+            <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
+
+            <li><input class="submit1" type="submit" value="Rapport-midlertidig" name="button" /></li>
+            <li style="float:right"><a href="#about">Kontakt</a></li>
+        </ul>
+    </form>
+    <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+    <div class="content">
         <h1>Opret bruger</h1>
         <form action="ControllerServlet" method="POST">
-            <div>
+            
                 <label for="username">Brugernavn:</label>
-                <input style="text-align: center" type="text" id="username" name="username" pattern="(?=.*[A-Z]).{1,15}"/><br>
-                <span title="Brug mindst ét stort bogstav."> </span> 
-                <span title="Dit brugernavn skal være mindre end 15 tegn"> </span>
-            </div>
-            <div>
-                <label for="password">Kodeord</p> <input style="text-align: center" type="password" name="password" pattern=".{6,}"/><br>
+                <input style="text-align: center" type="text" id="username" name="username" pattern="(?=.*[A-Z]).{1,15}"/>
+                <span title="Brug mindst ét stort bogstav."></span> <br>
+                <span title="Dit brugernavn skal være mindre end 15 tegn" > </span>
+                <br>
+                <br>
+                <label for="password">Kodeord:</label>
+                <input style="text-align: center" type="password" id="password" name="password" pattern=".{6,}"/>
                 <span title="Kodeordet skal være mindst 6 tegn langt"> </span>
-            </div>
-            <br>
+                <br>
+                <br>
+          
+            <label for="userType">Type:</label>
             <% if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                 {%>
-            <select name="enum">
+                
+            <select name="enum" id="userType">
                 <option>Bruger</option>
                 <option>Tekniker</option>
                 <option>Admin</option>
             </select>
             <%}%>
-            <p> Firma ID:</p>
+            <label for="firmId"> Firma ID:</label>
 
             <% if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("user"))
                 {%>
             <td>
-                <input type ="text" name ="firmID" value="<%= ((Login) session.getAttribute("login")).getFirmID()%>" readonly>
+                <input type ="text" name ="firmID" value="<%= ((Login) session.getAttribute("login")).getFirmID()%>" id="firmId" readonly>
             </td>
             <%}%>
             <%if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                 {
-                          ArrayList<Firm> firmIDs = (ArrayList<Firm>) request.getAttribute("ValidFirmID");%>
-                
+                    ArrayList<Firm> firmIDs = (ArrayList<Firm>) request.getAttribute("ValidFirmID");%>
+
             <td>
-                <select name="firmID">
+                <select name="firmID" id="firmId">
                     <%for (int i = 0; i < firmIDs.size(); i++)
-                            {%>
+                        {%>
                     <option><%=firmIDs.get(i).getFirmID()%></option>
                     <%}%>
                 </select>
@@ -61,7 +119,10 @@
             <%}%>
             <br>
             <br>
-            <input type="hidden" name="do_this" value="CreateLogin" />
+            <br>
+            <br>
+            <label for="opret"></label>
+            <input type="hidden" id="opret" name="do_this" value="CreateLogin" />
             <input type="submit" value="Opret" name="CreateLogin" />
         </form>
         <br>
@@ -72,14 +133,13 @@
         {%>
         Login blev ikke oprettet.
         <%}%>
-
-        <br>
         <br>
         <form action="ControllerServlet" method="GET">
+            <label for="goBack"></label>
             <input type="hidden" name="do_this" value="goToFrontPage" />
-            <input type="submit" value="Gå tilbage til start siden" name="goToFrontPage" />
+            <input type="submit" id="goBack" value="Gå tilbage til start siden" name="goToFrontPage" />
             <br>
         </form>
-
-    </body>
+    </div>
+</body>
 </html>
