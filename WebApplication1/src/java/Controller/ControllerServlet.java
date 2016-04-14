@@ -212,6 +212,8 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("firmID").trim().compareTo("") == 0)
                 {
                     request.setAttribute("saveLogin", false);
+                    request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
+
                     forward(request, response, "/OpretJSP.jsp");
 
                 } else
@@ -221,6 +223,8 @@ public class ControllerServlet extends HttpServlet
                             temp2);
                     request.setAttribute("saveLogin", true);
                     facade.addLoginToDB(newLogin);
+                    request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
+
                     forward(request, response, "/OpretJSP.jsp");
                 }
                 // </editor-fold>
@@ -255,7 +259,6 @@ public class ControllerServlet extends HttpServlet
                 goToReport(request, response);
                 break;
             case "Opret bygning":
-
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                 forward(request, response, "/AddBuildingJSP.jsp");
                 break;
@@ -477,7 +480,9 @@ public class ControllerServlet extends HttpServlet
                 }// </editor-fold>
                 break;
             case "Opret nyt login":
+                request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
                 forward(request, response, "/OpretJSP.jsp");
+
                 break;
             case "Vis alle firmaer":
                 request.setAttribute("listOfFirms", facade.viewAllFirms());
