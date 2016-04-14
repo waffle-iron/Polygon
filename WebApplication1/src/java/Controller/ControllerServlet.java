@@ -219,6 +219,7 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "goToCreateLogin":
+                request.setAttribute("ValidFirmID", facade.viewAllFirms());
                 forward(request, response, "/OpretJSP.jsp");
                 break;
 
