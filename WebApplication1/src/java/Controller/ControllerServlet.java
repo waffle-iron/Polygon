@@ -121,11 +121,6 @@ public class ControllerServlet extends HttpServlet
 
                 break;
 
-            case "goBackBuilding":
-
-                forward(request, response, "/index.html");
-
-                break;
             case "createFirm":
                 if (request.getParameter("contactNumber").trim().compareTo("") == 0
                         || request.getParameter("contactMail").trim().compareTo("") == 0)
@@ -233,7 +228,6 @@ public class ControllerServlet extends HttpServlet
 
             case "goBackToLogin":
                 forward(request, response, "/LoginJSP.jsp");
-
                 break;
             default:
                 System.out.println("Not valid command" + do_this);
@@ -259,8 +253,7 @@ public class ControllerServlet extends HttpServlet
             case "Rapport-midlertidig":
                 goToReport(request, response);
                 break;
-            case "Tilføj bygning":
-
+            case "Opret bygning":
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                 forward(request, response, "/AddBuildingJSP.jsp");
                 break;
@@ -290,6 +283,12 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/viewMyBuildingsJSP.jsp");
 // </editor-fold>
                 break;
+                
+            case "Tilbage til start siden":
+
+                forward(request, response, "/FrontPageJSP.jsp");
+                break;
+                
             case "createReport":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 try
