@@ -1,7 +1,7 @@
 package Controller;
 
-import DataAccess.Facade;
 import static Controller.Logic.*;
+import DataAccess.Facade;
 import Domain.Building;
 import Domain.Comment;
 import Domain.Date;
@@ -105,9 +105,6 @@ public class ControllerServlet extends HttpServlet
                 {
                     Login login = (Login) session.getAttribute("login");
 
-                    System.out.println(session.getAttribute("login").toString());
-                    System.out.println(login.getFirmID());
-
                     try
                     {
                         if (login.getAuthorization().equals("user"))
@@ -119,7 +116,7 @@ public class ControllerServlet extends HttpServlet
                         }
                     } catch (Exception ex)
                     {
-                        System.out.println("test1");
+                        ex.toString();
                     }
                 }
                 forward(request, response, "/viewMyBuildingsJSP.jsp");
@@ -153,6 +150,12 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/FirmJSP.jsp");
                     break;
                 }
+                
+            case "goToViewFirms":
+                request.setAttribute("listOfFirms", facade.viewAllFirms());
+                forward(request, response, "/ViewFirms.jsp");
+
+                break;
 
             case "Report":
                 goToReport(request,response);

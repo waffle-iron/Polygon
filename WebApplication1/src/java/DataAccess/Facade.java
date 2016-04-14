@@ -1,10 +1,5 @@
 package DataAccess;
 
-import DataAccess.BuildingDataMapper;
-import DataAccess.FirmDataMapper;
-import DataAccess.ImageDataMapper;
-import DataAccess.LoginDataMapper;
-import DataAccess.ReportDataMapper;
 import Domain.Building;
 import Domain.Firm;
 import Domain.Login;
@@ -47,6 +42,11 @@ public class Facade
         firmDM.addFirmToDB(firm);
     }
 
+    public ArrayList<Firm> viewAllFirms()
+    {
+        return firmDM.viewAllFirms();
+    }
+    
     public void addReportToDB(Report Report)
     {
         reportDM.addReportToDB(Report);
