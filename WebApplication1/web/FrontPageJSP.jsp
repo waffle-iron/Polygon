@@ -35,7 +35,12 @@
                 <%if (login.getAuthorization().equals("admin"))
                     { %>
 
-                <li><input class="submit1" type="submit" name ="button" value="Opret nyt firma"></li>
+        <form action="ControllerServlet" method="get">
+            <input type ="hidden" value="goToViewFirms" name="do_this">
+            <input type="submit" name ="button" value="Vis alle firmaer">
+        </form>
+
+        <%}%>
 
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
 
@@ -49,21 +54,23 @@
         </form>
 <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
         <div class="content">
+
+
             NYI - NewsFeed
             <%if (login.getAuthorization().equals("user"))
-            { %>
+                { %>
             der fortæller om: husk at gemme en floorplan, en rapport er skrevet om en af dine bygninger, en af dine bygninger har fået ændret sin status, en af dine bygningers rapport er blevet opdateret og kommende inspektioner af dine bygninger
             <%}%>
             <%if (login.getAuthorization().equals("tech"))
-            { %>
+                { %>
             der fortæller om fremtidige tjek ups du skal være med til, og om der er sket opdateringer på dine rapports
             <%}%>
             <%if (login.getAuthorization().equals("admin"))
-            { %>
+                { %>
             der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
             <%}%>
             <%if (login.getAuthorization().equals("admin"))
-            { %>
+                { %>
             der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
             <%}%>
         </div>

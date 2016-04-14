@@ -1,7 +1,7 @@
 package Controller;
 
-import DataAccess.Facade;
 import static Controller.Logic.*;
+import DataAccess.Facade;
 import Domain.Building;
 import Domain.Comment;
 import Domain.Date;
@@ -12,6 +12,8 @@ import Domain.ReportPage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -105,9 +107,6 @@ public class ControllerServlet extends HttpServlet
                 {
                     Login login = (Login) session.getAttribute("login");
 
-                    System.out.println(session.getAttribute("login").toString());
-                    System.out.println(login.getFirmID());
-
                     try
                     {
                         if (login.getAuthorization().equals("user"))
@@ -119,7 +118,7 @@ public class ControllerServlet extends HttpServlet
                         }
                     } catch (Exception ex)
                     {
-                        System.out.println("test1");
+                        ex.toString();
                     }
                 }
                 forward(request, response, "/viewMyBuildingsJSP.jsp");
@@ -153,25 +152,16 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/FirmJSP.jsp");
                     break;
                 }
+                
+            case "goToViewFirms":
+                request.setAttribute("listOfFirms", facade.viewAllFirms());
+                forward(request, response, "/ViewFirms.jsp");
+
+                break;
 
             case "Report":
                 goToReport(request,response);
                 break;
-
-            case "viewReport":
-                //get desired reportid
-                int reportid = 1;
-                Report report = facade.getReportFromDB(reportid);
-                request.setAttribute("BuildingID", report.getBuildingID());
-                request.setAttribute("OuterWalls", report.getOuterWalls());
-                request.setAttribute("ReportDate", report.getReportDate());
-                request.setAttribute("ReportPages", report.getReportPages());
-                request.setAttribute("ReportNR", report.getReportnr());
-                request.setAttribute("Roof", report.getRoof());
-                request.setAttribute("State", report.getState());
-                forward(request, response, "/ViewReport.jsp");
-                break;
-
             case "goToFrontPage":
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
@@ -490,12 +480,44 @@ public class ControllerServlet extends HttpServlet
                 
                 break;
             case "viewReports":
-                
+                viewRaport(ID, request, response);
                 break;
             case "writeReport":
                 request.setAttribute("BuildingID", ID);
                 goToReport(request,response);
                 break;
+        }
+    }
+    private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response){
+        if(request== null|| response == null){
+            throw new NullPointerException("viewRaport got null");
+        }
+        else{
+                Report report = facade.getReportFromDB(reportid);
+                if(report != null){
+                request.setAttribute("BuildingID", report.getBuildingID());
+                request.setAttribute("OuterWalls", report.getOuterWalls());
+                request.setAttribute("ReportDate", report.getReportDate());
+                request.setAttribute("ReportPages", report.getReportPages());
+                request.setAttribute("ReportNR", report.getReportnr());
+                request.setAttribute("Roof", report.getRoof());
+                request.setAttribute("State", report.getState());
+                }
+                else
+                    try {
+                        forward(request, response, "/Fejl.jsp");
+                } catch (IOException ex) {
+                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ServletException ex) {
+                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            try {
+                forward(request, response, "/ViewReport.jsp");
+            } catch (IOException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ServletException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
