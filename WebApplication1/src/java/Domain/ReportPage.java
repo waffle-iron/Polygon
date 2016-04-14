@@ -1,4 +1,4 @@
-package helperClasses;
+package Domain;
 
 import java.util.ArrayList;
 

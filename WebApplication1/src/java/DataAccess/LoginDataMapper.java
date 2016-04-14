@@ -1,6 +1,6 @@
-package Domain;
+package DataAccess;
 
-import helperClasses.Login;
+import Domain.Login;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

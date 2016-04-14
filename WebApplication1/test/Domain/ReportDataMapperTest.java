@@ -5,7 +5,7 @@
  */
 package Domain;
 
-import helperClasses.Report;
+import DataAccess.ReportDataMapper;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;

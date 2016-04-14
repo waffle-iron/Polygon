@@ -5,9 +5,10 @@
  */
 package Controller;
 
-import Domain.FirmDataMapper;
-import helperClasses.Building;
-import helperClasses.Login;
+import DataAccess.Facade;
+import DataAccess.FirmDataMapper;
+import Domain.Building;
+import Domain.Login;
 import java.util.ArrayList;
 
 /**

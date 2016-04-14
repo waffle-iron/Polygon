@@ -1,13 +1,14 @@
 package Controller;
 
+import DataAccess.Facade;
 import static Controller.Logic.*;
-import helperClasses.Building;
-import helperClasses.Comment;
-import helperClasses.Date;
-import helperClasses.Firm;
-import helperClasses.Login;
-import helperClasses.Report;
-import helperClasses.ReportPage;
+import Domain.Building;
+import Domain.Comment;
+import Domain.Date;
+import Domain.Firm;
+import Domain.Login;
+import Domain.Report;
+import Domain.ReportPage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

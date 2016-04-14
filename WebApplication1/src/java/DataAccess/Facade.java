@@ -1,14 +1,14 @@
-package Controller;
+package DataAccess;
 
-import Domain.BuildingDataMapper;
-import Domain.FirmDataMapper;
-import Domain.ImageDataMapper;
-import Domain.LoginDataMapper;
-import Domain.ReportDataMapper;
-import helperClasses.Building;
-import helperClasses.Firm;
-import helperClasses.Login;
-import helperClasses.Report;
+import DataAccess.BuildingDataMapper;
+import DataAccess.FirmDataMapper;
+import DataAccess.ImageDataMapper;
+import DataAccess.LoginDataMapper;
+import DataAccess.ReportDataMapper;
+import Domain.Building;
+import Domain.Firm;
+import Domain.Login;
+import Domain.Report;
 import java.awt.Image;
 import java.io.InputStream;
 import java.util.ArrayList;

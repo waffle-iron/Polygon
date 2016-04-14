@@ -5,7 +5,8 @@
  */
 package helperClasses;
 
-import Domain.ReportDataMapper;
+import Domain.Report;
+import DataAccess.ReportDataMapper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

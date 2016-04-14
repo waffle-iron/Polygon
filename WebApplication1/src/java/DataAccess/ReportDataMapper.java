@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Domain;
+package DataAccess;
 
-import helperClasses.Comment;
-import helperClasses.Date;
-import helperClasses.Report;
-import helperClasses.ReportPage;
+import Domain.Comment;
+import Domain.Date;
+import Domain.Report;
+import Domain.ReportPage;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;

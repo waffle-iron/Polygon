@@ -1,4 +1,4 @@
-package helperClasses;
+package Domain;
 
 public class Building
 {
