@@ -16,6 +16,9 @@
     <body>
         <form action="ControllerServlet" method="get">
             <ul>
+
+                <input type ="hidden" value="goToAddBuilding" name="do_this">
+
                 <li style="float:right"><a href="#about">Kontakt</a></li>
             </ul>
         </form>
