@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-@WebServlet("/upload")
 @MultipartConfig
 public class ControllerServlet extends HttpServlet
 {
@@ -297,10 +296,9 @@ public class ControllerServlet extends HttpServlet
 
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
-            case "createReport":
-                try
-                {
-                    // <editor-fold defaultstate="collapsed" desc="My Fold">
+            case "Opret rapport":
+                try {
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
                     Report report;
                     int[] info = new int[3];
                     info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));

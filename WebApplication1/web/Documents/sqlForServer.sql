@@ -105,27 +105,15 @@ CREATE TABLE `conclusion`
 );
 CREATE TABLE `picturelink`
 (
-     `PictureID` int auto_increment,
+	 `PictureID` int auto_increment,
+     `CommentID` int,
      `Picture` blob,
-     primary key (`pictureID`)
+     primary key (`PictureID`),
+     foreign key (`CommentID`)
+     references `comments`(`CommentID`)
 
 );
-CREATE TABLE `pictures`
-(
-	`CommentID` int,
-    `ReportNR` int,
-    `BuildingID` int,
-    `PictureID` int ,
-    primary key (`CommentID`),
-	foreign key (`CommentID`)
-		references `Comments`(`CommentID`),
-	foreign key (`ReportNR`)
-		references `Report`(`ReportNR`),
-	foreign key (`BuildingID`)
-		references `Building` (`BuildingID`),
-	foreign key (`PictureID`)
-		references `picturelink` (`PictureID`)
-);
+
 
 
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"admin@firmsareus.com"); 

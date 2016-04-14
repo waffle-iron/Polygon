@@ -311,17 +311,15 @@
                         </tbody>
                     </table>
                     <br>
-                    <form action="ControllerServlet" method="GET">
                         <input type="hidden" name="do_this" value="useButton" />
                         <input type="submit" value="Opret rapport" name="button" />
                         <br>
-                    </form>
                     <br>
                     <br>
                 </div>
             </form>
         </div>
-        <form action="ControllerServlet" method="GET">
+        <form action="ControllerServlet" method="POST">
             <input type="hidden" name="do_this" value="useButton" />
             <input type="submit" value="Tilbage til start siden" name="button" />
             <br>
