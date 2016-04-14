@@ -18,10 +18,7 @@
             <ul>
 
                 <input type ="hidden" value="goToAddBuilding" name="do_this">
-                <li> <input class="submit1" type="submit" name ="button" value="tilføj bygning"></li>
 
-                <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
-                
                 <li style="float:right"><a href="#about">Kontakt</a></li>
             </ul>
         </form>
