@@ -108,7 +108,11 @@
         </table>
     <%}%>  
     
-
+        <form action="ControllerServlet" method="GET">
+            <input type="hidden" name="do_this" value="useButton" />
+            <input type="submit" value="Tilbage til start siden" name="button" />
+            <br>
+        </form>
         
         
 </body>

@@ -98,8 +98,8 @@
         
 
         <form action="ControllerServlet" method="GET">
-            <input type="hidden" name="do_this" value="goBackBuilding" />
-            <input type="submit" value="Gå tilbage til start siden" name="goBackBuilding" />
+            <input type="hidden" name="do_this" value="useButton" />
+            <input type="submit" value="Tilbage til start siden" name="button" />
             <br>
         </form>
         </div>
