@@ -1,5 +1,5 @@
-<%@page import="helperClasses.Login"%>
-<%@page import="helperClasses.Building"%>
+<%@page import="Domain.Login"%>
+<%@page import="Domain.Building"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

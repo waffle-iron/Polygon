@@ -4,8 +4,8 @@
     Author     : Emil
 --%>
 
-<%@page import="helperClasses.ReportPage"%>
-<%@page import="helperClasses.Comment"%>
+<%@page import="Domain.ReportPage"%>
+<%@page import="Domain.Comment"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

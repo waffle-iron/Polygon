@@ -4,7 +4,7 @@
     Author     : LouiseB
 --%>
 
-<%@page import="helperClasses.Login"%>
+<%@page import="Domain.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
