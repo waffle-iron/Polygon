@@ -1,7 +1,7 @@
 <%-- 
-    Document   : FrontPageJSP
-    Created on : Apr 12, 2016, 9:18:43 AM
-    Author     : peter L Lange
+    Document   : ContactJSP
+    Created on : 14-04-2016, 15:10:08
+    Author     : LouiseB
 --%>
 
 <%@page import="Domain.Login"%>
@@ -12,9 +12,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="General.css">
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
-        <title>Forside</title>
-
+        <title>Kontakt</title>
     </head>
+
     <body>
         <form action="ControllerServlet"  method="GET">
             <input type ="hidden" value="useButton" name="do_this">
@@ -51,26 +51,10 @@
             </ul>
         </form>
         <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
-        <div class="content">
+        <h1>Du kan kontakte Polygon på</h1>
+        Telefon: 
+        <br>
+        E-mail:
 
-
-            NYI - NewsFeed
-            <%if (login.getAuthorization().equals("user"))
-                { %>
-            der fortæller om: husk at gemme en floorplan, en rapport er skrevet om en af dine bygninger, en af dine bygninger har fået ændret sin status, en af dine bygningers rapport er blevet opdateret og kommende inspektioner af dine bygninger
-            <%}%>
-            <%if (login.getAuthorization().equals("tech"))
-                { %>
-            der fortæller om fremtidige tjek ups du skal være med til, og om der er sket opdateringer på dine rapports
-            <%}%>
-            <%if (login.getAuthorization().equals("admin"))
-                { %>
-            der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
-            <%}%>
-            <%if (login.getAuthorization().equals("admin"))
-                { %>
-            der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
-            <%}%>
-        </div>
     </body>
 </html>
