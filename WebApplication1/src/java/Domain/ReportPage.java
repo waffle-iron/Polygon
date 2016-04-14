@@ -18,7 +18,7 @@ public class ReportPage
     boolean fire;
     String other;
     boolean moistScan;
-    ArrayList<Comment> comments;
+    ArrayList<Comment> comments = new ArrayList<>();
 
    
     public ReportPage(int reportNr,int reportPageNr, boolean previousDamaged, Date damagedDate,

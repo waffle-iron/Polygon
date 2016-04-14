@@ -10,12 +10,14 @@ import Domain.Date;
 import Domain.Report;
 import Domain.ReportPage;
 import java.awt.Image;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 public class ReportDataMapper {
 
@@ -51,7 +53,8 @@ public class ReportDataMapper {
                             + comment.getType() + "','"
                             + comment.getText() + "');");
                     if (comment.getImage() != null) {
-                        statement.executeUpdate("INSERT INTO `picturelink` (`Picture`, `CommentID`) VALUES ('"
+                        System.out.println(CommentDataMapper.getNextCommentNr());
+                        statement.executeUpdate("insert into picturelink (Picture, CommentID) values('"
                                 + comment.getImage() + "','"
                                 + CommentDataMapper.getNextCommentNr() + "');");
                     }
@@ -99,19 +102,22 @@ public class ReportDataMapper {
             Statement statement = con.createStatement();
             {
                 ResultSet res = statement.executeQuery("SELECT * FROM grp01.comments;");
+                res.beforeFirst();
                 while (res.next()) {
-                    comarr.add(new Comment(res.getString(4), res.getString(5), res.getInt(1), res.getInt(2),res.getInt(3)));
+                    comarr.add(new Comment(res.getString(4), res.getString(5), res.getInt(1), res.getInt(2), res.getInt(3)));
                 }
             }
             {
                 ResultSet res = statement.executeQuery("SELECT * FROM grp01.picturelink;");
+                res.beforeFirst();
                 while (res.next()) {
                     int commentID = res.getInt(1);
                     Image img = (Image)res.getBlob(2);
 
                     for (Comment comment : comarr) {
-                        if(comment.getCommentID() == commentID)
-                        comment.setImage(img);
+                        if (comment.getCommentID() == commentID) {
+                            comment.setImage(img);
+                        }
                     }
                 }
             }
@@ -127,23 +133,33 @@ public class ReportDataMapper {
                     info[0] = res.getInt(2);
                     info[1] = res.getInt(3);
                     info[2] = res.getInt(5);
-                    arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), null));
+                    arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), new ArrayList<>()));
                 }
             }
-            arr.stream().forEach((reportpage) -> {
-                comarr.stream().filter((comment) -> (reportpage.getReportPageNr() == comment.getReportPageID())).forEach((comment) -> {
-                    reportpage.addComment(comment);
-                });
-            });
-            
-            report = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), (ReportPage[]) arr.toArray(), null, null);
-            for (Comment comment : comarr) {
-                if(comment.getReportID() == report.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling"))
-                    report.setOuterWalls(comment);
-                else if(comment.getReportID() == report.getReportnr() && comment.getReportPageID() == 0&& comment.getType().equals("outerWall"))
-                    report.setRoof(comment);
+            for (ReportPage reportpage : arr) {
+                for (Comment comment : comarr) {
+                    System.out.println(reportpage.getReportPageNr() + "" + comment.getReportPageID());
+                    if (reportpage.getReportPageNr() == comment.getReportPageID()) {
+                        reportpage.addComment(comment);
+                    }
+                }
             }
-            
+            res.beforeFirst();
+            ReportPage list2[] = new ReportPage[arr.size()];
+            for (int i = 0; res.next(); i++) {
+                if (res.getInt(2) == ReportID) {
+                    report = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), (ReportPage[]) arr.toArray(list2), null, null);
+                }
+            }
+
+            for (Comment comment : comarr) {
+                if (comment.getReportID() == report.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
+                    report.setOuterWalls(comment);
+                } else if (comment.getReportID() == report.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
+                    report.setRoof(comment);
+                }
+            }
+
             con.close();
 
         } catch (Exception ex) {
@@ -164,10 +180,36 @@ public class ReportDataMapper {
 
         int[] info = new int[3];
         ArrayList<ReportPage> arr = new ArrayList<>();
+        ArrayList<Comment> comarr = new ArrayList<>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
+            {
+                ResultSet res = statement.executeQuery("SELECT * FROM grp01.comments;");
+                res.beforeFirst();
+                while (res.next()) {
+                    comarr.add(new Comment(res.getString(4), res.getString(5), res.getInt(1), res.getInt(2), res.getInt(3)));
+                }
+            }
+            {
+                ResultSet res = statement.executeQuery("SELECT * FROM grp01.picturelink;");
+                res.beforeFirst();
+                while (res.next()) {
+                    int commentID = res.getInt(2);
+                    if(res.getBlob(3)!=null){
+                    InputStream input = (res.getBinaryStream(3));
+                    Image img = ImageIO.read(input);
+                    
+
+                    for (Comment comment : comarr) {
+                        if (comment.getCommentID() == commentID) {
+                            comment.setImage(img);
+                        }
+                    }
+                    }
+                }
+            }
             ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, ("
                     + "select BuildingID from report where report.reportNR  = e.reportNR),"
                     + "(select `Date` from report where report.reportNR  = e.reportNR),"
@@ -185,6 +227,13 @@ public class ReportDataMapper {
                     report.add(reportholder);
                 }
             }
+            for (ReportPage reportpage : arr) {
+                for (Comment comment : comarr) {
+                    if (reportpage.getReportPageNr() == comment.getReportPageID()) {
+                        reportpage.addComment(comment);
+                    }
+                }
+            }
             for (Report singlereport : report) {
                 ArrayList<ReportPage> reportpageholder = new ArrayList<>();
                 for (ReportPage reportPage : arr) {
@@ -192,7 +241,18 @@ public class ReportDataMapper {
                         reportpageholder.add(reportPage);
                     }
                 }
-                singlereport.setReportPages((ReportPage[]) reportpageholder.toArray());
+                ReportPage[] reportpage = new ReportPage[reportpageholder.size()];
+                singlereport.setReportPages((ReportPage[]) reportpageholder.toArray(reportpage));
+            }
+            for (Report singlereport : report) {
+
+                for (Comment comment : comarr) {
+                    if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
+                        singlereport.setOuterWalls(comment);
+                    } else if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
+                        singlereport.setRoof(comment);
+                    }
+                }
             }
 
             con.close();

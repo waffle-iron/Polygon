@@ -4,6 +4,8 @@
     Author     : Emil
 --%>
 
+<%@page import="Domain.Login"%>
+<%@page import="Domain.Report"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Domain.ReportPage"%>
 <%@page import="Domain.Comment"%>
@@ -12,23 +14,70 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>Rapport</title>
     </head>
     <body>
+        <form action="ControllerServlet"  method="GET">
+            <input type ="hidden" value="useButton" name="do_this">
+            <ul>
+                <%
+                    Login login = (Login) session.getAttribute("login");
+                    System.out.println(login.getAuthorization());
+                %>
+
+                <%if (login.getAuthorization().equals("user"))
+                    { %>
+
+
+                <li> <input class="submit1" type="submit" name ="button" value="Opret bygning"></li>
+
+                <li> <input class="submit1" type="submit" name="button" value="Opret nyt login"></li>
+
+                <%}%>
+
+                <%if (login.getAuthorization().equals("admin"))
+                    { %>
+
+                <li><input class="submit1" type="submit" name ="button" value="Opret nyt firma"></li>
+
+                <li><input class="submit1" type="submit" name ="button" value="Vis alle firmaer"></li>
+
+                <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+                    <%}%>
+                <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
+
+                <li><input class="submit1" type="submit" value="Rapport-midlertidig" name="button" /></li>
+                <li style="float:right"><a href="#about">Kontakt</a></li>
+            </ul>
+        </form>
+                <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+        <%Report res = (Report)request.getAttribute("report");%>
+        
             <h2> Rapport forside </h2>
-            <p>Rapport nummer:  "<%=(request.getAttribute("ReportNR"))%>"</p>
-            <p>Navn på bygning: "<%=(request.getAttribute("BuildingID"))%>"</p>
-            <p>Dato:            "<%=(request.getAttribute("ReportDate"))%>"</p>
-            <p>Adresse:         "<%=(request.getAttribute("ReportDate"))%>"</p>
+            <p>Rapport nummer:  "<%=(res.getReportnr())%>"</p>
+            <p>Navn på bygning: "<%=(res.getBuildingID())%>"</p>
+            <p>Dato:            "<%=(res.getReportDate())%>"</p>
+            <p>Adresse:         "<%=("no adresse")%>"</p>
             <p><b>Gennemgang af bygningen udvendig</b></p>
-            "<%Comment com = (Comment)request.getAttribute("OuterWalls");%>"
+            <%Comment com = null;%>
+            <%if(res.getOuterWalls()!=null){%>"
+            "<% com = res.getOuterWalls();%>"
             "<%=(com.toString())%>"
+            <%if(com.getImage()!= null)%>
             <%=(com.getImage())%>
+            <%}%>
             <br>
-            "<%Comment comRoof = (Comment)request.getAttribute("Roof");%>"
+            <%Comment comRoof = null;%>
+            "<%if(res.getRoof()!=null){
+                comRoof = res.getRoof();%>"
             "<%=(comRoof.toString())%>"
+            <%if(comRoof.getImage()!= null)%>
             <%=(comRoof.getImage())%>
-            "<%ReportPage[] reportpages = (ReportPage[])request.getAttribute("ReportPages");%>"
+            <%}%>
+            <%ReportPage[] reportpages = null;%>
+            <%if(res.getReportPages() != null){%>
+            "<% reportpages = res.getReportPages();%>"
             <%
                 int i = 0;
             for(ReportPage reportPage:reportpages)
@@ -57,12 +106,14 @@
             <%=(reportPage.isMoistScan())%>
             <%
                     ArrayList<Comment> comments = reportPage.getComments();
+                    if(reportPage.getComments()!=null)
                     for(Comment comment: comments){%>
                     <%=comment.toString()%>
-                    <%=comment.getImage()%>
+                    <%if(comment.getImage()!= null)%>
+                    <%= comment.getImage()%>
             <%}
             %>
-            <%i++;}%>
+            <%i++;}}%>
             <table border="1">
                 <thead>
                     <tr>
@@ -102,6 +153,6 @@
                     </tr>
                 </tbody>
             </table>
-            <%=(request.getAttribute("State"))%>
+            <%=res.getState()%>
     </body>
 </html>

@@ -37,6 +37,7 @@
         </style>
     </head>
     <body>
+        <form>
         <input type ="hidden" value="useButton" name="do_this">
         <ul>
             <%
@@ -46,11 +47,9 @@
 
             <%if (login.getAuthorization().equals("user"))
                 { %>
-
-
             <li> <input class="submit1" type="submit" name ="button" value="Tilføj bygning"></li>
 
-            <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+            <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login" ></li>
 
             <%}%>
 
@@ -123,7 +122,7 @@
             <br>
             <label for="opret"></label>
             <input type="hidden" id="opret" name="do_this" value="CreateLogin" />
-            <input type="submit" value="Opret" name="CreateLogin" />
+            <input type="submit" value="Opret" name="CreateLogin" class="submit2"/>
         </form>
         <br>
         <% if (request.getAttribute("saveLogin") != null && request.getAttribute("saveLogin").equals(true))
@@ -137,7 +136,7 @@
         <form action="ControllerServlet" method="GET">
             <label for="goBack"></label>
             <input type="hidden" name="do_this" value="goToFrontPage" />
-            <input type="submit" id="goBack" value="Gå tilbage til start siden" name="goToFrontPage" />
+            <input type="submit" id="goBack" value="Gå tilbage til start siden" name="goToFrontPage" class="submit2"/>
             <br>
         </form>
     </div>
