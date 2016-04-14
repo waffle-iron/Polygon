@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="General.css">
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>Login</title>
+
     </head>
     <body>
         <form action="ControllerServlet" method="get">
@@ -23,7 +24,7 @@
             </ul>
         </form>
         <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
-        
+
         <div class="content">
             <h1>Velkommen til Polygon</h1>
             <h2>Login</h2>
@@ -33,7 +34,8 @@
                 Kodeord<br> <input style="text-align: center" type="password" name="password" size="20" />
                 <input type="hidden" name="do_this" value="CheckLogin" />
                 <br>
-                <input type="submit" value="Login" name="CheckLogin" />
+                <br>
+                <input type="submit" value="Login" name="CheckLogin" class="submit2"/>
             </form>
             <% if (request.getAttribute("doExists") != null && request.getAttribute("doExists").equals(false))
                 {%>

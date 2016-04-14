@@ -457,7 +457,6 @@ public class ControllerServlet extends HttpServlet {
         switch (comment){
         
             case "Delete":
-
                 break;
             case "viewReports":
                 viewRaport(1, request, response);
@@ -465,6 +464,10 @@ public class ControllerServlet extends HttpServlet {
             case "writeReport":
                 request.setAttribute("BuildingID", ID);
                 goToReport(request, response);
+                break;
+            case "uploadFloorPlan":
+                request.setAttribute("BuildingID", ID);
+                forward(request, response, "/UploadFloorPlanJSP.jsp");
                 break;
         }
     }

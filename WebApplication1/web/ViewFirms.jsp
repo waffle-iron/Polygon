@@ -4,6 +4,7 @@
     Author     : LouiseB
 --%>
 
+<%@page import="Domain.Login"%>
 <%@page import="Domain.Firm"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,9 +12,44 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
+        <link rel="stylesheet" type="text/css" href="General.css">
         <title>Vis firmaer</title>
     </head>
     <body>
+        <form>
+        <input type ="hidden" value="useButton" name="do_this">
+        <ul>
+            <%
+                Login login = (Login) session.getAttribute("login");
+                System.out.println(login.getAuthorization());
+            %>
+
+            <%if (login.getAuthorization().equals("user"))
+                { %>
+            <li> <input class="submit1" type="submit" name ="button" value="Tilføj bygning"></li>
+
+            <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+
+            <%}%>
+
+            <%if (login.getAuthorization().equals("admin"))
+                { %>
+
+            <li><input class="submit1" type="submit" name ="button" value="Opret nyt firma"></li>
+
+            <li><input class="submit1" type="submit" name ="button" value="Vis alle firmaer"></li>
+
+            <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+                <%}%>
+            <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
+
+            <li><input class="submit1" type="submit" value="Rapport-midlertidig" name="button" /></li>
+            <li style="float:right"><a href="#about">Kontakt</a></li>
+        </ul>
+    </form>
+    <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+    <div class="content">
         <h1>Firmaer</h1>
         <form action="ControllerServlet" method="GET">
             <% if (request.getAttribute("listOfFirms") != null)
@@ -44,5 +80,6 @@
                     <%}%>
                 <%}%>
         </form>
+    </div>
     </body>
 </html>
