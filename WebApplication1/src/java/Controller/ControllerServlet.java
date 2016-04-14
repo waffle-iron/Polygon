@@ -12,6 +12,8 @@ import Domain.ReportPage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -60,17 +62,12 @@ public class ControllerServlet extends HttpServlet
                 }
                 useButton(request, response, session, button);
                 break;
-
-            case "goToAddBuilding":
-                request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
-                forward(request, response, "/AddBuildingJSP.jsp");
-                break;
-
             case "Image":
                 forward(request, response, "/ImageJSPTemp.jsp");
                 break;
 
             case "createBuild":
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
                 if (request.getParameter("buildAddress").trim().compareTo("") == 0
                         || request.getParameter("buildZip").trim().compareTo("") == 0
                         || request.getParameter("buildFirmID").trim().compareTo("") == 0
@@ -97,7 +94,7 @@ public class ControllerServlet extends HttpServlet
                     request.setAttribute("clearAll", true);
 
                     forward(request, response, "/AddBuildingJSP.jsp");
-                }
+                }// </editor-fold>
                 break;
 
             case "goToViewMyBuildings":
@@ -128,11 +125,6 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/index.html");
 
                 break;
-
-            case "goToFirm":
-                forward(request, response, "/FirmJSP.jsp");
-                break;
-
             case "createFirm":
                 if (request.getParameter("contactNumber").trim().compareTo("") == 0
                         || request.getParameter("contactMail").trim().compareTo("") == 0)
@@ -160,26 +152,12 @@ public class ControllerServlet extends HttpServlet
             case "Report":
                 goToReport(request,response);
                 break;
-
-            case "viewReport":
-                //get desired reportid
-                int reportid = 1;
-                Report report = facade.getReportFromDB(reportid);
-                request.setAttribute("BuildingID", report.getBuildingID());
-                request.setAttribute("OuterWalls", report.getOuterWalls());
-                request.setAttribute("ReportDate", report.getReportDate());
-                request.setAttribute("ReportPages", report.getReportPages());
-                request.setAttribute("ReportNR", report.getReportnr());
-                request.setAttribute("Roof", report.getRoof());
-                request.setAttribute("State", report.getState());
-                forward(request, response, "/ViewReport.jsp");
-                break;
-
             case "goToFrontPage":
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
 
             case "CheckLogin":
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
                 String temp = "";
 
                 if (request.getParameter("username").equals("") || request.getParameter("password").equals(""))
@@ -216,14 +194,10 @@ public class ControllerServlet extends HttpServlet
                     request.setAttribute("doExists", false);
                     forward(request, response, "/LoginJSP.jsp");
                 }
+                // </editor-fold>
                 break;
-
-            case "goToCreateLogin":
-                request.setAttribute("ValidFirmID", facade.viewAllFirms());
-                forward(request, response, "/OpretJSP.jsp");
-                break;
-
             case "CreateLogin":
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
                 String temp2 = "";
                 switch (request.getParameter("enum"))
                 {
@@ -255,6 +229,7 @@ public class ControllerServlet extends HttpServlet
                     facade.addLoginToDB(newLogin);
                     forward(request, response, "/OpretJSP.jsp");
                 }
+                // </editor-fold>
                 break;
 
             case "goBackToLogin":
@@ -281,10 +256,42 @@ public class ControllerServlet extends HttpServlet
     {
         switch (button)
         {
-            case "Delete":
+            case "Rapport-midlertidig":
+                goToReport(request,response);
                 break;
+            case "Tilføj bygning":
+           
+                request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
+                forward(request, response, "/AddBuildingJSP.jsp");
+                break;
+            case "Mine bygninger":
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
+                if (session.getAttribute("login") != null)
+                {
+                    Login login = (Login) session.getAttribute("login");
 
+                    System.out.println(session.getAttribute("login").toString());
+                    System.out.println(login.getFirmID());
+
+                    try
+                    {
+                        if (login.getAuthorization().equals("user"))
+                        {
+                            request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+                        } else
+                        {
+                            request.setAttribute("listOfBuildings", facade.getBuildingsFromDatabase());
+                        }
+                    } catch (Exception ex)
+                    {
+                        System.out.println("test1");
+                    }
+                }
+                forward(request, response, "/viewMyBuildingsJSP.jsp");
+// </editor-fold>
+                break;
             case "createReport":
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
                 try 
                 {
                     Report report;
@@ -471,9 +478,14 @@ public class ControllerServlet extends HttpServlet
                 } catch (Exception ex)
                 {
                     ex.printStackTrace();
-                }
+                }// </editor-fold>
                 break;
-
+            case "Opret nyt login":
+                forward(request, response, "/OpretJSP.jsp");
+                break;
+            case "Opret nyt firma":
+                forward(request, response, "/FirmJSP.jsp");
+                break;    
             case "updatePageNr":
                 request.setAttribute("nextReportNr", facade.getNextReportNr());
                 request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
@@ -494,12 +506,44 @@ public class ControllerServlet extends HttpServlet
                 
                 break;
             case "viewReports":
-                
+                viewRaport(ID, request, response);
                 break;
             case "writeReport":
                 request.setAttribute("BuildingID", ID);
                 goToReport(request,response);
                 break;
+        }
+    }
+    private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response){
+        if(request== null|| response == null){
+            throw new NullPointerException("viewRaport got null");
+        }
+        else{
+                Report report = facade.getReportFromDB(reportid);
+                if(report != null){
+                request.setAttribute("BuildingID", report.getBuildingID());
+                request.setAttribute("OuterWalls", report.getOuterWalls());
+                request.setAttribute("ReportDate", report.getReportDate());
+                request.setAttribute("ReportPages", report.getReportPages());
+                request.setAttribute("ReportNR", report.getReportnr());
+                request.setAttribute("Roof", report.getRoof());
+                request.setAttribute("State", report.getState());
+                }
+                else
+                    try {
+                        forward(request, response, "/Fejl.jsp");
+                } catch (IOException ex) {
+                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ServletException ex) {
+                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            try {
+                forward(request, response, "/ViewReport.jsp");
+            } catch (IOException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ServletException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

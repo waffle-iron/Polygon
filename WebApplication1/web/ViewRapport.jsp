@@ -4,6 +4,7 @@
     Author     : Emil
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="Domain.ReportPage"%>
 <%@page import="Domain.Comment"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,9 +23,11 @@
             <p><b>Gennemgang af bygningen udvendig</b></p>
             "<%Comment com = (Comment)request.getAttribute("OuterWalls");%>"
             "<%=(com.toString())%>"
+            <%=(com.getImage())%>
             <br>
             "<%Comment comRoof = (Comment)request.getAttribute("Roof");%>"
             "<%=(comRoof.toString())%>"
+            <%=(comRoof.getImage())%>
             "<%ReportPage[] reportpages = (ReportPage[])request.getAttribute("ReportPages");%>"
             <%
                 int i = 0;
@@ -53,9 +56,10 @@
             Er der foretaget fugtscanning?
             <%=(reportPage.isMoistScan())%>
             <%
-                    Comment[] comments = reportPage.getComments();
+                    ArrayList<Comment> comments = reportPage.getComments();
                     for(Comment comment: comments){%>
                     <%=comment.toString()%>
+                    <%=comment.getImage()%>
             <%}
             %>
             <%i++;}%>
