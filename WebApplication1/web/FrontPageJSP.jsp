@@ -48,7 +48,7 @@
 
         <form action="ControllerServlet" method="get">
             <input type ="hidden" value="goToViewMyBuildings" name="do_this">
-            <input type="submit" name ="button" value="mine bygninger NYI">
+            <input type="submit" name ="button" value="mine bygninger">
         </form>
 
         <form action="ControllerServlet" method="GET">
