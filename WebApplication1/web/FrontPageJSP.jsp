@@ -43,6 +43,11 @@
             <input type="submit" name ="button" value="Opret nyt login">
         </form>
 
+        <form action="ControllerServlet" method="get">
+            <input type ="hidden" value="goToViewFirms" name="do_this">
+            <input type="submit" name ="button" value="Vis alle firmaer">
+        </form>
+
         <%}%>
 
 
@@ -58,25 +63,22 @@
         </form>
         <div class="content">
 
-            <input type="submit" value="repport (DENNE ER KUN TEMPEARY)" name="createReport" />
-            <input type="hidden" name="do_this" value="Report">
-            </form>
 
             NYI - NewsFeed
             <%if (login.getAuthorization().equals("user"))
-            { %>
+                { %>
             der fortæller om: husk at gemme en floorplan, en rapport er skrevet om en af dine bygninger, en af dine bygninger har fået ændret sin status, en af dine bygningers rapport er blevet opdateret og kommende inspektioner af dine bygninger
             <%}%>
             <%if (login.getAuthorization().equals("tech"))
-            { %>
+                { %>
             der fortæller om fremtidige tjek ups du skal være med til, og om der er sket opdateringer på dine rapports
             <%}%>
             <%if (login.getAuthorization().equals("admin"))
-            { %>
+                { %>
             der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
             <%}%>
             <%if (login.getAuthorization().equals("admin"))
-            { %>
+                { %>
             der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
             <%}%>
         </div>
