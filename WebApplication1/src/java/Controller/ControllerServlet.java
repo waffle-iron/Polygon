@@ -509,7 +509,7 @@ public class ControllerServlet extends HttpServlet
                 viewRaport(ID, request, response);
                 break;
             case "writeReport":
-                request.setAttribute("BuildingID", ID);
+                session.setAttribute("building", facade.getSingleBuildingByID(ID));
                 goToReport(request,response);
                 break;
         }

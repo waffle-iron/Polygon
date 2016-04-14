@@ -9,7 +9,35 @@ import java.util.ArrayList;
 
 public class BuildingDataMapper
 {
+    public Building getSingleBuildingByID(int buildingID)
+    {
+        Building building = null;
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+            Statement stmt = con.createStatement();
+            String query = "SELECT * FROM building where BuildingID = "+ buildingID+";";
+            ResultSet res = stmt.executeQuery(query);
 
+            while (res.next())
+            {
+
+                building =
+                        new Building(res.getString("Address"), res.getString("Name"),
+                                res.getString("Usage"),Integer.parseInt( res.getString("BuildingID")),
+                                Integer.parseInt(res.getString("Zip")),Integer.parseInt( res.getString("FirmID")),
+                                Integer.parseInt(res.getString("BuildingYear")),
+                                Integer.parseInt(res.getString("Size")));
+            }
+
+        } catch (Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+        return building;
+    }
+            
     public void addBuildingToDB(Building build)
     {
 

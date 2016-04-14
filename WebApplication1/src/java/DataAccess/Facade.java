@@ -17,6 +17,10 @@ public class Facade
     private final LoginDataMapper loginDM = new LoginDataMapper();
     private final ImageDataMapper imageDataMapper = new ImageDataMapper();
 
+    public Building getSingleBuildingByID(int buildingID)
+    {
+        return buildingDM.getSingleBuildingByID(buildingID);
+    }
     public void addBuildingToDB(Building build)
     {
         buildingDM.addBuildingToDB(build);
