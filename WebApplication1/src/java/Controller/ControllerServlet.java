@@ -122,7 +122,7 @@ public class ControllerServlet extends HttpServlet
 
             case "goBackBuilding":
 
-                forward(request, response, "/index.html");
+                forward(request, response, "/FrontPageJSP.jsp");
 
                 break;
             case "createFirm":
