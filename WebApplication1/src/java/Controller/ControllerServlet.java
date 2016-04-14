@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-@WebServlet("/upload")
 @MultipartConfig
 public class ControllerServlet extends HttpServlet {
 
@@ -272,7 +271,7 @@ public class ControllerServlet extends HttpServlet {
 
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
-            case "createReport":
+            case "Opret rapport":
                 try {
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                     Report report;

@@ -10,12 +10,14 @@ import Domain.Date;
 import Domain.Report;
 import Domain.ReportPage;
 import java.awt.Image;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 public class ReportDataMapper {
 
@@ -51,7 +53,8 @@ public class ReportDataMapper {
                             + comment.getType() + "','"
                             + comment.getText() + "');");
                     if (comment.getImage() != null) {
-                        statement.executeUpdate("INSERT INTO `picturelink` (`Picture`, `CommentID`) VALUES ('"
+                        System.out.println(CommentDataMapper.getNextCommentNr());
+                        statement.executeUpdate("insert into picturelink (Picture, CommentID) values('"
                                 + comment.getImage() + "','"
                                 + CommentDataMapper.getNextCommentNr() + "');");
                     }
@@ -109,7 +112,7 @@ public class ReportDataMapper {
                 res.beforeFirst();
                 while (res.next()) {
                     int commentID = res.getInt(1);
-                    Image img = (Image) res.getBlob(2);
+                    Image img = (Image)res.getBlob(2);
 
                     for (Comment comment : comarr) {
                         if (comment.getCommentID() == commentID) {
@@ -193,13 +196,17 @@ public class ReportDataMapper {
                 ResultSet res = statement.executeQuery("SELECT * FROM grp01.picturelink;");
                 res.beforeFirst();
                 while (res.next()) {
-                    int commentID = res.getInt(1);
-                    Image img = (Image) res.getBlob(2);
+                    int commentID = res.getInt(2);
+                    if(res.getBlob(3)!=null){
+                    InputStream input = (res.getBinaryStream(3));
+                    Image img = ImageIO.read(input);
+                    
 
                     for (Comment comment : comarr) {
                         if (comment.getCommentID() == commentID) {
                             comment.setImage(img);
                         }
+                    }
                     }
                 }
             }
