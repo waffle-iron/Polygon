@@ -17,7 +17,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -297,6 +296,15 @@ public class ControllerServlet extends HttpServlet
 
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
+                
+            case "Logud":
+                session.setAttribute("login", null);
+                session.setAttribute("loginAs", null);
+                session.setAttribute("building", null);
+
+                forward(request, response, "/LoginJSP.jsp");
+                break;
+                
             case "Opret rapport":
                 try {
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
