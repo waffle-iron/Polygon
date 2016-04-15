@@ -45,7 +45,6 @@
                     <%}%>
                 <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
 
-                <li><input class="submit1" type="submit" value="Rapport-midlertidig" name="button" /></li>
                 <li style="float:right"><a href="#about">Kontakt</a></li>
                 <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
             </ul>
