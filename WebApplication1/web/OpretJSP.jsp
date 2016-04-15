@@ -47,7 +47,7 @@
 
             <%if (login.getAuthorization().equals("user"))
                 { %>
-            <li> <input class="submit1" type="submit" name ="button" value="Tilføj bygning"></li>
+            <li> <input class="submit1" type="submit" name ="button" value="Opret bygning"></li>
 
             <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login" ></li>
 
