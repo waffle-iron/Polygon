@@ -55,6 +55,11 @@
         Telefon: 
         <br>
         E-mail:
-
+            <form action="ControllerServlet" method="GET">
+                <br>
+                <label for="goBack"></label>
+                <input type="hidden" name="do_this" value="goToFrontPage"/>
+                <input type="submit" value="Gå tilbage start siden" name="goToFrontPage" id="goBack" class="submit2" />
+            </form>
     </body>
 </html>

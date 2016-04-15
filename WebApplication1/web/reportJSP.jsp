@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="reportCSS.css">
         <title>Rapport</title>
-<style>
+        <style>
             label{
                 width:180px;
                 clear:left;
@@ -20,61 +20,62 @@
                 float:left;
                 margin-bottom: 5px;
             }
-            </style>
+        </style>
     </head>
     <body>
-        
+
         <div class="report">
             <form id="myForm" action="ControllerServlet" method="POST" enctype="multipart/form-data">
                 <div class="frontPage">
                     <% Building building = null;
-                    if(session.getAttribute("building") != null)
-                    {
-                        System.out.println("test1");
-                        building =(Building) session.getAttribute("building");
-                    }  %>
+                        if (session.getAttribute("building") != null)
+                        {
+                            System.out.println("test1");
+                            building = (Building) session.getAttribute("building");
+                        }%>
                     <h1>Udfyld rapport</h1> 
-                    <label for="reportNR">Rapport nummer: </label>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alle * skal udfyldes, for at kunne oprette en rapport.</p>
+                    <label for="reportNR">Rapport nummer: *</label>
                     <input type="number" id="reportNR" name="reportNRtext" value="<%=request.getAttribute("nextReportNr")%>" readonly>
-                    <label for="buildingName">Navn på bygning:</label>
+                    <label for="buildingName">Navn på bygning: *</label>
                     <input id="buildingName" type="text" name="buildingNameText"
-                          value ="<%= (building !=null ? building.getName() :
-                               (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText")))%>" pattern="{0,30}" />* 
-                        <span title="bygnings navn skal være mindre end 30."> </span>>
-                       
-                    <label for="date">Dato:</label>
-                    <% 
-                        Calendar now = Calendar.getInstance();
-int dayOfMonth = now.get(Calendar.DAY_OF_MONTH);
-String dayOfMonthStr = ((dayOfMonth < 10) ? "0" : "") + dayOfMonth;
-int month = now.get(Calendar.MONTH) + 1;
-String monthStr = ((month < 10) ? "0" : "") + month;
-System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
+                           value ="<%= (building != null ? building.getName()
+                                  : (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText")))%>" pattern="{0,30}" />
+                    <span title="bygnings navn skal være mindre end 30."> </span>
 
-                           %>
-                           <input id="date" type="date" name="dateDate" value = "<%=new java.util.Date()%>">
-                    <label for="adresse">Adresse: </label>
+                    <label for="date">Dato: *</label>
+                    <%
+                        Calendar now = Calendar.getInstance();
+                        int dayOfMonth = now.get(Calendar.DAY_OF_MONTH);
+                        String dayOfMonthStr = ((dayOfMonth < 10) ? "0" : "") + dayOfMonth;
+                        int month = now.get(Calendar.MONTH) + 1;
+                        String monthStr = ((month < 10) ? "0" : "") + month;
+                        System.out.print(dayOfMonthStr + "/" + monthStr + "/" + now.get(Calendar.YEAR));
+                    %>
+                    <input id="date" type="date" name="dateDate" > 
+                    <label for="adresse">Adresse: *</label>
                     <input id="adresse" type="text" name="adressText"
-                           value ="<%= (building !=null ? building.getAddress():(request.getParameter("adressText") == null ? "" : request.getParameter("adressText")))%>">
-                    <label for="zip">Postnr./by: </label>
+                           value ="<%= (building != null ? building.getAddress() : (request.getParameter("adressText") == null ? "" : request.getParameter("adressText")))%>">
+                    <label for="zip">Postnr./by: *</label>
                     <input id="zip" type="text" name="zipText"
-                           value ="<%= (building !=null ? "" +building.getZip():(request.getParameter("zipText") == null ? "" : request.getParameter("zipText")))%>">
+                           value ="<%= (building != null ? "" + building.getZip() : (request.getParameter("zipText") == null ? "" : request.getParameter("zipText")))%>">
 
                     <label><b>Generel information om bygningen</b></label>
 
-                    <label for="buildYear"> Byggeår</label>
-                    <input id="buildYear" type="number" name="buildYearNum" value ="<%=(building !=null ? building.getBuildYear():request.getParameter("buildYearNum")) %>">
-  
+                    <label for="buildYear"> Byggeår:</label>
+                    <input id="buildYear" type="number" name="buildYearNum" value ="<%=(building != null ? building.getBuildYear() : request.getParameter("buildYearNum"))%>">
+
                     <label for="buildArea">Bygningsareal i m<sup>2</sup> <br>
                         (hver etage tælles seperat)</label>
-                    <input id="buildArea" type="number" name="buildingAreaNum" value ="<%=(building !=null ? building.getSize(): "") %>">
+                    <input id="buildArea" type="number" name="buildingAreaNum" value ="<%=(building != null ? building.getSize() : "")%>">
                     <label for="usage">Hvad bruges bygningen til/<br>
                         hvad har bygningen været brugt til? </label>
-                    <input id="usage" type="text" name="usageText" size="50" value ="<%= (building !=null ? building.getName() :(request.getParameter("usageText") == null ? "" : request.getParameter("usageText")))%>">
+                    <input id="usage" type="text" name="usageText" size="50" value ="<%= (building != null ? building.getName() : (request.getParameter("usageText") == null ? "" : request.getParameter("usageText")))%>">
                     <label><b>Gennemgang af bygningen udvendig</b></label>
+                    <label><b>Note</b>: For at kunne uploade et billede til rapporten, skal 'Bemærkninger' afmærkes. </label>
                     <table border="1">
                         <thead>
-                            <tr>
+                            <tr> 
                                 <th></th>
                                 <th>Bemærkninger</th>
                                 <th>Ingen bemærkninger</th>
@@ -121,15 +122,17 @@ System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
                     </table>
                 </div>
                 <div class="reportPage">
-                    <br>
-                              <label for="reportP">Rapport side</label>
-                     <input type="number" name="numberOfReportPages" id="reportP" value = "<%=request.getAttribute("numberOfPages")%>">
-                     <input type="submit"  value="Opdater side antal" name="button" id="reportP" />
+                    <label for="reportP">Rapport side</label>
+                    <input type="number" name="numberOfReportPages" id="reportP" value = "<%=request.getAttribute("numberOfPages")%>">
+                    <input type="submit"  value="Opdater side antal" name="button" id="reportP" />
                     <input type="hidden" name ="do_this" value="useButton">
 
                     <label for="reportNr"> Rapport nummer</label>
+
                     <input type="number" name="reportNRNum" id="reportNr">
-                        <% int pages = 0;
+                    <label><b>Note</b>: For at kunne uploade et billede til rapporten, skal 'Bemærkninger' afmærkes.</label>
+
+                    <% int pages = 0;
                             pages += Integer.parseInt((String) request.getAttribute("numberOfPages"));
                             for (int i = 1; i < pages + 1; i++)
                             {
@@ -169,13 +172,15 @@ System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
                                     <p><input type="checkbox" name="<%="rotCheck" + i%>" />Råd og Svamp</p>
                                     <p><input type="checkbox" name="<%="moldCheck" + i%>" />Skimmel</p>
                                     <p><input type="checkbox" name="<%="fireCheck" + i%>" />Brand</p>
-                                    <p><input type="checkbox" name="<%="otherDamageCheck" + i%>" />Anden skade:</p>  <input type="text" name="<%="otherDamageCheck" + i%>" size="64" value ="<%= (request.getParameter("otherDamageText" + 1) == null ? "" : request.getParameter("otherDamageText" + 1))%>"
-                                                                                                                          > </td>
+                                    <p><input type="checkbox" name="<%="otherDamageCheck" + i%>" />Anden skade:</p>
+                                    <input type="text" name="<%="otherDamageCheck" + i%>" size="64" value ="<%= (request.getParameter("otherDamageText" + 1) == null ? "" : request.getParameter("otherDamageText" + 1))%>"> </td>
 
                             </tr>
                         </tbody>
-                    </table>                                                                                        >
+                    </table>                                                                                        
                     <p><b>Gennemgang af...</b></p>
+                    <p><b>Note</b>: For at kunne uploade et billede til rapporten, skal 'Bemærkninger' afmærkes. </p>
+
                     <table border="1">
                         <thead>
                             <tr>
@@ -236,8 +241,8 @@ System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
                         <thead>
                             <tr>
                                 <td>Er der foretaget fugtscanning?</td>
-                                <td><input type="radio" name="<%="scanCheck" + i%>" value="on"/></td>
-                                <td colspan="2"><input type="radio" name="<%="scanCheck" + i%>" value="off" checked="checked"/></td>
+                                <td>Ja<input type="radio" name="<%="scanCheck" + i%>" value="on"/></td>
+                                <td colspan="2">Nej<input type="radio" name="<%="scanCheck" + i%>" value="off" checked="checked"/></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -288,10 +293,8 @@ System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
                             </tr>
                         </tbody>
                     </table>
-                    <p>Bygningsgennemgangen er foretaget af <input type="text" name="technicianText" value ="<%= (request.getParameter("technicianText") == null ? "" : request.getParameter("technicianText"))%>"
-                                                                   />, Polygon
-                        i samarbejde med <input type="text" name="responsibleText" value ="<%= (request.getParameter("responsibleText") == null ? "" : request.getParameter("responsibleText"))%>"
-                                                /> (bygningsansvarlig).
+                                <p>Bygningsgennemgangen er foretaget af </p><input type="text" name="technicianText" value ="<%= (request.getParameter("technicianText") == null ? "" : request.getParameter("technicianText"))%>"/>, Polygon
+                                i samarbejde med </p><input type="text" name="responsibleText" value ="<%= (request.getParameter("responsibleText") == null ? "" : request.getParameter("responsibleText"))%>"/> <p>(bygningsansvarlig).
                     </p>
                     <p><b>Bygningen er kategoriseret som</b></p>
                     <table border="1">
@@ -338,9 +341,9 @@ System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
                         </tbody>
                     </table>
                     <br>
-                        <input type="hidden" name="do_this" value="useButton" />
-                        <input type="submit" value="Opret rapport" name="button" />
-                        <br>
+                    <input type="hidden" name="do_this" value="useButton" />
+                    <input type="submit" value="Opret rapport" name="button" />
+                    <br>
                     <br>
                     <br>
                 </div>

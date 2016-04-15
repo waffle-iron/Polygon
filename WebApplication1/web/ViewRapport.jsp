@@ -51,68 +51,90 @@
                 <li style="float:right"><a href="#about">Kontakt</a></li>
             </ul>
         </form>
-                <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+                <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style = "float:left">
         <%Report res = (Report)request.getAttribute("report");%>
         
             <h2> Rapport forside </h2>
-            <p>Rapport nummer:  "<%=(res.getReportnr())%>"</p>
-            <p>Navn på bygning: "<%=(res.getBuildingID())%>"</p>
-            <p>Dato:            "<%=(res.getReportDate())%>"</p>
-            <p>Adresse:         "<%=("no adresse")%>"</p>
+            <p>Rapport nummer:  <%=(res.getReportnr())%></p>
+            <p>Navn på bygning: <%=(res.getBuildingID())%></p>
+            <p>Dato:            <%=(res.getReportDate())%></p>
+            <p>Adresse:         <%=("no adresse")%></p>
             <p><b>Gennemgang af bygningen udvendig</b></p>
+            <br>
+            ydrevæge:
             <%Comment com = null;%>
-            <%if(res.getOuterWalls()!=null){%>"
-            "<% com = res.getOuterWalls();%>"
-            "<%=(com.toString())%>"
+            <%if(res.getOuterWalls()!=null){%>
+            <% com = res.getOuterWalls();%>
+            <%=(com.toString())%>
             <%if(com.getImage()!= null)%>
             <%=(com.getImage())%>
             <%}%>
             <br>
+            tag:
             <%Comment comRoof = null;%>
-            "<%if(res.getRoof()!=null){
-                comRoof = res.getRoof();%>"
-            "<%=(comRoof.toString())%>"
+            <%if(res.getRoof()!=null){
+                comRoof = res.getRoof();%>
+            <%=(comRoof.toString())%>
             <%if(comRoof.getImage()!= null)%>
             <%=(comRoof.getImage())%>
             <%}%>
+            <br>
             <%ReportPage[] reportpages = null;%>
             <%if(res.getReportPages() != null){%>
-            "<% reportpages = res.getReportPages();%>"
+            <% reportpages = res.getReportPages();%>
             <%
                 int i = 0;
             for(ReportPage reportPage:reportpages)
             {
             %>
-            <h2> Rapport side<%=i%> </h2>
+            <h2> Rapport side: <%=i+1%> </h2>
             <p>Rapport nummer:<%=(reportPage.getReportNr())%></p>
             Har der været<br>skade i lokalet?
             <%=(reportPage.isPreviousDamaged())%>
+            <br>
             Hvornår?
             <%=(reportPage.getDamagedDate().toString())%>
+            <br>
             Hvor?
             <%=(reportPage.getDamagedPlace())%>
+            <br>
             Hvad er der sket?
             <%=(reportPage.getCause())%>
+            <br>
             Hvad er repereret?
             <%=(reportPage.getRepairs())%>
+            <br>
             Skade
-            Fugt<%=(reportPage.isMoist())%>
-            råd og svamp<%=(reportPage.isRot())%>
-            skimmel<%=(reportPage.isMold())%>
-            brændt<%=(reportPage.isFire())%>
-            andenskade<%=(reportPage.getOther())%>
+            <br>
+            Fugt: <%=(reportPage.isMoist())%>
+            <br>
+            råd og svamp: <%=(reportPage.isRot())%>
+            <br>
+            skimmel: <%=(reportPage.isMold())%>
+            <br>
+            brændt: <%=(reportPage.isFire())%>
+            <br>
+            andenskade: <%=(reportPage.getOther())%>
+            <br>
             <p><b>Fugtscanning</b></p>
+            <br>
             Er der foretaget fugtscanning?
+            <br>
             <%=(reportPage.isMoistScan())%>
+            <%--
             <%
-                    ArrayList<Comment> comments = reportPage.getComments();
-                    if(reportPage.getComments()!=null)
+                    ArrayList<Comment> comments = reportPage.getComments();%>
+                    <%=(comments)%>
+
+                    <%if(reportPage.getComments()!=null)
                     for(Comment comment: comments){%>
                     <%=comment.toString()%>
                     <%if(comment.getImage()!= null)%>
                     <%= comment.getImage()%>
             <%}
+            
             %>
+            --%>    
             <%i++;}}%>
             <table border="1">
                 <thead>
@@ -153,6 +175,8 @@
                     </tr>
                 </tbody>
             </table>
+            <br>
+            tilstandsgraden er:
             <%=res.getState()%>
     </body>
 </html>
