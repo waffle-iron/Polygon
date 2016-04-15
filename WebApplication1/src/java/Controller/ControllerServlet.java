@@ -482,10 +482,14 @@ public class ControllerServlet extends HttpServlet
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                     facade.addReportToDB(report);
                     forward(request, response, "/FrontPageJSP.jsp");
-                } catch (Exception ex)
+                } catch (NumberFormatException | IOException | ServletException ex)
                 {
                     ex.printStackTrace();
+                    request.setAttribute(("nextReportNr"),facade.getNextReportNr() );
+                    request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
+                    forward(request, response, "/reportJSP.jsp");
                 }// </editor-fold>
+               
                 break;
             case "Opret nyt login":
                 request.setAttribute("ValidFirmID", (facade.viewAllFirms()));

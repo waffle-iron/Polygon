@@ -52,7 +52,7 @@ String monthStr = ((month < 10) ? "0" : "") + month;
 System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
 
                            %>
-                           <input id="date" type="date" name="dateDate" value = "<%= ""%>">
+                           <input id="date" type="date" name="dateDate">
                     <label for="adresse">Adresse: </label>
                     <input id="adresse" type="text" name="adressText"
                            value ="<%= (building !=null ? building.getAddress():(request.getParameter("adressText") == null ? "" : request.getParameter("adressText")))%>">
