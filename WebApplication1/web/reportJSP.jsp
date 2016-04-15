@@ -52,7 +52,7 @@ String monthStr = ((month < 10) ? "0" : "") + month;
 System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
 
                            %>
-                           <input id="date" type="date" name="dateDate" value = "<%= ""%>">
+                           <input id="date" type="date" name="dateDate" value = "<%=new java.util.Date()%>">
                     <label for="adresse">Adresse: </label>
                     <input id="adresse" type="text" name="adressText"
                            value ="<%= (building !=null ? building.getAddress():(request.getParameter("adressText") == null ? "" : request.getParameter("adressText")))%>">
@@ -121,7 +121,8 @@ System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
                     </table>
                 </div>
                 <div class="reportPage">
-                    <label for="reportP">Rapport side</label>
+                    <br>
+                              <label for="reportP">Rapport side</label>
                      <input type="number" name="numberOfReportPages" id="reportP" value = "<%=request.getAttribute("numberOfPages")%>">
                      <input type="submit"  value="Opdater side antal" name="button" id="reportP" />
                     <input type="hidden" name ="do_this" value="useButton">
@@ -132,8 +133,11 @@ System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
                             pages += Integer.parseInt((String) request.getAttribute("numberOfPages"));
                             for (int i = 1; i < pages + 1; i++)
                             {
-
+                            if( i!= 1)
+                            {
                         %>
+                        <div class="reportPage">
+                            <%}%>
                     <table border="1">
                         <thead>
                             <tr>
@@ -251,8 +255,9 @@ System.out.print(dayOfMonthStr+"/"+monthStr+"/"+now.get(Calendar.YEAR));
                             </tr>
                         </tbody>
                     </table>
+                                                       </div>
                     <%}%>
-                </div>
+                
                 <div class="conclusion">
                     <p><b>Konklusion</b></p>
                     <table border="1">
