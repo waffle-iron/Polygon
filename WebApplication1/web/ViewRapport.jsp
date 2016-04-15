@@ -55,29 +55,34 @@
         <%Report res = (Report)request.getAttribute("report");%>
         
             <h2> Rapport forside </h2>
-            <p>Rapport nummer:  "<%=(res.getReportnr())%>"</p>
-            <p>Navn på bygning: "<%=(res.getBuildingID())%>"</p>
-            <p>Dato:            "<%=(res.getReportDate())%>"</p>
-            <p>Adresse:         "<%=("no adresse")%>"</p>
+            <p>Rapport nummer:  <%=(res.getReportnr())%></p>
+            <p>Navn på bygning: <%=(res.getBuildingID())%></p>
+            <p>Dato:            <%=(res.getReportDate())%></p>
+            <p>Adresse:         <%=("no adresse")%></p>
             <p><b>Gennemgang af bygningen udvendig</b></p>
+            <br>
+            ydrevæge
             <%Comment com = null;%>
-            <%if(res.getOuterWalls()!=null){%>"
-            "<% com = res.getOuterWalls();%>"
-            "<%=(com.toString())%>"
+            <%if(res.getOuterWalls()!=null){%>
+            <% com = res.getOuterWalls();%>
+            <%=(com.toString())%>
             <%if(com.getImage()!= null)%>
             <%=(com.getImage())%>
             <%}%>
             <br>
+            tag comment
             <%Comment comRoof = null;%>
-            "<%if(res.getRoof()!=null){
-                comRoof = res.getRoof();%>"
-            "<%=(comRoof.toString())%>"
+            <%if(res.getRoof()!=null){
+                comRoof = res.getRoof();%>
+            <%=(comRoof.toString())%>
             <%if(comRoof.getImage()!= null)%>
             <%=(comRoof.getImage())%>
             <%}%>
+            <br>
+            rapport side
             <%ReportPage[] reportpages = null;%>
             <%if(res.getReportPages() != null){%>
-            "<% reportpages = res.getReportPages();%>"
+            <% reportpages = res.getReportPages();%>
             <%
                 int i = 0;
             for(ReportPage reportPage:reportpages)
@@ -87,22 +92,35 @@
             <p>Rapport nummer:<%=(reportPage.getReportNr())%></p>
             Har der været<br>skade i lokalet?
             <%=(reportPage.isPreviousDamaged())%>
+            <br>
             Hvornår?
             <%=(reportPage.getDamagedDate().toString())%>
+            <br>
             Hvor?
             <%=(reportPage.getDamagedPlace())%>
+            <br>
             Hvad er der sket?
             <%=(reportPage.getCause())%>
+            <br>
             Hvad er repereret?
             <%=(reportPage.getRepairs())%>
+            <br>
             Skade
+            <br>
             Fugt<%=(reportPage.isMoist())%>
+            <br>
             råd og svamp<%=(reportPage.isRot())%>
+            <br>
             skimmel<%=(reportPage.isMold())%>
+            <br>
             brændt<%=(reportPage.isFire())%>
+            <br>
             andenskade<%=(reportPage.getOther())%>
+            <br>
             <p><b>Fugtscanning</b></p>
+            <br>
             Er der foretaget fugtscanning?
+            <br>
             <%=(reportPage.isMoistScan())%>
             <%
                     ArrayList<Comment> comments = reportPage.getComments();%>
@@ -155,6 +173,8 @@
                     </tr>
                 </tbody>
             </table>
+            <br>
+            tilstandsgraden er:
             <%=res.getState()%>
     </body>
 </html>

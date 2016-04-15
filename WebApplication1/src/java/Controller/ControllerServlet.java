@@ -524,7 +524,7 @@ public class ControllerServlet extends HttpServlet
             case "Delete":
                 break;
             case "viewReports":
-                viewRaport(13, request, response);
+                viewRaport(1, request, response);
                 break;
             case "writeReport":
                 session.setAttribute("building", facade.getSingleBuildingByID(ID));
