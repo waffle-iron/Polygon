@@ -61,7 +61,7 @@
             <p>Adresse:         <%=("no adresse")%></p>
             <p><b>Gennemgang af bygningen udvendig</b></p>
             <br>
-            ydrevæge
+            ydrevæge:
             <%Comment com = null;%>
             <%if(res.getOuterWalls()!=null){%>
             <% com = res.getOuterWalls();%>
@@ -70,7 +70,7 @@
             <%=(com.getImage())%>
             <%}%>
             <br>
-            tag comment
+            tag:
             <%Comment comRoof = null;%>
             <%if(res.getRoof()!=null){
                 comRoof = res.getRoof();%>
@@ -79,7 +79,6 @@
             <%=(comRoof.getImage())%>
             <%}%>
             <br>
-            rapport side
             <%ReportPage[] reportpages = null;%>
             <%if(res.getReportPages() != null){%>
             <% reportpages = res.getReportPages();%>
@@ -88,7 +87,7 @@
             for(ReportPage reportPage:reportpages)
             {
             %>
-            <h2> Rapport side<%=i%> </h2>
+            <h2> Rapport side: <%=i+1%> </h2>
             <p>Rapport nummer:<%=(reportPage.getReportNr())%></p>
             Har der været<br>skade i lokalet?
             <%=(reportPage.isPreviousDamaged())%>
@@ -107,21 +106,22 @@
             <br>
             Skade
             <br>
-            Fugt<%=(reportPage.isMoist())%>
+            Fugt: <%=(reportPage.isMoist())%>
             <br>
-            råd og svamp<%=(reportPage.isRot())%>
+            råd og svamp: <%=(reportPage.isRot())%>
             <br>
-            skimmel<%=(reportPage.isMold())%>
+            skimmel: <%=(reportPage.isMold())%>
             <br>
-            brændt<%=(reportPage.isFire())%>
+            brændt: <%=(reportPage.isFire())%>
             <br>
-            andenskade<%=(reportPage.getOther())%>
+            andenskade: <%=(reportPage.getOther())%>
             <br>
             <p><b>Fugtscanning</b></p>
             <br>
             Er der foretaget fugtscanning?
             <br>
             <%=(reportPage.isMoistScan())%>
+            <%--
             <%
                     ArrayList<Comment> comments = reportPage.getComments();%>
                     <%=(comments)%>
@@ -132,7 +132,9 @@
                     <%if(comment.getImage()!= null)%>
                     <%= comment.getImage()%>
             <%}
+            
             %>
+            --%>    
             <%i++;}}%>
             <table border="1">
                 <thead>
