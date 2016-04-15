@@ -39,8 +39,8 @@
                     <label for="buildingName">Navn på bygning:</label>
                     <input id="buildingName" type="text" name="buildingNameText"
                           value ="<%= (building !=null ? building.getName() :
-                               (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText")))%>" pattern="{0,30}" />* 
-                        <span title="bygnings navn skal være mindre end 30."> </span>>
+                               (request.getParameter("buildingNameText") == null ? "" : request.getParameter("buildingNameText")))%>" pattern="{0,30}" />
+                        <span title="bygnings navn skal være mindre end 30."> </span>
                        
                     <label for="date">Dato:</label>
                     <% 
