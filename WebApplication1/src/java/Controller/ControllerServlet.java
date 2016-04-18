@@ -4,13 +4,16 @@ import static Controller.Logic.*;
 import DataAccess.Facade;
 import Domain.Building;
 import Domain.Comment;
+import Domain.CommentImage;
 import Domain.Date;
 import Domain.Firm;
 import Domain.Login;
 import Domain.Report;
 import Domain.ReportPage;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -54,7 +57,7 @@ public class ControllerServlet extends HttpServlet
                 button += request.getParameter("button");
                 if (button.equals("null"))
                 {
-                    forward(request, response, "/index.html");
+                    forward(request, response, "/FrontPageJSP.html");
                 }
                 useButton(request, response, session, button);
                 break;
@@ -80,11 +83,11 @@ public class ControllerServlet extends HttpServlet
                     Building building = new Building(request.getParameter("buildAddress"),
                             request.getParameter("buildName"),
                             request.getParameter("buildUsage"),
-                            Integer.parseInt( request.getParameter("buildZip")),
+                            Integer.parseInt(request.getParameter("buildZip")),
                             Integer.parseInt(request.getParameter("buildFirmID")),
                             Integer.parseInt(request.getParameter("buildYear")),
                             Integer.parseInt(request.getParameter("buildSize"))
-                            );
+                    );
                     request.setAttribute("Done", true);
                     request.setAttribute("saveBuildingInfo", building);
                     facade.addBuildingToDB(building);
@@ -129,6 +132,8 @@ public class ControllerServlet extends HttpServlet
                             request.getParameter("contactMail"));
                     request.setAttribute("saveFirmInfo", true);
                     facade.addFirmToDB(firm);
+                    request.setAttribute("saveFirmInfo", true);
+
                     request.setAttribute("clearAll", true);
 
                     forward(request, response, "/FirmJSP.jsp");
@@ -144,7 +149,7 @@ public class ControllerServlet extends HttpServlet
             case "Report":
                 goToReport(request, response);
                 break;
-            case "goToFrontPage":
+            case "Forside":
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
 
@@ -191,7 +196,7 @@ public class ControllerServlet extends HttpServlet
             case "CreateLogin":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 String temp2 = "";
-                if (request.getParameter("enum")!=null)
+                if (request.getParameter("enum") != null)
                 {
                     switch (request.getParameter("enum"))
                     {
@@ -207,19 +212,17 @@ public class ControllerServlet extends HttpServlet
                             temp2 = "admin";
                             break;
                     }
-                } else 
+                } else
                 {
                     temp2 = "user";
                 }
-                        if (request.getParameter("username").trim().compareTo("") == 0
+                if (request.getParameter("username").trim().compareTo("") == 0
                         || request.getParameter("password").trim().compareTo("") == 0
                         || request.getParameter("firmID").trim().compareTo("") == 0)
                 {
                     request.setAttribute("saveLogin", false);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-
                     forward(request, response, "/OpretJSP.jsp");
-
                 } else
                 {
                     Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
@@ -228,7 +231,6 @@ public class ControllerServlet extends HttpServlet
                     request.setAttribute("saveLogin", true);
                     facade.addLoginToDB(newLogin);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-
                     forward(request, response, "/OpretJSP.jsp");
                 }
                 // </editor-fold>
@@ -270,10 +272,6 @@ public class ControllerServlet extends HttpServlet
                 if (session.getAttribute("login") != null)
                 {
                     Login login = (Login) session.getAttribute("login");
-
-                    System.out.println(session.getAttribute("login").toString());
-                    System.out.println(login.getFirmID());
-
                     try
                     {
                         if (login.getAuthorization().equals("user"))
@@ -285,7 +283,6 @@ public class ControllerServlet extends HttpServlet
                         }
                     } catch (Exception ex)
                     {
-                        System.out.println("test1");
                     }
                 }
                 forward(request, response, "/viewMyBuildingsJSP.jsp");
@@ -296,7 +293,7 @@ public class ControllerServlet extends HttpServlet
 
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
-                
+
             case "Logud":
                 session.setAttribute("login", null);
                 session.setAttribute("loginAs", null);
@@ -304,10 +301,11 @@ public class ControllerServlet extends HttpServlet
 
                 forward(request, response, "/LoginJSP.jsp");
                 break;
-                
+
             case "Opret rapport":
-                try {
-                // <editor-fold defaultstate="collapsed" desc="My Fold">
+                try
+                {
+                    // <editor-fold defaultstate="collapsed" desc="My Fold">
                     Report report;
                     int[] info = new int[3];
                     info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
@@ -405,7 +403,7 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment", ImageIO.read(fileContent)));
+                                comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment", new CommentImage(ImageIO.read(fileContent), filePart, fileContent)));
                             } else
                             {
                                 comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment"));
@@ -420,7 +418,7 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment", ImageIO.read(fileContent)));
+                                comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment", new CommentImage(ImageIO.read(fileContent), filePart, fileContent)));
                             } else
                             {
                                 comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment"));
@@ -435,7 +433,7 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment", ImageIO.read(fileContent)));
+                                comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment", new CommentImage(ImageIO.read(fileContent), filePart, fileContent)));
                             } else
                             {
                                 comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment"));
@@ -450,7 +448,7 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment", ImageIO.read(fileContent)));
+                                comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment", new CommentImage(ImageIO.read(fileContent), filePart, fileContent)));
                             } else
                             {
                                 comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment"));
@@ -467,7 +465,7 @@ public class ControllerServlet extends HttpServlet
                             //filename got but not used
                             String fileName = filePart.getSubmittedFileName();
                             InputStream fileContent = filePart.getInputStream();
-                            outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall", ImageIO.read(fileContent));
+                            outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall", new CommentImage(ImageIO.read(fileContent), filePart, fileContent));
 
                         } else
                         {
@@ -483,7 +481,7 @@ public class ControllerServlet extends HttpServlet
                             //filename got but not used
                             String fileName = filePart.getSubmittedFileName();
                             InputStream fileContent = filePart.getInputStream();
-                            roof = new Comment(request.getParameter("roofText"), "Ceiling", ImageIO.read(fileContent));
+                            roof = new Comment(request.getParameter("roofText"), "Ceiling", new CommentImage(ImageIO.read(fileContent), filePart, fileContent));
 
                         } else
                         {
@@ -497,11 +495,11 @@ public class ControllerServlet extends HttpServlet
                 } catch (NumberFormatException | IOException | ServletException ex)
                 {
                     ex.printStackTrace();
-                    request.setAttribute(("nextReportNr"),facade.getNextReportNr() );
+                    request.setAttribute(("nextReportNr"), facade.getNextReportNr());
                     request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
                     forward(request, response, "/reportJSP.jsp");
                 }// </editor-fold>
-               
+
                 break;
             case "Opret nyt login":
                 request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
@@ -540,11 +538,11 @@ public class ControllerServlet extends HttpServlet
             case "Delete":
                 break;
             case "viewReports":
-                viewRaport(1, request, response);
+                viewRaport(4, request, response);
                 break;
             case "writeReport":
                 session.setAttribute("building", facade.getSingleBuildingByID(ID));
-                goToReport(request,response);
+                goToReport(request, response);
                 break;
             case "uploadFloorPlan":
                 request.setAttribute("BuildingID", ID);
@@ -578,6 +576,7 @@ public class ControllerServlet extends HttpServlet
             }
             try
             {
+                
                 forward(request, response, "/ViewRapport.jsp");
             } catch (IOException | ServletException ex)
             {

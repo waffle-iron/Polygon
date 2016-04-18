@@ -26,7 +26,11 @@
         </style>
     </head>
     <body>
-
+        <form action="ControllerServlet" method="POST">
+            <input type="hidden" name="do_this" value="useButton" />
+            <input type="submit" value="Tilbage til start siden" name="button" class="submit2"/>
+            <br>
+        </form>
         <div class="report">
             <form id="myForm" action="ControllerServlet" method="POST" enctype="multipart/form-data">
                 <div class="frontPage">
@@ -352,11 +356,7 @@
                     </div>
             </form>
         </div>
-        <form action="ControllerServlet" method="POST">
-            <input type="hidden" name="do_this" value="useButton" />
-            <input type="submit" value="Tilbage til start siden" name="button" class="submit2"/>
-            <br>
-        </form>
+
         
     </body>
 </html>

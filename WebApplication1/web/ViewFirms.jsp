@@ -18,74 +18,75 @@
     </head>
     <body>
         <form>
-        <input type ="hidden" value="useButton" name="do_this">
-        <ul>
-            <%
-                Login login = (Login) session.getAttribute("login");
-                System.out.println(login.getAuthorization());
-            %>
+            <input type ="hidden" value="useButton" name="do_this">
+            <ul>
+                <%
+                    Login login = (Login) session.getAttribute("login");
+                    System.out.println(login.getAuthorization());
+                %>
 
-            <%if (login.getAuthorization().equals("user"))
-                { %>
-            <li> <input class="submit1" type="submit" name ="button" value="Tilføj bygning"></li>
+                <%if (login.getAuthorization().equals("user"))
+                    { %>
+                <li> <input class="submit1" type="submit" name ="button" value="Tilføj bygning"></li>
 
-            <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+                <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
 
-            <%}%>
-
-            <%if (login.getAuthorization().equals("admin"))
-                { %>
-
-            <li><input class="submit1" type="submit" name ="button" value="Opret nyt firma"></li>
-
-            <li><input class="submit1" type="submit" name ="button" value="Vis alle firmaer"></li>
-
-            <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                 <%}%>
-            <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
 
-            <li><input class="submit1" type="submit" value="Rapport-midlertidig" name="button" /></li>
-            <li style="float:right"><a href="#about">Kontakt</a></li>
-            <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
-        </ul>
-    </form>
-    <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
-    <div class="content">
-        <h1>Firmaer</h1>
-        <form action="ControllerServlet" method="GET">
-            <% if (request.getAttribute("listOfFirms") != null)
-                {
-                    ArrayList<Firm> firm;
-                    firm = (ArrayList<Firm>) request.getAttribute("listOfFirms");
-            %>
-            <table>
-                <tr>
-                    <td>
-                        Kontakt nummer
-                    </td>
-                    <td>
-                        Kontakt mail
-                    </td>
+                <%if (login.getAuthorization().equals("admin"))
+                    { %>
 
-                </tr>
-                <% for (int i = 0; i < firm.size(); i++)
-                    {%>
-                <tr>
-                    <td>
-                        <%=(firm.get(i).getContactNumber())%>   
-                    </td>
-                    <td>
-                        <%=(firm.get(i).getContactMail())%>   
-                    </td>
-                </tr>
+                <li><input class="submit1" type="submit" name ="button" value="Opret nyt firma"></li>
+
+                <li><input class="submit1" type="submit" name ="button" value="Vis alle firmaer"></li>
+
+                <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
-                <%}%>
+                <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
+                <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
+                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
+            </ul>
         </form>
-    </div>
-        <form action="ControllerServlet" method="GET">
-            <input type="hidden" name="do_this" value="useButton" />
-            <input type="submit" value="Tilbage til start siden" name="button" class="submit2"/>
-            <br>
-        </form>
+        <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+        <div class="content">
+            <h1>Firmaer</h1>
+            <form action="ControllerServlet" method="GET">
+                <% if (request.getAttribute("listOfFirms") != null)
+                    {
+                        ArrayList<Firm> firm;
+                        firm = (ArrayList<Firm>) request.getAttribute("listOfFirms");
+                %>
+                <table>
+                    <tr>
+                        <td>
+                            Kontakt nummer
+                        </td>
+                        <td>
+                            Kontakt mail
+                        </td>
+
+                    </tr>
+                    <% for (int i = 0; i < firm.size(); i++)
+                        {%>
+                    <tr>
+                        <td>
+                            <%=(firm.get(i).getContactNumber())%>   
+                        </td>
+                        <td>
+                            <%=(firm.get(i).getContactMail())%>   
+                        </td>
+                    </tr>
+                    <%}%>
+                    <%}%>
+                </table>
+                <br>
+            </form>
+
+            <form action="ControllerServlet" method="GET">
+                <input type="hidden" name="do_this" value="useButton" />
+                <input type="submit" value="Tilbage til start siden" name="button" class="submit2" />
+                <br>
+            </form>
+        </div>
     </body>
 </html>
