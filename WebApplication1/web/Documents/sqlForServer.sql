@@ -32,6 +32,7 @@ CREATE TABLE `login`
     primary key (`Username`),
     foreign key (`FirmID`)
 		references `Firm` (`FirmID`)
+        ON DELETE CASCADE
 );
 CREATE TABLE `zip`
 (
@@ -52,6 +53,7 @@ CREATE TABLE `building`
     primary key(`BuildingID`),
     foreign key (`FirmID`)
 		references `Firm` (`FirmID`)
+        ON DELETE CASCADE
 );
 CREATE TABLE `report`
 (
@@ -80,6 +82,7 @@ CREATE TABLE `reportPage`
     primary key (`ReportPageNr`),
 	foreign key(`ReportNR`)
 		references `Report` (`ReportNR`)
+        ON DELETE CASCADE
     
 );
 CREATE TABLE `comments`
@@ -91,9 +94,11 @@ CREATE TABLE `comments`
     `Text` varchar(500),
     primary key (`CommentID`),
     foreign key (`ReportNR`)
-		references `Report` (`ReportNR`),
+		references `Report` (`ReportNR`)
+        ON DELETE CASCADE,
     foreign key (`ReportPageNr`)
 		references `ReportPage` (`ReportPageNr`)
+        ON DELETE CASCADE
 );
 CREATE TABLE `conclusion`
 (
@@ -111,6 +116,7 @@ CREATE TABLE `picturelink`
      primary key (`PictureID`),
      foreign key (`CommentID`)
      references `comments`(`CommentID`)
+     ON DELETE CASCADE
 
 );
 
