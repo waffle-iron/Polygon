@@ -19,7 +19,7 @@
             <ul>
 
                 <input type ="hidden" value="goToAddBuilding" name="do_this">
-                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
+                <li></li>
             </ul>
         </form>
         <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">

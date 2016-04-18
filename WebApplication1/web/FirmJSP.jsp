@@ -36,7 +36,6 @@
             <ul>
                 <%
                     Login login = (Login) session.getAttribute("login");
-                    System.out.println(login.getAuthorization());
                 %>
 
                 <%if (login.getAuthorization().equals("user"))
@@ -59,11 +58,8 @@
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
                 <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
-
-                <li><input class="submit1" type="submit" value="Rapport-midlertidig" name="button" /></li>
-                <li style="float:right"><a href="#about">Kontakt</a></li>
                 <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
-
+                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
             </ul>
         </form>
         <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
@@ -93,12 +89,12 @@
 
                     <label for='opret'></label>
                     <input type="hidden" name="do_this" value="createFirm"/>
-                    <input type="submit" value="Opret" id="opret" name="createFirm" class="submit2"/>
+                    <input type="submit" id="opretFirma" value="Opret" id="opret" name="createFirm" class="submit2"/>
                 </form>
             </div>
             <% if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(true))
                 {%>
-            Du har nu oprettet et nyt firma.
+                <label for="opretFirma">Du har nu oprettet et nyt firma.</label>
 
             <%}%> 
             <form action="ControllerServlet" method="GET">
