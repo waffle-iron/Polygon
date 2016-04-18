@@ -97,10 +97,11 @@
                 <br>
                 <br>
 
-                <label for="userType">Type:</label>
+                
                 <% if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                 {%>
-
+                <label for="userType">Type:</label>
+                
                 <select name="enum" id="userType">
                     <option>Bruger</option>
                     <option>Tekniker</option>
