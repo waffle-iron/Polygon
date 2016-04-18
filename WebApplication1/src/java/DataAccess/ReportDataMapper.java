@@ -162,6 +162,7 @@ public class ReportDataMapper {
                         System.out.println(reportpage.getReportPageNr());
                         System.out.println("added comment to reportpage");
                         reportpage.addComment(comment);
+                        System.out.println("comment = " + comment);
                     }
                 }
             }
