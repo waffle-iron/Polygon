@@ -28,7 +28,7 @@
     <body>
         <form action="ControllerServlet" method="POST">
             <input type="hidden" name="do_this" value="useButton" />
-            <input type="submit" value="Tilbage til start siden" name="button" class="submit2"/>
+            <input type="submit" value="Forside" name="useButton" class="submit2"/>
             <br>
         </form>
         <div class="report">
@@ -37,7 +37,6 @@
                     <% Building building = null;
                         if (session.getAttribute("building") != null)
                         {
-                            System.out.println("test1");
                             building = (Building) session.getAttribute("building");
                         }%>
                     <h1>Udfyld rapport</h1> 
@@ -356,7 +355,5 @@
                     </div>
             </form>
         </div>
-
-        
     </body>
 </html>
