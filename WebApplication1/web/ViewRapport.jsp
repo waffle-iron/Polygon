@@ -120,20 +120,20 @@
             Er der foretaget fugtscanning?
             <br>
             <%=(reportPage.isMoistScan())%>
-            <%--
-            <%
-                    ArrayList<Comment> comments = reportPage.getComments();%>
-                    <%=(comments)%>
+            
+            <%ArrayList<Comment> comments = reportPage.getComments();%>
+            <%  System.out.println(reportPage.getReportPageNr());
+                        System.out.println("comments = "+comments);%>
 
                     <%if(reportPage.getComments()!=null)
                     for(Comment comment: comments){%>
                     <%=comment.toString()%>
-                    <%if(comment.getImage()!= null)%>
-                    <%= comment.getImage()%>
+                    <%--<%if(comment.getImage()!= null)%>
+                    <%= comment.getImage()%>--%>
             <%}
             
             %>
-            --%>    
+            
             <%i++;}}%>
             <table border="1">
                 <thead>
