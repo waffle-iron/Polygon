@@ -20,11 +20,14 @@
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
                 <%
-                    Login login = (Login) session.getAttribute("login");
-                    System.out.println(login.getAuthorization());
+                    Login login = null;
+                    if(session.getAttribute("login") != null)
+                    {
+                        login = (Login) session.getAttribute("login");
+                    }
                 %>
 
-                <%if (login.getAuthorization().equals("user"))
+                <%if (login != null && login.getAuthorization().equals("user"))
                     { %>
 
 
@@ -34,7 +37,7 @@
 
                 <%}%>
 
-                <%if (login.getAuthorization().equals("admin"))
+                <%if (login != null && login.getAuthorization().equals("admin"))
                     { %>
 
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt firma"></li>
@@ -44,10 +47,9 @@
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
                 <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
-
+                <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
 
-                <li><input class="submit1" type="submit" value="Rapport-midlertidig" name="button" /></li>
             </ul>
         </form>
         <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
@@ -55,6 +57,11 @@
         Telefon: 
         <br>
         E-mail:
-
+            <form action="ControllerServlet" method="GET">
+                <br>
+                <label for="goBack"></label>
+                <input type="hidden" name="do_this" value="goToFrontPage"/>
+                <input type="submit" value="Gå tilbage start siden" name="goToFrontPage" id="goBack" class="submit2" />
+            </form>
     </body>
 </html>

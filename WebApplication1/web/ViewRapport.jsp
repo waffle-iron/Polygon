@@ -46,9 +46,8 @@
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
                 <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
-
-                <li><input class="submit1" type="submit" value="Rapport-midlertidig" name="button" /></li>
-                <li style="float:right"><a href="#about">Kontakt</a></li>
+                <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
+                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
             </ul>
         </form>
                 <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style = "float:left">
@@ -178,5 +177,10 @@
             <br>
             tilstandsgraden er:
             <%=res.getState()%>
+            <form action="ControllerServlet" method="GET">
+            <input type="hidden" name="do_this" value="useButton" />
+            <input type="submit" value="Tilbage til start siden" name="button" class="submit2"/>
+            <br>
+        </form>
     </body>
 </html>

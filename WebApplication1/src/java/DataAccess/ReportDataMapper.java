@@ -15,7 +15,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -100,7 +99,6 @@ public class ReportDataMapper {
                         stat.executeUpdate();
                 }
             }
-            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println(ex.toString());
@@ -186,18 +184,10 @@ public class ReportDataMapper {
                 }
             }
 
-            con.close();
-
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.toString());
-                System.out.println("the world is ending");
-            }
-        }
+        } 
+        
         return report;
     }
 
@@ -284,8 +274,6 @@ public class ReportDataMapper {
                 }
             }
 
-            con.close();
-
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
@@ -306,7 +294,6 @@ public class ReportDataMapper {
             for (int i = 0; res.next(); i++) {
                 info = res.getInt(1);
             }
-            con.close();
 
         } catch (Exception ex) {
         }
@@ -323,7 +310,6 @@ public class ReportDataMapper {
             res.next();
             info = res.getInt(1) + 1;
             statement.executeUpdate("ALTER TABLE report AUTO_INCREMENT = " + info + ";");
-            con.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();

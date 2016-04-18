@@ -133,6 +133,7 @@ insert into `zip` (`Zip`,`City`) values(2800,"Kongens Lyngby");
 
 insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 1",2800,1,"storkevænget",420,10,"recidence");  
 insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 2",2800,1,"home",420,10,"service");  
+insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("highway to hell 666",3666,2,"hell",666,666,"torturing bad people, be good");  
 
 insert into `report` (`BuildingID`,`Date`,`StateNR`) values(1,'1990-01-01',0);  
 insert into `report` (`BuildingID`,`Date`,`StateNR`) values(2,'420-01-01',0);  
