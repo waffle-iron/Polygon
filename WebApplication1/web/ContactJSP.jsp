@@ -20,11 +20,14 @@
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
                 <%
-                    Login login = (Login) session.getAttribute("login");
-                    System.out.println(login.getAuthorization());
+                    Login login = null;
+                    if(session.getAttribute("login") != null)
+                    {
+                        login = (Login) session.getAttribute("login");
+                    }
                 %>
 
-                <%if (login.getAuthorization().equals("user"))
+                <%if (login != null && login.getAuthorization().equals("user"))
                     { %>
 
 
@@ -34,7 +37,7 @@
 
                 <%}%>
 
-                <%if (login.getAuthorization().equals("admin"))
+                <%if (login != null && login.getAuthorization().equals("admin"))
                     { %>
 
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt firma"></li>

@@ -296,6 +296,15 @@ public class ControllerServlet extends HttpServlet
 
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
+                
+            case "Logud":
+                session.setAttribute("login", null);
+                session.setAttribute("loginAs", null);
+                session.setAttribute("building", null);
+
+                forward(request, response, "/LoginJSP.jsp");
+                break;
+                
             case "Opret rapport":
                 try {
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
