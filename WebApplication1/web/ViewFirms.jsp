@@ -81,5 +81,10 @@
                 <%}%>
         </form>
     </div>
+        <form action="ControllerServlet" method="GET">
+            <input type="hidden" name="do_this" value="useButton" />
+            <input type="submit" value="Tilbage til start siden" name="button" class="submit2"/>
+            <br>
+        </form>
     </body>
 </html>
