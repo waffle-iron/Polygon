@@ -19,7 +19,7 @@
         <form action="ControllerServlet"  method="GET">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
-                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1" class="active"/></li>
+                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
                 <%
                     Login login = (Login) session.getAttribute("login");
                     System.out.println(login.getAuthorization());
@@ -71,6 +71,6 @@
             der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
             <%}%>
         </div>
-            
+       
     </body>
 </html>
