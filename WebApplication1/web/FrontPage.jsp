@@ -19,7 +19,7 @@
         <form action="ControllerServlet"  method="GET">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
-                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
+                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1" class="active"/></li>
                 <%
                     Login login = (Login) session.getAttribute("login");
                     System.out.println(login.getAuthorization());
