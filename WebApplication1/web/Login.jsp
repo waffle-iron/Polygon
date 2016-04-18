@@ -40,8 +40,8 @@
         <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
 
         <div class="content">
-            <h1>Velkommen til Polygon</h1>
-            <h2>Login</h2>
+            <h1>Velkommen til Sunde Bygninger</h1>
+            <h2>Log ind</h2>
             <form action="ControllerServlet" method="get">
                 Brugernavn<br> <input style="text-align: center" type="text" name="username" size="20" />
                 <br><br>

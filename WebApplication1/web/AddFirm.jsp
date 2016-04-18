@@ -78,7 +78,7 @@
         </form>
         <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <div class="content">
-            <h1>Opret her et nyt firma</h1>
+            <h1>Opret nyt firma her</h1>
             <% boolean clear = false;
                 try
                 {
@@ -98,7 +98,7 @@
                     <input type="text" id="contactN" name="contactNumber" pattern="[0-9].{7}"><br>
                     <span title="Kontakt nummer skal bestå af 8 cifre." id="contactN"> </span>
 
-                    <label for="contactM">Kontakt mail: </label>
+                    <label for="contactM">Kontakt mail </label>
                     <input type="email" id="contactM" name="contactMail" required>
 
                     <label for='opret'></label>
