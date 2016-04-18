@@ -4,13 +4,16 @@ import static Controller.Logic.*;
 import DataAccess.Facade;
 import Domain.Building;
 import Domain.Comment;
+import Domain.CommentImage;
 import Domain.Date;
 import Domain.Firm;
 import Domain.Login;
 import Domain.Report;
 import Domain.ReportPage;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -393,7 +396,7 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment", ImageIO.read(fileContent)));
+                                comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment", new CommentImage(ImageIO.read(fileContent), filePart, fileContent)));
                             } else
                             {
                                 comments.add(new Comment(request.getParameter("wallCommentText"), "Report comment"));
@@ -408,7 +411,7 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment", ImageIO.read(fileContent)));
+                                comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment", new CommentImage(ImageIO.read(fileContent), filePart, fileContent)));
                             } else
                             {
                                 comments.add(new Comment(request.getParameter("ceilingCommentText"), "Report comment"));
@@ -423,7 +426,7 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment", ImageIO.read(fileContent)));
+                                comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment", new CommentImage(ImageIO.read(fileContent), filePart, fileContent)));
                             } else
                             {
                                 comments.add(new Comment(request.getParameter("floorCommentText"), "Report comment"));
@@ -438,7 +441,7 @@ public class ControllerServlet extends HttpServlet
                                 //filename got but not used
                                 String fileName = filePart.getSubmittedFileName();
                                 InputStream fileContent = filePart.getInputStream();
-                                comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment", ImageIO.read(fileContent)));
+                                comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment", new CommentImage(ImageIO.read(fileContent), filePart, fileContent)));
                             } else
                             {
                                 comments.add(new Comment(request.getParameter("doorCommentText"), "Report comment"));
@@ -455,7 +458,7 @@ public class ControllerServlet extends HttpServlet
                             //filename got but not used
                             String fileName = filePart.getSubmittedFileName();
                             InputStream fileContent = filePart.getInputStream();
-                            outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall", ImageIO.read(fileContent));
+                            outerWalls = new Comment(request.getParameter("outerWallText"), "outerWall", new CommentImage(ImageIO.read(fileContent), filePart, fileContent));
 
                         } else
                         {
@@ -471,7 +474,7 @@ public class ControllerServlet extends HttpServlet
                             //filename got but not used
                             String fileName = filePart.getSubmittedFileName();
                             InputStream fileContent = filePart.getInputStream();
-                            roof = new Comment(request.getParameter("roofText"), "Ceiling", ImageIO.read(fileContent));
+                            roof = new Comment(request.getParameter("roofText"), "Ceiling", new CommentImage(ImageIO.read(fileContent), filePart, fileContent));
 
                         } else
                         {
@@ -528,7 +531,7 @@ public class ControllerServlet extends HttpServlet
             case "Delete":
                 break;
             case "viewReports":
-                viewRaport(1, request, response);
+                viewRaport(4, request, response);
                 break;
             case "writeReport":
                 session.setAttribute("building", facade.getSingleBuildingByID(ID));
@@ -566,6 +569,7 @@ public class ControllerServlet extends HttpServlet
             }
             try
             {
+                
                 forward(request, response, "/ViewRapport.jsp");
             } catch (IOException | ServletException ex)
             {

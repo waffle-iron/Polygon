@@ -9,10 +9,11 @@ import Domain.Comment;
 import Domain.Date;
 import Domain.Report;
 import Domain.ReportPage;
-import java.awt.Image;
-import java.io.InputStream;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -53,10 +54,15 @@ public class ReportDataMapper {
                             + comment.getType() + "','"
                             + comment.getText() + "');");
                     if (comment.getImage() != null) {
-                        System.out.println(CommentDataMapper.getNextCommentNr());
-                        statement.executeUpdate("insert into picturelink (Picture, CommentID) values('"
-                                + comment.getImage() + "','"
-                                + CommentDataMapper.getNextCommentNr() + "');");
+                        String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
+                        PreparedStatement stat = con.prepareStatement(sql);
+                        stat.setInt(1, CommentDataMapper.getNextCommentNr());
+             
+                        if (comment.getCommentImage().getBytes() != null) 
+                        {
+                            stat.setBinaryStream(2, comment.getCommentImage().getBytes(), (int) comment.getCommentImage().getFilepart().getSize());
+                        }
+                        stat.executeUpdate();
                     }
                 }
             }
@@ -66,9 +72,15 @@ public class ReportDataMapper {
                         + Report.getOuterWalls().getType() + "','"
                         + Report.getOuterWalls().getText() + "');");
                 if (Report.getOuterWalls().getImage() != null) {
-                    statement.executeUpdate("INSERT INTO `picturelink` (`Picture`, `CommentID`) VALUES ('"
-                            + Report.getOuterWalls().getImage() + "','"
-                            + CommentDataMapper.getNextCommentNr() + "');");
+                    String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
+                        PreparedStatement stat = con.prepareStatement(sql);
+                        stat.setInt(1, CommentDataMapper.getNextCommentNr());
+             
+                        if (Report.getOuterWalls().getCommentImage().getBytes() != null) 
+                        {
+                            stat.setBinaryStream(2, Report.getOuterWalls().getCommentImage().getBytes(), (int) Report.getOuterWalls().getCommentImage().getFilepart().getSize());
+                        }
+                        stat.executeUpdate();
                 }
             }
             if (Report.getRoof() != null) {
@@ -77,9 +89,15 @@ public class ReportDataMapper {
                         + Report.getRoof().getType() + "','"
                         + Report.getRoof().getText() + "');");
                 if (Report.getRoof().getImage() != null) {
-                    statement.executeUpdate("INSERT INTO `picturelink` (`Picture`, `CommentID`) VALUES ('"
-                            + Report.getRoof().getImage() + "','"
-                            + CommentDataMapper.getNextCommentNr() + "');");
+                    String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
+                        PreparedStatement stat = con.prepareStatement(sql);
+                        stat.setInt(1, CommentDataMapper.getNextCommentNr());
+             
+                        if (Report.getRoof().getCommentImage().getBytes() != null) 
+                        {
+                            stat.setBinaryStream(2, Report.getRoof().getCommentImage().getBytes(), (int) Report.getRoof().getCommentImage().getFilepart().getSize());
+                        }
+                        stat.executeUpdate();
                 }
             }
             con.close();
@@ -104,6 +122,7 @@ public class ReportDataMapper {
                 ResultSet res = statement.executeQuery("SELECT * FROM grp01.comments;");
                 res.beforeFirst();
                 while (res.next()) {
+                    System.out.println("found a comment");
                     comarr.add(new Comment(res.getString(4), res.getString(5), res.getInt(1), res.getInt(2), res.getInt(3)));
                 }
             }
@@ -112,11 +131,12 @@ public class ReportDataMapper {
                 res.beforeFirst();
                 while (res.next()) {
                     int commentID = res.getInt(2);
-                    InputStream input = res.getBinaryStream(3);
-                    Image img = ImageIO.read(input);
-
+                    BufferedImage img = ImageIO.read(new ByteArrayInputStream(res.getBytes(3)));
+                    System.out.println("found a image");
                     for (Comment comment : comarr) {
-                        if (comment.getCommentID() == commentID) {
+                        
+                        if (comment.getCommentID() == commentID && img != null) {
+                            System.out.println("added a image to comment");
                             comment.setImage(img);
                         }
                     }
@@ -134,13 +154,15 @@ public class ReportDataMapper {
                     info[0] = res.getInt(2);
                     info[1] = res.getInt(3);
                     info[2] = res.getInt(5);
-                    arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), new ArrayList<>()));
+                    arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), new ArrayList<Comment>()));
                 }
             }
             for (ReportPage reportpage : arr) {
                 for (Comment comment : comarr) {
-                    System.out.println(reportpage.getReportPageNr() + "" + comment.getReportPageID());
+                    
                     if (reportpage.getReportPageNr() == comment.getReportPageID()) {
+                        System.out.println(reportpage.getReportPageNr());
+                        System.out.println("added comment to reportpage");
                         reportpage.addComment(comment);
                     }
                 }
@@ -154,9 +176,12 @@ public class ReportDataMapper {
             }
 
             for (Comment comment : comarr) {
-                if (comment.getReportID() == report.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
+                
+                if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
+                    System.out.println("added comment to report walls");
                     report.setOuterWalls(comment);
-                } else if (comment.getReportID() == report.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
+                } else if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
+                    System.out.println("added comment to report roof");
                     report.setRoof(comment);
                 }
             }
@@ -190,6 +215,7 @@ public class ReportDataMapper {
                 ResultSet res = statement.executeQuery("SELECT * FROM grp01.comments;");
                 res.beforeFirst();
                 while (res.next()) {
+                    System.out.println("found a comment");
                     comarr.add(new Comment(res.getString(4), res.getString(5), res.getInt(1), res.getInt(2), res.getInt(3)));
                 }
             }
@@ -199,9 +225,8 @@ public class ReportDataMapper {
                 while (res.next()) {
                     int commentID = res.getInt(2);
                     if(res.getBlob(3)!=null){
-                    InputStream input = (res.getBinaryStream(3));
-                    Image img = ImageIO.read(input);
-                    
+                    BufferedImage img = ImageIO.read(new ByteArrayInputStream(res.getBytes(3)));
+                        System.out.println("found a image");
 
                     for (Comment comment : comarr) {
                         if (comment.getCommentID() == commentID) {
@@ -231,6 +256,7 @@ public class ReportDataMapper {
             for (ReportPage reportpage : arr) {
                 for (Comment comment : comarr) {
                     if (reportpage.getReportPageNr() == comment.getReportPageID()) {
+                        System.out.println("added comment to reportpage");
                         reportpage.addComment(comment);
                     }
                 }
@@ -240,6 +266,7 @@ public class ReportDataMapper {
                 for (ReportPage reportPage : arr) {
                     if (reportPage.getReportNr() == singlereport.getReportnr()) {
                         reportpageholder.add(reportPage);
+                        System.out.println("added reportpage to report");
                     }
                 }
                 ReportPage[] reportpage = new ReportPage[reportpageholder.size()];
@@ -248,6 +275,7 @@ public class ReportDataMapper {
             for (Report singlereport : report) {
 
                 for (Comment comment : comarr) {
+                    System.out.println("added comment to report");
                     if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
                         singlereport.setOuterWalls(comment);
                     } else if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
@@ -261,6 +289,7 @@ public class ReportDataMapper {
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
+        System.out.println("testing");
         return report;
     }
 

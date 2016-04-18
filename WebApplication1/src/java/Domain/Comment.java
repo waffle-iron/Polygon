@@ -1,17 +1,18 @@
 package Domain;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 public class Comment
 {
     private String text;
     private String type;
-    private Image image;
+    private CommentImage image;
     private int commentID;
     private int ReportID;
     private int ReportPageID;
 
-    public Comment(String text, String type, Image image) {
+    public Comment(String text, String type, CommentImage image) {
         this.text = text;
         this.type = type;
         this.image = image;
@@ -55,12 +56,21 @@ public class Comment
         this.commentID = commentID;
     }
 
-    public Image getImage() {
+    public CommentImage getCommentImage(){
         return image;
     }
+    public  void setCommentImage(CommentImage commentImage){
+        this.image = commentImage;
+    }
+    public BufferedImage getImage() {
+        if(image !=null)
+            return image.getImage();
+        else
+            return null;
+    }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImage(BufferedImage image) {
+        this.image.setImage(image);
     }
 
     public String getText()
