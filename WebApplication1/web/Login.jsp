@@ -12,9 +12,23 @@
         <link rel="stylesheet" type="text/css" href="General.css">
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>Login</title>
+        <style>
+            table {
+                width:100%;
+            }
 
+            th  {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 th	{
+                background-color: rgb(0,159,227);
+                color: white;
+            }
+        </style>
     </head>
     <body>
+
         <form action="ControllerServlet" method="get">
             <ul>
 
@@ -45,5 +59,16 @@
             <br>
             <br>
         </div>
+
+            <div class="footer">
+        <table id="t01">
+            <tr>
+                <th>Kontakt Polygon på tlf: 11111111</th>
+                <th>E-mail: Polygon@mail.dk</th>
+                <th>Akut hjælp: 112</th>
+            </tr>
+
+        </table>
+                </div>
     </body>
 </html> 

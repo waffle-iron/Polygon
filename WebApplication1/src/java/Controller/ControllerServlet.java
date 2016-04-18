@@ -485,7 +485,8 @@ public class ControllerServlet extends HttpServlet
 
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                     facade.addReportToDB(report);
-                    forward(request, response, "/FrontPage.jsp");
+                    request.setAttribute("saveReport", true);
+                    forward(request, response, "/AddReport.jsp");
                 } catch (NumberFormatException | IOException | ServletException ex)
                 {
                     ex.printStackTrace();

@@ -33,7 +33,13 @@
         </form>
         <div class="report">
             <form id="myForm" action="ControllerServlet" method="POST" enctype="multipart/form-data">
+                             <% if (request.getAttribute("saveReport") != null && request.getAttribute("saveReport").equals(true))
+                {%>
+                <h3>Du har nu oprettet en rapport.</h3>
+
+            <%}%> 
                 <div class="frontPage">
+                    
                     <% Building building = null;
                         if (session.getAttribute("building") != null)
                         {
