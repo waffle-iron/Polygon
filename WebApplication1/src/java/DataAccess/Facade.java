@@ -6,6 +6,7 @@ import Domain.Login;
 import Domain.Report;
 import java.awt.Image;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Facade
@@ -18,7 +19,9 @@ public class Facade
     private final ImageDataMapper imageDataMapper = new ImageDataMapper();
 
     public Building getSingleBuildingByID(int buildingID)
+            throws ClassNotFoundException,NumberFormatException,SQLException
     {
+        
         return buildingDM.getSingleBuildingByID(buildingID);
     }
     public void addBuildingToDB(Building build)
