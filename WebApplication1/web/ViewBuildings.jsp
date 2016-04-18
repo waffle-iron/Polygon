@@ -19,6 +19,7 @@
         <form action="ControllerServlet"  method="GET">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
+                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
                 <%
                     Login login1 = (Login) session.getAttribute("login");
                     System.out.println(login1.getAuthorization());
@@ -149,13 +150,5 @@
             <%}%>
         </table>
         <%}%>  
-
-        <form action="ControllerServlet" method="GET">
-            <input type="hidden" name="do_this" value="useButton" />
-            <input type="submit" value="Tilbage til start siden" name="button" class="submit2"/>
-            <br>
-        </form>
-
-
     </body>
 </html>

@@ -500,7 +500,7 @@ public class ControllerServlet extends HttpServlet
                 break;
             case "Opret nyt login":
                 request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                forward(request, response, "/Opret.jsp");
+                forward(request, response, "/AddUser.jsp");
 
                 break;
             case "Vis alle firmaer":
