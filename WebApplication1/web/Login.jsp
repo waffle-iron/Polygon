@@ -60,15 +60,15 @@
             <br>
         </div>
 
-            <div class="footer">
-        <table id="t01">
-            <tr>
-                <th>Kontakt Polygon på tlf: 11111111</th>
-                <th>E-mail: Polygon@mail.dk</th>
-                <th>Akut hjælp: 112</th>
-            </tr>
+        <div class="footer">
+            <table id="t01">
+                <tr>
+                    <th>Kontakt Polygon på tlf: 11111111</th>
+                    <th>E-mail: Polygon@mail.dk</th>
+                    <th>Akut hjælp: 112</th>
+                </tr>
 
-        </table>
-                </div>
+            </table>
+        </div>
     </body>
 </html> 
