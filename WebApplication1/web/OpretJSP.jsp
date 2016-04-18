@@ -71,18 +71,6 @@
         <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
         <div class="content">
             <h1>Opret bruger</h1>
-            <% boolean clear = false;
-                try
-                {
-                    if ((Boolean) request.getAttribute("clearAll"))
-                    {
-                        clear = true;
-                    }
-                } catch (Exception ex)
-                {
-                    clear = false;
-                }
-            %>
             <form action="ControllerServlet" method="POST">
 
                 <label for="username">Brugernavn:</label>
