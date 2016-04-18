@@ -269,10 +269,6 @@ public class ControllerServlet extends HttpServlet
                 if (session.getAttribute("login") != null)
                 {
                     Login login = (Login) session.getAttribute("login");
-
-                    System.out.println(session.getAttribute("login").toString());
-                    System.out.println(login.getFirmID());
-
                     try
                     {
                         if (login.getAuthorization().equals("user"))
@@ -284,7 +280,6 @@ public class ControllerServlet extends HttpServlet
                         }
                     } catch (Exception ex)
                     {
-                        System.out.println("test1");
                     }
                 }
                 forward(request, response, "/viewMyBuildingsJSP.jsp");
