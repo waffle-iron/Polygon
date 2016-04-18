@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Connector
 {
@@ -24,33 +22,22 @@ public class Connector
     public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
     static Statement stmt;
-    
-    public Connector()
-    {
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            stmt = con.createStatement();
 
-        } catch (Exception e)
-        {
-            System.out.println(e.toString());
-        }
+    public Connector() throws ClassNotFoundException, SQLException
+    {
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        stmt = con.createStatement();
     }
 
-    public ResultSet getResults(String query)
+    public ResultSet getResults(String query) throws SQLException
+
     {
         ResultSet res;
-        try
-        {
-            res = stmt.executeQuery(query);
-            return res;
 
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        res = stmt.executeQuery(query);
+        return res;
+
     }
 }
