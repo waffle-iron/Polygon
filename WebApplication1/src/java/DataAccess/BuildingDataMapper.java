@@ -37,10 +37,10 @@ public class BuildingDataMapper
     }
             
     public void addBuildingToDB(Building build)
+            throws ClassNotFoundException,SQLException
     {
 
-        try
-        {
+       
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
@@ -52,19 +52,16 @@ public class BuildingDataMapper
                     + build.getBuildYear() + ","
                     + build.getSize() + ",'"
                     + build.getUsage() + "');");
-        } catch (Exception ex)
-        {
-            System.out.println(ex.toString());
-        }
+        
     }
 
     public String printBuildings()
+            throws  ClassNotFoundException,NumberFormatException,SQLException
     {
+        
         ArrayList<Building> listOfBuildings = new ArrayList();
         String resultString = "";
 
-        try
-        {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement stmt = con.createStatement();
@@ -90,10 +87,7 @@ public class BuildingDataMapper
                 resultString += listOfBuilding.toString();
             }
 
-        } catch (Exception ex)
-        {
-            System.out.println(ex.toString());
-        }
+        
         return resultString;
     }
 

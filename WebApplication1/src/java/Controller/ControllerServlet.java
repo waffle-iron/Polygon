@@ -12,6 +12,7 @@ import Domain.Report;
 import Domain.ReportPage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -536,8 +537,27 @@ public class ControllerServlet extends HttpServlet
                 viewRaport(4, request, response);
                 break;
             case "writeReport":
+                try{
                 session.setAttribute("building", facade.getSingleBuildingByID(ID));
                 goToReport(request, response);
+                }
+                catch(ClassNotFoundException e)
+                {
+                    request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
+                            + e.toString());
+                }
+                catch(NumberFormatException e)
+                {
+                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den prøvede at forvanlde et bogstav sæt til et tal sæt, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
+                           +"hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                }
+                catch(SQLException e)
+                {
+                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det være fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
+                            +"hvis venligst en teknikker følgende besked"+ e.toString());
+                }
+                    
+                
                 break;
             case "uploadFloorPlan":
                 request.setAttribute("BuildingID", ID);
