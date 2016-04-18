@@ -258,9 +258,6 @@ public class ControllerServlet extends HttpServlet
     {
         switch (button)
         {
-            case "Rapport-midlertidig":
-                goToReport(request, response);
-                break;
             case "Opret bygning":
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                 forward(request, response, "/AddBuilding.jsp");
