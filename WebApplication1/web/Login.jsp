@@ -13,12 +13,12 @@
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>Login</title>
         <style>
-            table {
+            table#t01 {
                 width:100%;
                 position: fixed; bottom: 0;
             }
 
-            th  {
+            th {
                 padding: 5px;
                 text-align: left;
             }
@@ -60,7 +60,6 @@
             <br>
             <br>
         </div>
-
         <div class="footer">
             <table id="t01">
                 <tr>
@@ -68,7 +67,6 @@
                     <th>E-mail: Polygon@mail.dk</th>
                     <th>Akut hjælp: 112</th>
                 </tr>
-
             </table>
         </div>
     </body>

@@ -21,12 +21,25 @@
                 float:left;
                 margin-bottom: 5px;
             }
-            
+
             span, label {
                 float:left;
                 margin-bottom: 5px;
             }
+            
+            table#t01 {
+                width:100%;
+                position: fixed; bottom: 0;
+            }
 
+            th {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 th	{
+                background-color: rgb(0,159,227);
+                color: white;
+            }
         </style>
 
     </head>
@@ -35,9 +48,9 @@
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
                 <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
-                <%
-                    Login login = (Login) session.getAttribute("login");
-                %>
+                    <%
+                        Login login = (Login) session.getAttribute("login");
+                    %>
 
                 <%if (login.getAuthorization().equals("user"))
                     { %>
@@ -95,8 +108,18 @@
             </div>
             <% if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(true))
                 {%>
-                <label for="opretFirma">Du har nu oprettet et nyt firma.</label>
+            <label for="opretFirma">Du har nu oprettet et nyt firma.</label>
 
             <%}%> 
+            <div class="footer">
+                <table id="t01">
+                    <tr>
+                        <th>Kontakt Polygon på tlf: 11111111</th>
+                        <th>E-mail: Polygon@mail.dk</th>
+                        <th>Akut hjælp: 112</th>
+                    </tr>
+
+                </table>
+            </div>
     </body>
 </html>
