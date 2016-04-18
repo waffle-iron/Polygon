@@ -37,7 +37,7 @@
                 <li></li>
             </ul>
         </form>
-        <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
 
         <div class="content">
             <h1>Velkommen til Polygon</h1>
