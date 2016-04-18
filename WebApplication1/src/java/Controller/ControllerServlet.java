@@ -85,9 +85,10 @@ public class ControllerServlet extends HttpServlet
                             Integer.parseInt(request.getParameter("buildZip")),
                             Integer.parseInt(request.getParameter("buildFirmID")),
                             Integer.parseInt(request.getParameter("buildYear")),
-                            Integer.parseInt(request.getParameter("buildSize"))
-                    );
+                            Integer.parseInt(request.getParameter("buildSize")));
                     request.setAttribute("Done", true);
+                    
+                    request.setAttribute("saveBuilding", true);
                     request.setAttribute("saveBuildingInfo", building);
                     try
                     {
