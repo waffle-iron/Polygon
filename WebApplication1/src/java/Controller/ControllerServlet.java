@@ -10,10 +10,8 @@ import Domain.Firm;
 import Domain.Login;
 import Domain.Report;
 import Domain.ReportPage;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -57,7 +55,7 @@ public class ControllerServlet extends HttpServlet
                 button += request.getParameter("button");
                 if (button.equals("null"))
                 {
-                    forward(request, response, "/FrontPageJSP.html");
+                    forward(request, response, "/FrontPage.jsp");
                 }
                 useButton(request, response, session, button);
                 break;
@@ -76,7 +74,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
                     request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
-                    forward(request, response, "/AddBuildingJSP.jsp");
+                    forward(request, response, "/AddBuilding.jsp");
 
                 } else
                 {
@@ -93,7 +91,7 @@ public class ControllerServlet extends HttpServlet
                     facade.addBuildingToDB(building);
                     request.setAttribute("clearAll", true);
 
-                    forward(request, response, "/AddBuildingJSP.jsp");
+                    forward(request, response, "/AddBuilding.jsp");
                 }// </editor-fold>
                 break;
 
@@ -116,7 +114,7 @@ public class ControllerServlet extends HttpServlet
                         ex.toString();
                     }
                 }
-                forward(request, response, "/viewMyBuildingsJSP.jsp");
+                forward(request, response, "/ViewBuildings.jsp");
 
                 break;
 
@@ -125,7 +123,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("contactMail").trim().compareTo("") == 0)
                 {
                     request.setAttribute("saveFirmInfo", false);
-                    forward(request, response, "/FirmJSP.jsp");
+                    forward(request, response, "/AddFirm.jsp");
                 } else
                 {
                     Firm firm = new Firm(request.getParameter("contactNumber"),
@@ -136,7 +134,7 @@ public class ControllerServlet extends HttpServlet
 
                     request.setAttribute("clearAll", true);
 
-                    forward(request, response, "/FirmJSP.jsp");
+                    forward(request, response, "/AddFirm.jsp");
                     break;
                 }
 
@@ -150,7 +148,7 @@ public class ControllerServlet extends HttpServlet
                 goToReport(request, response);
                 break;
             case "Forside":
-                forward(request, response, "/FrontPageJSP.jsp");
+                forward(request, response, "/FrontPage.jsp");
                 break;
 
             case "CheckLogin":
@@ -160,7 +158,7 @@ public class ControllerServlet extends HttpServlet
                 if (request.getParameter("username").equals("") || request.getParameter("password").equals(""))
                 {
                     request.setAttribute("doExists", false);
-                    forward(request, response, "/LoginJSP.jsp");
+                    forward(request, response, "/Login.jsp");
 
                 }
 
@@ -172,14 +170,14 @@ public class ControllerServlet extends HttpServlet
                     switch (login.getAuthorization())
                     {
                         case "user":
-                            forward(request, response, "/FrontPageJSP.jsp");
+                            forward(request, response, "/FrontPage.jsp");
                             break;
 
                         case "tech":
-                            forward(request, response, "/FrontPageJSP.jsp");
+                            forward(request, response, "/FrontPage.jsp");
                             break;
                         case "admin":
-                            forward(request, response, "/FrontPageJSP.jsp");
+                            forward(request, response, "/FrontPage.jsp");
                             break;
                         default:
                             forward(request, response, "/Fejl.jsp");
@@ -189,7 +187,7 @@ public class ControllerServlet extends HttpServlet
                 } else
                 {
                     request.setAttribute("doExists", false);
-                    forward(request, response, "/LoginJSP.jsp");
+                    forward(request, response, "/Login.jsp");
                 }
                 // </editor-fold>
                 break;
@@ -222,7 +220,7 @@ public class ControllerServlet extends HttpServlet
                 {
                     request.setAttribute("saveLogin", false);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                    forward(request, response, "/OpretJSP.jsp");
+                    forward(request, response, "/Opret.jsp");
                 } else
                 {
                     Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
@@ -231,13 +229,13 @@ public class ControllerServlet extends HttpServlet
                     request.setAttribute("saveLogin", true);
                     facade.addLoginToDB(newLogin);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                    forward(request, response, "/OpretJSP.jsp");
+                    forward(request, response, "/Opret.jsp");
                 }
                 // </editor-fold>
                 break;
 
             case "goBackToLogin":
-                forward(request, response, "/LoginJSP.jsp");
+                forward(request, response, "/Login.jsp");
                 break;
             default:
                 System.out.println("Not valid command" + do_this);
@@ -252,7 +250,7 @@ public class ControllerServlet extends HttpServlet
     {
         request.setAttribute("numberOfPages", "" + 1);
         request.setAttribute("nextReportNr", facade.getNextReportNr());
-        forward(request, response, "/reportJSP.jsp");
+        forward(request, response, "/AddReport.jsp");
     }
 
     private void useButton(HttpServletRequest request, HttpServletResponse response, HttpSession session, String button)
@@ -265,7 +263,7 @@ public class ControllerServlet extends HttpServlet
                 break;
             case "Opret bygning":
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
-                forward(request, response, "/AddBuildingJSP.jsp");
+                forward(request, response, "/AddBuilding.jsp");
                 break;
             case "Mine bygninger":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
@@ -285,21 +283,20 @@ public class ControllerServlet extends HttpServlet
                     {
                     }
                 }
-                forward(request, response, "/viewMyBuildingsJSP.jsp");
+                forward(request, response, "/ViewBuildings.jsp");
 // </editor-fold>
                 break;
 
             case "Tilbage til start siden":
 
-                forward(request, response, "/FrontPageJSP.jsp");
+                forward(request, response, "/FrontPage.jsp");
                 break;
 
             case "Logud":
                 session.setAttribute("login", null);
                 session.setAttribute("loginAs", null);
                 session.setAttribute("building", null);
-
-                forward(request, response, "/LoginJSP.jsp");
+                forward(request, response, "/Login.jsp");
                 break;
 
             case "Opret rapport":
@@ -491,19 +488,19 @@ public class ControllerServlet extends HttpServlet
 
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                     facade.addReportToDB(report);
-                    forward(request, response, "/FrontPageJSP.jsp");
+                    forward(request, response, "/FrontPage.jsp");
                 } catch (NumberFormatException | IOException | ServletException ex)
                 {
                     ex.printStackTrace();
                     request.setAttribute(("nextReportNr"), facade.getNextReportNr());
                     request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
-                    forward(request, response, "/reportJSP.jsp");
+                    forward(request, response, "/AddReport.jsp");
                 }// </editor-fold>
 
                 break;
             case "Opret nyt login":
                 request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                forward(request, response, "/OpretJSP.jsp");
+                forward(request, response, "/Opret.jsp");
 
                 break;
             case "Vis alle firmaer":
@@ -512,16 +509,16 @@ public class ControllerServlet extends HttpServlet
 
                 break;
             case "Opret nyt firma":
-                forward(request, response, "/FirmJSP.jsp");
+                forward(request, response, "/AddFirm.jsp");
                 break;
 
             case "Kontakt":
-                forward(request, response, "/ContactJSP.jsp");
+                forward(request, response, "/Contact.jsp");
                 break;
             case "Opdater side antal":
                 request.setAttribute("nextReportNr", facade.getNextReportNr());
                 request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
-                forward(request, response, "/reportJSP.jsp");
+                forward(request, response, "/AddReport.jsp");
                 break;
             default:
                 forward(request, response, "/BuildJSP.jsp");
@@ -546,7 +543,7 @@ public class ControllerServlet extends HttpServlet
                 break;
             case "uploadFloorPlan":
                 request.setAttribute("BuildingID", ID);
-                forward(request, response, "/UploadFloorPlanJSP.jsp");
+                forward(request, response, "/UploadFloorPlan.jsp");
                 break;
         }
     }
@@ -577,7 +574,7 @@ public class ControllerServlet extends HttpServlet
             try
             {
                 
-                forward(request, response, "/ViewRapport.jsp");
+                forward(request, response, "/ViewReport.jsp");
             } catch (IOException | ServletException ex)
             {
                 ex.printStackTrace();
