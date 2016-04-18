@@ -34,6 +34,7 @@
         <form action="ControllerServlet"  method="GET">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
+                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
                 <%
                     Login login = (Login) session.getAttribute("login");
                 %>
@@ -97,11 +98,5 @@
                 <label for="opretFirma">Du har nu oprettet et nyt firma.</label>
 
             <%}%> 
-            <form action="ControllerServlet" method="GET">
-                <br>
-                <label for="goBack"></label>
-                <input type="hidden" name="do_this" value="goToFrontPage"/>
-                <input type="submit" value="Gå tilbage start siden" name="goToFrontPage" id="goBack" class="submit2" />
-            </form>
     </body>
 </html>

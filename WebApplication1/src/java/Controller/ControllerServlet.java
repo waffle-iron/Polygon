@@ -221,7 +221,7 @@ public class ControllerServlet extends HttpServlet
                 {
                     request.setAttribute("saveLogin", false);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                    forward(request, response, "/Opret.jsp");
+                    forward(request, response, "/AddUser.jsp");
                 } else
                 {
                     Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
@@ -230,7 +230,7 @@ public class ControllerServlet extends HttpServlet
                     request.setAttribute("saveLogin", true);
                     facade.addLoginToDB(newLogin);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                    forward(request, response, "/Opret.jsp");
+                    forward(request, response, "/AddUser.jsp");
                 }
                 // </editor-fold>
                 break;
@@ -259,9 +259,6 @@ public class ControllerServlet extends HttpServlet
     {
         switch (button)
         {
-            case "Rapport-midlertidig":
-                goToReport(request, response);
-                break;
             case "Opret bygning":
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                 forward(request, response, "/AddBuilding.jsp");
@@ -489,7 +486,8 @@ public class ControllerServlet extends HttpServlet
 
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                     facade.addReportToDB(report);
-                    forward(request, response, "/FrontPage.jsp");
+                    request.setAttribute("saveReport", true);
+                    forward(request, response, "/AddReport.jsp");
                 } catch (NumberFormatException | IOException | ServletException ex)
                 {
                     ex.printStackTrace();
@@ -501,7 +499,7 @@ public class ControllerServlet extends HttpServlet
                 break;
             case "Opret nyt login":
                 request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                forward(request, response, "/Opret.jsp");
+                forward(request, response, "/AddUser.jsp");
 
                 break;
             case "Vis alle firmaer":
@@ -522,7 +520,7 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/AddReport.jsp");
                 break;
             default:
-                forward(request, response, "/BuildJSP.jsp");
+                forward(request, response, "/Fejl.jsp");
                 break;
         }
     }
