@@ -77,7 +77,7 @@ public class ReportDataMapperTest {
         ReportDataMapper instance = new ReportDataMapper();
         ArrayList<Report> result = instance.getReportsFromDB(); 
         assertNotNull(result);
-        assertEquals(reports, result);
+        assertEquals(3, result.size());
     }
     
 }

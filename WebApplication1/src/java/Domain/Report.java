@@ -1,6 +1,7 @@
 package Domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Report
 {
@@ -129,6 +130,10 @@ public class Report
     public void setRoof(Comment roof)
     {
         this.roof = roof;
+    }
+    @Override
+    public String toString(){
+        return reportnr + Arrays.toString(reportPages)  + outerWalls.toString();
     }
 
 }
