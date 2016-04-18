@@ -41,6 +41,7 @@
             <input type ="hidden" value="useButton" name="do_this">
 
             <ul>
+                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
                 <%
                     Login login = (Login) session.getAttribute("login");
                 %>
@@ -146,12 +147,7 @@
             Login blev ikke oprettet. Tjek eventuelt for manglede udfyldning af felter.
             <%}%>
             <br>
-            <form action="ControllerServlet" method="GET">
-                <label for="goBack"></label>
-                <input type="hidden" name="do_this" value="goToFrontPage" />
-                <input type="submit" id="goBack" value="Gå tilbage til start siden" name="goToFrontPage" class="submit2"/>
-                <br>
-            </form>
+            
         </div>
     </body>
 </html>
