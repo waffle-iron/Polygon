@@ -220,7 +220,7 @@ public class ControllerServlet extends HttpServlet
                 {
                     request.setAttribute("saveLogin", false);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                    forward(request, response, "/Opret.jsp");
+                    forward(request, response, "/AddUser.jsp");
                 } else
                 {
                     Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
@@ -229,7 +229,7 @@ public class ControllerServlet extends HttpServlet
                     request.setAttribute("saveLogin", true);
                     facade.addLoginToDB(newLogin);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                    forward(request, response, "/Opret.jsp");
+                    forward(request, response, "/AddUser.jsp");
                 }
                 // </editor-fold>
                 break;
@@ -518,7 +518,7 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/AddReport.jsp");
                 break;
             default:
-                forward(request, response, "/BuildJSP.jsp");
+                forward(request, response, "/Fejl.jsp");
                 break;
         }
     }
