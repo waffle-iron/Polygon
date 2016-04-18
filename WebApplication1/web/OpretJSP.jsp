@@ -41,6 +41,7 @@
             <input type ="hidden" value="useButton" name="do_this">
 
             <ul>
+                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
                 <%
                     Login login = (Login) session.getAttribute("login");
                 %>
@@ -71,18 +72,6 @@
         <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
         <div class="content">
             <h1>Opret bruger</h1>
-            <% boolean clear = false;
-                try
-                {
-                    if ((Boolean) request.getAttribute("clearAll"))
-                    {
-                        clear = true;
-                    }
-                } catch (Exception ex)
-                {
-                    clear = false;
-                }
-            %>
             <form action="ControllerServlet" method="POST">
 
                 <label for="username">Brugernavn:</label>
@@ -97,10 +86,11 @@
                 <br>
                 <br>
 
-                <label for="userType">Type:</label>
+                
                 <% if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                 {%>
-
+                <label for="userType">Type:</label>
+                
                 <select name="enum" id="userType">
                     <option>Bruger</option>
                     <option>Tekniker</option>
@@ -145,12 +135,7 @@
             Login blev ikke oprettet. Tjek eventuelt for manglede udfyldning af felter.
             <%}%>
             <br>
-            <form action="ControllerServlet" method="GET">
-                <label for="goBack"></label>
-                <input type="hidden" name="do_this" value="goToFrontPage" />
-                <input type="submit" id="goBack" value="Gå tilbage til start siden" name="goToFrontPage" class="submit2"/>
-                <br>
-            </form>
+            
         </div>
     </body>
 </html>

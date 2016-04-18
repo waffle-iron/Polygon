@@ -149,7 +149,7 @@ public class ControllerServlet extends HttpServlet
             case "Report":
                 goToReport(request, response);
                 break;
-            case "goToFrontPage":
+            case "Forside":
                 forward(request, response, "/FrontPageJSP.jsp");
                 break;
 

@@ -4,16 +4,17 @@ import Domain.Building;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BuildingDataMapper
 {
-    public Building getSingleBuildingByID(int buildingID)
+    public Building getSingleBuildingByID(int buildingID)throws 
+            ClassNotFoundException, SQLException, NumberFormatException
     {
         Building building = null;
-        try
-        {
+        
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement stmt = con.createStatement();
@@ -31,10 +32,7 @@ public class BuildingDataMapper
                                 Integer.parseInt(res.getString("Size")));
             }
 
-        } catch (Exception ex)
-        {
-            System.out.println(ex.toString());
-        }
+        
         return building;
     }
             
