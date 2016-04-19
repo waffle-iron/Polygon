@@ -13,79 +13,66 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ReportDataMapper {
 
     public void addReportToDB(Report Report) {
-
+        Connection con = null;
         try {
+
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-            Statement statement = con.createStatement();
-            statement.executeUpdate("insert into `report` (`BuildingID`,`Date`,`StateNR`)  values('"
-                    + Report.getBuildingID() + "','"
-                    + Report.getReportDate().toSQLString() + "','"
-                    + +Report.getState() + "');");
+            con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+            con.setAutoCommit(false);
+            PreparedStatement stat;
+            stat = con.prepareStatement(("insert into `report` (`BuildingID`,`Date`,`StateNR`)  values( ?, ?,?;"));
+            stat.setInt(1, Report.getBuildingID());
+            stat.setDate(2, Report.getReportDate().getDate());
+            stat.setInt(3, Report.getState());
+            stat.executeUpdate();
+
             for (ReportPage reportpage : Report.getReportPages()) {
 
-                statement.executeUpdate("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`) values('"
-                        + (getNextReportNr() - 1) + "','"
-                        + reportpage.getPreviousDamaged() + "','"
-                        + reportpage.getDamagedDate().toSQLString() + "','"
-                        + reportpage.getDamagedPlace() + "','"
-                        + reportpage.getCause() + "','"
-                        + reportpage.getRepairs() + "','"
-                        + reportpage.getMoist() + "','"
-                        + reportpage.getRot() + "','"
-                        + reportpage.getMold() + "','"
-                        + reportpage.getFire() + "','"
-                        + reportpage.getOther() + "','"
-                        + reportpage.getMoistScan() + "');");
+                stat = con.prepareStatement("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`) values(?,?,?,?,?,?,?,?,?,?,?,?)");
+                stat.setInt(1, getNextReportNr() - 1);
+                stat.setInt(2, reportpage.getPreviousDamaged());
+                stat.setDate(3, reportpage.getDamagedDate().getDate());
+                stat.setString(4, reportpage.getDamagedPlace());
+                stat.setString(5, reportpage.getCause());
+                stat.setString(6, reportpage.getRepairs());
+                stat.setInt(7, reportpage.getMoist());
+                stat.setInt(8, reportpage.getRot());
+                stat.setInt(9, reportpage.getMold());
+                stat.setInt(10, reportpage.getFire());
+                stat.setString(11, reportpage.getOther());
+                stat.setInt(12, reportpage.getMoistScan());
+                stat.executeUpdate();
             }
             if (Report.getOuterWalls() != null) {
-                statement.executeUpdate("insert into `comments`(`ReportNR`,`CommentType`,`Text`) values('"
-                        + (getNextReportNr() - 1) + "','"
-                        + Report.getOuterWalls().getType() + "','"
-                        + Report.getOuterWalls().getText() + "');");
-                if (Report.getOuterWalls().getImage() != null) {
-                    String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
-                    PreparedStatement stat = con.prepareStatement(sql);
-                    stat.setInt(1, CommentDataMapper.getNextCommentNr());
-
-                    if (Report.getOuterWalls().getCommentImage().getBytes() != null) {
-                        stat.setBinaryStream(2, Report.getOuterWalls().getCommentImage().getBytes(), (int) Report.getOuterWalls().getCommentImage().getFilepart().getSize());
-                    }
-                    stat.executeUpdate();
-                }
+                CommentDataMapper.addCommnetsToDB(Report.getOuterWalls(), con);
             }
             if (Report.getRoof() != null) {
-                statement.executeUpdate("insert into `comments`(`ReportNR`,`CommentType`,`Text`) values('"
-                        + (getNextReportNr() - 1) + "','"
-                        + Report.getRoof().getType() + "','"
-                        + Report.getRoof().getText() + "');");
-                if (Report.getRoof().getImage() != null) {
-                    String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
-                    PreparedStatement stat = con.prepareStatement(sql);
-                    stat.setInt(1, CommentDataMapper.getNextCommentNr());
-
-                    if (Report.getRoof().getCommentImage().getBytes() != null) {
-                        stat.setBinaryStream(2, Report.getRoof().getCommentImage().getBytes(), (int) Report.getRoof().getCommentImage().getFilepart().getSize());
-                    }
-                    stat.executeUpdate();
-                }
+                CommentDataMapper.addCommnetsToDB(Report.getRoof(), con);
             }
-        } catch (Exception ex) {
+            con.commit();
+        } catch (SQLException e) {
+            try {
+                System.err.print("Transaction is being rolled back");
+                con.rollback();
+            } catch (SQLException excep) {
+            }
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-            System.out.println(ex.toString());
         }
     }
-/**
- * 
- * @param ReportID
- * @return 
- */
+
+    /**
+     *
+     * @param ReportID
+     * @return
+     */
     public Report getReportFromDB(int ReportID) {
         Report report = null;
 
@@ -98,7 +85,7 @@ public class ReportDataMapper {
             con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             comarr = CommentDataMapper.getCommentsFromDB();
-            
+
             ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, "
                     + "(select BuildingID from report where report.reportNR  = e.reportNR),"
                     + "(select `Date` from report where report.reportNR  = e.reportNR),"
@@ -146,10 +133,12 @@ public class ReportDataMapper {
 
         return report;
     }
-/**
- *  gets all of the reports from the database
- * @return arraylist of reports
- */
+
+    /**
+     * gets all of the reports from the database
+     *
+     * @return arraylist of reports
+     */
     public ArrayList<Report> getReportsFromDB() {
         ArrayList<Report> report = new ArrayList<>();
 
@@ -161,7 +150,6 @@ public class ReportDataMapper {
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             comarr = CommentDataMapper.getCommentsFromDB();
-            System.out.println("testing on reports outside");
             ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, ("
                     + "select BuildingID from report where report.reportNR  = e.reportNR),"
                     + "(select `Date` from report where report.reportNR  = e.reportNR),"
@@ -175,7 +163,7 @@ public class ReportDataMapper {
                 info[2] = res.getInt(5);
                 arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), new ArrayList<>()));
                 Report reportholder = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), null, null, null);
-                if (report.isEmpty() || !reportholder.equals(report.get(report.size()-1))) {
+                if (report.isEmpty() || !reportholder.equals(report.get(report.size() - 1))) {
                     report.add(reportholder);
                 }
             }
@@ -210,16 +198,18 @@ public class ReportDataMapper {
             }
 
         } catch (Exception ex) {
-            
+
             ex.printStackTrace();
         }
         System.out.println("testing");
         return report;
     }
-/**
- * get a int that is the nummber of report in the database
- * @return int of reports
- */
+
+    /**
+     * get a int that is the nummber of report in the database
+     *
+     * @return int of reports
+     */
     public int getNumberOfReportsFromDB() {
 
         int info = 0;
@@ -238,10 +228,12 @@ public class ReportDataMapper {
         }
         return info;
     }
-/**
- * returns the next reportnr
- * @return returns the next reportID
- */
+
+    /**
+     * returns the next reportnr
+     *
+     * @return returns the next reportID
+     */
     public static int getNextReportNr() {
         int info = 0;
         try {
@@ -258,10 +250,12 @@ public class ReportDataMapper {
         }
         return info;
     }
-/**
- * gets the next reportpage nummber
- * @return returs the next reportpagenummber
- */
+
+    /**
+     * gets the next reportpage nummber
+     *
+     * @return returs the next reportpagenummber
+     */
     public static int getNextReportPageNr() {
         int info = 0;
         try {
