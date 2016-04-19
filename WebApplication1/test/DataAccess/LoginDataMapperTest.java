@@ -49,5 +49,5 @@ public class LoginDataMapperTest
     /**
      * Test of userExists method, of class LoginDataMapper.
      */
-   
+ 
 }

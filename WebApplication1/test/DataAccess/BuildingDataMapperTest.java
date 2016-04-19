@@ -49,13 +49,19 @@ public class BuildingDataMapperTest
     @Test
     public void testBuildingsFromDatabase() {
         ArrayList<Building> result = buildingDM.getBuildingsFromDatabase();
-        assertEquals(20, result.size());
+        assertEquals(3, result.size());
+        
+        ArrayList<Building> result1 = buildingDM.getBuildingsFromDatabase();
+        assertNotEquals(-1, result1.size());
     }
     
     @Test
     public void testViewMyBuildings()
     {
         ArrayList<Building> result = buildingDM.viewMyBuildings(1);
-        assertEquals(9, result.size());
+        assertEquals(2, result.size());
+        
+        ArrayList<Building> result1 = buildingDM.viewMyBuildings(-4);
+        assertNotEquals(0, result1);
     }   
 }
