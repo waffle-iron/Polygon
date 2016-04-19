@@ -47,13 +47,13 @@ public class BuildingDataMapperTest
     @Test
     public void testBuildingsFromDatabase() {
         ArrayList<Building> result = buildingDM.getBuildingsFromDatabase();
-        assertEquals(3, result.size());
+        assertEquals(20, result.size());
     }
     
     @Test
     public void testViewMyBuildings()
     {
         ArrayList<Building> result = buildingDM.viewMyBuildings(1);
-        assertEquals(2, result.size());
+        assertEquals(9, result.size());
     }   
 }
