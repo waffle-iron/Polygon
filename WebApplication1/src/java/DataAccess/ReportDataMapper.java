@@ -282,7 +282,7 @@ public class ReportDataMapper {
         return report;
     }
 
-    public int getNumbeOfReportFromDB() {
+    public int getNumberOfReportsFromDB() {
 
         int info = 0;
         ArrayList<ReportPage> arr = new ArrayList<>();

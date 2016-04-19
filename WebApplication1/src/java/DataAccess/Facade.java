@@ -70,7 +70,7 @@ public class Facade
 
     public int getNumbeOfReportFromDB()
     {
-        return reportDM.getNumbeOfReportFromDB();
+        return reportDM.getNumberOfReportsFromDB();
     }
 
     public int getNextReportNr()
