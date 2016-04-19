@@ -6,6 +6,7 @@
 package DataAccess;
 
 import Domain.Login;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,6 +20,7 @@ import static org.junit.Assert.*;
  */
 public class LoginDataMapperTest
 {
+    LoginDataMapper loginDM = new LoginDataMapper();
     
     public LoginDataMapperTest()
     {
@@ -47,6 +49,5 @@ public class LoginDataMapperTest
     /**
      * Test of userExists method, of class LoginDataMapper.
      */
-   
-    
+ 
 }

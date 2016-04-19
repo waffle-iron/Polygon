@@ -1,11 +1,13 @@
+package DataAccess;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Domain;
 
-import DataAccess.BuildingDataMapper;
+
+import Domain.Building;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -47,13 +49,19 @@ public class BuildingDataMapperTest
     @Test
     public void testBuildingsFromDatabase() {
         ArrayList<Building> result = buildingDM.getBuildingsFromDatabase();
-        assertEquals(20, result.size());
+        assertEquals(3, result.size());
+        
+        ArrayList<Building> result1 = buildingDM.getBuildingsFromDatabase();
+        assertNotEquals(-1, result1.size());
     }
     
     @Test
     public void testViewMyBuildings()
     {
         ArrayList<Building> result = buildingDM.viewMyBuildings(1);
-        assertEquals(9, result.size());
+        assertEquals(2, result.size());
+        
+        ArrayList<Building> result1 = buildingDM.viewMyBuildings(-4);
+        assertNotEquals(0, result1);
     }   
 }

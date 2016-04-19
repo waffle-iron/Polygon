@@ -172,7 +172,6 @@ public class ControllerServlet extends HttpServlet
 
             case "CheckLogin":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
-                String temp = "";
 
                 if (request.getParameter("username").equals("") || request.getParameter("password").equals(""))
                 {
@@ -567,10 +566,20 @@ public class ControllerServlet extends HttpServlet
             case "Delete":
                 break;
             case "viewReports":
+                                
                 try{
+                   
                     ArrayList<Integer> reportIDList  = facade.getListogReportIDsByBuildingID(ID);
-                    request.setAttribute("reportIDList", reportIDList);
-                    viewRaport(reportIDList.get(reportIDList.size()-1), request, response);
+                    if(reportIDList.size() != 0)
+                    {
+                        request.setAttribute("reportIDList", reportIDList);
+                        viewRaport(reportIDList.get(reportIDList.size()-1), request, response);
+                    } else
+                    {
+                        request.setAttribute("noReport", "Der findes ingen rapport til denne bygning.");
+                        request.setAttribute("goBackToMyBuildings", "viewMyBuildings");
+                        forward(request, response, "/Fejl.jsp");
+                    }
                 }
                 catch(Exception e)
                 {

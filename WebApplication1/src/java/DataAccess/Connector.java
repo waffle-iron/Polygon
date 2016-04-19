@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Connector
 {
@@ -21,14 +20,13 @@ public class Connector
 //    final static String PASSWORD = "1234";
     public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
-    static Statement stmt;
+    private Connection con;
 
     public Connector() throws ClassNotFoundException, SQLException
     {
 
         Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        stmt = con.createStatement();
+        con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
     public ResultSet getResults(String query) throws SQLException
@@ -36,8 +34,15 @@ public class Connector
     {
         ResultSet res;
 
-        res = stmt.executeQuery(query);
+        res = con.createStatement().executeQuery(query);
         return res;
 
     }
+
+    public Connection getCon()
+    {
+        return con;
+    }
+    
+    
 }
