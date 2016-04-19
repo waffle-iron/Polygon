@@ -88,10 +88,18 @@ ReportDataMapper reportDM = new ReportDataMapper();
 //        assertEquals(3, result.size());
 //    }
     @Test
-    public void testGetReportFromDB()
+    public void testGetReportsFromDB()
     {
         ArrayList<Report> result = reportDM.getReportsFromDB();
         assertEquals(18, result.size());
+    }
+    
+    @Test
+    public void testGetReportFromDB()
+    {
+        Report result;
+        result = reportDM.getReportFromDB(1);
+        assertEquals(1, result);
     }
 
 }
