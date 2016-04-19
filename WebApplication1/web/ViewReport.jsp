@@ -128,9 +128,10 @@
 
                     <%if(reportPage.getComments()!=null)
                     for(Comment comment: comments){%>
-                    <%=comment.toString()%>
-                    <%--<%if(comment.getImage()!= null)%>
-                    <%= comment.getImage()%>--%>
+                    <%--<%=comment.toString()%>--%>
+                    <%if(comment.getImage()!= null){%>
+                    <%= comment.getImage()%>
+                    <%}%>
             <%}
             
             %>

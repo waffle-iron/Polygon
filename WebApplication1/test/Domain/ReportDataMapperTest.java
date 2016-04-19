@@ -126,4 +126,5 @@ ReportDataMapper reportDM = new ReportDataMapper();
         result = reportDM.getNextReportPageNr();
         assertEquals(4, result);
     }
+    
 }

@@ -9,15 +9,12 @@ import Domain.Comment;
 import Domain.Date;
 import Domain.Report;
 import Domain.ReportPage;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 
 public class ReportDataMapper {
 
@@ -46,24 +43,6 @@ public class ReportDataMapper {
                         + reportpage.getFire() + "','"
                         + reportpage.getOther() + "','"
                         + reportpage.getMoistScan() + "');");
-                for (Comment comment : reportpage.getComments()) {
-                    statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values('"
-                            + (getNextReportNr() - 1) + "','"
-                            + (getNextReportPageNr() - 1) + "','"
-                            + comment.getType() + "','"
-                            + comment.getText() + "');");
-                    if (comment.getImage() != null) {
-                        String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
-                        PreparedStatement stat = con.prepareStatement(sql);
-                        stat.setInt(1, CommentDataMapper.getNextCommentNr());
-             
-                        if (comment.getCommentImage().getBytes() != null) 
-                        {
-                            stat.setBinaryStream(2, comment.getCommentImage().getBytes(), (int) comment.getCommentImage().getFilepart().getSize());
-                        }
-                        stat.executeUpdate();
-                    }
-                }
             }
             if (Report.getOuterWalls() != null) {
                 statement.executeUpdate("insert into `comments`(`ReportNR`,`CommentType`,`Text`) values('"
@@ -72,14 +51,13 @@ public class ReportDataMapper {
                         + Report.getOuterWalls().getText() + "');");
                 if (Report.getOuterWalls().getImage() != null) {
                     String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
-                        PreparedStatement stat = con.prepareStatement(sql);
-                        stat.setInt(1, CommentDataMapper.getNextCommentNr());
-             
-                        if (Report.getOuterWalls().getCommentImage().getBytes() != null) 
-                        {
-                            stat.setBinaryStream(2, Report.getOuterWalls().getCommentImage().getBytes(), (int) Report.getOuterWalls().getCommentImage().getFilepart().getSize());
-                        }
-                        stat.executeUpdate();
+                    PreparedStatement stat = con.prepareStatement(sql);
+                    stat.setInt(1, CommentDataMapper.getNextCommentNr());
+
+                    if (Report.getOuterWalls().getCommentImage().getBytes() != null) {
+                        stat.setBinaryStream(2, Report.getOuterWalls().getCommentImage().getBytes(), (int) Report.getOuterWalls().getCommentImage().getFilepart().getSize());
+                    }
+                    stat.executeUpdate();
                 }
             }
             if (Report.getRoof() != null) {
@@ -89,14 +67,13 @@ public class ReportDataMapper {
                         + Report.getRoof().getText() + "');");
                 if (Report.getRoof().getImage() != null) {
                     String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
-                        PreparedStatement stat = con.prepareStatement(sql);
-                        stat.setInt(1, CommentDataMapper.getNextCommentNr());
-             
-                        if (Report.getRoof().getCommentImage().getBytes() != null) 
-                        {
-                            stat.setBinaryStream(2, Report.getRoof().getCommentImage().getBytes(), (int) Report.getRoof().getCommentImage().getFilepart().getSize());
-                        }
-                        stat.executeUpdate();
+                    PreparedStatement stat = con.prepareStatement(sql);
+                    stat.setInt(1, CommentDataMapper.getNextCommentNr());
+
+                    if (Report.getRoof().getCommentImage().getBytes() != null) {
+                        stat.setBinaryStream(2, Report.getRoof().getCommentImage().getBytes(), (int) Report.getRoof().getCommentImage().getFilepart().getSize());
+                    }
+                    stat.executeUpdate();
                 }
             }
         } catch (Exception ex) {
@@ -116,30 +93,8 @@ public class ReportDataMapper {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            {
-                ResultSet res = statement.executeQuery("SELECT * FROM grp01.comments;");
-                res.beforeFirst();
-                while (res.next()) {
-                    System.out.println("found a comment");
-                    comarr.add(new Comment(res.getString(4), res.getString(5), res.getInt(1), res.getInt(2), res.getInt(3)));
-                }
-            }
-            {
-                ResultSet res = statement.executeQuery("SELECT * FROM grp01.picturelink;");
-                res.beforeFirst();
-                while (res.next()) {
-                    int commentID = res.getInt(2);
-                    BufferedImage img = ImageIO.read(new ByteArrayInputStream(res.getBytes(3)));
-                    System.out.println("found a image");
-                    for (Comment comment : comarr) {
-                        
-                        if (comment.getCommentID() == commentID && img != null) {
-                            System.out.println("added a image to comment");
-                            comment.setImage(img);
-                        }
-                    }
-                }
-            }
+            comarr = CommentDataMapper.getCommentsFromDB();
+            
             ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, "
                     + "(select BuildingID from report where report.reportNR  = e.reportNR),"
                     + "(select `Date` from report where report.reportNR  = e.reportNR),"
@@ -157,12 +112,9 @@ public class ReportDataMapper {
             }
             for (ReportPage reportpage : arr) {
                 for (Comment comment : comarr) {
-                    
                     if (reportpage.getReportPageNr() == comment.getReportPageID()) {
-                        System.out.println(reportpage.getReportPageNr());
-                        System.out.println("added comment to reportpage");
+                        //System.out.println("added comment to reportpage");
                         reportpage.addComment(comment);
-                        System.out.println("comment = " + comment);
                     }
                 }
             }
@@ -175,23 +127,25 @@ public class ReportDataMapper {
             }
 
             for (Comment comment : comarr) {
-                
                 if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
-                    System.out.println("added comment to report walls");
+                    //System.out.println("added comment to report walls");
                     report.setOuterWalls(comment);
                 } else if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
-                    System.out.println("added comment to report roof");
+                    //System.out.println("added comment to report roof");
                     report.setRoof(comment);
                 }
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
-        } 
-        
+        }
+
         return report;
     }
-
+/**
+ *  gets all of the reports from the database
+ * @return arraylist of reports
+ */
     public ArrayList<Report> getReportsFromDB() {
         ArrayList<Report> report = new ArrayList<>();
 
@@ -202,31 +156,8 @@ public class ReportDataMapper {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            {
-                ResultSet res = statement.executeQuery("SELECT * FROM grp01.comments;");
-                res.beforeFirst();
-                while (res.next()) {
-                    System.out.println("found a comment");
-                    comarr.add(new Comment(res.getString(4), res.getString(5), res.getInt(1), res.getInt(2), res.getInt(3)));
-                }
-            }
-            {
-                ResultSet res = statement.executeQuery("SELECT * FROM grp01.picturelink;");
-                res.beforeFirst();
-                while (res.next()) {
-                    int commentID = res.getInt(2);
-                    if(res.getBlob(3)!=null){
-                    BufferedImage img = ImageIO.read(new ByteArrayInputStream(res.getBytes(3)));
-                        System.out.println("found a image");
-
-                    for (Comment comment : comarr) {
-                        if (comment.getCommentID() == commentID) {
-                            comment.setImage(img);
-                        }
-                    }
-                    }
-                }
-            }
+            comarr = CommentDataMapper.getCommentsFromDB();
+            
             ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, ("
                     + "select BuildingID from report where report.reportNR  = e.reportNR),"
                     + "(select `Date` from report where report.reportNR  = e.reportNR),"
@@ -244,29 +175,28 @@ public class ReportDataMapper {
                     report.add(reportholder);
                 }
             }
+            //addeing comments to reportpage
             for (ReportPage reportpage : arr) {
                 for (Comment comment : comarr) {
                     if (reportpage.getReportPageNr() == comment.getReportPageID()) {
-                        System.out.println("added comment to reportpage");
                         reportpage.addComment(comment);
                     }
                 }
             }
+            //addeing reportpage to reports
             for (Report singlereport : report) {
                 ArrayList<ReportPage> reportpageholder = new ArrayList<>();
                 for (ReportPage reportPage : arr) {
                     if (reportPage.getReportNr() == singlereport.getReportnr()) {
                         reportpageholder.add(reportPage);
-                        System.out.println("added reportpage to report");
                     }
                 }
                 ReportPage[] reportpage = new ReportPage[reportpageholder.size()];
                 singlereport.setReportPages((ReportPage[]) reportpageholder.toArray(reportpage));
             }
+            //adding comments to report
             for (Report singlereport : report) {
-
                 for (Comment comment : comarr) {
-                    System.out.println("added comment to report");
                     if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
                         singlereport.setOuterWalls(comment);
                     } else if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
@@ -281,7 +211,10 @@ public class ReportDataMapper {
         System.out.println("testing");
         return report;
     }
-
+/**
+ * get a int that is the nummber of report in the database
+ * @return int of reports
+ */
     public int getNumberOfReportsFromDB() {
 
         int info = 0;
@@ -300,8 +233,11 @@ public class ReportDataMapper {
         }
         return info;
     }
-
-    public int getNextReportNr() {
+/**
+ * returns the next reportnr
+ * @return returns the next reportID
+ */
+    public static int getNextReportNr() {
         int info = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -317,8 +253,11 @@ public class ReportDataMapper {
         }
         return info;
     }
-
-    public int getNextReportPageNr() {
+/**
+ * gets the next reportpage nummber
+ * @return returs the next reportpagenummber
+ */
+    public static int getNextReportPageNr() {
         int info = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
