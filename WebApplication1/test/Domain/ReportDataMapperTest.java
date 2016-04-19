@@ -101,4 +101,5 @@ ReportDataMapper reportDM = new ReportDataMapper();
         result = reportDM.getReportFromDB(1);
         assertEquals(1, result);
     }
+    
 }
