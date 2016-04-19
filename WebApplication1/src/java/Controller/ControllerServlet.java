@@ -163,7 +163,6 @@ public class ControllerServlet extends HttpServlet
 
             case "CheckLogin":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
-                String temp = "";
 
                 if (request.getParameter("username").equals("") || request.getParameter("password").equals(""))
                 {
