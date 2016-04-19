@@ -131,9 +131,5 @@ public class Report
     {
         this.roof = roof;
     }
-    @Override
-    public String toString(){
-        return reportnr + Arrays.toString(reportPages)  + outerWalls.toString();
-    }
 
 }
