@@ -13,6 +13,22 @@
         <link rel="stylesheet" type="text/css" href="General.css">
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>Kontakt</title>
+        
+        <style>
+            table#t01 {
+                width:100%;
+                position: fixed; bottom: 0;
+            }
+
+            th {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 th	{
+                background-color: rgb(0,159,227);
+                color: white;
+            }
+        </style>
     </head>
 
     <body>
@@ -21,7 +37,7 @@
             <ul>
                 <%
                     Login login = null;
-                    if(session.getAttribute("login") != null)
+                    if (session.getAttribute("login") != null)
                     {
                         login = (Login) session.getAttribute("login");
                     }
@@ -52,16 +68,26 @@
 
             </ul>
         </form>
-        <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <h1>Du kan kontakte Polygon på</h1>
         Telefon: 
         <br>
         E-mail:
-            <form action="ControllerServlet" method="GET">
-                <br>
-                <label for="goBack"></label>
-                <input type="hidden" name="do_this" value="goToFrontPage"/>
-                <input type="submit" value="Gå tilbage start siden" name="goToFrontPage" id="goBack" class="submit2" />
-            </form>
+        <form action="ControllerServlet" method="GET">
+            <br>
+            <label for="goBack"></label>
+            <input type="hidden" name="do_this" value="goToFrontPage"/>
+            <input type="submit" value="Gå tilbage start siden" name="goToFrontPage" id="goBack" class="submit2" />
+        </form>
+        <div class="footer">
+            <table id="t01">
+                <tr>
+                    <th>Kontakt Polygon på tlf: 11111111</th>
+                    <th>E-mail: Polygon@mail.dk</th>
+                    <th>Akut hjælp: 112</th>
+                </tr>
+
+            </table>
+        </div>
     </body>
 </html>

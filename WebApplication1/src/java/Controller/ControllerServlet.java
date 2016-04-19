@@ -85,13 +85,19 @@ public class ControllerServlet extends HttpServlet
                             Integer.parseInt(request.getParameter("buildZip")),
                             Integer.parseInt(request.getParameter("buildFirmID")),
                             Integer.parseInt(request.getParameter("buildYear")),
-                            Integer.parseInt(request.getParameter("buildSize"))
-                    );
+                            Integer.parseInt(request.getParameter("buildSize")));
                     request.setAttribute("Done", true);
+                    
+                    request.setAttribute("saveBuilding", true);
                     request.setAttribute("saveBuildingInfo", building);
-                    facade.addBuildingToDB(building);
+                    try
+                    {
+                        facade.addBuildingToDB(building);
+                    } catch (Exception ex)
+                    {
+                        ex.toString();
+                    }
                     request.setAttribute("clearAll", true);
-
                     forward(request, response, "/AddBuilding.jsp");
                 }// </editor-fold>
                 break;
@@ -304,9 +310,9 @@ public class ControllerServlet extends HttpServlet
                     Report report;
                     int[] info = new int[3];
                     info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
-                    if ( session.getAttribute("building") != null)
+                    if (session.getAttribute("building") != null)
                     {
-                        Building building = ((Building)session.getAttribute("building"));
+                        Building building = ((Building) session.getAttribute("building"));
                         info[1] = building.getBuildingID();
                     }
                     if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("0")))
@@ -552,11 +558,11 @@ public class ControllerServlet extends HttpServlet
                 viewRaport(4, request, response);
                 break;
             case "writeReport":
-                try{
-                session.setAttribute("building", facade.getSingleBuildingByID(ID));
-                goToReport(request, response);
-                }
-                catch(ClassNotFoundException e)
+                try
+                {
+                    session.setAttribute("building", facade.getSingleBuildingByID(ID));
+                    goToReport(request, response);
+                } catch (ClassNotFoundException e)
                 {
                     request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
                             + e.toString());
@@ -564,18 +570,17 @@ public class ControllerServlet extends HttpServlet
                 }
                 catch(NumberFormatException e)
                 {
-                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den prøvede at forvanlde et bogstav sæt til et tal sæt, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
-                           +"hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den prÃ¸vede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
+                           +"hvis venligst en teknikker fÃ¸lgende besked"+ "<br>"+ e.toString());
                     forward(request, response, "/Fejl.jsp");
                 }
                 catch(SQLException e)
                 {
-                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det være fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
-                            +"hvis venligst en teknikker følgende besked"+ e.toString());
+                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
+                            +"hvis venligst en teknikker fÃ¸lgende besked"+ e.toString());
                     forward(request, response, "/Fejl.jsp");
                 }
-                    
-                
+
                 break;
             case "uploadFloorPlan":
                 request.setAttribute("BuildingID", ID);
@@ -609,7 +614,7 @@ public class ControllerServlet extends HttpServlet
             }
             try
             {
-                
+
                 forward(request, response, "/ViewReport.jsp");
             } catch (IOException | ServletException ex)
             {

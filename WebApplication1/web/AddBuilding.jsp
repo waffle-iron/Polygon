@@ -11,16 +11,32 @@
         <link rel="stylesheet" type="text/css" href="General.css">
         <link rel="stylesheet" type="text/css" href="ErrorCSS.css">
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
+        
+        <style>
+            table#t01 {
+                width:100%;
+                position: fixed; bottom: 0;
+            }
+
+            th {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 th	{
+                background-color: rgb(0,159,227);
+                color: white;
+            }
+        </style>
     </head>
     <body>
         <form action="ControllerServlet"  method="GET">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
                 <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
-                <%
-                    Login login = (Login) session.getAttribute("login");
-                    System.out.println(login.getAuthorization());
-                %>
+                    <%
+                        Login login = (Login) session.getAttribute("login");
+                        System.out.println(login.getAuthorization());
+                    %>
 
                 <%if (login.getAuthorization().equals("user"))
                     { %>
@@ -46,7 +62,7 @@
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
             </ul>
         </form>
-        <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <div class="content">
             <h1>Opret en ny bygning her</h1>
             <form action="ControllerServlet" method="GET">
@@ -123,14 +139,26 @@
                                            || clear ? "" : request.getParameter("buildUsage"))%>" pattern="[A-Za-z].{0,30}">&nbsp;*
                             <span title="Dette felt skal udfyldes"> </span></td>
                     </tr>
-
+                    <% if (request.getAttribute("saveBuilding") != null && request.getAttribute("saveBuilding").equals(true))
+                        {%>
+                    <label for="opretFirma">Du har nu oprettet en ny bygning.</label>
+                    <%}%> 
                 </table>
                 <br>
                 <p>Alle * skal udfyldes, før en bygning kan oprettes.</p>
-
                 <input type="hidden" name="do_this" value="createBuild" />
                 <input type="submit" value="Opret bygning" name="createBuild" class="submit2"/>
             </form>
+        </div>
+        <div class="footer">
+            <table id="t01">
+                <tr>
+                    <th>Kontakt Polygon på tlf: 11111111</th>
+                    <th>E-mail: Polygon@mail.dk</th>
+                    <th>Akut hjælp: 112</th>
+                </tr>
+
+            </table>
         </div>
     </body>
 </html>

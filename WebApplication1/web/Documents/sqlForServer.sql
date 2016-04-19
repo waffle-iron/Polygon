@@ -1,3 +1,4 @@
+
 drop database if exists grp01;
 CREATE DATABASE grp01;
 use grp01;
@@ -18,9 +19,6 @@ CREATE TABLE `firm`
     `ContactNumber` int,
     `ContactMail` varchar(60) unique,
     primary key(`FirmID`)
-        
-    
-    
 );
 
 CREATE TABLE `login`
@@ -160,3 +158,4 @@ insert into `conclusion`(`ReportNR`,`Room`,`Recomandation`) values(2,"main room"
 #insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(1,1,1,"http://imgur.com/gallery/rKaUjEX");
 #insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(2,2,2,"error not sfw");
 #insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(1,1,1,"http://imgur.com/gallery/rKaUjEX")
+select * from report; 

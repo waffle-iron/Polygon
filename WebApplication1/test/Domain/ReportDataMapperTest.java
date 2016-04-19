@@ -18,66 +18,80 @@ import static org.junit.Assert.*;
  *
  * @author Emil
  */
-public class ReportDataMapperTest {
-    
-    public ReportDataMapperTest() {
+public class ReportDataMapperTest
+{
+ReportDataMapper reportDM = new ReportDataMapper();
+
+    public ReportDataMapperTest()
+    {
     }
-    static ReportDataMapper instance;
-    static ArrayList<Report> reports;
+//    static ReportDataMapper instance;
+//    static ArrayList<Report> reports;
+
     @BeforeClass
-    public static void setUpClass() {
-        instance = new ReportDataMapper();
+    public static void setUpClass()
+    {
+       // instance = new ReportDataMapper();
     }
-    
+
     @AfterClass
-    public static void tearDownClass() {
+    public static void tearDownClass()
+    {
     }
-    
+
     @Before
-    public void setUp() {
-        reports = instance.getReportsFromDB();
+    public void setUp()
+    {
+       // reports = instance.getReportsFromDB();
     }
-    
+
     @After
-    public void tearDown() {
+    public void tearDown()
+    {
     }
 
     /**
      * Test of addReportToDB method, of class ReportDataMapper.
      */
-    @Test
-    public void testAddReportToDB() {
-        System.out.println("addReportToDB");
-        Report Report = null;
-        ReportDataMapper instance = new ReportDataMapper();
-        
-    }
+//    @Test
+//    public void testAddReportToDB()
+//    {
+//        System.out.println("addReportToDB");
+//        Report Report = null;
+//        ReportDataMapper instance = new ReportDataMapper();
+//
+//    }
 
     /**
      * Test of getReportFromDB method, of class ReportDataMapper.
      */
-    @Test
-    public void testGetReportFromDB() {
-        System.out.println("getReportFromDB");
-        ReportDataMapper instance = new ReportDataMapper();
-        Report expResult = null;
-        for (int i = 1; i < instance.getNumbeOfReportFromDB()+1; i++) {
-        Report result = instance.getReportFromDB(i);
-        if(result==null)
-            fail("null passed form getReportFromDB on ReportID" + i);
-        }
-    }
-
+//    @Test
+//    public void testGetReportFromDB() {
+//        System.out.println("getReportFromDB");
+//        ReportDataMapper instance = new ReportDataMapper();
+//        Report expResult = null;
+//        for (int i = 1; i < instance.getNumbeOfReportFromDB()+1; i++) {
+//        Report result = instance.getReportFromDB(i);
+//        if(result==null)
+//            fail("null passed form getReportFromDB on ReportID" + i);
+//        }
+//    }
     /**
      * Test of getReportsFromDB method, of class ReportDataMapper.
      */
+//    @Test
+//    public void testGetReportsFromDB() {
+//        System.out.println("getReportsFromDB");
+//        ReportDataMapper instance = new ReportDataMapper();
+//        ArrayList<Report> result = instance.getReportsFromDB(); 
+//        assertNotNull(result);
+//        assertEquals(3, result.size());
+//    }
     @Test
-    public void testGetReportsFromDB() {
-        System.out.println("getReportsFromDB");
-        ReportDataMapper instance = new ReportDataMapper();
-        ArrayList<Report> result = instance.getReportsFromDB(); 
-        assertNotNull(result);
-        assertEquals(3, result.size());
+    public void testGetReportFromDB()
+    {
+        ArrayList<Report> result = reportDM.getReportsFromDB();
+        assertEquals(18, result.size());
     }
-    
+
 }

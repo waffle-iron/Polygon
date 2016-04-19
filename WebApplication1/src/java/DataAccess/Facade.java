@@ -24,7 +24,9 @@ public class Facade
         
         return buildingDM.getSingleBuildingByID(buildingID);
     }
+    
     public void addBuildingToDB(Building build)
+            throws ClassNotFoundException,NumberFormatException,SQLException
     {
         buildingDM.addBuildingToDB(build);
     }
@@ -34,10 +36,7 @@ public class Facade
         return buildingDM.viewMyBuildings(firmID);
     }
 
-    public String printBuildings()
-    {
-        return buildingDM.printBuildings();
-    }
+    
 
     public ArrayList<Building> getBuildingsFromDatabase()
     {

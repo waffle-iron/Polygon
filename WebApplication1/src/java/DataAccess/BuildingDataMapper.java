@@ -10,85 +10,48 @@ import java.util.ArrayList;
 
 public class BuildingDataMapper
 {
-    public Building getSingleBuildingByID(int buildingID)throws 
+
+    public Building getSingleBuildingByID(int buildingID) throws
             ClassNotFoundException, SQLException, NumberFormatException
     {
         Building building = null;
-        
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-            Statement stmt = con.createStatement();
-            String query = "SELECT * FROM building where BuildingID = "+ buildingID+";";
-            ResultSet res = stmt.executeQuery(query);
 
-            while (res.next())
-            {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM building where BuildingID = " + buildingID + ";";
+        ResultSet res = stmt.executeQuery(query);
 
-                building =
-                        new Building(res.getString("Address"), res.getString("Name"),
-                                res.getString("Usage"),Integer.parseInt( res.getString("BuildingID")),
-                                Integer.parseInt(res.getString("Zip")),Integer.parseInt( res.getString("FirmID")),
-                                Integer.parseInt(res.getString("BuildingYear")),
-                                Integer.parseInt(res.getString("Size")));
-            }
+        while (res.next())
+        {
 
-        
+            building
+                    = new Building(res.getString("Address"), res.getString("Name"),
+                            res.getString("Usage"), Integer.parseInt(res.getString("BuildingID")),
+                            Integer.parseInt(res.getString("Zip")), Integer.parseInt(res.getString("FirmID")),
+                            Integer.parseInt(res.getString("BuildingYear")),
+                            Integer.parseInt(res.getString("Size")));
+        }
+
         return building;
     }
-            
+
     public void addBuildingToDB(Building build)
-            throws ClassNotFoundException,SQLException
+            throws ClassNotFoundException, SQLException
     {
 
-       
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-            Statement statement = con.createStatement();
-            statement.executeUpdate("INSERT INTO `building` (`address`, `zip`, `firmID`, `name`, `buildingYear`, `size`, `usage`)" + "VALUES( '"
-                    + build.getAddress() + "',"
-                    + build.getZip() + ","
-                    + build.getFirmID() + ",'"
-                    + build.getName() + "',"
-                    + build.getBuildYear() + ","
-                    + build.getSize() + ",'"
-                    + build.getUsage() + "');");
-        
-    }
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+        Statement statement = con.createStatement();
+        statement.executeUpdate("INSERT INTO `building` (`address`, `zip`, `firmID`, `name`, `buildingYear`, `size`, `usage`)" + "VALUES( '"
+                + build.getAddress() + "',"
+                + build.getZip() + ","
+                + build.getFirmID() + ",'"
+                + build.getName() + "',"
+                + build.getBuildYear() + ","
+                + build.getSize() + ",'"
+                + build.getUsage() + "');");
 
-    public String printBuildings()
-            throws  ClassNotFoundException,NumberFormatException,SQLException
-    {
-        
-        ArrayList<Building> listOfBuildings = new ArrayList();
-        String resultString = "";
-
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-            Statement stmt = con.createStatement();
-            String query = "SELECT * FROM building;";
-            ResultSet res = stmt.executeQuery(query);
-
-            while (res.next())
-            {
-                int buildingID = Integer.parseInt( res.getString("BuildingID"));
-                String Address = res.getString("Address");
-                int Zip = Integer.parseInt(res.getString("Zip"));
-                int FirmID = Integer.parseInt(res.getString("FirmID"));
-                String Name = res.getString("Name");
-                int BuildingYear = Integer.parseInt(res.getString("BuildingYear"));
-                int Size = Integer.parseInt(res.getString("Size"));
-                String Usage = res.getString("Usage");
-
-                listOfBuildings.add(new Building(Address, Name, Usage, buildingID, Zip, FirmID, BuildingYear, Size));
-            }
-
-            for (Building listOfBuilding : listOfBuildings)
-            {
-                resultString += listOfBuilding.toString();
-            }
-
-        
-        return resultString;
     }
 
     public ArrayList<Building> getBuildingsFromDatabase()
@@ -99,7 +62,10 @@ public class BuildingDataMapper
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement stmt = con.createStatement();
-            String query = "SELECT * FROM building;";
+            String query = "SELECT b.BuildingID, Address, zip, firmID,`name`,buildingyear,size,`usage`, \n"
+                    + "(SELECT StateNR FROM report WHERE `date`=(\n"
+                    + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID) and BuildingID = b.BuildingID) as StateNR \n"
+                    + "    from building b order by StateNR desc;";
             ResultSet res = stmt.executeQuery(query);
 
             while (res.next())
@@ -107,8 +73,8 @@ public class BuildingDataMapper
 
                 listOfBuildings.add(
                         new Building(res.getString("Address"), res.getString("Name"),
-                                res.getString("Usage"),Integer.parseInt( res.getString("BuildingID")),
-                                Integer.parseInt(res.getString("Zip")),Integer.parseInt( res.getString("FirmID")),
+                                res.getString("Usage"), Integer.parseInt(res.getString("BuildingID")),
+                                Integer.parseInt(res.getString("Zip")), Integer.parseInt(res.getString("FirmID")),
                                 Integer.parseInt(res.getString("BuildingYear")),
                                 Integer.parseInt(res.getString("Size"))));
             }
@@ -127,7 +93,10 @@ public class BuildingDataMapper
         try
         {
             Connector con = new Connector();
-            String query = ("SELECT * FROM building WHERE firmID = " + firmID);
+            String query = ("SELECT b.BuildingID, Address, zip, firmID,`name`,buildingyear,size,`usage`, \n"
+                    + "(SELECT StateNR FROM report WHERE `date`=(\n"
+                    + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID) and BuildingID = b.BuildingID) as StateNR \n"
+                    + " from building b WHERE firmID = " + firmID + " order by StateNR desc;");
             ResultSet res = con.getResults(query);
 
             while (res.next())
@@ -148,8 +117,9 @@ public class BuildingDataMapper
         }
         return buildings;
     }
+
     public void removeBuilding(int buildingID)
     {
-        
+
     }
 }
