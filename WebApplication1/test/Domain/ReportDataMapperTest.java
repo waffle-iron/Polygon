@@ -9,10 +9,10 @@ import DataAccess.ReportDataMapper;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -70,7 +70,7 @@ ReportDataMapper reportDM = new ReportDataMapper();
 //        System.out.println("getReportFromDB");
 //        ReportDataMapper instance = new ReportDataMapper();
 //        Report expResult = null;
-//        for (int i = 1; i < instance.getNumbeOfReportFromDB()+1; i++) {
+//        for (int i = 1; i < instance.getNumberOfReportsFromDB()+1; i++) {
 //        Report result = instance.getReportFromDB(i);
 //        if(result==null)
 //            fail("null passed form getReportFromDB on ReportID" + i);
@@ -87,11 +87,44 @@ ReportDataMapper reportDM = new ReportDataMapper();
 //        assertNotNull(result);
 //        assertEquals(3, result.size());
 //    }
-    @Test
-    public void testGetReportFromDB()
+//    @Test
+//    public void testGetReportFromDB()
+//    {
+//        ArrayList<Report> result = reportDM.getReportsFromDB();
+//        assertEquals(2, result.size());
+//    }
+//    
+//    @Test 
+//    public void testGetReportFromDM()
+//    {
+//        Report result;
+//        result = reportDM.getReportFromDB(1);
+//        assertEquals(1, result);
+//    }
+    
+    @Test 
+    public void testGetNumberOfReports()
     {
-        ArrayList<Report> result = reportDM.getReportsFromDB();
-        assertEquals(18, result.size());
+        int result;
+        result = reportDM.getNumberOfReportsFromDB();
+        assertEquals(2, result);
     }
-
+    
+    @Test
+    public void testGetNextReportNr()
+    {
+        int result;
+        result = reportDM.getNextReportNr();
+        assertEquals(3, result);
+                
+    }
+    
+    @Test
+    public void testGetNextReportPageNr()
+    {
+        int result;
+        result = reportDM.getNextReportPageNr();
+        assertEquals(4, result);
+    }
+    
 }
