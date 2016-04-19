@@ -61,7 +61,16 @@ public class ControllerServlet extends HttpServlet
                 useButton(request, response, session, button);
                 break;
             case "changeReport":
+                try{
+                ArrayList<Integer> reportIDList  = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("Option")));
+                    request.setAttribute("reportIDList", reportIDList);
+                    System.out.println("option was :"+ Integer.parseInt(request.getParameter("Option")));
                 viewRaport(Integer.parseInt(request.getParameter("Option")),request,response);
+                }
+                catch(Exception e)
+                {
+                    
+                }
                     break;
             case "Image":
                 forward(request, response, "/ImageJSPTemp.jsp");

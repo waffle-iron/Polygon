@@ -68,7 +68,7 @@
                         }
                     %>
                     </select>
-                    <input type ="hidden" value ="changeReport">
+                    <input type ="hidden" name = "do_this" value ="changeReport">
                     <input type="submit" value="skift rapport" name="button" />
                     
                 </form>
