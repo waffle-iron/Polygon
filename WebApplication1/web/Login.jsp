@@ -13,12 +13,12 @@
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>Login</title>
         <style>
-            table {
+            table#t01 {
                 width:100%;
                 position: fixed; bottom: 0;
             }
 
-            th  {
+            th {
                 padding: 5px;
                 text-align: left;
             }
@@ -37,11 +37,11 @@
                 <li></li>
             </ul>
         </form>
-        <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
 
         <div class="content">
-            <h1>Velkommen til Polygon</h1>
-            <h2>Login</h2>
+            <h1>Velkommen til Sunde Bygninger</h1>
+            <h2>Log ind</h2>
             <form action="ControllerServlet" method="get">
                 Brugernavn<br> <input style="text-align: center" type="text" name="username" size="20" />
                 <br><br>
@@ -60,7 +60,6 @@
             <br>
             <br>
         </div>
-
         <div class="footer">
             <table id="t01">
                 <tr>
@@ -68,7 +67,6 @@
                     <th>E-mail: Polygon@mail.dk</th>
                     <th>Akut hjælp: 112</th>
                 </tr>
-
             </table>
         </div>
     </body>
