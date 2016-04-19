@@ -52,6 +52,26 @@
             </ul>
         </form>
                 <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style = "float:left">
+                <form action="ControllerServlet"  method="GET">
+                    <%ArrayList<Integer> reportIDs = new ArrayList();
+                        reportIDs = (ArrayList<Integer>) request.getAttribute("reportIDList");
+                        %>
+                    <select name="Option">
+                        <%
+                        for(int i = 0; i < reportIDs.size();i++)
+                        {
+                            %>
+                            <option>
+                                <%=reportIDs.get(i) %>
+                            </option>
+                            <%
+                        }
+                    %>
+                    </select>
+                    <input type ="hidden" value ="changeReport">
+                    <input type="submit" value="skift rapport" name="button" />
+                    
+                </form>
         <%Report res = (Report)request.getAttribute("report");%>
         
             <h2> Rapport forside </h2>

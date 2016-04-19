@@ -60,6 +60,9 @@ public class ControllerServlet extends HttpServlet
                 }
                 useButton(request, response, session, button);
                 break;
+            case "changeReport":
+                viewRaport(Integer.parseInt(request.getParameter("Option")),request,response);
+                    break;
             case "Image":
                 forward(request, response, "/ImageJSPTemp.jsp");
                 break;
@@ -555,7 +558,15 @@ public class ControllerServlet extends HttpServlet
             case "Delete":
                 break;
             case "viewReports":
-                viewRaport(4, request, response);
+                try{
+                    ArrayList<Integer> reportIDList  = facade.getListogReportIDsByBuildingID(ID);
+                    request.setAttribute("reportIDList", reportIDList);
+                    viewRaport(reportIDList.get(reportIDList.size()-1), request, response);
+                }
+                catch(Exception e)
+                {
+                    
+                }
                 break;
             case "writeReport":
                 try
@@ -572,14 +583,14 @@ public class ControllerServlet extends HttpServlet
                 catch(NumberFormatException e)
                 {
                     request.setAttribute("fejlMeddelse", "programmet fik en fejl da den proevede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
-                           +"hvis venligst en teknikker fÃ¸lgende besked"+ "<br>"+ e.toString());
+                           +"hvis venligst en teknikker foelgende besked"+ "<br>"+ e.toString());
                     request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
                 }
                 catch(SQLException e)
                 {
                     request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
-                            +"hvis venligst en teknikker fÃ¸lgende besked"+ e.toString());
+                            +"hvis venligst en teknikker foelgende besked"+ e.toString());
                     request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
                 }

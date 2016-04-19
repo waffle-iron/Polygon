@@ -35,7 +35,10 @@ public class Facade
     {
         return buildingDM.viewMyBuildings(firmID);
     }
-
+    public ArrayList<Integer> getListogReportIDsByBuildingID(int ID) throws SQLException, ClassNotFoundException
+    {
+        return buildingDM.getListogReportIDsByBuildingID(ID);
+    }
     
 
     public ArrayList<Building> getBuildingsFromDatabase()
