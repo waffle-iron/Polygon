@@ -555,7 +555,7 @@ public class ControllerServlet extends HttpServlet
             case "Delete":
                 break;
             case "viewReports":
-                viewRaport(4, request, response);
+                viewRaport(1, request, response);
                 break;
             case "writeReport":
                 try
@@ -596,7 +596,7 @@ public class ControllerServlet extends HttpServlet
             throw new NullPointerException("viewRaport got null");
         } else
         {
-
+            facade.getReportsFromDB();
             Report report = facade.getReportFromDB(reportid);
 
             if (report != null)

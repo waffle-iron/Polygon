@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class ReportDataMapperTest
 {
-ReportDataMapper reportDM = new ReportDataMapper();
+ReportDataMapper reportDM;
 
     public ReportDataMapperTest()
     {
@@ -31,7 +31,7 @@ ReportDataMapper reportDM = new ReportDataMapper();
     @BeforeClass
     public static void setUpClass()
     {
-       // instance = new ReportDataMapper();
+        
     }
 
     @AfterClass
@@ -42,6 +42,7 @@ ReportDataMapper reportDM = new ReportDataMapper();
     @Before
     public void setUp()
     {
+        reportDM = new ReportDataMapper();
        // reports = instance.getReportsFromDB();
     }
 
@@ -99,6 +100,6 @@ ReportDataMapper reportDM = new ReportDataMapper();
     {
         Report result;
         result = reportDM.getReportFromDB(1);
-        assertEquals(1, result);
+        assertEquals(1, result.reportnr);
     }
 }

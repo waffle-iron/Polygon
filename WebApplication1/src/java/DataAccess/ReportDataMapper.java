@@ -81,7 +81,11 @@ public class ReportDataMapper {
             System.out.println(ex.toString());
         }
     }
-
+/**
+ * 
+ * @param ReportID
+ * @return 
+ */
     public Report getReportFromDB(int ReportID) {
         Report report = null;
 
@@ -157,7 +161,7 @@ public class ReportDataMapper {
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             comarr = CommentDataMapper.getCommentsFromDB();
-            
+            System.out.println("testing on reports outside");
             ResultSet res = statement.executeQuery("select  ReportPageNr ,reportNR, ("
                     + "select BuildingID from report where report.reportNR  = e.reportNR),"
                     + "(select `Date` from report where report.reportNR  = e.reportNR),"
@@ -169,9 +173,9 @@ public class ReportDataMapper {
                 info[0] = res.getInt(2);
                 info[1] = res.getInt(3);
                 info[2] = res.getInt(5);
-                arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), null));
+                arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), new ArrayList<>()));
                 Report reportholder = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), null, null, null);
-                if (!reportholder.equals(report.get(report.size()))) {
+                if (report.isEmpty() || !reportholder.equals(report.get(report.size()-1))) {
                     report.add(reportholder);
                 }
             }
@@ -206,7 +210,8 @@ public class ReportDataMapper {
             }
 
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            
+            ex.printStackTrace();
         }
         System.out.println("testing");
         return report;
