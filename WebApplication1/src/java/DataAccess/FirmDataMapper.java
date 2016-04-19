@@ -43,16 +43,6 @@ public class FirmDataMapper
             }
         } catch (Exception ex)
         {
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            ex.printStackTrace();
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-
             System.out.println(ex.toString());
         }
 

@@ -37,32 +37,50 @@ public class CommentDataMapper {
         return info;
     }
 
-    public static void addCommnetsToDB(ArrayList<Comment> comments) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-        Statement statement = con.createStatement();
+    public static void addCommnetsToDB(ArrayList<Comment> comments, Connection con) throws ClassNotFoundException, SQLException {
+        PreparedStatement stat;
         for (Comment comment : comments) {
-
-            statement.executeUpdate("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values('"
-                    + (ReportDataMapper.getNextReportNr() - 1) + "','"
-                    + (ReportDataMapper.getNextReportPageNr() - 1) + "','"
-                    + comment.getType() + "','"
-                    + comment.getText() + "');");
+            
+            stat = con.prepareStatement("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(?,?,?,?");
+            stat.setInt(1, ReportDataMapper.getNextReportNr() - 1);
+            stat.setInt(2, ReportDataMapper.getNextReportPageNr() - 1);
+            stat.setString(3, comment.getType());
+            stat.setString(4, comment.getText());
+            stat.executeUpdate();
             if (comment.getImage() != null) {
                 String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
-                PreparedStatement stat = con.prepareStatement(sql);
+                stat = con.prepareStatement(sql);
                 stat.setInt(1, CommentDataMapper.getNextCommentNr());
 
                 if (comment.getCommentImage().getBytes() != null) {
                     stat.setBinaryStream(2, comment.getCommentImage().getBytes(), (int) comment.getCommentImage().getFilepart().getSize());
                 }
-                int row = stat.executeUpdate();
-                if (row > 0) {
-                    System.out.println("File uploaded!!!");
-                }
+                stat.executeUpdate();
             }
         }
     }
+    public static void addCommnetsToDB(Comment comment, Connection con) throws ClassNotFoundException, SQLException {
+        PreparedStatement stat;
+            
+            stat = con.prepareStatement(("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(?,?,?,?"));
+            stat.setInt(1, ReportDataMapper.getNextReportNr() - 1);
+            stat.setInt(2, ReportDataMapper.getNextReportPageNr() - 1);
+            stat.setString(3, comment.getType());
+            stat.setString(4, comment.getText());
+            stat.executeUpdate();
+            stat.executeUpdate();
+            if (comment.getImage() != null) {
+                String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
+                stat = con.prepareStatement(sql);
+                stat.setInt(1, CommentDataMapper.getNextCommentNr());
+
+                if (comment.getCommentImage().getBytes() != null) {
+                    stat.setBinaryStream(2, comment.getCommentImage().getBytes(), (int) comment.getCommentImage().getFilepart().getSize());
+                }
+                stat.executeUpdate();
+        }
+    }
+    
 
     public static ArrayList<Comment> getCommentsFromDB() {
         Connection con = null;

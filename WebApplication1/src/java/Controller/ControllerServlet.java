@@ -610,7 +610,7 @@ public class ControllerServlet extends HttpServlet
             throw new NullPointerException("viewRaport got null");
         } else
         {
-
+            facade.getReportsFromDB();
             Report report = facade.getReportFromDB(reportid);
 
             if (report != null)
