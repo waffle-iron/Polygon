@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Fejl</title>
     </head>
     <body>
         <h1>der er en fejl <3 bed venligst gruppe 5 om at fixe den :D</h1>
@@ -28,7 +28,20 @@
             <input type="hidden" name="do_this" value ="goToViewMyBuildings">
         </form>
         <% }%>
-        
+
+        <h2><%=request.getAttribute("noReport")%></h2>
+        <%if(request.getAttribute("goBackToMyBuildings") != null && request.getAttribute("goBackToMyBuildings").equals("viewMyBuildings") ){ %>
+        <form>
+            <input type="submit" value="Tilbage til mine bygninger" name="button" />
+            <input type="hidden" name="do_this" value ="goToViewMyBuildings">
+        </form>
+        <% }%>
+        <%if(request.getAttribute("goBackTo") != null && request.getAttribute("goBackTo").equals("viewBuildings") ){ %>
+        <form>
+            <input type="submit" value="Tilbage til mine bygninger" name="button" />
+            <input type="hidden" name="do_this" value ="goToViewMyBuildings">
+        </form>
+        <% }%>        
         
     </body>
 </html>
