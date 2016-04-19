@@ -1,3 +1,4 @@
+
 drop database if exists grp01;
 CREATE DATABASE grp01;
 use grp01;
@@ -18,9 +19,6 @@ CREATE TABLE `firm`
     `ContactNumber` int,
     `ContactMail` varchar(60) unique,
     primary key(`FirmID`)
-        
-    
-    
 );
 
 CREATE TABLE `login`
