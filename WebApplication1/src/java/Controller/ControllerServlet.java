@@ -503,15 +503,15 @@ public class ControllerServlet extends HttpServlet
                 }
                 catch(NumberFormatException e)
                 {
-                    request.setAttribute("fejlMeddelse", "der skete en fejl da vi prøvede at forvanlde informationen i en ext box til tal, dette kan ske hvis du skriver et e i tal boxene eller alle datoer ikke er sat"
+                    request.setAttribute("fejlMeddelse", "der skete en fejl da vi prøvede at forvanlde informationen i en text box til tal, dette kan ske hvis du skriver et e i tal boxene eller alle datoer ikke er sat"
                             +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
                     request.setAttribute("goBackTo", "writeReport");
                     forward(request, response, "/Fejl.jsp");
                 }
                 catch(IOException e)
                 {
-                    request.setAttribute("fejlMeddelse", ""
-                            +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                    request.setAttribute("fejlMeddelse", "programmet forsøgte at læse en fil der blev ændret mens den læste den vi foreslår du bare går tilbage og prøver igen. hvis dette sker igen "
+                            +" hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
                     request.setAttribute("goBackTo", "writeReport");
                     forward(request, response, "/Fejl.jsp");
                 }
@@ -566,18 +566,21 @@ public class ControllerServlet extends HttpServlet
                 {
                     request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
                             + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
                 }
                 catch(NumberFormatException e)
                 {
-                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den prÃ¸vede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
+                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den proevede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
                            +"hvis venligst en teknikker fÃ¸lgende besked"+ "<br>"+ e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
                 }
                 catch(SQLException e)
                 {
                     request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
                             +"hvis venligst en teknikker fÃ¸lgende besked"+ e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
                 }
 

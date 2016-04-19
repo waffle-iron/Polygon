@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class ReportDataMapperTest
 {
-ReportDataMapper reportDM;
+ReportDataMapper reportDM = new ReportDataMapper();
 
     public ReportDataMapperTest()
     {
@@ -31,7 +31,7 @@ ReportDataMapper reportDM;
     @BeforeClass
     public static void setUpClass()
     {
-        
+       // instance = new ReportDataMapper();
     }
 
     @AfterClass
@@ -42,7 +42,6 @@ ReportDataMapper reportDM;
     @Before
     public void setUp()
     {
-        reportDM = new ReportDataMapper();
        // reports = instance.getReportsFromDB();
     }
 
@@ -88,18 +87,44 @@ ReportDataMapper reportDM;
 //        assertNotNull(result);
 //        assertEquals(3, result.size());
 //    }
-    @Test
-    public void testGetReportFromDB()
-    {
-        ArrayList<Report> result = reportDM.getReportsFromDB();
-        assertEquals(2, result.size());
-    }
+//    @Test
+//    public void testGetReportFromDB()
+//    {
+//        ArrayList<Report> result = reportDM.getReportsFromDB();
+//        assertEquals(2, result.size());
+//    }
+//    
+//    @Test 
+//    public void testGetReportFromDM()
+//    {
+//        Report result;
+//        result = reportDM.getReportFromDB(1);
+//        assertEquals(1, result);
+//    }
     
     @Test 
-    public void testGetReportFromDM()
+    public void testGetNumberOfReports()
     {
-        Report result;
-        result = reportDM.getReportFromDB(1);
-        assertEquals(1, result.reportnr);
+        int result;
+        result = reportDM.getNumberOfReportsFromDB();
+        assertEquals(2, result);
     }
+    
+    @Test
+    public void testGetNextReportNr()
+    {
+        int result;
+        result = reportDM.getNextReportNr();
+        assertEquals(3, result);
+                
+    }
+    
+    @Test
+    public void testGetNextReportPageNr()
+    {
+        int result;
+        result = reportDM.getNextReportPageNr();
+        assertEquals(4, result);
+    }
+    
 }
