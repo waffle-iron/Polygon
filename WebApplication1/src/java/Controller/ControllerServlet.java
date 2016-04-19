@@ -494,13 +494,28 @@ public class ControllerServlet extends HttpServlet
                     facade.addReportToDB(report);
                     request.setAttribute("saveReport", true);
                     forward(request, response, "/AddReport.jsp");
-                } catch (NumberFormatException | IOException | ServletException ex)
+                } catch ( ServletException e)
                 {
-                    ex.printStackTrace();
-                    request.setAttribute(("nextReportNr"), facade.getNextReportNr());
-                    request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
-                    forward(request, response, "/AddReport.jsp");
-                }// </editor-fold>
+                    request.setAttribute("fejlMeddelse", "der skete en fejl i den generele kode fra den ene side til den anden, vi kender ikke en mulig årsag til denne fejl"
+                            +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                    request.setAttribute("goBackTo", "writeReport");
+                    forward(request, response, "/Fejl.jsp");
+                }
+                catch(NumberFormatException e)
+                {
+                    request.setAttribute("fejlMeddelse", "der skete en fejl da vi prøvede at forvanlde informationen i en ext box til tal, dette kan ske hvis du skriver et e i tal boxene eller alle datoer ikke er sat"
+                            +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                    request.setAttribute("goBackTo", "writeReport");
+                    forward(request, response, "/Fejl.jsp");
+                }
+                catch(IOException e)
+                {
+                    request.setAttribute("fejlMeddelse", ""
+                            +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                    request.setAttribute("goBackTo", "writeReport");
+                    forward(request, response, "/Fejl.jsp");
+                }
+// </editor-fold>
 
                 break;
             case "Opret nyt login":
@@ -551,14 +566,19 @@ public class ControllerServlet extends HttpServlet
                 {
                     request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
                             + e.toString());
-                } catch (NumberFormatException e)
+                    forward(request, response, "/Fejl.jsp");
+                }
+                catch(NumberFormatException e)
                 {
-                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den prøvede at forvanlde et bogstav sæt til et tal sæt, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
-                            + "hvis venligst en teknikker følgende besked" + "<br>" + e.toString());
-                } catch (SQLException e)
+                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den prÃ¸vede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
+                           +"hvis venligst en teknikker fÃ¸lgende besked"+ "<br>"+ e.toString());
+                    forward(request, response, "/Fejl.jsp");
+                }
+                catch(SQLException e)
                 {
-                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det være fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
-                            + "hvis venligst en teknikker følgende besked" + e.toString());
+                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
+                            +"hvis venligst en teknikker fÃ¸lgende besked"+ e.toString());
+                    forward(request, response, "/Fejl.jsp");
                 }
 
                 break;
