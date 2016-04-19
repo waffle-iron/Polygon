@@ -215,7 +215,7 @@ public class ReportDataMapper {
  * get a int that is the nummber of report in the database
  * @return int of reports
  */
-    public int getNumbeOfReportFromDB() {
+    public int getNumberOfReportsFromDB() {
 
         int info = 0;
         ArrayList<ReportPage> arr = new ArrayList<>();

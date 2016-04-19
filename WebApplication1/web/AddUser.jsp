@@ -34,6 +34,20 @@
                 float:left;
                 margin-bottom: 5px;
             }
+            
+            table#t01 {
+                width:100%;
+                position: fixed; bottom: 0;
+            }
+
+            th {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 th	{
+                background-color: rgb(0,159,227);
+                color: white;
+            }
         </style>
     </head>
     <body>
@@ -42,9 +56,9 @@
 
             <ul>
                 <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
-                <%
-                    Login login = (Login) session.getAttribute("login");
-                %>
+                    <%
+                        Login login = (Login) session.getAttribute("login");
+                    %>
 
                 <%if (login.getAuthorization().equals("user"))
                 { %>
@@ -69,7 +83,7 @@
 
             </ul>
         </form>
-        <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <div class="content">
             <h1>Opret bruger</h1>
             <form action="ControllerServlet" method="POST">
@@ -86,11 +100,11 @@
                 <br>
                 <br>
 
-                
+
                 <% if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                 {%>
                 <label for="userType">Type:</label>
-                
+
                 <select name="enum" id="userType">
                     <option>Bruger</option>
                     <option>Tekniker</option>
@@ -135,7 +149,17 @@
             Login blev ikke oprettet. Tjek eventuelt for manglede udfyldning af felter.
             <%}%>
             <br>
-            
+
+        </div>
+        <div class="footer">
+            <table id="t01">
+                <tr>
+                    <th>Kontakt Polygon på tlf: 11111111</th>
+                    <th>E-mail: Polygon@mail.dk</th>
+                    <th>Akut hjælp: 112</th>
+                </tr>
+
+            </table>
         </div>
     </body>
 </html>

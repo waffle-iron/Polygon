@@ -12,6 +12,7 @@ import Domain.Report;
 import Domain.ReportPage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -84,13 +85,19 @@ public class ControllerServlet extends HttpServlet
                             Integer.parseInt(request.getParameter("buildZip")),
                             Integer.parseInt(request.getParameter("buildFirmID")),
                             Integer.parseInt(request.getParameter("buildYear")),
-                            Integer.parseInt(request.getParameter("buildSize"))
-                    );
+                            Integer.parseInt(request.getParameter("buildSize")));
                     request.setAttribute("Done", true);
+                    
+                    request.setAttribute("saveBuilding", true);
                     request.setAttribute("saveBuildingInfo", building);
-                    facade.addBuildingToDB(building);
+                    try
+                    {
+                        facade.addBuildingToDB(building);
+                    } catch (Exception ex)
+                    {
+                        ex.toString();
+                    }
                     request.setAttribute("clearAll", true);
-
                     forward(request, response, "/AddBuilding.jsp");
                 }// </editor-fold>
                 break;
@@ -220,7 +227,7 @@ public class ControllerServlet extends HttpServlet
                 {
                     request.setAttribute("saveLogin", false);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                    forward(request, response, "/Opret.jsp");
+                    forward(request, response, "/AddUser.jsp");
                 } else
                 {
                     Login newLogin = new Login(request.getParameter("username"), request.getParameter("password"),
@@ -229,7 +236,7 @@ public class ControllerServlet extends HttpServlet
                     request.setAttribute("saveLogin", true);
                     facade.addLoginToDB(newLogin);
                     request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                    forward(request, response, "/Opret.jsp");
+                    forward(request, response, "/AddUser.jsp");
                 }
                 // </editor-fold>
                 break;
@@ -258,9 +265,6 @@ public class ControllerServlet extends HttpServlet
     {
         switch (button)
         {
-            case "Rapport-midlertidig":
-                goToReport(request, response);
-                break;
             case "Opret bygning":
                 request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                 forward(request, response, "/AddBuilding.jsp");
@@ -306,9 +310,9 @@ public class ControllerServlet extends HttpServlet
                     Report report;
                     int[] info = new int[3];
                     info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
-                    if ( session.getAttribute("building") != null)
+                    if (session.getAttribute("building") != null)
                     {
-                        Building building = ((Building)session.getAttribute("building"));
+                        Building building = ((Building) session.getAttribute("building"));
                         info[1] = building.getBuildingID();
                     }
                     if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("0")))
@@ -488,19 +492,35 @@ public class ControllerServlet extends HttpServlet
 
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                     facade.addReportToDB(report);
-                    forward(request, response, "/FrontPage.jsp");
-                } catch (NumberFormatException | IOException | ServletException ex)
-                {
-                    ex.printStackTrace();
-                    request.setAttribute(("nextReportNr"), facade.getNextReportNr());
-                    request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
+                    request.setAttribute("saveReport", true);
                     forward(request, response, "/AddReport.jsp");
-                }// </editor-fold>
+                } catch ( ServletException e)
+                {
+                    request.setAttribute("fejlMeddelse", "der skete en fejl i den generele kode fra den ene side til den anden, vi kender ikke en mulig årsag til denne fejl"
+                            +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                    request.setAttribute("goBackTo", "writeReport");
+                    forward(request, response, "/Fejl.jsp");
+                }
+                catch(NumberFormatException e)
+                {
+                    request.setAttribute("fejlMeddelse", "der skete en fejl da vi prøvede at forvanlde informationen i en ext box til tal, dette kan ske hvis du skriver et e i tal boxene eller alle datoer ikke er sat"
+                            +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                    request.setAttribute("goBackTo", "writeReport");
+                    forward(request, response, "/Fejl.jsp");
+                }
+                catch(IOException e)
+                {
+                    request.setAttribute("fejlMeddelse", ""
+                            +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                    request.setAttribute("goBackTo", "writeReport");
+                    forward(request, response, "/Fejl.jsp");
+                }
+// </editor-fold>
 
                 break;
             case "Opret nyt login":
                 request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                forward(request, response, "/Opret.jsp");
+                forward(request, response, "/AddUser.jsp");
 
                 break;
             case "Vis alle firmaer":
@@ -521,7 +541,7 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/AddReport.jsp");
                 break;
             default:
-                forward(request, response, "/BuildJSP.jsp");
+                forward(request, response, "/Fejl.jsp");
                 break;
         }
     }
@@ -538,8 +558,29 @@ public class ControllerServlet extends HttpServlet
                 viewRaport(4, request, response);
                 break;
             case "writeReport":
-                session.setAttribute("building", facade.getSingleBuildingByID(ID));
-                goToReport(request, response);
+                try
+                {
+                    session.setAttribute("building", facade.getSingleBuildingByID(ID));
+                    goToReport(request, response);
+                } catch (ClassNotFoundException e)
+                {
+                    request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
+                            + e.toString());
+                    forward(request, response, "/Fejl.jsp");
+                }
+                catch(NumberFormatException e)
+                {
+                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den prÃ¸vede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
+                           +"hvis venligst en teknikker fÃ¸lgende besked"+ "<br>"+ e.toString());
+                    forward(request, response, "/Fejl.jsp");
+                }
+                catch(SQLException e)
+                {
+                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
+                            +"hvis venligst en teknikker fÃ¸lgende besked"+ e.toString());
+                    forward(request, response, "/Fejl.jsp");
+                }
+
                 break;
             case "uploadFloorPlan":
                 request.setAttribute("BuildingID", ID);
@@ -573,7 +614,7 @@ public class ControllerServlet extends HttpServlet
             }
             try
             {
-                
+
                 forward(request, response, "/ViewReport.jsp");
             } catch (IOException | ServletException ex)
             {

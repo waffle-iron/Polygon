@@ -21,12 +21,25 @@
                 float:left;
                 margin-bottom: 5px;
             }
-            
+
             span, label {
                 float:left;
                 margin-bottom: 5px;
             }
+            
+            table#t01 {
+                width:100%;
+                position: fixed; bottom: 0;
+            }
 
+            th {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 th	{
+                background-color: rgb(0,159,227);
+                color: white;
+            }
         </style>
 
     </head>
@@ -34,9 +47,10 @@
         <form action="ControllerServlet"  method="GET">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
-                <%
-                    Login login = (Login) session.getAttribute("login");
-                %>
+                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
+                    <%
+                        Login login = (Login) session.getAttribute("login");
+                    %>
 
                 <%if (login.getAuthorization().equals("user"))
                     { %>
@@ -62,9 +76,9 @@
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
             </ul>
         </form>
-        <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <div class="content">
-            <h1>Opret her et nyt firma</h1>
+            <h1>Opret nyt firma her</h1>
             <% boolean clear = false;
                 try
                 {
@@ -84,7 +98,7 @@
                     <input type="text" id="contactN" name="contactNumber" pattern="[0-9].{7}"><br>
                     <span title="Kontakt nummer skal bestå af 8 cifre." id="contactN"> </span>
 
-                    <label for="contactM">Kontakt mail: </label>
+                    <label for="contactM">Kontakt mail </label>
                     <input type="email" id="contactM" name="contactMail" required>
 
                     <label for='opret'></label>
@@ -94,14 +108,18 @@
             </div>
             <% if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(true))
                 {%>
-                <label for="opretFirma">Du har nu oprettet et nyt firma.</label>
+            <label for="opretFirma">Du har nu oprettet et nyt firma.</label>
 
             <%}%> 
-            <form action="ControllerServlet" method="GET">
-                <br>
-                <label for="goBack"></label>
-                <input type="hidden" name="do_this" value="goToFrontPage"/>
-                <input type="submit" value="Gå tilbage start siden" name="goToFrontPage" id="goBack" class="submit2" />
-            </form>
+            <div class="footer">
+                <table id="t01">
+                    <tr>
+                        <th>Kontakt Polygon på tlf: 11111111</th>
+                        <th>E-mail: Polygon@mail.dk</th>
+                        <th>Akut hjælp: 112</th>
+                    </tr>
+
+                </table>
+            </div>
     </body>
 </html>

@@ -14,15 +14,32 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>Mine bygninger</title>
+        
+        <style>
+            table#t01 {
+                width:100%;
+                position: fixed; bottom: 0;
+            }
+
+            th {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 th	{
+                background-color: rgb(0,159,227);
+                color: white;
+            }
+        </style>
     </head>
     <body>
         <form action="ControllerServlet"  method="GET">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
-                <%
-                    Login login1 = (Login) session.getAttribute("login");
-                    System.out.println(login1.getAuthorization());
-                %>
+                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
+                    <%
+                        Login login1 = (Login) session.getAttribute("login");
+                        System.out.println(login1.getAuthorization());
+                    %>
 
                 <%if (login1.getAuthorization().equals("user"))
                     { %>
@@ -49,7 +66,7 @@
 
             </ul>
         </form>
-        <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style="float:left">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <h1>Mine bygninger</h1>
         <%
             Login login = (Login) session.getAttribute("login");
@@ -149,13 +166,15 @@
             <%}%>
         </table>
         <%}%>  
-
-        <form action="ControllerServlet" method="GET">
-            <input type="hidden" name="do_this" value="useButton" />
-            <input type="submit" value="Tilbage til start siden" name="button" class="submit2"/>
-            <br>
-        </form>
-
-
     </body>
+    <div class="footer">
+        <table id="t01">
+            <tr>
+                <th>Kontakt Polygon på tlf: 11111111</th>
+                <th>E-mail: Polygon@mail.dk</th>
+                <th>Akut hjælp: 112</th>
+            </tr>
+
+        </table>
+    </div>
 </html>
