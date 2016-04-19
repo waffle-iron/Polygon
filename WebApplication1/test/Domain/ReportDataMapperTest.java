@@ -6,7 +6,6 @@
 package Domain;
 
 import DataAccess.ReportDataMapper;
-import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
