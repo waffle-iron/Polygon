@@ -91,7 +91,7 @@ ReportDataMapper reportDM = new ReportDataMapper();
     public void testGetReportFromDB()
     {
         ArrayList<Report> result = reportDM.getReportsFromDB();
-        assertEquals(2, result.size());
+        assertEquals(18, result.size());
     }
 
 }
