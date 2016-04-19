@@ -6,12 +6,13 @@
 package DataAccess;
 
 import Domain.Login;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -48,23 +49,5 @@ public class LoginDataMapperTest
     /**
      * Test of userExists method, of class LoginDataMapper.
      */
-   @Test
-   public void testUserExsists()
-   {
-       boolean result = loginDM.userExists("admin", "password");
-       assertTrue(result);
-       
-       boolean result1 = loginDM.userExists("admin", "1");
-       assertFalse(result1);
-       
-       boolean result2 = loginDM.userExists("Julemanden", "password");
-       assertFalse(result2);
-   }
-   
-    @Test
-    public void testGetLoginByUsername()
-    {
-        Login result = loginDM.getLoginByUsername("admin");
-        assertEquals("admin", result);
-    }
+ 
 }
