@@ -55,7 +55,5 @@ public class BuildingDataMapperTest
     {
         ArrayList<Building> result = buildingDM.viewMyBuildings(1);
         assertEquals(2, result.size());
-    }
-        
-    
+    }   
 }
