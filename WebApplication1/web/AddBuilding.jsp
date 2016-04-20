@@ -35,7 +35,6 @@
                 <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
                     <%
                         Login login = (Login) session.getAttribute("login");
-                        System.out.println(login.getAuthorization());
                     %>
 
                 <%if (login.getAuthorization().equals("user"))
