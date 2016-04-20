@@ -35,6 +35,7 @@
         <form action="ControllerServlet"  method="GET">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
+                <li> <a href="ControllerServlet?do_this=useButton&button=Vis+alle+firmaer" name="button" value="Vis alle firmaer">test</a></li>
                 <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
                     <%
                         Login login = (Login) session.getAttribute("login");
@@ -45,7 +46,7 @@
                     { %>
 
 
-                <li> <input class="submit1" type="submit" name ="button" value="Opret bygning"></li>
+                <li> <input class="submit1" type="submit" name="button" value="Opret bygning"></li>
 
                 <li> <input class="submit1" type="submit" name="button" value="Opret nyt login"></li>
 
