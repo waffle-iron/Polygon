@@ -45,11 +45,11 @@ public class ControllerServlet extends HttpServlet
         }
         switch (do_this)
         {
-            case "useComment":
+            case "useHidden":
                 String commentPair = "";
                 commentPair += request.getParameter("Comment");
                 String[] commentPaired = commentPair.split(",");
-                useComment(request, response, session, commentPaired[0], Integer.parseInt(commentPaired[1]));
+                useHidden(request, response, session, commentPaired[0], Integer.parseInt(commentPaired[1]));
                 break;
             case "useButton":
                 String button = "";
@@ -538,7 +538,7 @@ public class ControllerServlet extends HttpServlet
         }
     }
 
-    private void useComment(HttpServletRequest request, HttpServletResponse response, HttpSession session, String comment, int ID)
+    private void useHidden(HttpServletRequest request, HttpServletResponse response, HttpSession session, String comment, int ID)
             throws ServletException, IOException
     {
         switch (comment)
