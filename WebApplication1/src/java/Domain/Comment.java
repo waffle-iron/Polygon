@@ -1,6 +1,5 @@
 package Domain;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class Comment
@@ -9,8 +8,8 @@ public class Comment
     private String type;
     private CommentImage image;
     private int commentID;
-    private int ReportID;
-    private int ReportPageID;
+    private int reportID;
+    private int reportPageID;
 
     public Comment(String text, String type, CommentImage image) {
         this.text = text;
@@ -28,24 +27,24 @@ public class Comment
         this.text = text;
         this.type = type;
         this.commentID = commentID;
-        this.ReportID = ReportID;
-        this.ReportPageID = ReportPageID;
+        this.reportID = ReportID;
+        this.reportPageID = ReportPageID;
     }
 
     public int getReportID() {
-        return ReportID;
+        return reportID;
     }
 
     public void setReportID(int ReportID) {
-        this.ReportID = ReportID;
+        this.reportID = ReportID;
     }
 
     public int getReportPageID() {
-        return ReportPageID;
+        return reportPageID;
     }
 
     public void setReportPageID(int ReportPageID) {
-        this.ReportPageID = ReportPageID;
+        this.reportPageID = ReportPageID;
     }
 
     public int getCommentID() {

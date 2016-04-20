@@ -56,14 +56,6 @@
                     <span title="bygnings navn skal være mindre end 30."> </span>
 
                     <label for="date">Dato: *</label>
-                    <%
-                        Calendar now = Calendar.getInstance();
-                        int dayOfMonth = now.get(Calendar.DAY_OF_MONTH);
-                        String dayOfMonthStr = ((dayOfMonth < 10) ? "0" : "") + dayOfMonth;
-                        int month = now.get(Calendar.MONTH) + 1;
-                        String monthStr = ((month < 10) ? "0" : "") + month;
-                        System.out.print(dayOfMonthStr + "/" + monthStr + "/" + now.get(Calendar.YEAR));
-                    %>
                     <input id="date" type="date" name="dateDate" > 
                     <label for="adresse">Adresse: *</label>
                     <input id="adresse" type="text" name="adressText"

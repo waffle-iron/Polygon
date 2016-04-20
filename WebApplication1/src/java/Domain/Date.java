@@ -16,7 +16,7 @@ public class Date
         this(date.getYear(), date.getMonth(), date.getDay());
     }
     public java.sql.Date getDate(){
-        return new java.sql.Date(this.getYear(), this.getMonth(), this.getDay());
+        return new java.sql.Date(this.getYear()-1900, this.getMonth(), this.getDay());
     }
     
     public int getYear()
