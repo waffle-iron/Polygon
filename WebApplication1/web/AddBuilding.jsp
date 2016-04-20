@@ -30,9 +30,9 @@
     </head>
     <body>
         <form action="ControllerServlet"  method="POST">
-            <input type ="hidden" value="useButton" name="do_this">
+            <input type ="hidden"  name="do_this" value="useButton">
             <ul>
-                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
+                <li><input class="submit1" type="submit" id="goBack" name="goToFrontPage" value="Forside" /></li>
                     <%
                         Login login = (Login) session.getAttribute("login");
                     %>
@@ -57,7 +57,7 @@
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
                 <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
-                <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
+                <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
             </ul>
         </form>

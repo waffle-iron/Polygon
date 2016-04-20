@@ -52,10 +52,10 @@
     </head>
     <body>
         <form>
-            <input type ="hidden" value="useButton" name="do_this">
+            <input type ="hidden"  name="do_this" value="useButton">
 
             <ul>
-                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
+                <li><input  class="submit1" type="submit" id="goBack" name="goToFrontPage" value="Forside" /></li>
                     <%
                         Login login = (Login) session.getAttribute("login");
                     %>
@@ -95,7 +95,7 @@
                 <br>
                 <br>
                 <label for="password">Kodeord:</label>
-                <input style="text-align: center" type="password" id="password" value="" name="password" pattern=".{6,}"/>
+                <input style="text-align: center" type="password" id="password" name="password" value="" pattern=".{6,}"/>
                 <span title="Kodeordet skal være mindst 6 tegn langt"> </span>
                 <br>
                 <br>
@@ -138,7 +138,7 @@
                 <br>
                 <label for="opret"></label>
                 <input type="hidden" id="opret" name="do_this" value="CreateLogin" />
-                <input type="submit" value="Opret" name="CreateLogin" class="submit2"/>
+                <input class="submit2" type="submit"  name="CreateLogin" value="Opret" />
             </form>
             <br>
             <% if (request.getAttribute("saveLogin") != null && request.getAttribute("saveLogin").equals(true))
