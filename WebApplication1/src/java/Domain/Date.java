@@ -2,23 +2,28 @@ package Domain;
 
 public class Date
 {
-    
+
     int year;
     int month;
     int day;
+
     public Date(int year, int month, int day)
     {
         this.year = year;
         this.month = month;
         this.day = day;
     }
-    public Date(java.sql.Date date){
+
+    public Date(java.sql.Date date)
+    {
         this(date.getYear(), date.getMonth(), date.getDay());
     }
-    public java.sql.Date getDate(){
+
+    public java.sql.Date getDate()
+    {
         return new java.sql.Date(this.getYear(), this.getMonth(), this.getDay());
     }
-    
+
     public int getYear()
     {
         return year;
@@ -48,12 +53,16 @@ public class Date
     {
         this.day = day;
     }
-@Override
-    public String toString(){
-        return day+"-"+month+"-"+year;
+
+    @Override
+    public String toString()
+    {
+        return day + "-" + month + "-" + year;
     }
-    public String toSQLString(){
-        return year+"-"+month+"-"+day;
+
+    public String toSQLString()
+    {
+        return year + "-" + month + "-" + day;
     }
 
 }

@@ -19,27 +19,27 @@ public class Facade
     private final ImageDataMapper imageDataMapper = new ImageDataMapper();
 
     public Building getSingleBuildingByID(int buildingID)
-            throws ClassNotFoundException,NumberFormatException,SQLException
+            throws ClassNotFoundException, NumberFormatException, SQLException
     {
-        
+
         return buildingDM.getSingleBuildingByID(buildingID);
     }
-    
+
     public void addBuildingToDB(Building build)
-            throws ClassNotFoundException,NumberFormatException,SQLException
+            throws ClassNotFoundException, NumberFormatException, SQLException
     {
         buildingDM.addBuildingToDB(build);
     }
-    
+
     public ArrayList<Building> viewMyBuildings(int firmID)
     {
         return buildingDM.viewMyBuildings(firmID);
     }
+
     public ArrayList<Integer> getListogReportIDsByBuildingID(int ID) throws SQLException, ClassNotFoundException
     {
         return buildingDM.getListogReportIDsByBuildingID(ID);
     }
-    
 
     public ArrayList<Building> getBuildingsFromDatabase()
     {
@@ -55,7 +55,7 @@ public class Facade
     {
         return firmDM.viewAllFirms();
     }
-    
+
     public void addReportToDB(Report Report)
     {
         reportDM.addReportToDB(Report);
@@ -105,7 +105,9 @@ public class Facade
     {
         return loginDM.getLoginByUsername(username);
     }
-    public static ArrayList<Integer> ValidFirmIDsFromUser(Login username){
+
+    public static ArrayList<Integer> ValidFirmIDsFromUser(Login username)
+    {
         return FirmDataMapper.ValidFirmIDsFromUser(username);
     }
 }

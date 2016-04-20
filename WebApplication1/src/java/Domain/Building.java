@@ -2,12 +2,12 @@ package Domain;
 
 public class Building
 {
+
     String address;
     String name;
     String usage;
     int buildingID;
 
-    
     int zip;
     int firmID;
     int buildYear;
@@ -35,16 +35,14 @@ public class Building
         this.buildYear = buildYear;
         this.size = size;
     }
-    
 
     @Override
     public String toString()
     {
-        return this.address + " " + this.zip + " " + this.firmID + " " 
-                + this.name + " " + this.buildYear + " " + this.size + " " + this.usage  + "<br>";
+        return this.address + " " + this.zip + " " + this.firmID + " "
+                + this.name + " " + this.buildYear + " " + this.size + " " + this.usage + "<br>";
     }
-    
-    
+
     public String getAddress()
     {
         return address;
@@ -79,11 +77,12 @@ public class Building
     {
         return size;
     }
-    
+
     public String getUsage()
     {
         return usage;
     }
+
     public void setAddress(String address)
     {
         this.address = address;
@@ -118,7 +117,7 @@ public class Building
     {
         this.size = size;
     }
-    
+
     public void setUsage(String usage)
     {
         this.usage = usage;

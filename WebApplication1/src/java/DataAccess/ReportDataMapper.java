@@ -17,11 +17,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ReportDataMapper {
+public class ReportDataMapper
+{
 
-    public void addReportToDB(Report Report) {
+    public void addReportToDB(Report Report)
+    {
         Connection con = null;
-        try {
+        try
+        {
 
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
@@ -33,7 +36,8 @@ public class ReportDataMapper {
             stat.setInt(3, Report.getState());
             stat.executeUpdate();
 
-            for (ReportPage reportpage : Report.getReportPages()) {
+            for (ReportPage reportpage : Report.getReportPages())
+            {
 
                 stat = con.prepareStatement("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`) values(?,?,?,?,?,?,?,?,?,?,?,?)");
                 stat.setInt(1, getNextReportNr() - 1);
@@ -50,20 +54,26 @@ public class ReportDataMapper {
                 stat.setInt(12, reportpage.getMoistScan());
                 stat.executeUpdate();
             }
-            if (Report.getOuterWalls() != null) {
+            if (Report.getOuterWalls() != null)
+            {
                 CommentDataMapper.addCommnetsToDB(Report.getOuterWalls(), con);
             }
-            if (Report.getRoof() != null) {
+            if (Report.getRoof() != null)
+            {
                 CommentDataMapper.addCommnetsToDB(Report.getRoof(), con);
             }
             con.commit();
-        } catch (SQLException e) {
-            try {
+        } catch (SQLException e)
+        {
+            try
+            {
                 System.err.print("Transaction is being rolled back");
                 con.rollback();
-            } catch (SQLException excep) {
+            } catch (SQLException excep)
+            {
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             ex.printStackTrace();
         }
     }
@@ -73,14 +83,16 @@ public class ReportDataMapper {
      * @param ReportID
      * @return
      */
-    public Report getReportFromDB(int ReportID) {
+    public Report getReportFromDB(int ReportID)
+    {
         Report report = null;
 
         int[] info = new int[3];
         ArrayList<ReportPage> arr = new ArrayList<>();
         ArrayList<Comment> comarr = new ArrayList<>();
         Connection con = null;
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
@@ -93,17 +105,22 @@ public class ReportDataMapper {
                     + "e.reportNR), PreviousDamaged, Damagedate,DamagedPlace,Cause,Repairs,"
                     + "Moist,Rot,Mold,fire,other,MoistScan from reportpage e;");
             res.beforeFirst();
-            for (int i = 0; res.next(); i++) {
-                if (res.getInt(2) == ReportID) {
+            for (int i = 0; res.next(); i++)
+            {
+                if (res.getInt(2) == ReportID)
+                {
                     info[0] = res.getInt(2);
                     info[1] = res.getInt(3);
                     info[2] = res.getInt(5);
                     arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), new ArrayList<Comment>()));
                 }
             }
-            for (ReportPage reportpage : arr) {
-                for (Comment comment : comarr) {
-                    if (reportpage.getReportPageNr() == comment.getReportPageID()) {
+            for (ReportPage reportpage : arr)
+            {
+                for (Comment comment : comarr)
+                {
+                    if (reportpage.getReportPageNr() == comment.getReportPageID())
+                    {
                         //System.out.println("added comment to reportpage");
                         reportpage.addComment(comment);
                     }
@@ -111,23 +128,29 @@ public class ReportDataMapper {
             }
             res.beforeFirst();
             ReportPage list2[] = new ReportPage[arr.size()];
-            for (int i = 0; res.next(); i++) {
-                if (res.getInt(2) == ReportID) {
+            for (int i = 0; res.next(); i++)
+            {
+                if (res.getInt(2) == ReportID)
+                {
                     report = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), (ReportPage[]) arr.toArray(list2), null, null);
                 }
             }
 
-            for (Comment comment : comarr) {
-                if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
+            for (Comment comment : comarr)
+            {
+                if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling"))
+                {
                     //System.out.println("added comment to report walls");
                     report.setOuterWalls(comment);
-                } else if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
+                } else if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("outerWall"))
+                {
                     //System.out.println("added comment to report roof");
                     report.setRoof(comment);
                 }
             }
 
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             ex.printStackTrace();
         }
 
@@ -139,13 +162,15 @@ public class ReportDataMapper {
      *
      * @return arraylist of reports
      */
-    public ArrayList<Report> getReportsFromDB() {
+    public ArrayList<Report> getReportsFromDB()
+    {
         ArrayList<Report> report = new ArrayList<>();
 
         int[] info = new int[3];
         ArrayList<ReportPage> arr = new ArrayList<>();
         ArrayList<Comment> comarr = new ArrayList<>();
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
@@ -157,29 +182,37 @@ public class ReportDataMapper {
                     + "PreviousDamaged, Damagedate,DamagedPlace,Cause,Repairs,Moist,Rot,"
                     + "Mold,fire,other,MoistScan from reportpage e;");
             res.beforeFirst();
-            for (int i = 0; res.next(); i++) {
+            for (int i = 0; res.next(); i++)
+            {
                 info[0] = res.getInt(2);
                 info[1] = res.getInt(3);
                 info[2] = res.getInt(5);
                 arr.add(new ReportPage(res.getInt(2), res.getInt(1), res.getBoolean(6), new Date(res.getDate(7)), res.getString(8), res.getString(9), res.getString(10), res.getBoolean(11), res.getBoolean(12), res.getBoolean(13), res.getBoolean(14), res.getString(15), res.getBoolean(16), new ArrayList<>()));
                 Report reportholder = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), null, null, null);
-                if (report.isEmpty() || !reportholder.equals(report.get(report.size() - 1))) {
+                if (report.isEmpty() || !reportholder.equals(report.get(report.size() - 1)))
+                {
                     report.add(reportholder);
                 }
             }
             //addeing comments to reportpage
-            for (ReportPage reportpage : arr) {
-                for (Comment comment : comarr) {
-                    if (reportpage.getReportPageNr() == comment.getReportPageID()) {
+            for (ReportPage reportpage : arr)
+            {
+                for (Comment comment : comarr)
+                {
+                    if (reportpage.getReportPageNr() == comment.getReportPageID())
+                    {
                         reportpage.addComment(comment);
                     }
                 }
             }
             //addeing reportpage to reports
-            for (Report singlereport : report) {
+            for (Report singlereport : report)
+            {
                 ArrayList<ReportPage> reportpageholder = new ArrayList<>();
-                for (ReportPage reportPage : arr) {
-                    if (reportPage.getReportNr() == singlereport.getReportnr()) {
+                for (ReportPage reportPage : arr)
+                {
+                    if (reportPage.getReportNr() == singlereport.getReportnr())
+                    {
                         reportpageholder.add(reportPage);
                     }
                 }
@@ -187,17 +220,22 @@ public class ReportDataMapper {
                 singlereport.setReportPages((ReportPage[]) reportpageholder.toArray(reportpage));
             }
             //adding comments to report
-            for (Report singlereport : report) {
-                for (Comment comment : comarr) {
-                    if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
+            for (Report singlereport : report)
+            {
+                for (Comment comment : comarr)
+                {
+                    if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling"))
+                    {
                         singlereport.setOuterWalls(comment);
-                    } else if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
+                    } else if (comment.getReportID() == singlereport.getReportnr() && comment.getReportPageID() == 0 && comment.getType().equals("outerWall"))
+                    {
                         singlereport.setRoof(comment);
                     }
                 }
             }
 
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
 
             ex.printStackTrace();
         }
@@ -210,21 +248,25 @@ public class ReportDataMapper {
      *
      * @return int of reports
      */
-    public int getNumberOfReportsFromDB() {
+    public int getNumberOfReportsFromDB()
+    {
 
         int info = 0;
         ArrayList<ReportPage> arr = new ArrayList<>();
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
             ResultSet res = statement.executeQuery("SELECT count(*) FROM report;");
             res.beforeFirst();
-            for (int i = 0; res.next(); i++) {
+            for (int i = 0; res.next(); i++)
+            {
                 info = res.getInt(1);
             }
 
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
         }
         return info;
     }
@@ -234,9 +276,11 @@ public class ReportDataMapper {
      *
      * @return returns the next reportID
      */
-    public static int getNextReportNr() {
+    public static int getNextReportNr()
+    {
         int info = 0;
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
@@ -245,7 +289,8 @@ public class ReportDataMapper {
             info = res.getInt(1) + 1;
             statement.executeUpdate("ALTER TABLE report AUTO_INCREMENT = " + info + ";");
 
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             ex.printStackTrace();
         }
         return info;
@@ -256,9 +301,11 @@ public class ReportDataMapper {
      *
      * @return returs the next reportpagenummber
      */
-    public static int getNextReportPageNr() {
+    public static int getNextReportPageNr()
+    {
         int info = 0;
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
@@ -268,7 +315,8 @@ public class ReportDataMapper {
             statement.executeUpdate("ALTER TABLE report AUTO_INCREMENT = " + info + ";");
             con.close();
 
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             ex.printStackTrace();
         }
         return info;

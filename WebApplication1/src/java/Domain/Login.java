@@ -13,7 +13,6 @@ import Enumerators.Authorization;
  */
 public class Login
 {
-
     String username;
     String password;
     int firmID;
