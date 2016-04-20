@@ -30,6 +30,7 @@ public class ReportDataMapper
             con.setAutoCommit(false);
             PreparedStatement stat;
             int i = getNextReportNr();
+            int j = getNextReportPageNr();
             stat = con.prepareStatement(("insert into `report` (`BuildingID`,`Date`,`StateNR`)  values( ?, ?, ?);"));
             stat.setInt(1, Report.getBuildingID());
             stat.setDate(2, Report.getReportDate().getDate());
@@ -52,14 +53,17 @@ public class ReportDataMapper
                 stat.setInt(12, reportpage.getMoistScan());
                 stat.executeUpdate();
                 stat.clearParameters();
+                if(reportpage.getComments()!= null)
+                    CommentDataMapper.addCommnetsToDB(reportpage.getComments(), con,i,j);
+                j++;
             }
-            if (Report.getOuterWalls() != null)
+            if (Report.getOuterWalls() != null) 
             {
-                CommentDataMapper.addCommnetsToDB(Report.getOuterWalls(), con);
+                CommentDataMapper.addCommnetsToDB(Report.getOuterWalls(), con,i);
             }
-            if (Report.getRoof() != null)
+            if (Report.getRoof() != null) 
             {
-                CommentDataMapper.addCommnetsToDB(Report.getRoof(), con);
+                CommentDataMapper.addCommnetsToDB(Report.getRoof(), con,i);
             }
             con.commit();
             con.setAutoCommit(true);
