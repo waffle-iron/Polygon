@@ -134,7 +134,7 @@
                 <td>
                     <form action="ControllerServlet" method="GET">  
 
-                        <input type="submit"  size="6" value="Slet rapport" name="button" class="submit2"/>
+                        <input type="submit"  size="6" value="Slet bygning" name="button" class="submit2"/>
                         <input type="hidden" name="do_this"value="useComment">
                         <input type="hidden" name="Comment"value="Delete,<%=build.get(i).getBuildingID()%>">
                     </form>

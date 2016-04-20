@@ -39,6 +39,10 @@ public class Facade
     {
         return buildingDM.getListogReportIDsByBuildingID(ID);
     }
+    public void removeBuilding(int ID) throws SQLException, ClassNotFoundException
+    {
+        buildingDM.removeBuilding(ID);
+    }
     
 
     public ArrayList<Building> getBuildingsFromDatabase()

@@ -10,11 +10,7 @@ import java.sql.Statement;
 
 public class LoginDataMapper
 {
-    public static void main(String[] args)
-    {
-        LoginDataMapper l = new LoginDataMapper();
-        System.out.println("####### "+l.userExists("a", "1"));
-    }
+  
 
     public boolean userExists(String name, String pass)
     {

@@ -132,8 +132,17 @@ public class BuildingDataMapper
         return buildings;
     }
 
-    public void removeBuilding(int buildingID)
+    public void removeBuilding(int ID) throws SQLException, ClassNotFoundException
     {
+        ArrayList<Integer> result = new ArrayList<>();
 
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+        Statement stmt = con.createStatement();
+        String query = "DELETE FROM building WHERE BuildingID = " + ID + ";";
+        stmt.executeUpdate(query);
+       
+        
+        
     }
 }
