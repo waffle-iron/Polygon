@@ -10,13 +10,18 @@ import java.sql.Statement;
 
 public class LoginDataMapper
 {
+    public static void main(String[] args)
+    {
+        LoginDataMapper l = new LoginDataMapper();
+        System.out.println("####### "+l.userExists("a", "1"));
+    }
 
     public boolean userExists(String name, String pass)
     {
         try
         {
             Connector con = new Connector();
-            PreparedStatement prepareStatement = con.getCon().prepareStatement("SELECT * FROM login where `Username` = '?' and `Password` = '?';");
+            PreparedStatement prepareStatement = con.getCon().prepareStatement("SELECT * FROM login where `Username` = ? and `Password` = ?;");
             prepareStatement.setString(1, name);
             prepareStatement.setString(2, pass);
             ResultSet res = prepareStatement.executeQuery();
