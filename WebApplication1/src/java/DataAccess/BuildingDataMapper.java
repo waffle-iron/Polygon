@@ -10,7 +10,21 @@ import java.util.ArrayList;
 
 public class BuildingDataMapper
 {
+    public ArrayList<Integer> getListogReportIDsByBuildingID(int ID) throws SQLException, ClassNotFoundException
+    {
+        ArrayList<Integer> result = new ArrayList<>();
 
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
+        Statement stmt = con.createStatement();
+        String query = "select ReportNR from report where BuildingID = " + ID + ";";
+        ResultSet res = stmt.executeQuery(query);
+        while (res.next())
+        {
+            result.add(res.getInt(1));
+        }
+        return result;
+    }
     public Building getSingleBuildingByID(int buildingID) throws
             ClassNotFoundException, SQLException, NumberFormatException
     {

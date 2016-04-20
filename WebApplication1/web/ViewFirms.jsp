@@ -67,7 +67,7 @@
         <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <div class="content">
             <h1>Firmaer</h1>
-            <form action="ControllerServlet" method="GET">
+            <form action="ControllerServlet" method="POST">
                 <% if (request.getAttribute("listOfFirms") != null)
                     {
                         ArrayList<Firm> firm;

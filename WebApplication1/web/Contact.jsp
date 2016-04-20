@@ -32,7 +32,7 @@
     </head>
 
     <body>
-        <form action="ControllerServlet"  method="GET">
+        <form action="ControllerServlet"  method="POST">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
                 <%
@@ -73,7 +73,7 @@
         Telefon: 
         <br>
         E-mail:
-        <form action="ControllerServlet" method="GET">
+        <form action="ControllerServlet" method="POST">
             <br>
             <label for="goBack"></label>
             <input type="hidden" name="do_this" value="goToFrontPage"/>

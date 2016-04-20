@@ -29,13 +29,12 @@
         </style>
     </head>
     <body>
-        <form action="ControllerServlet"  method="GET">
+        <form action="ControllerServlet"  method="POST">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
                 <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
                     <%
                         Login login = (Login) session.getAttribute("login");
-                        System.out.println(login.getAuthorization());
                     %>
 
                 <%if (login.getAuthorization().equals("user"))
@@ -65,7 +64,7 @@
         <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <div class="content">
             <h1>Opret en ny bygning her</h1>
-            <form action="ControllerServlet" method="GET">
+            <form action="ControllerServlet" method="POST">
                 <table>
                     <tr>
 
