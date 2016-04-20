@@ -109,7 +109,7 @@ public class CommentDataMapper
     public static void addCommnetsToDB(Comment comment, Connection con, int i) throws ClassNotFoundException, SQLException {
         PreparedStatement stat;
 
-        stat = con.prepareStatement(("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(?,?,?,?);"));
+        stat = con.prepareStatement(("insert into `comments`(`ReportNR`,`CommentType`,`Text`) values(?,?,?);"));
         stat.setInt(1, i);
         stat.setString(2, comment.getType());
         stat.setString(3, comment.getText());
