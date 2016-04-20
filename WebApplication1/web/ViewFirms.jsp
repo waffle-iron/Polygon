@@ -34,12 +34,11 @@
     </head>
     <body>
         <form>
-            <input type ="hidden" value="useButton" name="do_this">
+            <input type ="hidden"  name="do_this" value="useButton">
             <ul>
-                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
+                <li><input class="submit1" type="submit" id="goBack"  name="goToFrontPage" value="Forside" /></li>
                     <%
                         Login login = (Login) session.getAttribute("login");
-                        System.out.println(login.getAuthorization());
                     %>
 
                 <%if (login.getAuthorization().equals("user"))
@@ -60,14 +59,13 @@
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
                 <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
-                <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
-                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
-            </ul>
+                <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
+                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>            </ul>
         </form>
         <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <div class="content">
             <h1>Firmaer</h1>
-            <form action="ControllerServlet" method="GET">
+            <form action="ControllerServlet" method="POST">
                 <% if (request.getAttribute("listOfFirms") != null)
                     {
                         ArrayList<Firm> firm;

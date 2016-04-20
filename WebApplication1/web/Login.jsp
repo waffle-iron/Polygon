@@ -30,10 +30,10 @@
     </head>
     <body>
 
-        <form action="ControllerServlet" method="get">
+        <form action="ControllerServlet" method="POST">
             <ul>
 
-                <input type ="hidden" value="goToAddBuilding" name="do_this">
+                <input type ="hidden"  name="do_this" value="goToAddBuilding">
                 <li></li>
             </ul>
         </form>
@@ -42,14 +42,14 @@
         <div class="content">
             <h1>Velkommen til Sunde Bygninger</h1>
             <h2>Log ind</h2>
-            <form action="ControllerServlet" method="get">
+            <form action="ControllerServlet" method="POST">
                 Brugernavn<br> <input style="text-align: center" type="text" name="username" size="20" />
                 <br><br>
                 Kodeord<br> <input style="text-align: center" type="password" name="password" size="20" />
                 <input type="hidden" name="do_this" value="CheckLogin" />
                 <br>
                 <br>
-                <input type="submit" value="Login" name="CheckLogin" class="submit2"/>
+                <input class="submit2" type="submit"  name="CheckLogin" value="Login" />
             </form>
             <% if (request.getAttribute("doExists") != null && request.getAttribute("doExists").equals(false))
                 {%>
