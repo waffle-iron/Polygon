@@ -45,12 +45,7 @@ public class ControllerServlet extends HttpServlet
         }
         switch (do_this)
         {
-            case "useHidden":
-                String commentPair = "";
-                commentPair += request.getParameter("Comment");
-                String[] commentPaired = commentPair.split(",");
-                useHidden(request, response, session, commentPaired[0], Integer.parseInt(commentPaired[1]));
-                break;
+
             case "useButton":
                 String button = "";
                 button += request.getParameter("button");
@@ -60,101 +55,14 @@ public class ControllerServlet extends HttpServlet
                 }
                 useButton(request, response, session, button);
                 break;
-            case "changeReport":
-                try{
-                ArrayList<Integer> reportIDList  = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("Option")));
-                    request.setAttribute("reportIDList", reportIDList);
-                    System.out.println("option was :"+ Integer.parseInt(request.getParameter("Option")));
-                viewReport(Integer.parseInt(request.getParameter("Option")),request,response);
-                }
-                catch(Exception e)
-                {
-                    
-                }
-                    break;
-            case "createBuild":
-                // <editor-fold defaultstate="collapsed" desc="My Fold">
-                if (request.getParameter("buildAddress").trim().compareTo("") == 0
-                        || request.getParameter("buildZip").trim().compareTo("") == 0
-                        || request.getParameter("buildFirmID").trim().compareTo("") == 0
-                        || request.getParameter("buildName").trim().compareTo("") == 0
-                        || request.getParameter("buildYear").trim().compareTo("") == 0
-                        || request.getParameter("buildSize").trim().compareTo("") == 0
-                        || request.getParameter("buildUsage").trim().compareTo("") == 0)
-                {
-                    request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
-                    forward(request, response, "/AddBuilding.jsp");
 
-                } else
-                {
-                    Building building = new Building(request.getParameter("buildAddress"),
-                            request.getParameter("buildName"),
-                            request.getParameter("buildUsage"),
-                            Integer.parseInt(request.getParameter("buildZip")),
-                            Integer.parseInt(request.getParameter("buildFirmID")),
-                            Integer.parseInt(request.getParameter("buildYear")),
-                            Integer.parseInt(request.getParameter("buildSize")));
-                    request.setAttribute("Done", true);
-                    
-                    request.setAttribute("saveBuilding", true);
-                    request.setAttribute("saveBuildingInfo", building);
-                    try
-                    {
-                        facade.addBuildingToDB(building);
-                    } catch (Exception ex)
-                    {
-                        ex.toString();
-                    }
-                    request.setAttribute("clearAll", true);
-                    forward(request, response, "/AddBuilding.jsp");
-                }// </editor-fold>
+            case "useHidden":
+                String commentPair = "";
+                commentPair += request.getParameter("Comment");
+                String[] commentPaired = commentPair.split(",");
+                useHidden(request, response, session, commentPaired[0], Integer.parseInt(commentPaired[1]));
                 break;
 
-            case "goToViewMyBuildings":
-                if (session.getAttribute("login") != null)
-                {
-                    Login login = (Login) session.getAttribute("login");
-
-                    try
-                    {
-                        if (login.getAuthorization().equals("user"))
-                        {
-                            request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
-                        } else
-                        {
-                            request.setAttribute("listOfBuildings", facade.getBuildingsFromDatabase());
-                        }
-                    } catch (Exception ex)
-                    {
-                        ex.toString();
-                    }
-                }
-                forward(request, response, "/ViewBuildings.jsp");
-
-                break;
-
-            case "createFirm":
-                if (request.getParameter("contactNumber").trim().compareTo("") == 0
-                        || request.getParameter("contactMail").trim().compareTo("") == 0)
-                {
-                    request.setAttribute("saveFirmInfo", false);
-                    forward(request, response, "/AddFirm.jsp");
-                } else
-                {
-                    Firm firm = new Firm(request.getParameter("contactNumber"),
-                            request.getParameter("contactMail"));
-                    request.setAttribute("saveFirmInfo", true);
-                    facade.addFirmToDB(firm);
-                    request.setAttribute("saveFirmInfo", true);
-
-                    request.setAttribute("clearAll", true);
-
-                    forward(request, response, "/AddFirm.jsp");
-                    break;
-                }
-            case "Report":
-                goToReport(request, response);
-                break;
             case "CheckLogin":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
 
@@ -194,6 +102,7 @@ public class ControllerServlet extends HttpServlet
                 }
                 // </editor-fold>
                 break;
+
             case "CreateLogin":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 String temp2 = "";
@@ -236,21 +145,107 @@ public class ControllerServlet extends HttpServlet
                 }
                 // </editor-fold>
                 break;
-            default:
-                System.out.println("Not valid command" + do_this);
-                forward(request, response, "/Fejl.jsp");
+
+            case "goToViewMyBuildings":
+                if (session.getAttribute("login") != null)
+                {
+                    Login login = (Login) session.getAttribute("login");
+
+                    try
+                    {
+                        if (login.getAuthorization().equals("user"))
+                        {
+                            request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+                        } else
+                        {
+                            request.setAttribute("listOfBuildings", facade.getBuildingsFromDatabase());
+                        }
+                    } catch (Exception ex)
+                    {
+                        ex.toString();
+                    }
+                }
+                forward(request, response, "/ViewBuildings.jsp");
                 break;
 
-        }
-    }
+            case "createBuild":
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
+                if (request.getParameter("buildAddress").trim().compareTo("") == 0
+                        || request.getParameter("buildZip").trim().compareTo("") == 0
+                        || request.getParameter("buildFirmID").trim().compareTo("") == 0
+                        || request.getParameter("buildName").trim().compareTo("") == 0
+                        || request.getParameter("buildYear").trim().compareTo("") == 0
+                        || request.getParameter("buildSize").trim().compareTo("") == 0
+                        || request.getParameter("buildUsage").trim().compareTo("") == 0)
+                {
+                    request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
+                    forward(request, response, "/AddBuilding.jsp");
 
-    private void goToReport(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-        if(request.getAttribute("numberOfPages") == null)
-            request.setAttribute("numberOfPages", "" + 1);
-        request.setAttribute("nextReportNr", facade.getNextReportNr());
-        forward(request, response, "/AddReport.jsp");
+                } else
+                {
+                    Building building = new Building(request.getParameter("buildAddress"),
+                            request.getParameter("buildName"),
+                            request.getParameter("buildUsage"),
+                            Integer.parseInt(request.getParameter("buildZip")),
+                            Integer.parseInt(request.getParameter("buildFirmID")),
+                            Integer.parseInt(request.getParameter("buildYear")),
+                            Integer.parseInt(request.getParameter("buildSize")));
+                    request.setAttribute("Done", true);
+
+                    request.setAttribute("saveBuilding", true);
+                    request.setAttribute("saveBuildingInfo", building);
+                    try
+                    {
+                        facade.addBuildingToDB(building);
+                    } catch (Exception ex)
+                    {
+                        ex.toString();
+                    }
+                    request.setAttribute("clearAll", true);
+                    forward(request, response, "/AddBuilding.jsp");
+                }// </editor-fold>
+                break;
+
+            case "createFirm":
+                if (request.getParameter("contactNumber").trim().compareTo("") == 0
+                        || request.getParameter("contactMail").trim().compareTo("") == 0)
+                {
+                    request.setAttribute("saveFirmInfo", false);
+                    forward(request, response, "/AddFirm.jsp");
+                } else
+                {
+                    Firm firm = new Firm(request.getParameter("contactNumber"),
+                            request.getParameter("contactMail"));
+                    request.setAttribute("saveFirmInfo", true);
+                    facade.addFirmToDB(firm);
+                    request.setAttribute("saveFirmInfo", true);
+
+                    request.setAttribute("clearAll", true);
+
+                    forward(request, response, "/AddFirm.jsp");
+                    break;
+                }
+            case "Report":
+                goToReport(request, response);
+                break;
+
+            case "changeReport":
+                try
+                {
+                    ArrayList<Integer> reportIDList = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("Option")));
+                    request.setAttribute("reportIDList", reportIDList);
+                    System.out.println("option was :" + Integer.parseInt(request.getParameter("Option")));
+                    viewRaport(Integer.parseInt(request.getParameter("Option")), request, response);
+                } catch (Exception e)
+                {
+
+                }
+                break;
+
+            default:
+                forward(request, response, "/Fejl.jsp");
+                break;
+        }
     }
 
     private void useButton(HttpServletRequest request, HttpServletResponse response, HttpSession session, String button)
@@ -258,10 +253,22 @@ public class ControllerServlet extends HttpServlet
     {
         switch (button)
         {
-            case "Opret bygning":
-                request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
-                forward(request, response, "/AddBuilding.jsp");
+            case "Opret nyt login":
+                request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
+                forward(request, response, "/AddUser.jsp");
                 break;
+
+            case "Tilbage til start siden":
+                forward(request, response, "/FrontPage.jsp");
+                break;
+
+            case "Logud":
+                session.setAttribute("login", null);
+                session.setAttribute("loginAs", null);
+                session.setAttribute("building", null);
+                forward(request, response, "/Login.jsp");
+                break;
+
             case "Mine bygninger":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 if (session.getAttribute("login") != null)
@@ -284,16 +291,18 @@ public class ControllerServlet extends HttpServlet
 // </editor-fold>
                 break;
 
-            case "Tilbage til start siden":
-
-                forward(request, response, "/FrontPage.jsp");
+            case "Opret bygning":
+                request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
+                forward(request, response, "/AddBuilding.jsp");
                 break;
 
-            case "Logud":
-                session.setAttribute("login", null);
-                session.setAttribute("loginAs", null);
-                session.setAttribute("building", null);
-                forward(request, response, "/Login.jsp");
+            case "Vis alle firmaer":
+                request.setAttribute("listOfFirms", facade.viewAllFirms());
+                forward(request, response, "/ViewFirms.jsp");
+                break;
+
+            case "Opret nyt firma":
+                forward(request, response, "/AddFirm.jsp");
                 break;
 
             case "Opret rapport":
@@ -486,53 +495,39 @@ public class ControllerServlet extends HttpServlet
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                     facade.addReportToDB(report);
                     request.setAttribute("saveReport", true);
-                    goToReport(request, response);
-                } catch ( ServletException e)
+                    forward(request, response, "/AddReport.jsp");
+                } catch (ServletException e)
                 {
                     request.setAttribute("fejlMeddelse", "der skete en fejl i den generele kode fra den ene side til den anden, vi kender ikke en mulig årsag til denne fejl"
-                            +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                            + ". hvis venligst en teknikker følgende besked" + "<br>" + e.toString());
                     request.setAttribute("goBackTo", "writeReport");
                     forward(request, response, "/Fejl.jsp");
-                }
-                catch(NumberFormatException e)
+                } catch (NumberFormatException e)
                 {
                     request.setAttribute("fejlMeddelse", "der skete en fejl da vi prøvede at forvanlde informationen i en text box til tal, dette kan ske hvis du skriver et e i tal boxene eller alle datoer ikke er sat"
-                            +". hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                            + ". hvis venligst en teknikker følgende besked" + "<br>" + e.toString());
                     request.setAttribute("goBackTo", "writeReport");
                     forward(request, response, "/Fejl.jsp");
-                }
-                catch(IOException e)
+                } catch (IOException e)
                 {
                     request.setAttribute("fejlMeddelse", "programmet forsøgte at læse en fil der blev ændret mens den læste den vi foreslår du bare går tilbage og prøver igen. hvis dette sker igen "
-                            +" hvis venligst en teknikker følgende besked"+ "<br>"+ e.toString());
+                            + " hvis venligst en teknikker følgende besked" + "<br>" + e.toString());
                     request.setAttribute("goBackTo", "writeReport");
                     forward(request, response, "/Fejl.jsp");
                 }
 // </editor-fold>
-
-                break;
-            case "Opret nyt login":
-                request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
-                forward(request, response, "/AddUser.jsp");
-
-                break;
-            case "Vis alle firmaer":
-                request.setAttribute("listOfFirms", facade.viewAllFirms());
-                forward(request, response, "/ViewFirms.jsp");
-
-                break;
-            case "Opret nyt firma":
-                forward(request, response, "/AddFirm.jsp");
                 break;
 
-            case "Kontakt":
-                forward(request, response, "/Contact.jsp");
-                break;
             case "Opdater side antal":
                 request.setAttribute("nextReportNr", facade.getNextReportNr());
                 request.setAttribute("numberOfPages", "" + request.getParameter("numberOfReportPages"));
                 forward(request, response, "/AddReport.jsp");
                 break;
+
+            case "Kontakt":
+                forward(request, response, "/Contact.jsp");
+                break;
+
             default:
                 forward(request, response, "/Fejl.jsp");
                 break;
@@ -544,66 +539,28 @@ public class ControllerServlet extends HttpServlet
     {
         switch (comment)
         {
-
-            case "Delete":
+            case "viewReports":
                 try
                 {
-                    facade.removeBuilding(ID);
-                    if (session.getAttribute("login") != null)
-                {
-                    Login login = (Login) session.getAttribute("login");
-                    try
-                    {
-                        if (login.getAuthorization().equals("user"))
-                        {
-                            request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
-                        } else
-                        {
-                            request.setAttribute("listOfBuildings", facade.getBuildingsFromDatabase());
-                        }
-                    } catch (Exception ex)
-                    {
-                    }
-                }
-                forward(request, response, "/ViewBuildings.jsp");
-                }
-                catch(ClassNotFoundException e)
-                {
-                    request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
-                            + e.toString());
-                    request.setAttribute("goBackTo", "viewBuildings");
-                    forward(request, response, "/Fejl.jsp");
-                }
-                catch(SQLException e)
-                {
-                    request.setAttribute("fejlMeddelse", "der skete en fejl da vi ville slette bygningen fra databasen, vi ved dog ikke hvorfor"+"hvis venligst en teknikker foelgende besked"+ e.toString());
-                    request.setAttribute("goBackTo", "viewBuildings");
-                    forward(request, response, "/Fejl.jsp");
-                }
-                break;
-            case "viewReports":
-                                
-                try{
-                   
-                    ArrayList<Integer> reportIDList  = facade.getListogReportIDsByBuildingID(ID);
-                    if(reportIDList.size() != 0)
+                    ArrayList<Integer> reportIDList = facade.getListogReportIDsByBuildingID(ID);
+                    if (reportIDList.size() != 0)
                     {
                         String str = facade.getSingleBuildingByID(ID).getAddress();
                         request.setAttribute("Adresse", str);
                         request.setAttribute("reportIDList", reportIDList);
-                        viewReport(reportIDList.get(reportIDList.size()-1), request, response);
+                        viewRaport(reportIDList.get(reportIDList.size() - 1), request, response);
                     } else
                     {
                         request.setAttribute("noReport", "Der findes ingen rapport til denne bygning.");
                         request.setAttribute("goBackToMyBuildings", "viewMyBuildings");
                         forward(request, response, "/Fejl.jsp");
                     }
-                }
-                catch(Exception e)
+                } catch (Exception e)
                 {
-                    
+
                 }
                 break;
+
             case "writeReport":
                 try
                 {
@@ -616,58 +573,98 @@ public class ControllerServlet extends HttpServlet
                             + e.toString());
                     request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
-                }
-                catch(NumberFormatException e)
+                } catch (NumberFormatException e)
                 {
                     request.setAttribute("fejlMeddelse", "programmet fik en fejl da den proevede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
-                           +"hvis venligst en teknikker foelgende besked"+ "<br>"+ e.toString());
+                            + "hvis venligst en teknikker foelgende besked" + "<br>" + e.toString());
                     request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
-                }
-                catch(SQLException e)
+                } catch (SQLException e)
                 {
                     request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
-                            +"hvis venligst en teknikker foelgende besked"+ e.toString());
+                            + "hvis venligst en teknikker foelgende besked" + e.toString());
                     request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
                 }
-
                 break;
+
             case "uploadFloorPlan":
                 request.setAttribute("BuildingID", ID);
                 forward(request, response, "/UploadFloorPlan.jsp");
                 break;
+
+            case "Delete":
+                try
+                {
+                    facade.removeBuilding(ID);
+                    if (session.getAttribute("login") != null)
+                    {
+                        Login login = (Login) session.getAttribute("login");
+                        try
+                        {
+                            if (login.getAuthorization().equals("user"))
+                            {
+                                request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+                            } else
+                            {
+                                request.setAttribute("listOfBuildings", facade.getBuildingsFromDatabase());
+                            }
+                        } catch (Exception ex)
+                        {
+
+                        }
+                    }
+                    forward(request, response, "/ViewBuildings.jsp");
+                } catch (ClassNotFoundException e)
+                {
+                    request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
+                            + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
+                } catch (SQLException e)
+                {
+                    request.setAttribute("fejlMeddelse", "der skete en fejl da vi ville slette bygningen fra databasen, vi ved dog ikke hvorfor" + "hvis venligst en teknikker foelgende besked" + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
+                }
+                break;
         }
     }
 
-    private void viewReport(int reportid, HttpServletRequest request, HttpServletResponse response)
+    private void goToReport(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
     {
-        
-            facade.getReportsFromDB();
-            Report report = facade.getReportFromDB(reportid);
+        request.setAttribute("numberOfPages", "" + 1);
+        request.setAttribute("nextReportNr", facade.getNextReportNr());
+        forward(request, response, "/AddReport.jsp");
+    }
 
-            if (report != null)
-            {
-                request.setAttribute("report", report);
-            } else
-            {
-                try
-                {
-                    forward(request, response, "/Fejl.jsp");
-                } catch (IOException | ServletException ex)
-                {
-                    ex.printStackTrace();
-                }
-            }
+    private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response)
+    {
+
+        facade.getReportsFromDB();
+        Report report = facade.getReportFromDB(reportid);
+
+        if (report != null)
+        {
+            request.setAttribute("report", report);
+        } else
+        {
             try
             {
-
-                forward(request, response, "/ViewReport.jsp");
+                forward(request, response, "/Fejl.jsp");
             } catch (IOException | ServletException ex)
             {
                 ex.printStackTrace();
             }
-        
+        }
+        try
+        {
+            forward(request, response, "/ViewReport.jsp");
+        } catch (IOException | ServletException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
@@ -675,10 +672,6 @@ public class ControllerServlet extends HttpServlet
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(path);
         rd.forward(req, res);
-    }
-    private void redirect(HttpServletRequest req, HttpServletResponse res, String path) throws IOException
-    {
-        res.sendRedirect(path);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
