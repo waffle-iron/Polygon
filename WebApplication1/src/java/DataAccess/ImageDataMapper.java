@@ -7,10 +7,7 @@ package DataAccess;
 
 import java.awt.Image;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 /**
  *
@@ -19,15 +16,13 @@ import java.sql.Statement;
 public class ImageDataMapper
 {
 
-    public void addImageToDB(InputStream Report)
+    public void addImageToDB(InputStream Image)
     {
 
         try
         {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-            Statement statement = con.createStatement();
-            statement.executeUpdate("INSERT INTO picturelink(IMAGE) VALUES(" + Report + ")");
+            Connector con = new Connector();
+            con.getUpdate("INSERT INTO picturelink(IMAGE) VALUES(" + Image + ")");
 
         } catch (Exception ex)
         {
@@ -41,10 +36,8 @@ public class ImageDataMapper
         Image img = null;
         try
         {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-            Statement statement = con.createStatement();
-            ResultSet res = statement.executeQuery("SELECT * FROM picturelink");
+            Connector con = new Connector();
+            ResultSet res = con.getResults("SELECT * FROM picturelink");
             res.beforeFirst();
             for (int i = 0; res.next(); i++)
             {

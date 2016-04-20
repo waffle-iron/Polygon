@@ -1,5 +1,5 @@
 <%-- 
-    Document   : ViewRapport
+    Document   : ViewRepport
     Created on : 06-04-2016, 09:24:52
     Author     : Emil
 --%>
@@ -18,13 +18,12 @@
         <title>Rapport</title>
     </head>
     <body>
-        <form action="ControllerServlet"  method="GET">
-            <input type ="hidden" value="useButton" name="do_this">
+        <form action="ControllerServlet"  method="POST">
+            <input type ="hidden" name="do_this"value="useButton" >
             <ul>
-                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
+                <li><input class="submit1" type="submit" id="goBack"  name="goToFrontPage" value="Forside"/></li>
                 <%
                     Login login = (Login) session.getAttribute("login");
-                    System.out.println(login.getAuthorization());
                 %>
 
                 <%if (login.getAuthorization().equals("user"))
@@ -47,12 +46,11 @@
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
                 <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
-                <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
-                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
-            </ul>
+                <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
+                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>            </ul>
         </form>
                 <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style = "float:left">
-                <form action="ControllerServlet"  method="GET">
+                <form action="ControllerServlet"  method="POST">
                     <%ArrayList<Integer> reportIDs = new ArrayList();
                         reportIDs = (ArrayList<Integer>) request.getAttribute("reportIDList");
                         %>
@@ -69,7 +67,7 @@
                     %>
                     </select>
                     <input type ="hidden" name = "do_this" value ="changeReport">
-                    <input type="submit" value="skift rapport" name="button" />
+                    <input type="submit"  name="button" value="skift rapport"/>
                     
                 </form>
         <%Report res = (Report)request.getAttribute("report");%>
@@ -78,14 +76,14 @@
             <p>Rapport nummer:  <%=(res.getReportnr())%></p>
             <p>Navn på bygning: <%=(res.getBuildingID())%></p>
             <p>Dato:            <%=(res.getReportDate())%></p>
-            <p>Adresse:         <%=("no adresse")%></p>
+            <p>Adresse:         <%=(request.getAttribute("Adresse"))%></p>
             <p><b>Gennemgang af bygningen udvendig</b></p>
             <br>
             ydrevæge:
             <%Comment com = null;%>
             <%if(res.getOuterWalls()!=null){%>
             <% com = res.getOuterWalls();%>
-            <%=(com.toString())%>
+            <%=(com.getText()+ com.getType())%>
             <%if(com.getImage()!= null)%>
             <%=(com.getImage())%>
             <%}%>
@@ -94,7 +92,7 @@
             <%Comment comRoof = null;%>
             <%if(res.getRoof()!=null){
                 comRoof = res.getRoof();%>
-            <%=(comRoof.toString())%>
+            <%=(comRoof.getText() + comRoof.getType())%>
             <%if(comRoof.getImage()!= null)%>
             <%=(comRoof.getImage())%>
             <%}%>
@@ -143,12 +141,10 @@
             <%=(reportPage.isMoistScan())%>
             
             <%ArrayList<Comment> comments = reportPage.getComments();%>
-            <%  System.out.println(reportPage.getReportPageNr());
-                        System.out.println("comments = "+comments);%>
-
+           
                     <%if(reportPage.getComments()!=null)
                     for(Comment comment: comments){%>
-                    <%--<%=comment.toString()%>--%>
+                    <%=comment.getText() + comment.getType()%>
                     <%if(comment.getImage()!= null){%>
                     <%= comment.getImage()%>
                     <%}%>

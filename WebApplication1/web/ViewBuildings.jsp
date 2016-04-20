@@ -32,13 +32,12 @@
         </style>
     </head>
     <body>
-        <form action="ControllerServlet"  method="GET">
-            <input type ="hidden" value="useButton" name="do_this">
+        <form action="ControllerServlet"  method="POST">
+            <input type ="hidden" name="do_this" value="useButton" >
             <ul>
-                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
+                <li><input  class="submit1" type="submit" id="goBack"  name="goToFrontPage" value="Forside"/></li>
                     <%
                         Login login1 = (Login) session.getAttribute("login");
-                        System.out.println(login1.getAuthorization());
                     %>
 
                 <%if (login1.getAuthorization().equals("user"))
@@ -61,10 +60,8 @@
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
                 <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
-                <li style="float:right"><input type="submit" value="Logud" name="button" class="submit1" /></li>
-                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
-
-            </ul>
+                <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
+                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>            </ul>
         </form>
         <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
         <h1>Mine bygninger</h1>
@@ -82,13 +79,13 @@
         <table>
             <tr>
                 <td>
-                    Address
+                    Addresse
                 </td>
                 <td>
-                    Postkode
+                    Postnummer
                 </td>
                 <td>
-                    FirmaID
+                    Firma ID
                 </td>
                 <td>
                     Bygningsnavn
@@ -100,7 +97,7 @@
                     Byggningsstørelse
                 </td>
                 <td>
-                    Bruges til
+                    Brug
                 </td>
             </tr>
             <%
@@ -132,33 +129,33 @@
                 <%if (login.getAuthorization().equals("user"))
                     {%>
                 <td>
-                    <form action="ControllerServlet" method="GET">  
+                    <form action="ControllerServlet" method="POST">  
 
-                        <input type="submit"  size="6" value="Slet rapport" name="button" class="submit2"/>
-                        <input type="hidden" name="do_this"value="useComment">
-                        <input type="hidden" name="Comment"value="Delete,<%=build.get(i).getBuildingID()%>">
+                        <input class="submit2" type="submit" name="button" value="Slet rapport"  size="6"  />
+                        <input type="hidden" value="useHidden" name="do_this">
+                        <input type="hidden" name="Comment" value="Delete,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
                 <%}%>
                 <td>
-                    <form action="ControllerServlet" method="GET">  
-                        <input type="submit"  size="6" value="Se rapporter" name="button" class="submit2"/>
-                        <input type="hidden" name="do_this"value="useComment">
-                        <input type="hidden" name="Comment"value="viewReports,<%=build.get(i).getBuildingID()%>">
+                    <form action="ControllerServlet" method="POST">  
+                        <input class="submit2" type="submit"  name="button"  value="Se rapporter" size="6" />
+                        <input type="hidden" name="do_this" value="useHidden">
+                        <input type="hidden" name="Comment" value="viewReports,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
                 <td>
-                    <form action="ControllerServlet" method="GET">  
-                        <input type="submit"  size="6" value="Skriv rapport" name="button" class="submit2"/>
-                        <input type="hidden" name="do_this"value="useComment">
-                        <input type="hidden" name="Comment"value="writeReport,<%=build.get(i).getBuildingID()%>">
+                    <form action="ControllerServlet" method="POST">  
+                        <input class="submit2" type="submit" name="button" value="Skriv rapport" />
+                        <input type="hidden" name="do_this" value="useHidden">
+                        <input type="hidden" name="Comment" value="writeReport,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
                 <td>
-                    <form action="ControllerServlet" method="GET">  
-                        <input type="submit"  size="6" value="Upload floor plans" name="button" class="submit2"/>
-                        <input type="hidden" name="do_this"value="useComment">
-                        <input type="hidden" name="Comment"value="uploadFloorPlan,<%=build.get(i).getBuildingID()%>">
+                    <form action="ControllerServlet" method="POST">  
+                        <input  class="submit2" type="submit"  name="button"  value="Upload floor plans" size="6"/>
+                        <input type="hidden" name="do_this" value="useHidden">
+                        <input type="hidden" name="Comment" value="uploadFloorPlan,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
             </tr>

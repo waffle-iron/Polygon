@@ -1,44 +1,39 @@
 package DataAccess;
 
 import Domain.Building;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BuildingDataMapper
 {
+
     public ArrayList<Integer> getListogReportIDsByBuildingID(int ID) throws SQLException, ClassNotFoundException
     {
         ArrayList<Integer> result = new ArrayList<>();
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-        Statement stmt = con.createStatement();
+        Connector con = new Connector();
         String query = "select ReportNR from report where BuildingID = " + ID + ";";
-        ResultSet res = stmt.executeQuery(query);
+        ResultSet res = con.getResults(query);
+
         while (res.next())
         {
             result.add(res.getInt(1));
         }
         return result;
     }
+
     public Building getSingleBuildingByID(int buildingID) throws
             ClassNotFoundException, SQLException, NumberFormatException
     {
         Building building = null;
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-        Statement stmt = con.createStatement();
+        Connector con = new Connector();
         String query = "SELECT * FROM building where BuildingID = " + buildingID + ";";
-        ResultSet res = stmt.executeQuery(query);
+        ResultSet res = con.getResults(query);
 
         while (res.next())
         {
-
             building
                     = new Building(res.getString("Address"), res.getString("Name"),
                             res.getString("Usage"), Integer.parseInt(res.getString("BuildingID")),
@@ -54,10 +49,8 @@ public class BuildingDataMapper
             throws ClassNotFoundException, SQLException
     {
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-        Statement statement = con.createStatement();
-        statement.executeUpdate("INSERT INTO `building` (`address`, `zip`, `firmID`, `name`, `buildingYear`, `size`, `usage`)" + "VALUES( '"
+        Connector con = new Connector();
+        con.getUpdate("INSERT INTO `building` (`address`, `zip`, `firmID`, `name`, `buildingYear`, `size`, `usage`)" + "VALUES( '"
                 + build.getAddress() + "',"
                 + build.getZip() + ","
                 + build.getFirmID() + ",'"
@@ -65,7 +58,6 @@ public class BuildingDataMapper
                 + build.getBuildYear() + ","
                 + build.getSize() + ",'"
                 + build.getUsage() + "');");
-
     }
 
     public ArrayList<Building> getBuildingsFromDatabase()
@@ -73,15 +65,12 @@ public class BuildingDataMapper
         ArrayList<Building> listOfBuildings = new ArrayList();
         try
         {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
-            Statement stmt = con.createStatement();
+            Connector con = new Connector();
             String query = "SELECT b.BuildingID, Address, zip, firmID,`name`,buildingyear,size,`usage`, \n"
                     + "(SELECT StateNR FROM report WHERE `date`=(\n"
                     + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID) and BuildingID = b.BuildingID) as StateNR \n"
                     + "    from building b order by StateNR desc;";
-            ResultSet res = stmt.executeQuery(query);
-
+            ResultSet res = con.getResults(query);
             while (res.next())
             {
 
@@ -132,8 +121,10 @@ public class BuildingDataMapper
         return buildings;
     }
 
-    public void removeBuilding(int buildingID)
+    public void removeBuilding(int ID) throws SQLException, ClassNotFoundException
     {
-
+        Connector con = new Connector();
+        String query = "DELETE FROM building WHERE BuildingID = " + ID + ";";
+        con.getUpdate(query);
     }
 }
