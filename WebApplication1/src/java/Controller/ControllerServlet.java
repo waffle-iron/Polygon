@@ -65,7 +65,7 @@ public class ControllerServlet extends HttpServlet
                 ArrayList<Integer> reportIDList  = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("Option")));
                     request.setAttribute("reportIDList", reportIDList);
                     System.out.println("option was :"+ Integer.parseInt(request.getParameter("Option")));
-                viewRaport(Integer.parseInt(request.getParameter("Option")),request,response);
+                viewReport(Integer.parseInt(request.getParameter("Option")),request,response);
                 }
                 catch(Exception e)
                 {
@@ -247,7 +247,8 @@ public class ControllerServlet extends HttpServlet
     private void goToReport(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        request.setAttribute("numberOfPages", "" + 1);
+        if(request.getAttribute("numberOfPages") == null)
+            request.setAttribute("numberOfPages", "" + 1);
         request.setAttribute("nextReportNr", facade.getNextReportNr());
         forward(request, response, "/AddReport.jsp");
     }
@@ -485,7 +486,7 @@ public class ControllerServlet extends HttpServlet
                     report = new Report(info[1], new Date(date[0], date[1], date[2]), info[2], reportpage, outerWalls, roof);
                     facade.addReportToDB(report);
                     request.setAttribute("saveReport", true);
-                    forward(request, response, "/AddReport.jsp");
+                    goToReport(request, response);
                 } catch ( ServletException e)
                 {
                     request.setAttribute("fejlMeddelse", "der skete en fejl i den generele kode fra den ene side til den anden, vi kender ikke en mulig årsag til denne fejl"
@@ -590,7 +591,7 @@ public class ControllerServlet extends HttpServlet
                         String str = facade.getSingleBuildingByID(ID).getAddress();
                         request.setAttribute("Adresse", str);
                         request.setAttribute("reportIDList", reportIDList);
-                        viewRaport(reportIDList.get(reportIDList.size()-1), request, response);
+                        viewReport(reportIDList.get(reportIDList.size()-1), request, response);
                     } else
                     {
                         request.setAttribute("noReport", "Der findes ingen rapport til denne bygning.");
@@ -607,6 +608,7 @@ public class ControllerServlet extends HttpServlet
                 try
                 {
                     session.setAttribute("building", facade.getSingleBuildingByID(ID));
+                    
                     goToReport(request, response);
                 } catch (ClassNotFoundException e)
                 {
@@ -638,7 +640,7 @@ public class ControllerServlet extends HttpServlet
         }
     }
 
-    private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response)
+    private void viewReport(int reportid, HttpServletRequest request, HttpServletResponse response)
     {
         
             facade.getReportsFromDB();
