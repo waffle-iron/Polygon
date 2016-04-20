@@ -72,10 +72,6 @@ public class ControllerServlet extends HttpServlet
                     
                 }
                     break;
-            case "Image":
-                forward(request, response, "/ImageJSPTemp.jsp");
-                break;
-
             case "createBuild":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 if (request.getParameter("buildAddress").trim().compareTo("") == 0
@@ -156,20 +152,9 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/AddFirm.jsp");
                     break;
                 }
-
-            case "goToViewFirms":
-                request.setAttribute("listOfFirms", facade.viewAllFirms());
-                forward(request, response, "/ViewFirms.jsp");
-
-                break;
-
             case "Report":
                 goToReport(request, response);
                 break;
-            case "Forside":
-                forward(request, response, "/FrontPage.jsp");
-                break;
-
             case "CheckLogin":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
 
@@ -250,10 +235,6 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/AddUser.jsp");
                 }
                 // </editor-fold>
-                break;
-
-            case "goBackToLogin":
-                forward(request, response, "/Login.jsp");
                 break;
             default:
                 System.out.println("Not valid command" + do_this);
