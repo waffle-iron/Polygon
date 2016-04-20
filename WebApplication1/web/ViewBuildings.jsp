@@ -79,13 +79,13 @@
         <table>
             <tr>
                 <td>
-                    Address
+                    Addresse
                 </td>
                 <td>
-                    Postkode
+                    Postnummer
                 </td>
                 <td>
-                    FirmaID
+                    Firma ID
                 </td>
                 <td>
                     Bygningsnavn
@@ -97,7 +97,7 @@
                     Byggningsstørelse
                 </td>
                 <td>
-                    Bruges til
+                    Brug
                 </td>
             </tr>
             <%
