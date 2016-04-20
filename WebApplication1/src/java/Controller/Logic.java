@@ -6,7 +6,6 @@
 package Controller;
 
 import DataAccess.Facade;
-import DataAccess.FirmDataMapper;
 import Domain.Building;
 import Domain.Login;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
  * @author Emil
  */
 public class Logic {
-    private static Facade facade = new Facade();
+    private static final Facade facade = new Facade();
     public static int BuildingNameToBuildingID(String str){
         int res = 0;
         ArrayList<Building> build =facade.getBuildingsFromDatabase();

@@ -39,53 +39,53 @@ public class CommentDataMapper {
 
     public static void addCommnetsToDB(ArrayList<Comment> comments, Connection con) throws ClassNotFoundException, SQLException {
         PreparedStatement stat;
+        stat = con.prepareStatement("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(?,?,?,?);");
         for (Comment comment : comments) {
+
             
-            stat = con.prepareStatement("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(?,?,?,?");
             stat.setInt(1, ReportDataMapper.getNextReportNr() - 1);
             stat.setInt(2, ReportDataMapper.getNextReportPageNr() - 1);
             stat.setString(3, comment.getType());
             stat.setString(4, comment.getText());
             stat.executeUpdate();
-            if (comment.getImage() != null) {
-                String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
+            stat.clearParameters();
+            if (comment.getImage() != null && comment.getCommentImage().getBytes() != null) {
+                String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?);";
                 stat = con.prepareStatement(sql);
                 stat.setInt(1, CommentDataMapper.getNextCommentNr());
+                stat.setBinaryStream(2, comment.getCommentImage().getBytes(), (int) comment.getCommentImage().getFilepart().getSize());
 
-                if (comment.getCommentImage().getBytes() != null) {
-                    stat.setBinaryStream(2, comment.getCommentImage().getBytes(), (int) comment.getCommentImage().getFilepart().getSize());
-                }
                 stat.executeUpdate();
+                stat.clearParameters();
             }
         }
     }
+
     public static void addCommnetsToDB(Comment comment, Connection con) throws ClassNotFoundException, SQLException {
         PreparedStatement stat;
-            
-            stat = con.prepareStatement(("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(?,?,?,?"));
-            stat.setInt(1, ReportDataMapper.getNextReportNr() - 1);
-            stat.setInt(2, ReportDataMapper.getNextReportPageNr() - 1);
-            stat.setString(3, comment.getType());
-            stat.setString(4, comment.getText());
-            stat.executeUpdate();
-            stat.executeUpdate();
-            if (comment.getImage() != null) {
-                String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?)";
-                stat = con.prepareStatement(sql);
-                stat.setInt(1, CommentDataMapper.getNextCommentNr());
 
-                if (comment.getCommentImage().getBytes() != null) {
-                    stat.setBinaryStream(2, comment.getCommentImage().getBytes(), (int) comment.getCommentImage().getFilepart().getSize());
-                }
-                stat.executeUpdate();
+        stat = con.prepareStatement(("insert into `comments`(`ReportNR`,`ReportPageNr`,`CommentType`,`Text`) values(?,?,?,?);"));
+        stat.setInt(1, ReportDataMapper.getNextReportNr() - 1);
+        stat.setInt(2, ReportDataMapper.getNextReportPageNr() - 1);
+        stat.setString(3, comment.getType());
+        stat.setString(4, comment.getText());
+        stat.executeUpdate();
+        stat.clearParameters();
+        if (comment.getImage() != null && comment.getCommentImage().getBytes() != null) {
+            String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?);";
+            stat = con.prepareStatement(sql);
+            stat.setInt(1, CommentDataMapper.getNextCommentNr());
+            stat.setBinaryStream(2, comment.getCommentImage().getBytes(), (int) comment.getCommentImage().getFilepart().getSize());
+
+            stat.executeUpdate();
+            stat.clearParameters();
         }
     }
-    
 
     public static ArrayList<Comment> getCommentsFromDB() {
         Connection con = null;
         ArrayList<Comment> comarr = new ArrayList<>();
-        
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);

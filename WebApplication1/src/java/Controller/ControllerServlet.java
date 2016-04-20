@@ -657,11 +657,7 @@ public class ControllerServlet extends HttpServlet
 
     private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response)
     {
-        if (request == null || response == null)
-        {
-            throw new NullPointerException("viewRaport got null");
-        } else
-        {
+        
             facade.getReportsFromDB();
             Report report = facade.getReportFromDB(reportid);
 
@@ -686,7 +682,7 @@ public class ControllerServlet extends HttpServlet
             {
                 ex.printStackTrace();
             }
-        }
+        
     }
 
     private void forward(HttpServletRequest req, HttpServletResponse res, String path) throws IOException, ServletException
