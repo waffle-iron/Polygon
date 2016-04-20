@@ -27,16 +27,15 @@ public class ReportDataMapper {
             con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             con.setAutoCommit(false);
             PreparedStatement stat;
-            stat = con.prepareStatement(("insert into `report` (`BuildingID`,`Date`,`StateNR`)  values( ?, ?,?;"));
+            int i = getNextReportNr();
+            stat = con.prepareStatement(("insert into `report` (`BuildingID`,`Date`,`StateNR`)  values( ?, ?, ?);"));
             stat.setInt(1, Report.getBuildingID());
             stat.setDate(2, Report.getReportDate().getDate());
             stat.setInt(3, Report.getState());
             stat.executeUpdate();
-
+            stat = con.prepareStatement("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`) values(?,?,?,?,?,?,?,?,?,?,?,?);");
             for (ReportPage reportpage : Report.getReportPages()) {
-
-                stat = con.prepareStatement("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`) values(?,?,?,?,?,?,?,?,?,?,?,?)");
-                stat.setInt(1, getNextReportNr() - 1);
+                stat.setInt(1, i);
                 stat.setInt(2, reportpage.getPreviousDamaged());
                 stat.setDate(3, reportpage.getDamagedDate().getDate());
                 stat.setString(4, reportpage.getDamagedPlace());
@@ -49,6 +48,7 @@ public class ReportDataMapper {
                 stat.setString(11, reportpage.getOther());
                 stat.setInt(12, reportpage.getMoistScan());
                 stat.executeUpdate();
+                stat.clearParameters();
             }
             if (Report.getOuterWalls() != null) {
                 CommentDataMapper.addCommnetsToDB(Report.getOuterWalls(), con);
@@ -57,7 +57,11 @@ public class ReportDataMapper {
                 CommentDataMapper.addCommnetsToDB(Report.getRoof(), con);
             }
             con.commit();
-        } catch (SQLException e) {
+            System.out.println("commit");
+            con.setAutoCommit(true);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
             try {
                 System.err.print("Transaction is being rolled back");
                 con.rollback();
@@ -78,8 +82,8 @@ public class ReportDataMapper {
 
         int[] info = new int[3];
         ArrayList<ReportPage> arr = new ArrayList<>();
-        ArrayList<Comment> comarr = new ArrayList<>();
-        Connection con = null;
+        ArrayList<Comment> comarr;
+        Connection con;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
@@ -104,7 +108,6 @@ public class ReportDataMapper {
             for (ReportPage reportpage : arr) {
                 for (Comment comment : comarr) {
                     if (reportpage.getReportPageNr() == comment.getReportPageID()) {
-                        //System.out.println("added comment to reportpage");
                         reportpage.addComment(comment);
                     }
                 }
@@ -119,10 +122,8 @@ public class ReportDataMapper {
 
             for (Comment comment : comarr) {
                 if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("Ceiling")) {
-                    //System.out.println("added comment to report walls");
                     report.setOuterWalls(comment);
                 } else if (comment.getReportID() == ReportID && comment.getReportPageID() == 0 && comment.getType().equals("outerWall")) {
-                    //System.out.println("added comment to report roof");
                     report.setRoof(comment);
                 }
             }

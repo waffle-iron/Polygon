@@ -19,7 +19,7 @@ import java.sql.Statement;
 public class ImageDataMapper
 {
 
-    public void addImageToDB(InputStream Report)
+    public void addImageToDB(InputStream Image)
     {
 
         try
@@ -27,7 +27,7 @@ public class ImageDataMapper
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
             Statement statement = con.createStatement();
-            statement.executeUpdate("INSERT INTO picturelink(IMAGE) VALUES(" + Report + ")");
+            statement.executeUpdate("INSERT INTO picturelink(IMAGE) VALUES(" + Image + ")");
 
         } catch (Exception ex)
         {
