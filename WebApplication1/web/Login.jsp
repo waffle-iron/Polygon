@@ -33,7 +33,7 @@
         <form action="ControllerServlet" method="POST">
             <ul>
 
-                <input type ="hidden" value="goToAddBuilding" name="do_this">
+                <input type ="hidden"  name="do_this" value="goToAddBuilding">
                 <li></li>
             </ul>
         </form>
@@ -49,7 +49,7 @@
                 <input type="hidden" name="do_this" value="CheckLogin" />
                 <br>
                 <br>
-                <input type="submit" value="Login" name="CheckLogin" class="submit2"/>
+                <input class="submit2" type="submit"  name="CheckLogin" value="Login" />
             </form>
             <% if (request.getAttribute("doExists") != null && request.getAttribute("doExists").equals(false))
                 {%>

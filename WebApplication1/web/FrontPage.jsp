@@ -33,13 +33,11 @@
     </head>
     <body>
         <form action="ControllerServlet"  method="POST">
-            <input type ="hidden" value="useButton" name="do_this">
+            <input type ="hidden"  name="do_this" value="useButton">
             <ul>
-                <li> <a href="ControllerServlet?do_this=useButton&button=Vis+alle+firmaer" name="button" value="Vis alle firmaer">test</a></li>
-                <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
+                <li><input  class="submit1" type="submit" id="goBack" name="goToFrontPage" value="Forside" /></li>
                     <%
                         Login login = (Login) session.getAttribute("login");
-                        System.out.println(login.getAuthorization());
                     %>
 
                 <%if (login.getAuthorization().equals("user"))
