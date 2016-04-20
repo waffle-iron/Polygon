@@ -18,7 +18,7 @@
         <title>Rapport</title>
     </head>
     <body>
-        <form action="ControllerServlet"  method="GET">
+        <form action="ControllerServlet"  method="POST">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
                 <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
@@ -52,7 +52,7 @@
             </ul>
         </form>
                 <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style = "float:left">
-                <form action="ControllerServlet"  method="GET">
+                <form action="ControllerServlet"  method="POST">
                     <%ArrayList<Integer> reportIDs = new ArrayList();
                         reportIDs = (ArrayList<Integer>) request.getAttribute("reportIDList");
                         %>

@@ -32,7 +32,7 @@
 
     </head>
     <body>
-        <form action="ControllerServlet"  method="GET">
+        <form action="ControllerServlet"  method="POST">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
                 <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>

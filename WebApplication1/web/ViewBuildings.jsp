@@ -32,7 +32,7 @@
         </style>
     </head>
     <body>
-        <form action="ControllerServlet"  method="GET">
+        <form action="ControllerServlet"  method="POST">
             <input type ="hidden" value="useButton" name="do_this">
             <ul>
                 <li><input type="submit" id="goBack" value="Forside" name="goToFrontPage" class="submit1"/></li>
@@ -132,7 +132,7 @@
                 <%if (login.getAuthorization().equals("user"))
                     {%>
                 <td>
-                    <form action="ControllerServlet" method="GET">  
+                    <form action="ControllerServlet" method="POST">  
 
                         <input type="submit"  size="6" value="Slet rapport" name="button" class="submit2"/>
                         <input type="hidden" name="do_this"value="useComment">
@@ -141,21 +141,21 @@
                 </td>
                 <%}%>
                 <td>
-                    <form action="ControllerServlet" method="GET">  
+                    <form action="ControllerServlet" method="POST">  
                         <input type="submit"  size="6" value="Se rapporter" name="button" class="submit2"/>
                         <input type="hidden" name="do_this"value="useComment">
                         <input type="hidden" name="Comment"value="viewReports,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
                 <td>
-                    <form action="ControllerServlet" method="GET">  
+                    <form action="ControllerServlet" method="POST">  
                         <input type="submit"  size="6" value="Skriv rapport" name="button" class="submit2"/>
                         <input type="hidden" name="do_this"value="useComment">
                         <input type="hidden" name="Comment"value="writeReport,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
                 <td>
-                    <form action="ControllerServlet" method="GET">  
+                    <form action="ControllerServlet" method="POST">  
                         <input type="submit"  size="6" value="Upload floor plans" name="button" class="submit2"/>
                         <input type="hidden" name="do_this"value="useComment">
                         <input type="hidden" name="Comment"value="uploadFloorPlan,<%=build.get(i).getBuildingID()%>">
