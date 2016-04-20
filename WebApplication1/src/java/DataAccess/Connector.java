@@ -20,23 +20,26 @@ public class Connector
     final static String PASSWORD = "1234";
     public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
-    private Connection con;
+    private final Connection con;
 
     public Connector() throws ClassNotFoundException, SQLException
     {
-
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
+    
+    public int getUpdate(String query) throws SQLException
+    {
+        int res;
+        res = con.createStatement().executeUpdate(query);
+        return res;
+    }
 
     public ResultSet getResults(String query) throws SQLException
-
     {
         ResultSet res;
-
         res = con.createStatement().executeQuery(query);
         return res;
-
     }
 
     public Connection getCon()

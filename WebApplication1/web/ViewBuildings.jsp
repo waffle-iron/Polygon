@@ -132,7 +132,7 @@
                     <form action="ControllerServlet" method="POST">  
 
                         <input class="submit2" type="submit" name="button" value="Slet rapport"  size="6"  />
-                        <input type="hidden" value="useComment" name="do_this">
+                        <input type="hidden" value="useHidden" name="do_this">
                         <input type="hidden" name="Comment" value="Delete,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
@@ -140,21 +140,21 @@
                 <td>
                     <form action="ControllerServlet" method="POST">  
                         <input class="submit2" type="submit"  name="button"  value="Se rapporter" size="6" />
-                        <input type="hidden" name="do_this" value="useComment">
+                        <input type="hidden" name="do_this" value="useHidden">
                         <input type="hidden" name="Comment" value="viewReports,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
                 <td>
                     <form action="ControllerServlet" method="POST">  
                         <input class="submit2" type="submit" name="button" value="Skriv rapport" />
-                        <input type="hidden" name="do_this" value="useComment">
+                        <input type="hidden" name="do_this" value="useHidden">
                         <input type="hidden" name="Comment" value="writeReport,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
                 <td>
                     <form action="ControllerServlet" method="POST">  
                         <input  class="submit2" type="submit"  name="button"  value="Upload floor plans" size="6"/>
-                        <input type="hidden" name="do_this" value="useComment">
+                        <input type="hidden" name="do_this" value="useHidden">
                         <input type="hidden" name="Comment" value="uploadFloorPlan,<%=build.get(i).getBuildingID()%>">
                     </form>
                 </td>
