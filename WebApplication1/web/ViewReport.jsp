@@ -76,14 +76,14 @@
             <p>Rapport nummer:  <%=(res.getReportnr())%></p>
             <p>Navn på bygning: <%=(res.getBuildingID())%></p>
             <p>Dato:            <%=(res.getReportDate())%></p>
-            <p>Adresse:         <%=("no adresse")%></p>
+            <p>Adresse:         <%=(request.getAttribute("Adresse"))%></p>
             <p><b>Gennemgang af bygningen udvendig</b></p>
             <br>
             ydrevæge:
             <%Comment com = null;%>
             <%if(res.getOuterWalls()!=null){%>
             <% com = res.getOuterWalls();%>
-            <%=(com.toString())%>
+            <%=(com.getText()+ com.getType())%>
             <%if(com.getImage()!= null)%>
             <%=(com.getImage())%>
             <%}%>
@@ -92,7 +92,7 @@
             <%Comment comRoof = null;%>
             <%if(res.getRoof()!=null){
                 comRoof = res.getRoof();%>
-            <%=(comRoof.toString())%>
+            <%=(comRoof.getText() + comRoof.getType())%>
             <%if(comRoof.getImage()!= null)%>
             <%=(comRoof.getImage())%>
             <%}%>
@@ -144,7 +144,7 @@
            
                     <%if(reportPage.getComments()!=null)
                     for(Comment comment: comments){%>
-                    <%--<%=comment.toString()%>--%>
+                    <%=comment.getText() + comment.getType()%>
                     <%if(comment.getImage()!= null){%>
                     <%= comment.getImage()%>
                     <%}%>

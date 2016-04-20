@@ -587,6 +587,8 @@ public class ControllerServlet extends HttpServlet
                     ArrayList<Integer> reportIDList  = facade.getListogReportIDsByBuildingID(ID);
                     if(reportIDList.size() != 0)
                     {
+                        String str = facade.getSingleBuildingByID(ID).getAddress();
+                        request.setAttribute("Adresse", str);
                         request.setAttribute("reportIDList", reportIDList);
                         viewRaport(reportIDList.get(reportIDList.size()-1), request, response);
                     } else
