@@ -564,6 +564,40 @@ public class ControllerServlet extends HttpServlet
         {
 
             case "Delete":
+                try
+                {
+                    facade.removeBuilding(ID);
+                    if (session.getAttribute("login") != null)
+                {
+                    Login login = (Login) session.getAttribute("login");
+                    try
+                    {
+                        if (login.getAuthorization().equals("user"))
+                        {
+                            request.setAttribute("listOfBuildings", facade.viewMyBuildings(Integer.parseInt(login.getFirmID())));
+                        } else
+                        {
+                            request.setAttribute("listOfBuildings", facade.getBuildingsFromDatabase());
+                        }
+                    } catch (Exception ex)
+                    {
+                    }
+                }
+                forward(request, response, "/ViewBuildings.jsp");
+                }
+                catch(ClassNotFoundException e)
+                {
+                    request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
+                            + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
+                }
+                catch(SQLException e)
+                {
+                    request.setAttribute("fejlMeddelse", "der skete en fejl da vi ville slette bygningen fra databasen, vi ved dog ikke hvorfor"+"hvis venligst en teknikker foelgende besked"+ e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
+                }
                 break;
             case "viewReports":
                                 
@@ -658,6 +692,10 @@ public class ControllerServlet extends HttpServlet
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(path);
         rd.forward(req, res);
+    }
+    private void redirect(HttpServletRequest req, HttpServletResponse res, String path) throws IOException
+    {
+        res.sendRedirect(path);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

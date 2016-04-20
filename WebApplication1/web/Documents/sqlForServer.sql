@@ -1,9 +1,6 @@
-
-drop database if exists grp01;
-CREATE DATABASE grp01;
 use grp01;
-DROP TABLE IF EXISTS pictures;
-DROP TABLE IF EXISTS conlusion;
+DROP TABLE IF EXISTS picturelink;
+DROP TABLE IF EXISTS conclusion;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS reportPage;
 DROP TABLE IF EXISTS report; 
@@ -105,6 +102,7 @@ CREATE TABLE `conclusion`
      `Recomandation` varchar(200),
      foreign key (`ReportNR`)
 		references `Report` (`ReportNR`)
+        ON DELETE CASCADE
 );
 CREATE TABLE `picturelink`
 (
