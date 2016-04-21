@@ -278,7 +278,7 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/Login.jsp");
                 break;
 
-            case "Mine bygninger":
+            case "Vis bygninger":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 if (session.getAttribute("login") != null)
                 {

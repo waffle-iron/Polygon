@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
-        <title>Mine bygninger</title>
+        <title>Vis bygninger</title>
         
         <style>
             table#t01 {
@@ -59,12 +59,12 @@
 
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
-                <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
+                <li><input class="submit1" type="submit" name ="button" value="Vis bygninger"></li>
                 <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>            </ul>
         </form>
         <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
-        <h1>Mine bygninger</h1>
+        <h1>Vis bygninger</h1>
         <%
             Login login = (Login) session.getAttribute("login");
         %>
@@ -131,7 +131,7 @@
                 <td>
                     <form action="ControllerServlet" method="POST">  
 
-                        <input class="submit2" type="submit" name="button" value="Slet rapport"  size="6"  />
+                        <input class="submit2" type="submit" name="button" value="Slet bygning"  size="6"  />
                         <input type="hidden" value="useHidden" name="do_this">
                         <input type="hidden" name="Comment" value="Delete,<%=build.get(i).getBuildingID()%>">
                     </form>

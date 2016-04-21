@@ -45,7 +45,7 @@
 
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
-                <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
+                <li><input class="submit1" type="submit" name ="button" value="Vis bygninger"></li>
                 <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>            </ul>
         </form>
