@@ -36,7 +36,7 @@ public class ReportDataMapper
             stat.setInt(1, Report.getBuildingID());
             stat.setDate(2, Report.getReportDate().getDate());
             stat.setInt(3, Report.getState());
-            i = stat.executeUpdate();
+            stat.executeUpdate();
             for (ReportPage reportpage : Report.getReportPages())
             {
                 stat = con.prepareStatement("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`) values(?,?,?,?,?,?,?,?,?,?,?,?);");
@@ -56,7 +56,7 @@ public class ReportDataMapper
                 stat.setString(11, reportpage.getOther());
                 stat.setInt(12, reportpage.getMoistScan());
                 System.out.println("4");
-                j = stat.executeUpdate();
+                stat.executeUpdate();
                 System.out.println("3");
                 stat.clearParameters();
                 if(reportpage.getComments()!= null)
