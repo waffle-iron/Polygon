@@ -47,7 +47,7 @@ public class CommentDataMapper {
                 String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?);";
                 stat = con.prepareStatement(sql);
                 stat.setInt(1, CommentDataMapper.getNextCommentNr());
-                stat.setBinaryStream(2, comment.getCommentImage().getBytes(), (int) comment.getCommentImage().getFilepart().getSize());
+                stat.setBinaryStream(2, comment.getCommentImage().getBytes(), comment.getCommentImage().getFilepart().getSize());
 
                 stat.executeUpdate();
 

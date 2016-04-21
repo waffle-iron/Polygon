@@ -40,24 +40,19 @@ public class ReportDataMapper
             for (ReportPage reportpage : Report.getReportPages())
             {
                 stat = con.prepareStatement("insert into `reportpage`(`ReportNR`,`PreviousDamaged`,`Damagedate`,`DamagedPlace`,`Cause`,`Repairs`,`Moist`,`Rot`,`Mold`,`Fire`,`Other`,`MoistScan`) values(?,?,?,?,?,?,?,?,?,?,?,?);");
-                System.out.println("testing "+ i);
                 stat.setInt(1, i);
                 stat.setInt(2, reportpage.getPreviousDamaged());
                 stat.setDate(3, reportpage.getDamagedDate().getDate());
                 stat.setString(4, reportpage.getDamagedPlace());
                 stat.setString(5, reportpage.getCause());
-                System.out.println("1");
                 stat.setString(6, reportpage.getRepairs());
                 stat.setInt(7, reportpage.getMoist());
                 stat.setInt(8, reportpage.getRot());
-                System.out.println("2");
                 stat.setInt(9, reportpage.getMold());
                 stat.setInt(10, reportpage.getFire());
                 stat.setString(11, reportpage.getOther());
                 stat.setInt(12, reportpage.getMoistScan());
-                System.out.println("4");
                 stat.executeUpdate();
-                System.out.println("3");
                 stat.clearParameters();
                 if(reportpage.getComments()!= null)
                     CommentDataMapper.addCommnetsToDB(reportpage.getComments(), con,i,j);

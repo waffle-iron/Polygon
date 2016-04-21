@@ -39,14 +39,11 @@ public class picturelinkDataMapper {
                 int commentID = res.getInt(2);
                 Blob blob = res.getBlob(3);
                 blobToFileAndBack(blob);
-                System.out.println(""+ blob);
                 img = ImageIO.read(new File("C:\\Users\\Emil\\Documents\\NetBeansProjects\\Polygon\\WebApplication1\\images\\1.jpg"));
-                System.out.println("test 2" + img);
                 for (Comment comment : comments) {
 
                     if (comment.getCommentID() == commentID && img != null) {
                         comment.setImage(img);
-                        System.out.println("test 3");
                     }
                 }
 
@@ -69,10 +66,8 @@ public class picturelinkDataMapper {
 		int read = 0;
 		byte[] bytes = new byte[1024];
 		while ((read = inputStream.read(bytes)) != -1) {
-                        System.out.println("test 4");
 			outputStream.write(bytes, 0, read);
 		}
-                System.out.println("test");
         }
         catch(Exception ex){
             ex.printStackTrace();
