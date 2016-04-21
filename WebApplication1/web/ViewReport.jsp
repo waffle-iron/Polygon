@@ -195,6 +195,14 @@
             <br>
             tilstandsgraden er:
             <%=res.getState()%>
-           
+                  <div class="footer">
+            <table id="t01">
+                <tr>
+                    <th>Kontakt Polygon på tlf: 4814 0555</th>
+                    <th>E-mail: info@polygon.dk</th>
+                    <th>Akut hjælp: 7011 0044</th>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

@@ -60,12 +60,12 @@
             <br>
             <br>
         </div>
-        <div class="footer">
+       <div class="footer">
             <table id="t01">
                 <tr>
-                    <th>Kontakt Polygon på tlf: 11111111</th>
-                    <th>E-mail: Polygon@mail.dk</th>
-                    <th>Akut hjælp: 112</th>
+                    <th>Kontakt Polygon på tlf: 4814 0555</th>
+                    <th>E-mail: info@polygon.dk</th>
+                    <th>Akut hjælp: 7011 0044</th>
                 </tr>
             </table>
         </div>
