@@ -237,8 +237,8 @@ public class ControllerServlet extends HttpServlet
                 {
                      
                         
-                    ArrayList<Integer> reportIDList = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("Option")));
-                    String str = facade.getSingleBuildingByID(Integer.parseInt(request.getParameter("Option"))).getAddress();
+                    ArrayList<Integer> reportIDList = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("buildingID")));
+                    String str = facade.getSingleBuildingByID(Integer.parseInt(request.getParameter("buildingID"))).getAddress();
                         request.setAttribute("Adresse", str);
                     request.setAttribute("reportIDList", reportIDList);
                     
