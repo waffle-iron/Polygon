@@ -79,6 +79,9 @@ public class ControllerServlet extends HttpServlet
                     Login login = facade.getLoginByUsername(request.getParameter("username"));
                     session.setAttribute("loginAs", login.getAuthorization());
                     session.setAttribute("login", login);
+                    request.getParameter("username");
+                    request.setAttribute("author", facade.viewAuthor(login));
+                
                     switch (login.getAuthorization())
                     {
                         case "user":
@@ -557,13 +560,28 @@ public class ControllerServlet extends HttpServlet
                         viewRaport(reportIDList.get(reportIDList.size() - 1), request, response);
                     } else
                     {
-                        request.setAttribute("noReport", "Der findes ingen rapport til denne bygning.");
-                        request.setAttribute("goBackToMyBuildings", "viewMyBuildings");
+                        request.setAttribute("fejlMeddelse", "Der findes ingen rapport til denne bygning.");
+                        request.setAttribute("goBackTo", "viewMyBuildings");
                         forward(request, response, "/Fejl.jsp");
                     }
-                } catch (Exception e)
+                } catch (ClassNotFoundException e)
                 {
-
+                    request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
+                            + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
+                } catch (NumberFormatException e)
+                {
+                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den proevede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
+                            + "hvis venligst en teknikker foelgende besked" + "<br>" + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
+                } catch (SQLException e)
+                {
+                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
+                            + "hvis venligst en teknikker foelgende besked" + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
                 }
                 break;
 
@@ -571,7 +589,7 @@ public class ControllerServlet extends HttpServlet
                 try
                 {
                     session.setAttribute("building", facade.getSingleBuildingByID(ID));
-                    
+
                     goToReport(request, response);
                 } catch (ClassNotFoundException e)
                 {
@@ -639,9 +657,11 @@ public class ControllerServlet extends HttpServlet
 
     private void goToReport(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
-    { 
-        if(request.getAttribute("numberOfPages") == null)
+    {
+        if (request.getAttribute("numberOfPages") == null)
+        {
             request.setAttribute("numberOfPages", "" + 1);
+        }
         request.setAttribute("nextReportNr", facade.getNextReportNr());
         forward(request, response, "/AddReport.jsp");
     }
@@ -659,6 +679,8 @@ public class ControllerServlet extends HttpServlet
         {
             try
             {
+                request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\"");
+                    request.setAttribute("goBackTo", "viewBuildings");
                 forward(request, response, "/Fejl.jsp");
             } catch (IOException | ServletException ex)
             {
