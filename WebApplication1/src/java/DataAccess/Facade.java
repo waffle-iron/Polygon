@@ -100,6 +100,11 @@ public class Facade
         return loginDM.userExists(name, pass);
     }
 
+    public ArrayList<String> viewAuthor(Login login)
+    {
+        return loginDM.viewAuthor(login);
+    }
+    
     public void addLoginToDB(Login login)
     {
         loginDM.addLoginToDB(login);

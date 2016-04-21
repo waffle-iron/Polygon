@@ -78,6 +78,9 @@ public class ControllerServlet extends HttpServlet
                     Login login = facade.getLoginByUsername(request.getParameter("username"));
                     session.setAttribute("loginAs", login.getAuthorization());
                     session.setAttribute("login", login);
+                    request.getParameter("username");
+                    request.setAttribute("author", facade.viewAuthor(login));
+                
                     switch (login.getAuthorization())
                     {
                         case "user":
@@ -580,7 +583,7 @@ public class ControllerServlet extends HttpServlet
                 try
                 {
                     session.setAttribute("building", facade.getSingleBuildingByID(ID));
-                    
+
                     goToReport(request, response);
                 } catch (ClassNotFoundException e)
                 {
@@ -648,9 +651,11 @@ public class ControllerServlet extends HttpServlet
 
     private void goToReport(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
-    { 
-        if(request.getAttribute("numberOfPages") == null)
+    {
+        if (request.getAttribute("numberOfPages") == null)
+        {
             request.setAttribute("numberOfPages", "" + 1);
+        }
         request.setAttribute("nextReportNr", facade.getNextReportNr());
         forward(request, response, "/AddReport.jsp");
     }

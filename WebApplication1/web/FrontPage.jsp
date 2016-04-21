@@ -4,6 +4,8 @@
     Author     : peter L Lange
 --%>
 
+<%@page import="Domain.Firm"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Domain.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,6 +17,19 @@
         <title>Forside</title>
 
         <style>
+            label{
+                width:100px;
+                clear:left;
+                text-align:right;
+                padding-right:10px;
+            }
+
+            p, label {
+                float:left;
+                margin-bottom: 5px;
+            }
+
+            
             table#t01 {
                 width:100%;
                 position: fixed; bottom: 0;
@@ -68,32 +83,20 @@
         <div class="content">
 
 
-            NYI - NewsFeed
-            <%if (login.getAuthorization().equals("user"))
-                { %>
-            der fortæller om: husk at gemme en floorplan, en rapport er skrevet om en af dine bygninger, en af dine bygninger har fået ændret sin status, en af dine bygningers rapport er blevet opdateret og kommende inspektioner af dine bygninger
-            <%}%>
-            <%if (login.getAuthorization().equals("tech"))
-                { %>
-            der fortæller om fremtidige tjek ups du skal være med til, og om der er sket opdateringer på dine rapports
-            <%}%>
-            <%if (login.getAuthorization().equals("admin"))
-                { %>
-            der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
-            <%}%>
-            <%if (login.getAuthorization().equals("admin"))
-                { %>
-            der fortæller folk har ansøgt efter tjek up, fremtidige tjek up dage, user uploaded 
-            <%}%>
+            <h2>Du er logget ind som:  </h2>
+
+            <label for="username"><p>Brugernavn:</p></label>
+            <p id="username"><%=login.getUsername()%> </p>
+            <label for="firmId"><p>Firma ID:</p> </label>
+            <p id="firmId"><%=login.getFirmID()%></p> 
         </div>
         <div class="footer">
             <table id="t01">
                 <tr>
-                    <th>Kontakt Polygon på tlf: 11111111</th>
-                    <th>E-mail: Polygon@mail.dk</th>
-                    <th>Akut hjælp: 112</th>
+                    <th>Kontakt Polygon på tlf: 4814 0555</th>
+                    <th>E-mail: info@polygon.dk</th>
+                    <th>Akut hjælp: 7011 0044</th>
                 </tr>
-
             </table>
         </div>
     </body>

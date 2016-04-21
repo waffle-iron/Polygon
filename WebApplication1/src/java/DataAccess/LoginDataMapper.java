@@ -4,6 +4,7 @@ import Domain.Login;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class LoginDataMapper
 {
@@ -23,6 +24,30 @@ public class LoginDataMapper
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    public ArrayList<String> viewAuthor(Login login)
+    {
+        ArrayList<String> author = new ArrayList();
+        
+        try
+        {
+            Connector con = new Connector();
+            String query = ("SELECT ´Username´, ´FirmID´ from login where ´username´ = '" + login.getUsername() + "');");
+            ResultSet res = con.getResults(query);
+            
+            while(res.next())
+            {
+                String username = res.getString(1);
+                String firmid = res.getString(2);
+                author.add(username);
+                author.add(firmid);
+            }
+        } catch (SQLException | ClassNotFoundException ex)
+        {
+            ex.printStackTrace();
+        }
+        return author;
     }
 
     public void addLoginToDB(Login login)

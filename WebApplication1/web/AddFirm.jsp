@@ -106,20 +106,20 @@
                     <input type="submit" id="opretFirma" value="Opret" id="opret" name="createFirm" class="submit2"/>
                 </form>
             </div>
+        </div>
             <% if (request.getAttribute("saveFirmInfo") != null && request.getAttribute("saveFirmInfo").equals(true))
                 {%>
             <label for="opretFirma">Du har nu oprettet et nyt firma.</label>
 
             <%}%> 
-            <div class="footer">
-                <table id="t01">
-                    <tr>
-                        <th>Kontakt Polygon på tlf: 11111111</th>
-                        <th>E-mail: Polygon@mail.dk</th>
-                        <th>Akut hjælp: 112</th>
-                    </tr>
-
-                </table>
-            </div>
+       <div class="footer">
+            <table id="t01">
+                <tr>
+                    <th>Kontakt Polygon på tlf: 4814 0555</th>
+                    <th>E-mail: info@polygon.dk</th>
+                    <th>Akut hjælp: 7011 0044</th>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>
