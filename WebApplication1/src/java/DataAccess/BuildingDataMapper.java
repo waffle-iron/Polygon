@@ -68,7 +68,7 @@ public class BuildingDataMapper
             Connector con = new Connector();
             String query = "SELECT b.BuildingID, Address, zip, firmID,`name`,buildingyear,size,`usage`, \n"
                     + "(SELECT StateNR FROM report WHERE `date`=(\n"
-                    + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID) and BuildingID = b.BuildingID) as StateNR \n"
+                    + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID limit 1) and BuildingID = b.BuildingID limit 1) as StateNR \n"
                     + "    from building b order by StateNR desc;";
             ResultSet res = con.getResults(query);
             while (res.next())
@@ -84,7 +84,7 @@ public class BuildingDataMapper
 
         } catch (Exception ex)
         {
-            System.out.println(ex.toString());
+            ex.printStackTrace();
         }
         return listOfBuildings;
     }
@@ -98,7 +98,7 @@ public class BuildingDataMapper
             Connector con = new Connector();
             String query = ("SELECT b.BuildingID, Address, zip, firmID,`name`,buildingyear,size,`usage`, \n"
                     + "(SELECT StateNR FROM report WHERE `date`=(\n"
-                    + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID) and BuildingID = b.BuildingID) as StateNR \n"
+                    + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID limit 1) and BuildingID = b.BuildingID limit 1) as StateNR \n"
                     + " from building b WHERE firmID = " + firmID + " order by StateNR desc;");
             ResultSet res = con.getResults(query);
 
@@ -116,7 +116,7 @@ public class BuildingDataMapper
 
         } catch (Exception ex)
         {
-            System.out.println(ex.toString());
+            ex.printStackTrace();
         }
         return buildings;
     }

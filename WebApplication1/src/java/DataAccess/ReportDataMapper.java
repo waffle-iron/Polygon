@@ -73,6 +73,7 @@ public class ReportDataMapper
             }
             con.commit();
             con.setAutoCommit(true);
+            System.out.println("it worked");
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -285,8 +286,10 @@ public class ReportDataMapper
             Connector con = new Connector();
             ResultSet res = con.getResults("SELECT max(reportNR) FROM report;");
             res.next();
-            info = res.getInt(1) + 1;
+            info = res.getInt(1);
             con.getUpdate("ALTER TABLE report AUTO_INCREMENT = " + info + ";");
+            info += 1;
+            System.out.println("info report = " + info);
 
         } catch (Exception ex)
         {
@@ -309,8 +312,10 @@ public class ReportDataMapper
             Connector con = new Connector();
             ResultSet res = con.getResults("SELECT max(reportpageNR) FROM reportpage;");
             res.next();
-            info = res.getInt(1) + 1;
+            info = res.getInt(1);
             con.getUpdate("ALTER TABLE report AUTO_INCREMENT = " + info + ";");
+            info += 1;
+            System.out.println("info reportpage = " + info);
 
         } catch (Exception ex)
         {
