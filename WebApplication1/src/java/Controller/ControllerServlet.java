@@ -50,9 +50,9 @@ public class ControllerServlet extends HttpServlet
             case "useButton":
                 String button = "";
                 button += request.getParameter("button");
-                if (button.equals("null"))
+                if (button.equals(""))
                 {
-                    forward(request, response, "/FrontPage.jsp");
+                    forward(request, response, "/Fejl.jsp");
                 }
                 useButton(request, response, session, button);
                 break;
@@ -267,10 +267,10 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/AddUser.jsp");
                 break;
 
-            case "Tilbage til start siden":
+            case "Forside":
                 forward(request, response, "/FrontPage.jsp");
                 break;
-
+                
             case "Logud":
                 session.setAttribute("login", null);
                 session.setAttribute("loginAs", null);

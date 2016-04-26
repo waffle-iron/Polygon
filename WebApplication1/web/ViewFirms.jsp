@@ -36,7 +36,7 @@
         <form>
             <input type ="hidden"  name="do_this" value="useButton">
             <ul>
-                <li><input class="submit1" type="submit" id="goBack"  name="goToFrontPage" value="Forside" /></li>
+                <li><input class="submit1" type="submit" id="goBack"  name="button" value="Forside" /></li>
                     <%
                         Login login = (Login) session.getAttribute("login");
                     %>

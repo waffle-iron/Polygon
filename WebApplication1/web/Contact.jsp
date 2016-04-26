@@ -76,7 +76,7 @@
             <br>
             <label for="goBack"></label>
             <input type="hidden" name="do_this" value="goToFrontPage"/>
-            <input class="submit2" type="submit" id="goBack"  name="goToFrontPage" value="Gå tilbage start siden" />
+            <input class="submit2" type="submit" id="goBack"  name="button" value="Gå tilbage start siden" />
         </form>
        <div class="footer">
             <table id="t01">
