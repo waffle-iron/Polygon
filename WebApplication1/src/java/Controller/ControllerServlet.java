@@ -41,6 +41,7 @@ public class ControllerServlet extends HttpServlet
         do_this += request.getParameter("do_this");
         if (do_this.equals(""))
         {
+            request.setAttribute("fejlMeddelse", "videre sendelse havde ikke en valid string på den næste page");
             forward(request, response, "/Fejl.jsp");
         }
         switch (do_this)
@@ -78,19 +79,21 @@ public class ControllerServlet extends HttpServlet
                     Login login = facade.getLoginByUsername(request.getParameter("username"));
                     session.setAttribute("loginAs", login.getAuthorization());
                     session.setAttribute("login", login);
+                    request.getParameter("username");
+                    request.setAttribute("author", facade.viewAuthor(login));
+                
                     switch (login.getAuthorization())
                     {
                         case "user":
-                            forward(request, response, "/FrontPage.jsp");
-                            break;
+                            
 
                         case "tech":
-                            forward(request, response, "/FrontPage.jsp");
-                            break;
+                            
                         case "admin":
                             forward(request, response, "/FrontPage.jsp");
                             break;
                         default:
+                            request.setAttribute("fejlMeddelse","dit login har ikke en authority snak med en admin om det");
                             forward(request, response, "/Fejl.jsp");
                             break;
                     }
@@ -232,9 +235,13 @@ public class ControllerServlet extends HttpServlet
             case "changeReport":
                 try
                 {
-                    ArrayList<Integer> reportIDList = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("Option")));
+                     
+                        
+                    ArrayList<Integer> reportIDList = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("buildingID")));
+                    String str = facade.getSingleBuildingByID(Integer.parseInt(request.getParameter("buildingID"))).getAddress();
+                        request.setAttribute("Adresse", str);
                     request.setAttribute("reportIDList", reportIDList);
-                    System.out.println("option was :" + Integer.parseInt(request.getParameter("Option")));
+                    
                     viewRaport(Integer.parseInt(request.getParameter("Option")), request, response);
                 } catch (Exception e)
                 {
@@ -243,6 +250,8 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             default:
+                request.setAttribute("fejlMeddelse","du blev ikke sendt til en valid side"
+                        + "" );
                 forward(request, response, "/Fejl.jsp");
                 break;
         }
@@ -269,7 +278,7 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/Login.jsp");
                 break;
 
-            case "Mine bygninger":
+            case "Vis bygninger":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 if (session.getAttribute("login") != null)
                 {
@@ -551,13 +560,28 @@ public class ControllerServlet extends HttpServlet
                         viewRaport(reportIDList.get(reportIDList.size() - 1), request, response);
                     } else
                     {
-                        request.setAttribute("noReport", "Der findes ingen rapport til denne bygning.");
-                        request.setAttribute("goBackToMyBuildings", "viewMyBuildings");
+                        request.setAttribute("fejlMeddelse", "Der findes ingen rapport til denne bygning.");
+                        request.setAttribute("goBackTo", "viewMyBuildings");
                         forward(request, response, "/Fejl.jsp");
                     }
-                } catch (Exception e)
+                } catch (ClassNotFoundException e)
                 {
-
+                    request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
+                            + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
+                } catch (NumberFormatException e)
+                {
+                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den proevede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
+                            + "hvis venligst en teknikker foelgende besked" + "<br>" + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
+                } catch (SQLException e)
+                {
+                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
+                            + "hvis venligst en teknikker foelgende besked" + e.toString());
+                    request.setAttribute("goBackTo", "viewBuildings");
+                    forward(request, response, "/Fejl.jsp");
                 }
                 break;
 
@@ -565,7 +589,7 @@ public class ControllerServlet extends HttpServlet
                 try
                 {
                     session.setAttribute("building", facade.getSingleBuildingByID(ID));
-                    
+
                     goToReport(request, response);
                 } catch (ClassNotFoundException e)
                 {
@@ -633,9 +657,11 @@ public class ControllerServlet extends HttpServlet
 
     private void goToReport(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
-    { 
-        if(request.getAttribute("numberOfPages") == null)
+    {
+        if (request.getAttribute("numberOfPages") == null)
+        {
             request.setAttribute("numberOfPages", "" + 1);
+        }
         request.setAttribute("nextReportNr", facade.getNextReportNr());
         forward(request, response, "/AddReport.jsp");
     }
@@ -653,6 +679,8 @@ public class ControllerServlet extends HttpServlet
         {
             try
             {
+                request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\"");
+                    request.setAttribute("goBackTo", "viewBuildings");
                 forward(request, response, "/Fejl.jsp");
             } catch (IOException | ServletException ex)
             {
