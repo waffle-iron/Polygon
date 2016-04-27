@@ -79,7 +79,6 @@ public class ControllerServlet extends HttpServlet
                     session.setAttribute("loginAs", login.getAuthorization());
                     session.setAttribute("login", login);
                     request.getParameter("username");
-                    request.setAttribute("author", facade.viewAuthor(login));
                 
                     switch (login.getAuthorization())
                     {
@@ -663,7 +662,6 @@ public class ControllerServlet extends HttpServlet
     private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response)
     {
 
-        facade.getReportsFromDB();
         Report report = facade.getReportFromDB(reportid);
 
         if (report != null)

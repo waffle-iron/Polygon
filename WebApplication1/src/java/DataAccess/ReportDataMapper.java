@@ -52,7 +52,7 @@ public class ReportDataMapper
                 stat.setInt(10, reportpage.getFire());
                 stat.setString(11, reportpage.getOther());
                 stat.setInt(12, reportpage.getMoistScan());
-                stat.executeUpdate();
+                stat.executeUpdate();   
                 stat.clearParameters();
                 if(reportpage.getComments()!= null)
                     CommentDataMapper.addCommnetsToDB(reportpage.getComments(), con,i,j);
@@ -127,6 +127,7 @@ public class ReportDataMapper
                     if (reportpage.getReportPageNr() == comment.getReportPageID())
                     {
                         reportpage.addComment(comment);
+                        comarr.remove(comment);
                     }
                 }
             }
@@ -137,6 +138,7 @@ public class ReportDataMapper
                 if (res.getInt(2) == ReportID)
                 {
                     report = new Report(res.getInt(2), res.getInt(3), new Date(res.getDate(4)), res.getInt(5), (ReportPage[]) arr.toArray(list2), null, null);
+                    break;
                 }
             }
 
@@ -170,7 +172,7 @@ public class ReportDataMapper
 
         int[] info = new int[3];
         ArrayList<ReportPage> arr = new ArrayList<>();
-        ArrayList<Comment> comarr = new ArrayList<>();
+        ArrayList<Comment> comarr;
         try
         {
             Connector con = new Connector();
@@ -202,6 +204,7 @@ public class ReportDataMapper
                     if (reportpage.getReportPageNr() == comment.getReportPageID())
                     {
                         reportpage.addComment(comment);
+                        comarr.remove(comment);
                     }
                 }
             }

@@ -16,8 +16,7 @@ public class Facade
     private final FirmDataMapper firmDM = new FirmDataMapper();
     private final ReportDataMapper reportDM = new ReportDataMapper();
     private final LoginDataMapper loginDM = new LoginDataMapper();
-    private final ImageDataMapper imageDataMapper = new ImageDataMapper();
-
+    
     public Building getSingleBuildingByID(int buildingID)
             throws ClassNotFoundException,NumberFormatException,SQLException
     {
@@ -85,24 +84,9 @@ public class Facade
         return reportDM.getNextReportNr();
     }
 
-    public void addImageToDB(InputStream Report)
-    {
-        imageDataMapper.addImageToDB(Report);
-    }
-
-    public Image getImageFromDB()
-    {
-        return imageDataMapper.getImageFromDB();
-    }
-
     public boolean userExists(String name, String pass)
     {
         return loginDM.userExists(name, pass);
-    }
-
-    public ArrayList<String> viewAuthor(Login login)
-    {
-        return loginDM.viewAuthor(login);
     }
     
     public void addLoginToDB(Login login)
