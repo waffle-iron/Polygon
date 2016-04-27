@@ -12,9 +12,8 @@ public class BuildingDataMapper
     {
         ArrayList<Integer> result = new ArrayList<>();
 
-        Connector con = new Connector();
         String query = "select ReportNR from report where BuildingID = " + ID + ";";
-        ResultSet res = con.getResults(query);
+        ResultSet res = Connector.getResults(query);
 
         while (res.next())
         {
@@ -28,9 +27,8 @@ public class BuildingDataMapper
     {
         Building building = null;
 
-        Connector con = new Connector();
         String query = "SELECT * FROM building where BuildingID = " + buildingID + ";";
-        ResultSet res = con.getResults(query);
+        ResultSet res = Connector.getResults(query);
 
         while (res.next())
         {
@@ -49,8 +47,7 @@ public class BuildingDataMapper
             throws ClassNotFoundException, SQLException
     {
 
-        Connector con = new Connector();
-        con.getUpdate("INSERT INTO `building` (`address`, `zip`, `firmID`, `name`, `buildingYear`, `size`, `usage`)" + "VALUES( '"
+        Connector.getUpdate("INSERT INTO `building` (`address`, `zip`, `firmID`, `name`, `buildingYear`, `size`, `usage`)" + "VALUES( '"
                 + build.getAddress() + "',"
                 + build.getZip() + ","
                 + build.getFirmID() + ",'"
@@ -65,12 +62,11 @@ public class BuildingDataMapper
         ArrayList<Building> listOfBuildings = new ArrayList();
         try
         {
-            Connector con = new Connector();
             String query = "SELECT b.BuildingID, Address, zip, firmID,`name`,buildingyear,size,`usage`, \n"
                     + "(SELECT StateNR FROM report WHERE `date`=(\n"
                     + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID limit 1) and BuildingID = b.BuildingID limit 1) as StateNR \n"
                     + "    from building b order by StateNR desc;";
-            ResultSet res = con.getResults(query);
+            ResultSet res = Connector.getResults(query);
             while (res.next())
             {
 
@@ -95,12 +91,11 @@ public class BuildingDataMapper
 
         try
         {
-            Connector con = new Connector();
             String query = ("SELECT b.BuildingID, Address, zip, firmID,`name`,buildingyear,size,`usage`, \n"
                     + "(SELECT StateNR FROM report WHERE `date`=(\n"
                     + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID limit 1) and BuildingID = b.BuildingID limit 1) as StateNR \n"
                     + " from building b WHERE firmID = " + firmID + " order by StateNR desc;");
-            ResultSet res = con.getResults(query);
+            ResultSet res = Connector.getResults(query);
 
             while (res.next())
             {
@@ -123,8 +118,7 @@ public class BuildingDataMapper
 
     public void removeBuilding(int ID) throws SQLException, ClassNotFoundException
     {
-        Connector con = new Connector();
         String query = "DELETE FROM building WHERE BuildingID = " + ID + ";";
-        con.getUpdate(query);
+        Connector.getUpdate(query);
     }
 }

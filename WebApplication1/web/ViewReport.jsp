@@ -19,9 +19,9 @@
     </head>
     <body>
         <form action="ControllerServlet"  method="POST">
-            <input type ="hidden" name="do_this"value="useButton" >
+            <input type ="hidden" name="do_this" value="useButton" >
             <ul>
-                <li><input class="submit1" type="submit" id="goBack"  name="goToFrontPage" value="Forside"/></li>
+                <li><input class="submit1" type="submit" id="goBack"  name="button" value="Forside"/></li>
                 <%
                     Login login = (Login) session.getAttribute("login");
                 %>
@@ -45,11 +45,11 @@
 
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
-                <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
+                <li><input class="submit1" type="submit" name ="button" value="Vis bygninger"></li>
                 <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>            </ul>
         </form>
-                <img src="Poly-logo.png" alt="Polygon" style="width:200px;height:35px;" style = "float:left">
+                <img src="Poly-logo.png" alt="Polygon" style="float:left;width:200px;height:35px;" >
                 <form action="ControllerServlet"  method="POST">
                     <%ArrayList<Integer> reportIDs = new ArrayList();
                         reportIDs = (ArrayList<Integer>) request.getAttribute("reportIDList");
@@ -59,7 +59,8 @@
                         for(int i = 0; i < reportIDs.size();i++)
                         {
                             %>
-                            <option>
+                            <option <%if(((Report)request.getAttribute("report")).getReportnr() ==reportIDs.get(i)){%>
+                                selected="selected"<%}%>>
                                 <%=reportIDs.get(i) %>
                             </option>
                             <%
@@ -68,6 +69,7 @@
                     </select>
                     <input type ="hidden" name = "do_this" value ="changeReport">
                     <input type="submit"  name="button" value="skift rapport"/>
+                    <input type="hidden" name ="buildingID" value ="<%=((Report)request.getAttribute("report")).getBuildingID()%>">
                     
                 </form>
         <%Report res = (Report)request.getAttribute("report");%>

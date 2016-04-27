@@ -62,7 +62,7 @@
 
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
-                <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
+                <li><input class="submit1" type="submit" name ="button" value="Vis bygninger"></li>
                 <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
             </ul>
@@ -76,7 +76,7 @@
             <br>
             <label for="goBack"></label>
             <input type="hidden" name="do_this" value="goToFrontPage"/>
-            <input class="submit2" type="submit" id="goBack"  name="goToFrontPage" value="Gå tilbage start siden" />
+            <input class="submit2" type="submit" id="goBack"  name="button" value="Gå tilbage start siden" />
         </form>
        <div class="footer">
             <table id="t01">

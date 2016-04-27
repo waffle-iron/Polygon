@@ -32,7 +32,7 @@
         <form action="ControllerServlet"  method="POST">
             <input type ="hidden"  name="do_this" value="useButton">
             <ul>
-                <li><input class="submit1" type="submit" id="goBack" name="goToFrontPage" value="Forside" /></li>
+                <li><input class="submit1" type="submit" id="goBack" name="button" value="Forside" /></li>
                     <%
                         Login login = (Login) session.getAttribute("login");
                     %>
@@ -56,12 +56,12 @@
 
                 <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
                     <%}%>
-                <li><input class="submit1" type="submit" name ="button" value="Mine bygninger"></li>
+                <li><input class="submit1" type="submit" name ="button" value="Vis bygninger"></li>
                 <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
             </ul>
         </form>
-        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;float:left;">
         <div class="content">
             <h1>Opret en ny bygning her</h1>
             <form action="ControllerServlet" method="POST">

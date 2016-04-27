@@ -28,7 +28,7 @@
     <body>
         <form action="ControllerServlet" method="POST">
             <input type="hidden" name="do_this" value="useButton" />
-            <input class="submit2" type="submit"  name="useButton"  value="Forside"/>
+            <input class="submit2" type="submit"  name="button"  value="Forside"/>
             <br>
         </form>
         <div class="report">

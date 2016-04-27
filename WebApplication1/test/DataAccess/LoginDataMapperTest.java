@@ -58,12 +58,9 @@ public class LoginDataMapperTest
        
        boolean result2 = loginDM.userExists("Julemanden", "password");
        assertFalse(result2);
+       
+       boolean result3 = loginDM.userExists("Stol", "Bord");
+       assertFalse(result3);
    }
-   
-//    @Test
-//    public void testGetLoginByUsername()
-//    {
-//        Login result = loginDM.getLoginByUsername("admin");
-//        assertEquals("admin", result);
-//    }
+
 }

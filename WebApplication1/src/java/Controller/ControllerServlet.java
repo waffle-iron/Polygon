@@ -41,6 +41,7 @@ public class ControllerServlet extends HttpServlet
         do_this += request.getParameter("do_this");
         if (do_this.equals(""))
         {
+            request.setAttribute("fejlMeddelse", "videre sendelse havde ikke en valid string på den næste page");
             forward(request, response, "/Fejl.jsp");
         }
         switch (do_this)
@@ -49,9 +50,9 @@ public class ControllerServlet extends HttpServlet
             case "useButton":
                 String button = "";
                 button += request.getParameter("button");
-                if (button.equals("null"))
+                if (button.equals(""))
                 {
-                    forward(request, response, "/FrontPage.jsp");
+                    forward(request, response, "/Fejl.jsp");
                 }
                 useButton(request, response, session, button);
                 break;
@@ -83,16 +84,15 @@ public class ControllerServlet extends HttpServlet
                     switch (login.getAuthorization())
                     {
                         case "user":
-                            forward(request, response, "/FrontPage.jsp");
-                            break;
+                            
 
                         case "tech":
-                            forward(request, response, "/FrontPage.jsp");
-                            break;
+                            
                         case "admin":
                             forward(request, response, "/FrontPage.jsp");
                             break;
                         default:
+                            request.setAttribute("fejlMeddelse","dit login har ikke en authority snak med en admin om det");
                             forward(request, response, "/Fejl.jsp");
                             break;
                     }
@@ -234,9 +234,13 @@ public class ControllerServlet extends HttpServlet
             case "changeReport":
                 try
                 {
-                    ArrayList<Integer> reportIDList = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("Option")));
+                     
+                        
+                    ArrayList<Integer> reportIDList = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("buildingID")));
+                    String str = facade.getSingleBuildingByID(Integer.parseInt(request.getParameter("buildingID"))).getAddress();
+                        request.setAttribute("Adresse", str);
                     request.setAttribute("reportIDList", reportIDList);
-                    System.out.println("option was :" + Integer.parseInt(request.getParameter("Option")));
+                    
                     viewRaport(Integer.parseInt(request.getParameter("Option")), request, response);
                 } catch (Exception e)
                 {
@@ -245,6 +249,8 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             default:
+                request.setAttribute("fejlMeddelse","du blev ikke sendt til en valid side"
+                        + "" );
                 forward(request, response, "/Fejl.jsp");
                 break;
         }
@@ -260,10 +266,10 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/AddUser.jsp");
                 break;
 
-            case "Tilbage til start siden":
+            case "Forside":
                 forward(request, response, "/FrontPage.jsp");
                 break;
-
+                
             case "Logud":
                 session.setAttribute("login", null);
                 session.setAttribute("loginAs", null);
@@ -271,7 +277,7 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/Login.jsp");
                 break;
 
-            case "Mine bygninger":
+            case "Vis bygninger":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 if (session.getAttribute("login") != null)
                 {

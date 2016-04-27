@@ -13,27 +13,23 @@ public class LoginDataMapper
     {
         try
         {
-            Connector con = new Connector();
-            PreparedStatement prepareStatement = con.getCon().prepareStatement("SELECT * FROM login where `Username` = ? and `Password` = ?;");
+            PreparedStatement prepareStatement = Connector.getCon().prepareStatement("SELECT * FROM login where `Username` = ? and `Password` = ?;");
             prepareStatement.setString(1, name);
             prepareStatement.setString(2, pass);
             ResultSet res = prepareStatement.executeQuery();
             return res.next();
-        } catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
         return false;
     }
-    
-    
 
     public void addLoginToDB(Login login)
     {
         try
         {
-            Connector con = new Connector();
-            con.getUpdate("INSERT INTO login (`username`, `password`, `firmId`, `authorization`)" + "VALUES ('"
+            Connector.getUpdate("INSERT INTO login (`username`, `password`, `firmId`, `authorization`)" + "VALUES ('"
                     + login.getUsername() + "','"
                     + login.getPassword() + "',"
                     + login.getFirmID() + ",'"
@@ -51,9 +47,8 @@ public class LoginDataMapper
 
         try
         {
-            Connector con = new Connector();
             String query = ("SELECT * FROM login where username = '" + username + "'");
-            ResultSet res = con.getResults(query);
+            ResultSet res = Connector.getResults(query);
 
             while (res.next())
             {
