@@ -60,6 +60,11 @@ public class ControllerServlet extends HttpServlet
             case "useHidden":
                 String commentPair = "";
                 commentPair += request.getParameter("Comment");
+                if(commentPair.equals(""))
+                {
+                    forward(request, response, "/Fejl.jsp");
+                }
+                    
                 String[] commentPaired = commentPair.split(",");
                 useHidden(request, response, session, commentPaired[0], Integer.parseInt(commentPaired[1]));
                 break;
@@ -242,7 +247,7 @@ public class ControllerServlet extends HttpServlet
                         request.setAttribute("Adresse", str);
                     request.setAttribute("reportIDList", reportIDList);
                     
-                    viewRaport(Integer.parseInt(request.getParameter("Option")), request, response);
+                    viewReport(Integer.parseInt(request.getParameter("Option")), request, response);
                 } catch (Exception e)
                 {
 
@@ -557,7 +562,7 @@ public class ControllerServlet extends HttpServlet
                         String str = facade.getSingleBuildingByID(ID).getAddress();
                         request.setAttribute("Adresse", str);
                         request.setAttribute("reportIDList", reportIDList);
-                        viewRaport(reportIDList.get(reportIDList.size() - 1), request, response);
+                        viewReport(reportIDList.get(reportIDList.size() - 1), request, response);
                     } else
                     {
                         request.setAttribute("fejlMeddelse", "Der findes ingen rapport til denne bygning.");
@@ -566,19 +571,23 @@ public class ControllerServlet extends HttpServlet
                     }
                 } catch (ClassNotFoundException e)
                 {
-                    request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, men hvis venligst din tekniker følgende besked: \"<br>\""
+                    request.setAttribute("fejlMeddelse", "programmet kunne ikke finde en klasse, vi kan ikke forklare hvorfor da dette ikke burde ske, "
+                            + "men hvis venligst din tekniker følgende besked: \"<br>\""
                             + e.toString());
                     request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
                 } catch (NumberFormatException e)
                 {
-                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den proevede at forvanlde et bogstav saet til et tal saet, dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
+                    request.setAttribute("fejlMeddelse", "programmet fik en fejl da den proevede at forvanlde et bogstav saet til et tal saet, "
+                            + "dette kan ske hvis du skriver tekst i en tal box eller hvis der ern en fejl i databsen"
                             + "hvis venligst en teknikker foelgende besked" + "<br>" + e.toString());
                     request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
                 } catch (SQLException e)
                 {
-                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx ; \" eller ` \"<br>\""
+                    request.setAttribute("fejlMeddelse", "der var en fejl med at enten hente eller skrive til serveren, "
+                            + "hvis det var skrive til kan det vaere fordi du har skrevet tegn der ville afslutte vores kode, som fx "
+                            + "; \" eller ` \"<br>\""
                             + "hvis venligst en teknikker foelgende besked" + e.toString());
                     request.setAttribute("goBackTo", "viewBuildings");
                     forward(request, response, "/Fejl.jsp");
@@ -666,7 +675,7 @@ public class ControllerServlet extends HttpServlet
         forward(request, response, "/AddReport.jsp");
     }
 
-    private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response)
+    private void viewReport(int reportid, HttpServletRequest request, HttpServletResponse response)
     {
 
         facade.getReportsFromDB();

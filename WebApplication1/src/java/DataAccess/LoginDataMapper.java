@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class LoginDataMapper
 {
-
     public boolean userExists(String name, String pass)
     {
         try
         {
             Connector con = new Connector();
-            PreparedStatement prepareStatement = con.getCon().prepareStatement("SELECT * FROM login where `Username` = ? and `Password` = ?;");
+            PreparedStatement prepareStatement = con.getCon().prepareStatement("SELECT * FROM login where `Username` "
+                    + "= ? and `Password` = ?;");
             prepareStatement.setString(1, name);
             prepareStatement.setString(2, pass);
             ResultSet res = prepareStatement.executeQuery();
