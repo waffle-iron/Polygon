@@ -12,7 +12,7 @@ public class FirmDataMapper
     {
         try
         {
-            Connector.getUpdate("INSERT INTO `firm` (`ContactNumber`, `ContactMail`)" + "VALUES("
+            Connector.getCon().getUpdate("INSERT INTO `firm` (`ContactNumber`, `ContactMail`)" + "VALUES("
                     + firm.getContactNumber() + ",'"
                     + firm.getContactMail() + "');");
         } catch (Exception ex)
@@ -26,7 +26,7 @@ public class FirmDataMapper
         ArrayList<Integer> temp = new ArrayList<>();
         try
         {
-            ResultSet res = Connector.getResults("SELECT * FROM firm natural join login where Username = '" + (username.getUsername()) + "'");
+            ResultSet res = Connector.getCon().getResults("SELECT * FROM firm natural join login where Username = '" + (username.getUsername()) + "'");
             res.beforeFirst();
             for (int i = 0; res.next(); i++)
             {
@@ -47,7 +47,7 @@ public class FirmDataMapper
         try
         {
             String query = ("SELECT * FROM firm");
-            ResultSet res = Connector.getResults(query);
+            ResultSet res = Connector.getCon().getResults(query);
             res.beforeFirst();
 
             while (res.next())

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginDataMapper
 {
@@ -13,7 +15,7 @@ public class LoginDataMapper
     {
         try
         {
-            PreparedStatement prepareStatement = Connector.getCon().prepareStatement("SELECT * FROM login where `Username` = ? and `Password` = ?;");
+            PreparedStatement prepareStatement = Connector.getCon().getconnection().prepareStatement("SELECT * FROM login where `Username` = ? and `Password` = ?;");
             prepareStatement.setString(1, name);
             prepareStatement.setString(2, pass);
             ResultSet res = prepareStatement.executeQuery();
@@ -21,6 +23,8 @@ public class LoginDataMapper
         } catch (SQLException ex)
         {
             ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LoginDataMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -29,7 +33,7 @@ public class LoginDataMapper
     {
         try
         {
-            Connector.getUpdate("INSERT INTO login (`username`, `password`, `firmId`, `authorization`)" + "VALUES ('"
+            Connector.getCon().getUpdate("INSERT INTO login (`username`, `password`, `firmId`, `authorization`)" + "VALUES ('"
                     + login.getUsername() + "','"
                     + login.getPassword() + "',"
                     + login.getFirmID() + ",'"
@@ -48,7 +52,7 @@ public class LoginDataMapper
         try
         {
             String query = ("SELECT * FROM login where username = '" + username + "'");
-            ResultSet res = Connector.getResults(query);
+            ResultSet res = Connector.getCon().getResults(query);
 
             while (res.next())
             {
