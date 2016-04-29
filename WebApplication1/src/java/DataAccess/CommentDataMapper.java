@@ -21,8 +21,7 @@ public class CommentDataMapper {
     public static int getNextCommentNr() {
         int info = 0;
         try {
-            Connector con = new Connector();
-            ResultSet res = con.getResults("SELECT max(CommentID) FROM Comments;");
+            ResultSet res = Connector.getResults("SELECT max(CommentID) FROM Comments;");
             res.next();
             info = res.getInt(1);
 
@@ -122,13 +121,12 @@ public class CommentDataMapper {
     }
 
     public static ArrayList<Comment> getCommentsFromDB() {
-        Connector con = null;
+       
         ArrayList<Comment> comarr = new ArrayList<>();
 
         try {
-            con = new Connector();
             {
-                ResultSet res = con.getResults("SELECT * FROM grp01.comments;");
+                ResultSet res = Connector.getResults("SELECT * FROM grp01.comments;");
                 res.beforeFirst();
                 while (res.next()) {
                     comarr.add(new Comment(res.getString(4), res.getString(5), res.getInt(1), res.getInt(2), res.getInt(3)));

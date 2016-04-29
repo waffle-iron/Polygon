@@ -124,20 +124,16 @@ insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"admin@firmsareus
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"support@firming.com"); 
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"polygoncontact@thebestfirm.com");
 
-insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("anders","132",1,'tech');
-insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("admin","password",1,'admin');
-insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("xxxsniper360xxx","snips",1,'user');
 insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("t","1",1,'tech');
 insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("a","1",1,'admin');
 insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("u","1",1,'user');
-insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("test","test",1,'user');
 
 insert into `zip` (`Zip`,`City`) values(3600,"Fredrikssund"); 
 insert into `zip` (`Zip`,`City`) values(2800,"Kongens Lyngby");  
 
-insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 1",2800,1,"storkevænget",420,10,"recidence");  
-insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 2",2800,1,"home",420,10,"service");  
-insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("highway to hell 666",3666,2,"hell",666,666,"torturing bad people, be good");  
+insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 1",2800,1,"Skole",420,10,"Recidence");  
+insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Hovedgade 2",2800,1,"Arbejde",420,10,"Service");  
+insert into `building` (`Address`,`Zip`,`FirmID`,`Name`,`BuildingYear`,`Size`,`Usage`) values("Stovbyvej 6",3666,2,"Hjem",666,666,"Hjem");  
 
 insert into `report` (`BuildingID`,`Date`,`StateNR`) values(1,'1990-01-01',0);  
 insert into `report` (`BuildingID`,`Date`,`StateNR`) values(2,'420-01-01',0);  
@@ -158,4 +154,4 @@ insert into `conclusion`(`ReportNR`,`Room`,`Recomandation`) values(2,"main room"
 #insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(1,1,1,"http://imgur.com/gallery/rKaUjEX");
 #insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(2,2,2,"error not sfw");
 #insert into `pictures`(`CommentID`,`ReportNR`,`BuildingID`,`PictureLink`) values(1,1,1,"http://imgur.com/gallery/rKaUjEX")
-select * from report; 
+select * from login; 

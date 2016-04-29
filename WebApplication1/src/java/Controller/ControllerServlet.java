@@ -50,9 +50,9 @@ public class ControllerServlet extends HttpServlet
             case "useButton":
                 String button = "";
                 button += request.getParameter("button");
-                if (button.equals("null"))
+                if (button.equals(""))
                 {
-                    forward(request, response, "/FrontPage.jsp");
+                    forward(request, response, "/Fejl.jsp");
                 }
                 useButton(request, response, session, button);
                 break;
@@ -80,7 +80,6 @@ public class ControllerServlet extends HttpServlet
                     session.setAttribute("loginAs", login.getAuthorization());
                     session.setAttribute("login", login);
                     request.getParameter("username");
-                    request.setAttribute("author", facade.viewAuthor(login));
                 
                     switch (login.getAuthorization())
                     {
@@ -268,10 +267,10 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/AddUser.jsp");
                 break;
 
-            case "Tilbage til start siden":
+            case "Forside":
                 forward(request, response, "/FrontPage.jsp");
                 break;
-
+                
             case "Logud":
                 session.setAttribute("login", null);
                 session.setAttribute("loginAs", null);
@@ -279,7 +278,7 @@ public class ControllerServlet extends HttpServlet
                 forward(request, response, "/Login.jsp");
                 break;
 
-            case "Mine bygninger":
+            case "Vis bygninger":
                 // <editor-fold defaultstate="collapsed" desc="My Fold">
                 if (session.getAttribute("login") != null)
                 {
@@ -675,7 +674,6 @@ public class ControllerServlet extends HttpServlet
     private void viewReport(int reportid, HttpServletRequest request, HttpServletResponse response)
     {
 
-        facade.getReportsFromDB();
         Report report = facade.getReportFromDB(reportid);
 
         if (report != null)
