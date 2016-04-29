@@ -102,7 +102,7 @@ public class ReportDataMapper
         {
             comarr = CommentDataMapper.getCommentsFromDB();
 
-            ResultSet res = Connector.getResults("select  ReportPageNr ,reportNR, "
+            ResultSet res = Connector.getCon().getResults("select  ReportPageNr ,reportNR, "
                     + "(select BuildingID from report where report.reportNR  = e.reportNR),"
                     + "(select `Date` from report where report.reportNR  = e.reportNR),"
                     + "(select StateNR from report where report.reportNR  = "
@@ -175,7 +175,7 @@ public class ReportDataMapper
         try
         {
             comarr = CommentDataMapper.getCommentsFromDB();
-            ResultSet res = Connector.getResults("select  ReportPageNr ,reportNR, ("
+            ResultSet res = Connector.getCon().getResults("select  ReportPageNr ,reportNR, ("
                     + "select BuildingID from report where report.reportNR  = e.reportNR),"
                     + "(select `Date` from report where report.reportNR  = e.reportNR),"
                     + "(select StateNR from report where report.reportNR  = e.reportNR), "
@@ -255,7 +255,7 @@ public class ReportDataMapper
         ArrayList<ReportPage> arr = new ArrayList<>();
         try
         {
-            ResultSet res = Connector.getResults("SELECT count(*) FROM report;");
+            ResultSet res = Connector.getCon().getResults("SELECT count(*) FROM report;");
             res.beforeFirst();
             for (int i = 0; res.next(); i++)
             {
@@ -278,10 +278,10 @@ public class ReportDataMapper
         int info = 0;
         try
         {
-            ResultSet res = Connector.getResults("SELECT max(reportNR) FROM report;");
+            ResultSet res = Connector.getCon().getResults("SELECT max(reportNR) FROM report;");
             res.next();
             info = res.getInt(1);
-            Connector.getUpdate("ALTER TABLE report AUTO_INCREMENT = " + info + ";");
+            Connector.getCon().getUpdate("ALTER TABLE report AUTO_INCREMENT = " + info + ";");
             info += 1;
             System.out.println("info report = " + info);
 
@@ -302,10 +302,10 @@ public class ReportDataMapper
         int info = 0;
         try
         {
-            ResultSet res = Connector.getResults("SELECT max(reportpageNR) FROM reportpage;");
+            ResultSet res = Connector.getCon().getResults("SELECT max(reportpageNR) FROM reportpage;");
             res.next();
             info = res.getInt(1);
-            Connector.getUpdate("ALTER TABLE report AUTO_INCREMENT = " + info + ";");
+            Connector.getCon().getUpdate("ALTER TABLE report AUTO_INCREMENT = " + info + ";");
             info += 1;
             System.out.println("info reportpage = " + info);
 

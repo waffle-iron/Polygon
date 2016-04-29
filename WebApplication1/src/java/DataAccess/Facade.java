@@ -22,7 +22,7 @@ public class Facade
     {
         try
         {
-            Connector con = new Connector();
+            Connector con = Connector.getCon();
         } catch (Exception ex)
         {
 
