@@ -194,16 +194,17 @@ public class ControllerServlet extends HttpServlet
                             Integer.parseInt(request.getParameter("buildSize")));
                     request.setAttribute("Done", true);
 
-                    request.setAttribute("saveBuilding", true);
-                    request.setAttribute("saveBuildingInfo", building);
+                    
                     try
                     {
                         facade.addBuildingToDB(building);
+                        request.setAttribute("saveBuilding", true);
+                    request.setAttribute("clearAll", true);
                     } catch (Exception ex)
                     {
-                        ex.toString();
+                        ex.printStackTrace();
                     }
-                    request.setAttribute("clearAll", true);
+                    
                     forward(request, response, "/AddBuilding.jsp");
                 }// </editor-fold>
                 break;
@@ -241,7 +242,7 @@ public class ControllerServlet extends HttpServlet
                         request.setAttribute("Adresse", str);
                     request.setAttribute("reportIDList", reportIDList);
                     
-                    viewRaport(Integer.parseInt(request.getParameter("Option")), request, response);
+                    viewReport(Integer.parseInt(request.getParameter("Option")), request, response);
                 } catch (Exception e)
                 {
 
@@ -314,12 +315,13 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "Opret rapport":
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
                 try
                 {
-                    // <editor-fold defaultstate="collapsed" desc="My Fold">
+                    
                     Report report;
                     int[] info = new int[3];
-                    info[1] = Logic.BuildingNameToBuildingID((String) request.getAttribute("buildingNameText"));
+                    
                     if (session.getAttribute("building") != null)
                     {
                         Building building = ((Building) session.getAttribute("building"));
@@ -329,17 +331,21 @@ public class ControllerServlet extends HttpServlet
                     {
                         info[2] = 0;
                     }
-                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("1")))
+                    else if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("1")))
                     {
                         info[2] = 1;
                     }
-                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("2")))
+                    else if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("2")))
                     {
                         info[2] = 2;
                     }
-                    if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("3")))
+                    else if ((request.getParameter("stateCheck")) != null && (request.getParameter("stateCheck").equals("3")))
                     {
                         info[2] = 3;
+                    }
+                    else 
+                    {
+                        info[2] = 0;
                     }
                     String[] tempdate;
                     int[] date = new int[3];
@@ -556,7 +562,7 @@ public class ControllerServlet extends HttpServlet
                         String str = facade.getSingleBuildingByID(ID).getAddress();
                         request.setAttribute("Adresse", str);
                         request.setAttribute("reportIDList", reportIDList);
-                        viewRaport(reportIDList.get(reportIDList.size() - 1), request, response);
+                        viewReport(reportIDList.get(reportIDList.size() - 1), request, response);
                     } else
                     {
                         request.setAttribute("fejlMeddelse", "Der findes ingen rapport til denne bygning.");
@@ -665,7 +671,7 @@ public class ControllerServlet extends HttpServlet
         forward(request, response, "/AddReport.jsp");
     }
 
-    private void viewRaport(int reportid, HttpServletRequest request, HttpServletResponse response)
+    private void viewReport(int reportid, HttpServletRequest request, HttpServletResponse response)
     {
 
         Report report = facade.getReportFromDB(reportid);
