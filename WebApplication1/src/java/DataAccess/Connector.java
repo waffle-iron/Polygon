@@ -5,8 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Connector
-{
+public class Connector {
 
 //    private static final String HOST = "80.71.140.73";
 //    private static final int PORT = 3306;
@@ -21,32 +20,36 @@ public class Connector
     final static String PASSWORD = "1234";
     public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
+    private static Connector connector;
     private static Connection con;
 
-    public Connector() throws ClassNotFoundException, SQLException
-    {
+    private Connector() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
-    
-    public static int getUpdate(String query) throws SQLException
-    {
+
+    public int getUpdate(String query) throws SQLException {
         int res;
         res = con.createStatement().executeUpdate(query);
         return res;
     }
 
-    public static ResultSet getResults(String query) throws SQLException
-    {
+    public ResultSet getResults(String query) throws SQLException {
         ResultSet res;
         res = con.createStatement().executeQuery(query);
         return res;
     }
 
-    public static Connection getCon()
-    {
+    public static Connector getCon() throws ClassNotFoundException, SQLException {
+        if (connector == null) {
+            connector = new Connector();
+            return connector;
+        } else {
+            return connector;
+        }
+    }
+    public Connection getconnection(){
         return con;
     }
-    
-    
+
 }
