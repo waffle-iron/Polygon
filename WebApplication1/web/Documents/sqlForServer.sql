@@ -1,3 +1,5 @@
+drop database if exists grp01;
+create database grp01;
 use grp01;
 DROP TABLE IF EXISTS picturelink;
 DROP TABLE IF EXISTS conclusion;

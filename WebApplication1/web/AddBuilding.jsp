@@ -123,13 +123,13 @@
                     <tr>
                         <td>Bygningsår</td>
                         <td><input type="text" name="buildYear" value="<%= (request.getParameter("buildYear") == null
-                                           || clear ? "" : request.getParameter("buildYear"))%>" pattern="[0-9]{4}">
+                                           || clear ? "" : request.getParameter("buildYear"))%>" pattern="[0-9]{0,4}">
                             <span title="Bygningsår skal bestå af 4 cifre."</td>
                     </tr>
                     <tr>
                         <td>Størrelse</td>
                                    <td><input type="text" name="buildSize" value="<%= (request.getParameter("buildSize") == null
-                                || clear ? "" : request.getParameter("buildSize"))%>" pattern="[0-9].{0,}">&nbsp;*
+                                || clear ? "" : request.getParameter("buildSize"))%>" pattern="[0-9].{0,8}">&nbsp;*
                             <span title="Størrelsen angives i m2"> </span></td>
                     </tr>
                     <tr>

@@ -21,8 +21,7 @@ public class ImageDataMapper
 
         try
         {
-            Connector con = new Connector();
-            con.getUpdate("INSERT INTO picturelink(IMAGE) VALUES(" + Image + ")");
+            Connector.getUpdate("INSERT INTO picturelink(IMAGE) VALUES(" + Image + ")");
 
         } catch (Exception ex)
         {
@@ -36,8 +35,7 @@ public class ImageDataMapper
         Image img = null;
         try
         {
-            Connector con = new Connector();
-            ResultSet res = con.getResults("SELECT * FROM picturelink");
+            ResultSet res = Connector.getResults("SELECT * FROM picturelink");
             res.beforeFirst();
             for (int i = 0; res.next(); i++)
             {

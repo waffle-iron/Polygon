@@ -13,6 +13,7 @@ public class Connector
 //    private static final String DATABASE = "grp01";
 //    public static final String USERNAME = "grp01";
 //    public static final String PASSWORD = "7WgF&mjz";
+    
     static final String HOST = "Localhost";
     static int PORT = 3306;
     static String DATABASE = "grp01";
@@ -20,7 +21,7 @@ public class Connector
     final static String PASSWORD = "1234";
     public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
-    private final Connection con;
+    private static Connection con;
 
     public Connector() throws ClassNotFoundException, SQLException
     {
@@ -28,21 +29,21 @@ public class Connector
         con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
     
-    public int getUpdate(String query) throws SQLException
+    public static int getUpdate(String query) throws SQLException
     {
         int res;
         res = con.createStatement().executeUpdate(query);
         return res;
     }
 
-    public ResultSet getResults(String query) throws SQLException
+    public static ResultSet getResults(String query) throws SQLException
     {
         ResultSet res;
         res = con.createStatement().executeQuery(query);
         return res;
     }
 
-    public Connection getCon()
+    public static Connection getCon()
     {
         return con;
     }
