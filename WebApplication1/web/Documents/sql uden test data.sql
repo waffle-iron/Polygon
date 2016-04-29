@@ -118,4 +118,4 @@ CREATE TABLE `picturelink`
 
 );
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"admin@firmsareus.com"); 
-insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("admin","password",1,'admin');
+insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("administrator","password",1,'admin');
