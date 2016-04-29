@@ -13,6 +13,7 @@ public class Connector
 //    private static final String DATABASE = "grp01";
 //    public static final String USERNAME = "grp01";
 //    public static final String PASSWORD = "7WgF&mjz";
+    
     static final String HOST = "Localhost";
     static int PORT = 3306;
     static String DATABASE = "grp01";
