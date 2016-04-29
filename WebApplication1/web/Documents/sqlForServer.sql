@@ -124,9 +124,9 @@ insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"admin@firmsareus
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"support@firming.com"); 
 insert into `firm` (`ContactNumber`,`ContactMail`) values(1001,"polygoncontact@thebestfirm.com");
 
-insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("t","1",1,'tech');
-insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("a","1",1,'admin');
-insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("u","1",1,'user');
+insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("tekniker","password",1,'tech');
+insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("administrator","password",1,'admin');
+insert into `login` (`Username`,`Password`,`FirmID`,`Authorization`) values("bruger","password",1,'user');
 
 insert into `zip` (`Zip`,`City`) values(3600,"Fredrikssund"); 
 insert into `zip` (`Zip`,`City`) values(2800,"Kongens Lyngby");  
