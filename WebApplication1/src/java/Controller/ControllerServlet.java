@@ -48,6 +48,7 @@ public class ControllerServlet extends HttpServlet
         {
 
             case "useButton":
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
                 String button = "";
                 button += request.getParameter("button");
                 if (button.equals(""))
@@ -55,9 +56,11 @@ public class ControllerServlet extends HttpServlet
                     forward(request, response, "/Fejl.jsp");
                 }
                 useButton(request, response, session, button);
+                 // </editor-fold>
                 break;
 
             case "useHidden":
+                // <editor-fold defaultstate="collapsed" desc="My Fold">
                 String commentPair = "";
                 commentPair += request.getParameter("Comment");
                 if(commentPair.equals(""))
@@ -67,6 +70,7 @@ public class ControllerServlet extends HttpServlet
                     
                 String[] commentPaired = commentPair.split(",");
                 useHidden(request, response, session, commentPaired[0], Integer.parseInt(commentPaired[1]));
+                 // </editor-fold>
                 break;
 
             case "CheckLogin":
