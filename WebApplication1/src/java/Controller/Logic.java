@@ -7,7 +7,6 @@ package Controller;
 
 import DataAccess.Facade;
 import Domain.Building;
-import Domain.Login;
 import java.util.ArrayList;
 
 /**
@@ -26,8 +25,5 @@ public class Logic {
         }
         return res;
     }
-    public static ArrayList<Integer> getFirmIDsFromUserID(Login i){
-        
-        return Facade.listOfFirmIDsFromUser(i);
-    }
+    
 }

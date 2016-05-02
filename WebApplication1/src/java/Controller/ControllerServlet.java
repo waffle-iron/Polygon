@@ -1,6 +1,5 @@
 package Controller;
 
-import static Controller.Logic.*;
 import DataAccess.Facade;
 import Domain.Building;
 import Domain.Comment;
@@ -189,7 +188,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
-                    request.setAttribute("listOfFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
+                   
                     forward(request, response, "/AddBuilding.jsp");
 
                 } else
@@ -310,7 +309,7 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "Opret bygning":
-                request.setAttribute("listOfFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
+                
                 forward(request, response, "/AddBuilding.jsp");
                 break;
 

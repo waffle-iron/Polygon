@@ -4,8 +4,6 @@ import Domain.Building;
 import Domain.Firm;
 import Domain.Login;
 import Domain.Report;
-import java.awt.Image;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -110,8 +108,8 @@ public class Facade
         return loginDM.getLoginByUsername(username);
     }
 
-    public static ArrayList<Integer> listOfFirmIDsFromUser(Login username)
+    public static ArrayList<Integer> getlistOfFirmIDsFromUser(Login username)
     {
-        return FirmDataMapper.listOfFirmIDsFromUser(username);
+        return FirmDataMapper.getlistOfFirmIDsFromUser(username);
     }
 }

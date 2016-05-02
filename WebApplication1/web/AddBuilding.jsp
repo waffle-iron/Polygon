@@ -62,7 +62,7 @@
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
             </ul>
         </form>
-        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;float:left;">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;">
         <div class="content">
             <h1>Opret en ny bygning her</h1>
             <form action="ControllerServlet" method="POST">
@@ -89,32 +89,16 @@
                         <td>Postnummer</td>
                         <td><input type="text" name="buildZip" value="<%= (request.getParameter("buildZip") == null
                                            || clear ? "" : request.getParameter("buildZip"))%>" pattern="[0-9]{4}" />&nbsp;* 
-                            <span title="Postnummer skal indeholde 4 cifre."> </span></td>
-                    </tr>
-                    <tr>
-                        <td>Firma ID</td>
-                        <% if (request.getAttribute("listOfFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
-                            {
-                                ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("listOfFirmID");%>
-                        <td>
-                            <select name="buildFirmID">
-                                <%for (int i = 0; i < arr.size(); i++)
-                                    {%>
-                                <option><%arr.get(i);%></option>
-                                <%}%>
-                            </select>
-                        </td>
-                        <%}%>
-
-
+                            <span title="Postnummer skal indeholde 4 cifre."> </span>
                         <% if (session.getAttribute("loginAs") != null && ((String) session.getAttribute("loginAs")).equals("user"))
                             {%>
-                        <td>
-                            <input type ="text" name ="buildFirmID" value="<%= ((Login) session.getAttribute("login")).getFirmID()%>" readonly>
-                        </td>
+                            <input type ="hidden" id="userFirm" name ="buildFirmID" value="<%= ((Login) session.getAttribute("login")).getFirmID()%>">
                         <%}%>
-
+                        
+                        </td>
+                        
                     </tr>
+                    
                     <tr>
                         <td>Bygningens navn</td>
                         <td><input type="text" name="buildName" value="<%= (request.getParameter("buildName") == null
