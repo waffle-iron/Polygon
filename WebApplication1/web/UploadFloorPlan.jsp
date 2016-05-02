@@ -42,6 +42,7 @@
             }
             table#t01 th	{
                 background-color: rgb(0,159,227);
+                background: -webkit-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
                 color: white;
             }
         </style>

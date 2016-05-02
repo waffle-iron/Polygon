@@ -16,6 +16,28 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="NavigationCSS.css">
         <title>Rapport</title>
+        <style>
+            .footer{
+                position:fixed;
+                left:0px;
+  
+            }
+            
+            table#t01 {
+                width:100%;
+                position: fixed; bottom: 0;
+            }
+
+            th {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 th	{
+                background-color: rgb(0,159,227);
+                background: -webkit-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+                color: white;
+            }
+        </style>
     </head>
     <body>
         <form action="ControllerServlet"  method="POST">
