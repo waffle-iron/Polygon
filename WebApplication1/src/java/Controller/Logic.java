@@ -28,6 +28,6 @@ public class Logic {
     }
     public static ArrayList<Integer> getFirmIDsFromUserID(Login i){
         
-        return Facade.ValidFirmIDsFromUser(i);
+        return Facade.listOfFirmIDsFromUser(i);
     }
 }
