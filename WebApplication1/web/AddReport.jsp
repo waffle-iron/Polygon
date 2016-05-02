@@ -56,7 +56,7 @@
                     <span title="bygnings navn skal være mindre end 30."> </span>
 
                     <label for="date">Dato: *</label>
-                    <input id="date" type="date" name="dateDate" > 
+                    <input id="date" type="date" name="dateDate" required> 
                     <label for="adresse">Adresse: *</label>
                     <input id="adresse" type="text" name="adressText"
                            value ="<%= (building != null ? building.getAddress() : (request.getParameter("adressText") == null ? "" : request.getParameter("adressText")))%>">
