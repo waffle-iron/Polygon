@@ -142,7 +142,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("firmID").trim().compareTo("") == 0)
                 {
                     request.setAttribute("saveLogin", false);
-                    request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
+                    request.setAttribute("listOfFirmID", (facade.viewAllFirms()));
                     forward(request, response, "/AddUser.jsp");
                 } else
                 {
@@ -151,7 +151,7 @@ public class ControllerServlet extends HttpServlet
                             temp2);
                     request.setAttribute("saveLogin", true);
                     facade.addLoginToDB(newLogin);
-                    request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
+                    request.setAttribute("listOfFirmID", (facade.viewAllFirms()));
                     forward(request, response, "/AddUser.jsp");
                 }
                 // </editor-fold>
@@ -189,7 +189,7 @@ public class ControllerServlet extends HttpServlet
                         || request.getParameter("buildSize").trim().compareTo("") == 0
                         || request.getParameter("buildUsage").trim().compareTo("") == 0)
                 {
-                    request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
+                    request.setAttribute("listOfFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                     forward(request, response, "/AddBuilding.jsp");
 
                 } else
@@ -272,7 +272,7 @@ public class ControllerServlet extends HttpServlet
         switch (button)
         {
             case "Opret nyt login":
-                request.setAttribute("ValidFirmID", (facade.viewAllFirms()));
+                request.setAttribute("listOfFirmID", (facade.viewAllFirms()));
                 forward(request, response, "/AddUser.jsp");
                 break;
 
@@ -310,7 +310,7 @@ public class ControllerServlet extends HttpServlet
                 break;
 
             case "Opret bygning":
-                request.setAttribute("ValidFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
+                request.setAttribute("listOfFirmID", getFirmIDsFromUserID((Login) session.getAttribute("login")));
                 forward(request, response, "/AddBuilding.jsp");
                 break;
 

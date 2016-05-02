@@ -24,6 +24,7 @@
             }
             table#t01 th	{
                 background-color: rgb(0,159,227);
+                background: -webkit-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
                 color: white;
             }
         </style>
@@ -92,9 +93,9 @@
                     </tr>
                     <tr>
                         <td>Firma ID</td>
-                        <% if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
+                        <% if (request.getAttribute("listOfFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                             {
-                                ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("ValidFirmID");%>
+                                ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("listOfFirmID");%>
                         <td>
                             <select name="buildFirmID">
                                 <%for (int i = 0; i < arr.size(); i++)

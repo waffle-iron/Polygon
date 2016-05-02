@@ -46,6 +46,7 @@
             }
             table#t01 th	{
                 background-color: rgb(0,159,227);
+                background: -webkit-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
                 color: white;
             }
         </style>
@@ -119,9 +120,9 @@
                     <input type ="text" name ="firmID" value="<%= ((Login) session.getAttribute("login")).getFirmID()%>" id="firmId" readonly>
                 </td>
                 <%}%>
-                <%if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
+                <%if (request.getAttribute("listOfFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                     {
-                        ArrayList<Firm> firmIDs = (ArrayList<Firm>) request.getAttribute("ValidFirmID");%>
+                        ArrayList<Firm> firmIDs = (ArrayList<Firm>) request.getAttribute("listOfFirmID");%>
 
                 <td>
                     <select name="firmID" id="firmId">

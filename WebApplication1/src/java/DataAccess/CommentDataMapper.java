@@ -41,7 +41,6 @@ public class CommentDataMapper {
             stat.setString(4, comment.getText());
             stat.executeUpdate();
             stat.clearParameters();
-            con.commit();
             if (comment.getImage() != null && comment.getCommentImage().getBytes() != null) {
                 String sql = "INSERT INTO picturelink (CommentID, Picture) values (?, ?);";
                 stat = con.prepareStatement(sql);

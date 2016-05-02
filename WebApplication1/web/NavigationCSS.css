@@ -22,7 +22,12 @@ ul {
     margin: 0px;
     padding: 0px;
     overflow: hidden;
-    background-color: rgb(0,159,227);
+    background: rgb(0,159,227);
+    background: -moz-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#25A6E1),color-stop(100%,#188BC0));
+    background: -webkit-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+    background: -o-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+    background: linear-gradient(top,#25A6E1 0%,#188BC0 100%);
 }
 
 li {
@@ -32,6 +37,11 @@ li {
 
 .submit1{
     background: rgb(0,159,227);
+    background: -moz-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#25A6E1),color-stop(100%,#188BC0));
+    background: -webkit-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+    background: -o-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+    background: linear-gradient(top,#25A6E1 0%,#188BC0 100%);
     padding-top: 14px;
     color: #fff;
     font-size:17px;
@@ -44,7 +54,6 @@ li {
     background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#25A6E1),color-stop(100%,#188BC0));
     background: -webkit-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
     background: -o-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
-    background: -ms-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
     background: linear-gradient(top,#25A6E1 0%,#188BC0 100%);
     color: #fff;
     font-size:17px;
