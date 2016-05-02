@@ -4,8 +4,6 @@ import Domain.Building;
 import Domain.Firm;
 import Domain.Login;
 import Domain.Report;
-import java.awt.Image;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
