@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import DataAccess.Facade;
 import Domain.Building;
-import Domain.Login;
 import java.util.ArrayList;
 
-/**
- *
- * @author Emil
- */
 public class Logic {
     private static final Facade facade = new Facade();
     public static int BuildingNameToBuildingID(String str){
@@ -26,8 +16,5 @@ public class Logic {
         }
         return res;
     }
-    public static ArrayList<Integer> getFirmIDsFromUserID(Login i){
-        
-        return Facade.listOfFirmIDsFromUser(i);
-    }
+    
 }

@@ -21,7 +21,7 @@ public class FirmDataMapper
         }
     }
 
-    public static ArrayList<Integer> listOfFirmIDsFromUser(Login username)
+    public static ArrayList<Integer> getlistOfFirmIDsFromUser(Login username)
     {
         ArrayList<Integer> temp = new ArrayList<>();
         try
