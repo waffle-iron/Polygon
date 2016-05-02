@@ -110,8 +110,8 @@ public class Facade
         return loginDM.getLoginByUsername(username);
     }
 
-    public static ArrayList<Integer> ValidFirmIDsFromUser(Login username)
+    public static ArrayList<Integer> listOfFirmIDsFromUser(Login username)
     {
-        return FirmDataMapper.ValidFirmIDsFromUser(username);
+        return FirmDataMapper.listOfFirmIDsFromUser(username);
     }
 }

@@ -93,9 +93,9 @@
                     </tr>
                     <tr>
                         <td>Firma ID</td>
-                        <% if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
+                        <% if (request.getAttribute("listOfFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                             {
-                                ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("ValidFirmID");%>
+                                ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("listOfFirmID");%>
                         <td>
                             <select name="buildFirmID">
                                 <%for (int i = 0; i < arr.size(); i++)

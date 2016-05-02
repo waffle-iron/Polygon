@@ -120,9 +120,9 @@
                     <input type ="text" name ="firmID" value="<%= ((Login) session.getAttribute("login")).getFirmID()%>" id="firmId" readonly>
                 </td>
                 <%}%>
-                <%if (request.getAttribute("ValidFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
+                <%if (request.getAttribute("listOfFirmID") != null && ((String) session.getAttribute("loginAs")).equals("admin"))
                     {
-                        ArrayList<Firm> firmIDs = (ArrayList<Firm>) request.getAttribute("ValidFirmID");%>
+                        ArrayList<Firm> firmIDs = (ArrayList<Firm>) request.getAttribute("listOfFirmID");%>
 
                 <td>
                     <select name="firmID" id="firmId">

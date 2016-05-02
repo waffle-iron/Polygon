@@ -52,8 +52,7 @@ public class ReportDataMapper
                 stat.setInt(10, reportpage.getFire());
                 stat.setString(11, reportpage.getOther());
                 stat.setInt(12, reportpage.getMoistScan());
-                stat.executeUpdate();   
-                stat.clearParameters();
+                stat.executeUpdate();
                 if(reportpage.getComments()!= null)
                     CommentDataMapper.addCommnetsToDB(reportpage.getComments(), con,i,j);
                 j++;
