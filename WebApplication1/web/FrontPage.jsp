@@ -80,15 +80,16 @@
                 <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>
             </ul>
         </form>
-        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;">
+       
         <div class="content">
 
-
-            <h2>Du er logget ind som:  </h2>
-
-            <label for="username"><p>Brugernavn:</p></label>
+            <h1>Du er logget ind som:  </h1>
+            
+            <label for="username">Brugernavn:</label>
             <p id="username"><%=login.getUsername()%> </p>
-            <label for="firmId"><p>Firma ID:</p> </label>
+            
+            <label for="firmId">Firma ID: </label>
             <p id="firmId"><%=login.getFirmID()%></p> 
         </div>
         <div class="footer">
