@@ -1,3 +1,4 @@
+<%@page import="Domain.Login"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="Domain.Building"%>
@@ -26,6 +27,37 @@
         </style>
     </head>
     <body>
+        <form>
+            <input type ="hidden"  name="do_this" value="useButton">
+            <ul>
+                <li><input class="submit1" type="submit" id="goBack"  name="button" value="Forside" /></li>
+                    <%
+                        Login login = (Login) session.getAttribute("login");
+                    %>
+
+                <%if (login.getAuthorization().equals("user"))
+                    { %>
+                <li> <input class="submit1" type="submit" name ="button" value="Tilføj bygning"></li>
+
+                <li> <input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+
+                <%}%>
+
+                <%if (login.getAuthorization().equals("admin"))
+                    { %>
+
+                <li><input class="submit1" type="submit" name ="button" value="Opret nyt firma"></li>
+
+                <li><input class="submit1" type="submit" name ="button" value="Vis alle firmaer"></li>
+
+                <li><input class="submit1" type="submit" name ="button" value="Opret nyt login"></li>
+                    <%}%>
+                <li><input class="submit1" type="submit" name ="button" value="Vis bygninger"></li>
+                <li style="float:right"><input class="submit1" type="submit" name="button" value="Logud"  /></li>
+                <li style="float:right"><input class="submit1" type="submit" name ="button" value="Kontakt"></li>            </ul>
+        </form>
+        <img src="sundeByg.png" alt="Polygon" style="width:255px;height:80px;" style="float:left">
+        
         <form action="ControllerServlet" method="POST">
             <input type="hidden" name="do_this" value="useButton" />
             <input class="submit2" type="submit"  name="button"  value="Forside"/>
