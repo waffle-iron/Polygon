@@ -243,8 +243,6 @@ public class ControllerServlet extends HttpServlet
             case "changeReport":
                 try
                 {
-                     
-                        
                     ArrayList<Integer> reportIDList = facade.getListogReportIDsByBuildingID(Integer.parseInt(request.getParameter("buildingID")));
                     String str = facade.getSingleBuildingByID(Integer.parseInt(request.getParameter("buildingID"))).getAddress();
                         request.setAttribute("Adresse", str);
@@ -606,7 +604,7 @@ public class ControllerServlet extends HttpServlet
                 try
                 {
                     session.setAttribute("building", facade.getSingleBuildingByID(ID));
-
+                    
                     goToReport(request, response);
                 } catch (ClassNotFoundException e)
                 {

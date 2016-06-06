@@ -32,8 +32,7 @@ public class BuildingDataMapper
 
         while (res.next())
         {
-            building
-                    = new Building(res.getString("Address"), res.getString("Name"),
+            building = new Building(res.getString("Address"), res.getString("Name"),
                             res.getString("Usage"), Integer.parseInt(res.getString("BuildingID")),
                             Integer.parseInt(res.getString("Zip")), Integer.parseInt(res.getString("FirmID")),
                             Integer.parseInt(res.getString("BuildingYear")),
@@ -64,7 +63,8 @@ public class BuildingDataMapper
         {
             String query = "SELECT b.BuildingID, Address, zip, firmID,`name`,buildingyear,size,`usage`, \n"
                     + "(SELECT StateNR FROM report WHERE `date`=(\n"
-                    + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID limit 1) and BuildingID = b.BuildingID limit 1) as StateNR \n"
+                    + "	SELECT max(`date`) FROM report where BuildingID = b.BuildingID limit 1) "
+                    + " and BuildingID = b.BuildingID limit 1) as StateNR \n"
                     + "    from building b order by StateNR desc;";
             ResultSet res = Connector.getCon().getResults(query);
             while (res.next())
